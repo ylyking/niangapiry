@@ -25,7 +25,6 @@ function Start()
 //public var startPos				: float = 0.0;
     
 var gravity 					: float = 20.0;
-//var parachute					: float = 0.1;
 var fallSpeed 					: float = 0.5;						// speed of falling down ( division factor )
 
 var walkSpeed					: float = 1.5;						// standard walk speed
@@ -128,10 +127,10 @@ function Update()
 		{
 			animPlay.PlayFrames ( 2 + isHoldingObj, 5, 1, orientation );
 		
-			if ( Input.GetButton ( "Jump" ) )	// && !isHoldingObj ) /	/ check if the player keep pressing jump button..
+			if ( Input.GetButton ( "Jump" )  && !isHoldingObj ) // check if the player keep pressing jump button..
 			{
 		  	  gravity = 1.0 ;									// then use the hat to brake the gravity force like parachute
-			  animPlay.PlayFrames ( 2 + isHoldingObj, 6, 2, orientation );
+			  animPlay.PlayFrames ( 2, 6, 2, orientation );
 			}
 		}
 	}
