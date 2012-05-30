@@ -44,7 +44,7 @@ function FireAnimated( moveSpeed : Vector3, rowStart :int, colStart :int, totalf
 }
 
 
-function CoUpdate ()
+function CoUpdate () : IEnumerable
 {
 //	if (Fired)
 //	{
@@ -55,7 +55,7 @@ function CoUpdate ()
 // 	}
  		Destroy(gameObject, LifeTime);
  		
- 		yield;
+// 		yield;
 }
 
 

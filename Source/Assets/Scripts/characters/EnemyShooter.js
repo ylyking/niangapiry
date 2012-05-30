@@ -3,19 +3,19 @@
 // Description: Control component enemy shooter logic, and properties for gumba
 
 //enum EnemyState { moveLeft = 0 , moveRight, moveStop, jumpAir, enemyDie, goHome }
-enum ShooterState {	Sleeping = 0, Alert, Holded, Stunned, Dead }
+enum ShooterState {	Sleeping = 0, Alert, Holded, Stunned, Shooted, Dead }
 
-var enemyState		: ShooterState = ShooterState.Sleeping ;	// set default starting state
+public var enemyState				: ShooterState = ShooterState.Sleeping ;	// set default starting state
 
-var aimDamping 		: float 		= 4.0;		// speed & time taken for aiming
-var fireRate		: float		 	= 2.0;		// time delay between shots, if too lower it's more harder to avoid
-var shootPower	 	: float 		= 10;		// the power or speed of the projectile.
+public var aimDamping 				: float 		= 4.0;			// speed & time taken for aiming
+public var fireRate					: float		 	= 2.0;	// time delay between shots, more lower it's more harder to avoid
+public var shootPower	 			: float 		= 10;			// the power or speed of the projectile.
 
-var deathForce		: float 		= 8.0;		// when the player jumps on me force him off 'x' amount
-var alertRange		: float 		= 2.0;		// set the range for finding the player
-var attackRange		: float 		= 5.0;		// set range for speed increase
-var gizmoToggle		: boolean		= true;		//toggle the debug display radius
-var bounceHit		: AudioClip;				// hot sound for the enemy splat
+public var deathForce				: float 		= 8.0;			// when the player jumps on me force him off 'x' amount
+public var alertRange				: float 		= 2.0;			// set the range for finding the player
+public var attackRange				: float 		= 5.0;			// set range for speed increase
+public var gizmoToggle				: boolean		= true;			//toggle the debug display radius
+public var bounceHit				: AudioClip;					// hot sound for the enemy splat
 
 private var animPlay 				: AnimSprite; 					// : Component
 
@@ -28,12 +28,12 @@ private var distanceToTarget		: float 		= 0.0;			// get dist to target position
 private var Holded					: boolean 		= false;
 private var AnimFlag 				: boolean 		= true;
 private var grounded 				: boolean		= false;
-private var velocity				: Vector3 		= Vector3.zero;	// stroe the enemy movement in velocity (x, y, z)
+private var velocity				: Vector3 		= Vector3.zero;	// store the enemy movement in velocity (x, y, z)
 
-public var target					: Transform;				// target to search ( the player)
-public var aimCompass				: Transform;				// it's a simple child transform inside this gameObject
+public var target					: Transform;					// target to search ( the player)
+public var aimCompass				: Transform;					// it's a simple child transform inside this gameObject
 
-public var projectile 				: GameObject;				// Prefab to be shooted ( set previously it's values )
+public var projectile 				: GameObject;					// Prefab to be shooted ( set previously it's values )
 private	var playerLink 				: GameObject;
 
 private var linkToPlayerPropeties 	: PlayerProperties;
@@ -47,9 +47,9 @@ function Start()
 {
 //	AimCompass = this.gameObject.GetComponentInChildren( Transform ); // not working
 
-	if (this.rigidbody)	
+	if ( rigidbody)				// So, we need a rigidbody somewhere to do a simple trigger/collision check, great
 	{
-    	this.rigidbody.freezeRotation = true;
+    	rigidbody.freezeRotation = true;
     	rigidbody.useGravity = false;
     }
 
@@ -80,63 +80,77 @@ function Start()
 //function Update ()
 function CoUpdate ()
 {
-
+		velocity = Vector3.zero; 
+		
 // actualizar distancia entre enemy y player
 //	distanceToTarget = Vector3.Distance( target.position, transform.position );	
 	distanceToTarget = (target.position - transform.position).sqrMagnitude;	
 
- 
-    if (grounded)
-    {
-    	switch ( enemyState )					// check states
+     	     	switch ( enemyState )					// check states
 		{
 			case ShooterState.Sleeping:
+				if (!grounded) velocity.y -= gravity * Time.deltaTime; // (air drag)
+				
 				Sleeping();
 				break;
 						
 			case ShooterState.Alert:
+				if (!grounded) velocity.y -= gravity * Time.deltaTime;				
 				Search();
 				break;
 				
 			case ShooterState.Stunned: 
+//				if (!grounded)velocity.y -= gravity * Time.deltaTime ;				
 				Stunned();
 				break;			
 			
 			case ShooterState.Holded: 
 				BeingHolded();
 				break;
-				
+			case ShooterState.Shooted: 
+				velocity.y -= gravity * Time.deltaTime;
+				Fired();
+				break;				
 			case ShooterState.Dead:
+//				if (!grounded)velocity.y -= gravity * Time.deltaTime ;
+				Die();
 				break;
 		
 		}
-//    	print(" Gaucho is grounded");
-    }
-    
+//  }
+//   	else if (!grounded) transform.position.y -= gravity * Time.deltaTime;
 
-    if (this.rigidbody)	    // We apply gravity manually for more tuning control		
-    {
-    	rigidbody.AddForce(Vector3 (0, -gravity * rigidbody.mass, 0));
-    	grounded = false;
-    }
-    else grounded = true;
+//    if (this.rigidbody)	    // We apply gravity manually for more tuning control		
+//    {
+//    	rigidbody.AddForce(Vector3 (0, -gravity * rigidbody.mass, 0));
+//    	grounded = false;
+//    }
+//    else grounded = true;
+
+	transform.position += velocity * Time.deltaTime;
         
 }
 
 function Sleeping()
 {
-	if( AnimFlag) animPlay.PlayFrames(0 , 0, 1, orientation);
+	if( AnimFlag) animPlay.PlayFrames(0 , 0, 2, 4, orientation);
 
  	if (  distanceToTarget <= AlertRangeX2 )
  	{
  		AnimFlag = false;
-		animPlay.PlayFrames(0 , 1, 1, orientation);
- 		yield WaitForSeconds(0.25); // 	yield WaitForSeconds(0.167);
+ 		var timertrigger = Time.time + 0.75f;
+		while( timertrigger > Time.time )
+		{
+			animPlay.PlayFrames(1 , 0, 2, orientation); 
+			if ( enemyState != ShooterState.Sleeping) return;
+    		
+    		yield;
+		}
  		
 		enemyState = ShooterState.Alert;
 		AnimFlag = true;
+		return;
 	}
-//	else animPlay.PlayFrames(0 , 0, 1, 1);
 }
 
 function Search()
@@ -144,7 +158,6 @@ function Search()
 	// Seek distance and players position/angle
 	var lookPos : Quaternion = Quaternion.LookRotation( transform.position - target.position, Vector3.forward );
 	orientation = 	Mathf.Sign( target.position.x - transform.position.x  );
-	
 //	print( target.position + " - gaucho: " + transform.position );
 	
 	lookPos.y = 0;
@@ -155,15 +168,21 @@ function Search()
     // Attack
     if ( distanceToTarget <= AttackRangeX2 )
     {	
-    	if( AnimFlag) animPlay.PlayFrames(0 , 2, 2, orientation);
+    	if( AnimFlag) animPlay.PlayFrames(1 , 2, 2, orientation);
     			
-//    	if ( Input.GetKey ("x") && Time.time > nextFire)
     	if ( Time.time > nextFire )
     	{
     		AnimFlag = false;
-    		animPlay.PlayFrames(1 , 0, 1, orientation); 
+//    		animPlay.PlayFrames(2 , 0, 2, orientation); 
     		Shoot();
-    		yield WaitForSeconds(.5f);
+//    		yield WaitForSeconds(.5f);
+			var timertrigger = Time.time + .5f;
+			while( timertrigger > Time.time )
+			{
+    			animPlay.PlayFrames(2 , 0, 2, orientation); 
+				if ( enemyState != ShooterState.Alert) return;
+    			yield;
+			}
     		AnimFlag = true;
     	}
     }
@@ -189,48 +208,101 @@ function Shoot()
 	clone.GetComponent(BulletShot).FireAnimated( aimCompass.up * shootPower, 1, 1, 2); 	// shot with a short animation
 }
 
-function Stunned()								// Hay que revisar esto
+function Stunned()									// Boleado
 {
-	this.tag = "pickup";  						//  cambiar tag a pickable
-	animPlay.PlayFrames(0 , 1, 1, orientation);	// animar voleado
-												
-	if ( transform.parent && transform.rigidbody.isKinematic ) // Player Grabs him change EnemyState > Handled	
-		enemyState = ShooterState.Holded ;		
-																									
-	yield WaitForSeconds(stunTime);			// if not after a while change EnemyState > Default
+	this.tag = "pickup";  							//  change tag a pickable
+
+	var timertrigger = Time.time + stunTime;
+	while( timertrigger > Time.time )				// start knock out time counter
+	{
+		animPlay.PlayFrames(3 , 0, 2, orientation);	// animate Stunning..
 		
-	if ( !transform.parent  )				// if player !isHolding( this)
+		if ( transform.parent && !collider.enabled ) // if Player Grabs him change EnemyState > Handled	
+			enemyState = ShooterState.Holded ;
+
+		if ( enemyState != ShooterState.Stunned) return;		  // so he is not stunned anymore
+    	yield;
+	}
+		
+	if ( !transform.parent  )						// but if knock out time is over & player !isHolding( this)..
 	{
 		this.tag = "Untagged";  
-		enemyState = ShooterState.Sleeping;
+    	if ( distanceToTarget > AlertRangeX2 )
+			enemyState = ShooterState.Sleeping;		// after a while change EnemyState > Default
+		else 
+			enemyState = ShooterState.Alert;		// or alert if the player is near
+			
 	}
 }
 
+
+
 function BeingHolded()
 {
+//   this.collider.isTrigger = false;
+   orientation = linkToPlayerControls.orientation;
+   animPlay.PlayFrames(3 , 2, 1, orientation); 
+   
+   if ( collider.enabled &&  !transform.parent) 
+   {
+//   	moveDirection = Vector3( Mathf.Sign(orientation), Mathf.Sign(Input.GetAxis( "Vertical")),0) * 1.5; 	// == transform.up * speed ( orientation of move + force of impulse )
+//   	grounded = false;
+//   	moveDirection = Vector3( orientation * 0.7, 0.7, 0) * 2;
 	
+	
+	moveDirection = Vector3( Mathf.Sign(orientation) * 3, 4, 0);
+	NextPosition = StartPosition = transform.position;
+   	enemyState = ShooterState.Shooted;
+   }
+}
+//var Gravitation : Vector3 = Vector3.zero;
+var moveDirection : Vector3 = Vector3.zero;
+var StartPosition : Vector3 = Vector3.zero;
+var NextPosition  : Vector3 = Vector3.zero;
+var TimeLapse     : float	= 0;
+
+function Fired()
+{
+
+//		NextPosition.x += moveDirection.x * Time.deltaTime; // multiply with speed to go faster
+//		NextPosition.y += moveDirection.y * Time.deltaTime;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	TimeLapse  += Time.deltaTime;							// the difference it's time increment
+	transform.position.x = StartPosition.x + (moveDirection.x * TimeLapse) ;
+	transform.position.y = StartPosition.y + (moveDirection.y * TimeLapse) - (.5 * gravity * (TimeLapse * TimeLapse));
+		
+
+		
+//		Gravitation.y += (.5 * gravity  )*(Time.deltaTime * Time.deltaTime) ; 
+//		// You probably either want to use x * x or Time.time * Time.time.
+//		moveDirection.y -= Gravitation.y ;  
+//		
+//	
+//
+//
+//		NextPosition = Vector3( moveDirection.x, StartSpeed, 0);
+//		if ( Time.time > ) StartSpeed = 0;
+//		NextPosition.y -= gravity * Time.deltaTime;
+//		transform.position += NextPosition * Time.deltaTime ;
+		
+		
 }
 
-function OnCollisionStay ()
+function Die()
+{
+}
+
+function OnTriggerStay () 		//function OnCollisionStay ()
 {
     grounded = true;    
 }
 
 function OnTriggerEnter( other : Collider)
 {
-	// if (other.tag == "pathNode" )
-	// {
-		// var linkToPathNode = other.GetComponent(pathNode);
-		// gumbaState =   parseInt(linkToPathNode.pathInstruction); // Here we need to do a typeCast with parseInt();
 		
-		// if (linkToPathNode.overrideJump )
-		// {
-			// jumpSpeed = linkToPathNode.jumpOverride;
-		// }
-	// }
-
-		
-	if ( other.transform.tag == "Player" && other.transform.position.y > transform.position.y  )
+	if ( other.tag == "Player" && other.transform.position.y > transform.position.y  )
 	{
 //			Debug.Log(" Enemy: " + transform.position.y );
 //			Debug.Log(" Player: " + other.transform.position.y);
@@ -242,7 +314,6 @@ function OnTriggerEnter( other : Collider)
 //			linkToPlayerControls.velocity.y *= -1;
 			// make the player bounce
 //			linkToPlayerControls.velocity.y += deathForce; // make the player bounce
-//			Debug.Log("Triggering something: " + other.gameObject.name + " with Gausho!" );
 		
 //			this.tag = "pickup";
 //			rigidbody.isKinematic = false;
@@ -250,7 +321,7 @@ function OnTriggerEnter( other : Collider)
 			enemyState = ShooterState.Stunned;
 		
 		}
-
+ 
 //		if (bounceHit)
 //		{
 //		audio.clip = bounceHit;
@@ -269,13 +340,13 @@ function OnTriggerEnter( other : Collider)
 //			Debug.Log("Could not load box Collider");
 //		}		
 	}
-	if ( other.tag == "enemy" )
-	{
-		if ( other.collider != this.collider )
-		{
-			Physics.IgnoreCollision(other.collider, this.collider);
-		}
-	}
+//	if ( other.tag == "enemy" )
+//	{
+//		if ( other.collider != this.collider )
+//		{
+//			Physics.IgnoreCollision(other.collider, this.collider);
+//		}
+//	}
 }
 
 

@@ -12,7 +12,7 @@ function PlayFrames( rowFrameStart :int, colFrameStart :int, totalframes :int, f
  var index : int = Time.time * framesPerSecond;							// time control fps
  index = index % totalframes; 
  
- var size : Vector2 = Vector2(  1.0 / ColumnSize , 1.01 / RowSize );	// scale
+ var size : Vector2 = Vector2(  1.0 / ColumnSize , 1.0 / RowSize );	// scale
  
  var u : int = index % ColumnSize;
  var v : int = index / ColumnSize;

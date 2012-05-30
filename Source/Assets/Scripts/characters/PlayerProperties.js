@@ -94,7 +94,7 @@ function UpdatePlayerState()
 				changeState = false;
 				yield Sleeping();
 			}
-			playerControls.animPlay.PlayFrames ( 4, 5, 1, playerControls.orientation);
+			playerControls.animPlay.PlayFrames ( 4, 3, 1, playerControls.orientation);
 			
 			if ( Input.GetButtonUp("Fire1") || Input.GetButtonUp("Jump") )
 			{
@@ -122,6 +122,7 @@ function UpdatePlayerState()
 //			{
 //				if ( changeState )	{ changeState = false; yield Small(); }
 //			}
+
 
 			
 			if ( Input.GetButton("Fire1") && !HoldingKey )		PlayerThrows();
@@ -342,6 +343,7 @@ function AddCoin(numCoin : int)
 {
 	coins = coins + numCoin;
 }
+
 public var GrabPosition   		: Vector3 	= Vector3( 0f, 0.5f, 0f);				
 public var ThrowForce   		: float		= 400f;	//How strong the throw is. This assumes the picked object has a rigidbody component attached
 public var AlphaAmount  		: float 	= 0.5f; //this will be the alpha amount. It's public so you can change it in the editor
@@ -352,7 +354,8 @@ private var _originalColor 		: Color;
 //private var HoldingObj			: boolean 	= false;
 private var HoldingKey			: boolean 	= false;
 
-function OnControllerColliderHit (hit : ControllerColliderHit)
+//function OnControllerColliderHit (hit : ControllerColliderHit)
+function OnTriggerStay( hit : Collider)
 {
  	if ( playerState < 8 )
 
@@ -390,7 +393,7 @@ function OnControllerColliderHit (hit : ControllerColliderHit)
 
 }
 
-function PlayerThrows()
+function PlayerThrows()												// Object Throwing without physics engine
 {
     	if ( _pickedObject )
          {
@@ -398,24 +401,48 @@ function PlayerThrows()
 		
           _pickedObject.parent = null;        		//resets the pickup's parent to null so it won't keep following the player
 
-          _pickedObject.renderer.material.color = _originalColor; //resets pickup's color so it won't stay half transparent 
-          
-          _pickedObject.rigidbody.isKinematic = false;
+          _pickedObject.renderer.material.color = _originalColor; 	//resets pickup's color so it won't stay half transparent 
           
           _pickedObject.collider.enabled = true;
                     
-//          _pickedObject.collider.isTrigger = true;
+          _pickedObject.collider.isTrigger = true;
                     
           //applies force to the rigidbody to create a throw
 //          _pickedObject.rigidbody.AddForce( Vector3( orientation, 1,0) * ThrowForce, ForceMode.Impulse);
-          _pickedObject.rigidbody.AddForce( Vector3( orientation, Input.GetAxis( "Vertical"),0) * ThrowForce, ForceMode.Impulse);
-          
-//          _pickedObject.rigidbody.useGravity = true;
+//          _pickedObject.rigidbody.AddForce( Vector3( orientation, Input.GetAxis( "Vertical"),0) * ThrowForce, ForceMode.Impulse);
+//          _pickedObject.position += Vector3( orientation, Input.GetAxis( "Vertical"),0) * 1.5;
   
           //resets the _pickedObject 
           _pickedObject = null;
          }
  }
+
+//function PlayerThrows()
+//{
+//    	if ( _pickedObject )
+//         {
+//	      var orientation = playerControls.orientation;
+//		
+//          _pickedObject.parent = null;        		//resets the pickup's parent to null so it won't keep following the player
+//
+//          _pickedObject.renderer.material.color = _originalColor; 	//resets pickup's color so it won't stay half transparent 
+//          
+//          _pickedObject.rigidbody.isKinematic = false;				// check this if you re using physics Unity system
+//          
+//          _pickedObject.collider.enabled = true;
+//                    
+//          _pickedObject.collider.isTrigger = true;
+//                    
+//          //applies force to the rigidbody to create a throw
+////          _pickedObject.rigidbody.AddForce( Vector3( orientation, 1,0) * ThrowForce, ForceMode.Impulse);
+//          _pickedObject.rigidbody.AddForce( Vector3( orientation, Input.GetAxis( "Vertical"),0) * ThrowForce, ForceMode.Impulse);
+//          
+//          _pickedObject.rigidbody.useGravity = true;				// check this if you re using physics Unity system
+//  
+//          //resets the _pickedObject 
+//          _pickedObject = null;
+//         }
+// }
 
 @script AddComponentMenu( "Utility/Player Propierties Script" )
 
