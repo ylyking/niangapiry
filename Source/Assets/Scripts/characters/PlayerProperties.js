@@ -3,32 +3,22 @@
 // Player properties Component
 // Description: set and stores pickups and state of player
 
-enum PlayerState
-{
-	Asleep 			= 0,	// Dead stand By 
+enum PlayerState			// main character states builded as bitfields to had simultaneidity & more control
+{	
+	Asleep 			= 0,	
 	Flickering 		= 1,		
 	Normal			= 2,		
 	Invisible		= 4,
 	Small			= 8,
 	WildFire		= 16
 }
-
-enum Items
-{
-	Empty 			= 0,	// default  
-	Hat 			= 1,		
-	Whistler		= 2,		
-	Invisibility	= 4,
-	Smallibility	= 8,
-	Fire			= 16
-}
-
 public var playerState 	 : PlayerState 	= PlayerState.Normal;	// set display state of mario in Inspector 
+
+enum Items		{ Empty = 0, Hat = 1, Whistler = 2, Invisibility = 4, Smallibility = 8, Fire = 16 }
 public var Inventory	 : Items		= Items.Empty;			// Inventory system activation
-//private var previousState : PlayerState = playerState;	// set display state of mario in Inspector 
 
 var lives					: int	= 3;
-//var health				: int	= 3;
+var health					: int	= 3;
 var key						: int   = 0;
 var fireGauge				: int   = 0;
 var hatPower				: int   = 0;
@@ -36,8 +26,7 @@ var coins					: int  	= 0;
 private var coinLife		: int 	= 20;
 
 var projectileFire			: GameObject;
-//var projectileSocketRight	: Transform;
-//var projectileSocketLeft	: Transform;
+
 
 //var materialPlayerStandard	: Material;
 //var materialPlayerFire		: Material;
@@ -48,13 +37,24 @@ var hasFire					: boolean = false;
 @HideInInspector var dead 	: boolean = false;
 private var canShoot		: boolean = false;
 
-public  var soundDie				: AudioClip;
+public  var soundDie		: AudioClip;
 private var soundRate		: float = 0.0;
 private var AuxGrav 		: float = 0.0;
 private var	soundDelay		: float = 0.0;
 
 private var playerControls  : PlayerControls;
 private var charController 	: CharacterController;
+
+
+public var GrabPosition   	: Vector3 	= Vector3( 0f, 0.5f, 0f);	// Grab & Throw Funcionality assuming obj has a rigidbody attached				
+public var ThrowForce   	: float		= 400f;						// How strong the throw is. 
+public var AlphaAmount  	: float 	= 0.5f; 					// this will be the alpha amount 
+private var _originalColor 	: Color;								// var to keep the original color. 
+				
+private var HoldingKey		: boolean 	= false;					// simple flag to know if the throwing button was released 
+
+@HideInInspector var _pickedObject 		: Transform;				
+//private var HoldingObj			: boolean 	= false;
 
 function Start()
 {
@@ -344,15 +344,6 @@ function AddCoin(numCoin : int)
 	coins = coins + numCoin;
 }
 
-public var GrabPosition   		: Vector3 	= Vector3( 0f, 0.5f, 0f);				
-public var ThrowForce   		: float		= 400f;	//How strong the throw is. This assumes the picked object has a rigidbody component attached
-public var AlphaAmount  		: float 	= 0.5f; //this will be the alpha amount. It's public so you can change it in the editor
-
-@HideInInspector
-		var _pickedObject 		: Transform;
-private var _originalColor 		: Color;
-//private var HoldingObj			: boolean 	= false;
-private var HoldingKey			: boolean 	= false;
 
 //function OnControllerColliderHit (hit : ControllerColliderHit)
 function OnTriggerStay( hit : Collider)
@@ -377,8 +368,7 @@ function OnTriggerStay( hit : Collider)
          _originalColor = _pickedObject.renderer.material.color;
 
          //this will snap the picked object to the "hands" of the player
-         _pickedObject.position = transform.position + GrabPosition; 
-//		_pickedObject.position = HoldPosition.position ;
+         _pickedObject.position = transform.position + GrabPosition; 	// Could be changed with every object properties
 
          //this will set the HoldPosition as the parent of the pickup so it will stay there
          _pickedObject.parent = this.transform; 
