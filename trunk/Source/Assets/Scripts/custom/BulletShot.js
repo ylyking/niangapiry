@@ -2,11 +2,8 @@
 // a little script for auto-destroy projectile instances when get out of screen or after some time lapse...
 
 public var LifeTime			: float = 5f;
-public var speed			: float = 5f;
-public var rotationSpeed	: float = 0;
-
-//private var Fired			: boolean = false;
-private var moveDirection 	: Vector3 ;
+public var rotationSpeed	: float = 0;	// Add some value for rotation
+private var moveDirection 	: Vector3 ;		// == orientation * speed (force Magnitude )
 
 public var RowSize			: int = 1;		// Input the number of Rows of the sprite sheet 
 public var ColumnSize		: int = 1;		// Input the number of columns of the sprite sheet 
@@ -24,7 +21,6 @@ function Fire( moveSpeed : Vector3, rotSpeed : float)
 	
 	while ( true)
 		yield CoUpdate();
-//	Fired 			= true;
 }
 
 function FireAnimated( moveSpeed : Vector3, rowStart :int, colStart :int, totalframes :int)
@@ -40,22 +36,16 @@ function FireAnimated( moveSpeed : Vector3, rowStart :int, colStart :int, totalf
 		PlayFrames(rowFrameStart, colFrameStart, totalFrames, Mathf.Sign( moveDirection.x ));
 		yield;
 	}
-//	Fired 			= true;
 }
 
 
 function CoUpdate () : IEnumerable
 {
-//	if (Fired)
-//	{
-    	transform.position += Time.deltaTime * moveDirection;		// moveDirection = orientation * speed ;
+    	transform.position += Time.deltaTime * moveDirection;							// moveDirection == orientation * speed ;
 
-		transform.RotateAroundLocal( Vector3.forward, rotationSpeed * Time.deltaTime); // if > 0, Rotate around own z-axis
+		transform.RotateAroundLocal( Vector3.forward, rotationSpeed * Time.deltaTime); 	// if > 0, Rotate around own z-axis
 
-// 	}
  		Destroy(gameObject, LifeTime);
- 		
-// 		yield;
 }
 
 
