@@ -2,46 +2,45 @@
 
 // This script moves the character controller forward
 // Make sure to attach a character controller to the same game object.
-
+private var thisTransform				: Transform;				// own player tranform cached
 private var controller 					: CharacterController;
-@HideInInspector public var properties : PlayerProperties;
+@HideInInspector public var properties 	: PlayerProperties;
 @HideInInspector public var animPlay 	: AnimSprite; 				// : Component
 
-function Start()						//	var ballScript : BallScript = target.GetComponent(BallScript) as BallScript;
+var gravity 							: float = 20.0;
+var fallSpeed 							: float = 0.5;				// speed of falling down ( division factor )
 
-{
-	animPlay = GetComponent(AnimSprite);
-	animPlay.PlayFrames(2 , 0, 1, orientation);
+var walkSpeed							: float = 1.0;				// standard walk speed
+var runSpeed  							: float = 2.0; 				// running speed 
 	
-    controller = GetComponent( CharacterController );
-    properties = GetComponent( PlayerProperties );
-//	transform.GetComponentInChildren(BoxCollider).transform.position = controller.transform.position - Vector3(0, -.22,0);
-}
-    
-var gravity 					: float = 20.0;
-var fallSpeed 					: float = 0.5;						// speed of falling down ( division factor )
+var walkJump  							: float = 8.0;				// jump height from walk
+var runJump   							: float = 9.0;				// jump height from run	
 
-var walkSpeed					: float = 1.0;						// standard walk speed
-var runSpeed  					: float = 2.0; 						// running speed 
-	
-var walkJump  					: float = 8.0;						// jump height from walk
-var runJump   					: float = 9.0;						// jump height from run	
+private var jumpEnable 					: boolean = false;			// toggle for default jump
+private var runJumpEnable				: boolean = false;			// toggle for run jump
 
-private var jumpEnable 			: boolean = false;					// toggle for default jump
-private var runJumpEnable		: boolean = false;					// toggle for run jump
-
-private var afterHitForceDown	: float = 1.0;						// toggle for crouch jump
-private var isHoldingObj		: int 	= 0;						// anim row index change when player holds something
+private var afterHitForceDown			: float = 1.0;				// toggle for crouch jump
+private var isHoldingObj				: int 	= 0;				// anim row index change when player holds something
 
 @HideInInspector public var orientation	: int = 1;					// Move Direction: -1 == left, +1 == right
 @HideInInspector public var velocity 	: Vector3 = Vector3.zero;	// Start quiet 
 @HideInInspector public var Depth		: float = .25f;				// Depth in position.z for the player's character
 
+function Start()						//	var ballScript : BallScript = target.GetComponent(BallScript) as BallScript;
+{
+	thisTransform = transform;
+    controller	= 	GetComponent( CharacterController );
+    properties 	= 	GetComponent( PlayerProperties );
+	animPlay 	=	GetComponent(AnimSprite);
+	animPlay.PlayFrames(2 , 0, 1, orientation);
+	
+//	transform.GetComponentInChildren(BoxCollider).transform.position = controller.transform.position - Vector3(0, -.22,0);
+}
 
 function Update()
 {
    isHoldingObj = System.Convert.ToByte( properties._pickedObject != null )	;
-   gravity = 20.0; 															// Refresh gravity force
+//   gravity = 20.0; 															// Refresh gravity force
    
    if ( controller.isGrounded )
 	{
@@ -115,7 +114,8 @@ function Update()
 		
 			if ( Input.GetButton ( "Jump" )  && !isHoldingObj ) // check if the player keep pressing jump button..
 			{
-		  	  gravity = 1.0 ;									// then use the hat to brake the gravity force like parachute
+//		  	  gravity = 1.0 ;									// then use the hat to brake the gravity force like parachute
+			  velocity.y += 19 * Time.deltaTime;
 			  animPlay.PlayFrames ( 2, 6, 2, orientation );
 			}
 		}
@@ -130,65 +130,11 @@ function Update()
 	velocity.y -= gravity * Time.deltaTime;
 	controller.Move( velocity * Time.deltaTime );
 		
-	if (transform.position.y < 0 )	transform.position = Vector3( 0.5, 10, Depth );	// If character falls get it up again 
-}
+	if (thisTransform.position.y < 0 )	thisTransform.position = Vector3( 0.5, 10, Depth );	// If character falls get it up again 
 
-function OnControllerColliderHit (hit : ControllerColliderHit)
-{
-//
-////	Debug.Log("ControllerCollidig something: " + hit.gameObject.name + " with player!" );
-//
-//
-//	if( hit.gameObject.name == "Gaucho" && controller.collisionFlags & CollisionFlags.Sides )
-//	{ 
-////		Debug.Log(" Enemy: " + controller.collider.transform.position.y );
-////		Debug.Log(" Player: " + hit.collider.transform.position.y);
-////		
-////		if( controller.transform.position.y <= hit.transform.position.y	)
-////				print("Enemy hitting side: " + hit.gameObject.name);
-//				
-//		if( controller.collider.transform.position.y <= hit.collider.transform.position.y	)
-//				print("Enemy hitting side: " + hit.gameObject.name);
-//	
-//	}
-//
-//
-//	// this script pushes all rigidbodies that the character touches
-//	var pushPower : float = 1.50;
-//
-//
-//    var body : Rigidbody = hit.collider.attachedRigidbody;
-//    
-//    // no rigidbody
-//    if ( !body || body.isKinematic ) { return; }
-// 
-//         // We dont want to push objects below us
-//    if (hit.moveDirection.y < -0.3) { return; }
-//
-//    // Calculate push direction from move direction,
-//    // we only push objects to the sides never up and down
-//    var pushDir = Vector3 (hit.moveDirection.x, 0, 0);
-//    
-////    var pushDir = Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
-//    
-//
-//    // If you know how fast your character is trying to move,
-//    // then you can also multiply the push velocity by that.
-//
-//    // Apply the push
-////    body.velocity = pushDir * pushPower;
-////	if ( body.tag == "pickup" )//	controller.s 0.0001
-//		 body.AddForce(pushDir * pushPower, ForceMode.Impulse);
-
-}
-
-
-// Use always in combination with another objects Rigidbody collisions 
-function FixedUpdate ()
- {
-    transform.position.z = Depth;
-    transform.rotation.y = 0;
-    transform.rotation.x = 0;
+    thisTransform.position.z = Depth;
+    thisTransform.rotation.y = 0;
+    thisTransform.rotation.x = 0;
     // take Character Controller Skin Width = 0.05 else 0.001
 }
 
@@ -311,7 +257,7 @@ function FixedUpdate ()
 //	controller.Move( velocity * Time.deltaTime );
 //	
 //	
-//	if (transform.position.y < -5 )	transform.position = Vector3( 0.5, 10, 0.25 );	// If character falls get it up again 
+//	if (thisTransform.position.y < -5 )	thisTransform.position = Vector3( 0.5, 10, 0.25 );	// If character falls get it up again 
 //}
 
 

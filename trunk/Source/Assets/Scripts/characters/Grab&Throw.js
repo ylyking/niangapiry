@@ -92,3 +92,81 @@ function OnControllerColliderHit (hit : ControllerColliderHit)
        }
        
 }
+
+//function PlayerThrows()
+//{
+//    	if ( _pickedObject )
+//         {
+//	      var orientation = playerControls.orientation;
+//		
+//          _pickedObject.parent = null;        		//resets the pickup's parent to null so it won't keep following the player
+//
+//          _pickedObject.renderer.material.color = _originalColor; 	//resets pickup's color so it won't stay half transparent 
+//          
+//          _pickedObject.rigidbody.isKinematic = false;				// check this if you re using physics Unity system
+//          
+//          _pickedObject.collider.enabled = true;
+//                    
+//          _pickedObject.collider.isTrigger = true;
+//                    
+//          //applies force to the rigidbody to create a throw
+////          _pickedObject.rigidbody.AddForce( Vector3( orientation, 1,0) * ThrowForce, ForceMode.Impulse);
+//          _pickedObject.rigidbody.AddForce( Vector3( orientation, Input.GetAxis( "Vertical"),0) * ThrowForce, ForceMode.Impulse);
+//          
+//          _pickedObject.rigidbody.useGravity = true;				// check this if you re using physics Unity system
+//  
+//          //resets the _pickedObject 
+//          _pickedObject = null;
+//         }
+// }
+
+
+// additional function to push rigidbodies with th character controller
+
+//function OnControllerColliderHit (hit : ControllerColliderHit) 
+//{	
+//
+////	Debug.Log("ControllerCollidig something: " + hit.gameObject.name + " with player!" );
+//
+//
+//	if( hit.gameObject.name == "Gaucho" && controller.collisionFlags & CollisionFlags.Sides )
+//	{ 
+////		Debug.Log(" Enemy: " + controller.collider.transform.position.y );
+////		Debug.Log(" Player: " + hit.collider.transform.position.y);
+////		
+////		if( controller.transform.position.y <= hit.transform.position.y	)
+////				print("Enemy hitting side: " + hit.gameObject.name);
+//				
+//		if( controller.collider.transform.position.y <= hit.collider.transform.position.y	)
+//				print("Enemy hitting side: " + hit.gameObject.name);
+//	
+//	}
+//
+//
+//	// this script pushes all rigidbodies that the character touches
+//	var pushPower : float = 1.50;
+//
+//
+//    var body : Rigidbody = hit.collider.attachedRigidbody;
+//    
+//    // no rigidbody
+//    if ( !body || body.isKinematic ) { return; }
+// 
+//         // We dont want to push objects below us
+//    if (hit.moveDirection.y < -0.3) { return; }
+//
+//    // Calculate push direction from move direction,
+//    // we only push objects to the sides never up and down
+//    var pushDir = Vector3 (hit.moveDirection.x, 0, 0);
+//    
+////    var pushDir = Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
+//    
+//
+//    // If you know how fast your character is trying to move,
+//    // then you can also multiply the push velocity by that.
+//
+//    // Apply the push
+////    body.velocity = pushDir * pushPower;
+////	if ( body.tag == "pickup" )//	controller.s 0.0001
+//		 body.AddForce(pushDir * pushPower, ForceMode.Impulse);
+//}

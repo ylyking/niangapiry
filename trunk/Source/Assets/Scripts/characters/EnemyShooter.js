@@ -2,7 +2,7 @@
 // Enemy ControllerColliderHit
 // Description: Control component enemy shooter logic, and properties for gumba
 
-enum ShooterState {	Sleeping = 0, Alert, Holded, Stunned, Shooted, Dead }
+enum ShooterState {	Sleeping = 0, Alert, Stunned, Holded, Shooted, Dead }
 
 public var enemyState				: ShooterState = ShooterState.Sleeping ;	// set default starting state
 
@@ -31,16 +31,14 @@ private var AnimFlag 				: boolean 		= true;
 private var grounded 				: boolean		= false;
 
 public 	var HoldedPosition			: Vector3 = Vector3( 0,.3,-.1);	// change own enemy position when grabed
-private var moveDirection 			: Vector3 = Vector3( 5, 3,  0);	// Force * direction of throwing the enemy 
+public  var moveDirection 			: Vector3 = Vector3( 5, 3,  0);	// Force * direction of throwing the enemy 
 private var velocity				: Vector3 = Vector3.zero;		// store the enemy movement in velocity (x, y, z)
 
 public var target					: Transform;					// target to search ( the player )
 public var aimCompass				: Transform;					// it's a simple child transform inside this gameObject
-//private var thisTransform			: Transform;					// own enemy's tranform cached
+private var thisTransform			: Transform;					// own enemy's tranform cached
 
 public var projectile 				: GameObject;					// Prefab to be shooted ( set previously it's values )
-private	var playerLink 				: GameObject;
-
 private var animPlay 				: AnimSprite; 					// : Component
 private var linkToPlayerControls 	: PlayerControls;
 
@@ -51,22 +49,25 @@ function Start()
 {
 //	AimCompass = this.gameObject.GetComponentInChildren( Transform ); // not working
 //	controller = this.GetComponent ( CharacterController );
-	
+	thisTransform = transform;
 
 	if ( rigidbody)								// So, we need a rigidbody somewhere to do sny trigger/collision check, great
 	{
     	rigidbody.freezeRotation = true;
     	rigidbody.useGravity = false;
     }
+    	
+	if (!target) 
+		target =  GameObject.Find("Pombero").transform;			//	We can Use this system to get the player's Id & position
 	
-	playerLink =  GameObject.Find("Pombero");	//	We can Use this system to get the player's Id & position
-	if (playerLink) 
+	if (!aimCompass)
+		aimCompass = thisTransform.FindChild("AimCompass");
+	
+	if ( target) 
 	{
-			linkToPlayerControls = playerLink.GetComponent("PlayerControls") as PlayerControls;
-			if (! linkToPlayerControls  ) print("big fucking error!");
-	
-	}else
-		 print(" Beware: player link not found!");
+			linkToPlayerControls = target.GetComponent("PlayerControls") as PlayerControls;
+//			if (! linkToPlayerControls  ) print("big fucking error!");
+	}else print(" Beware target empty: player link not found!");
 			
 	animPlay = GetComponent(AnimSprite);
 	
@@ -75,114 +76,128 @@ function Start()
 	
 }
 
-function CoUpdate ()	: IEnumerable										// function Update ()
+function CoUpdate ()	: IEnumerable											// function Update ()
 
 {
-	velocity = Vector3.zero; 
-		
-//	distanceToTarget = Vector3.Distance( target.position, transform.position);	// Check enemy & players distance
-	distanceToTarget = (target.position - transform.position).sqrMagnitude;		// it's much faster using Square mag. 
 
-    switch ( enemyState )										// check states of the character:
-		{
-			case ShooterState.Sleeping:								// GAUCHO SLEEPING:		
-				if (!grounded)
-					velocity.y -= gravity * Time.deltaTime; 			// just update gravity and keep standby 
-				
-				Sleeping();							
-				break;
+	if ( thisTransform.IsChildOf( target) ) 									// check if the player has taken us... 
+	{																	
+		thisTransform.position = target.position +  HoldedPosition; 			// Update own hold position & player's too
+   		enemyState = ShooterState.Holded ;										// & change enemy state to holded..
+//   		moveDirection =	ThrowDirection;
+	}
+	else 
+	distanceToTarget = (target.position - thisTransform.position).sqrMagnitude;	// it's much faster using Square mag. 
+
+    switch ( enemyState )														// check states of the character:
+	{
+		case ShooterState.Sleeping:		// 0# GAUCHO SLEEPING:		
+				Sleeping();	
+			break;
 						
-			case ShooterState.Alert:								// ALERT STATE:
-				if (!grounded) 
-					velocity.y -= gravity * Time.deltaTime;			
+		case ShooterState.Alert:		// 1# ALERT STATE:
+				velocity = Vector3.zero;
 						
-				Search();												// Begin Searching of the player & attack him
-				break;
+				Search();														// Begin Searching of the player & attack him
+			break;
 				
-			case ShooterState.Stunned: 								// KNOCK OUT:
-				if (!grounded)
-					velocity.y -= gravity * Time.deltaTime ;				
+		case ShooterState.Stunned: 		// 2# KNOCK OUT:
+				velocity = Vector3.zero;
+				
 				Stunned();								
-				break;			
+			break;			
 			
-			case ShooterState.Holded: 								// ENEMY IS TAKEN
+		case ShooterState.Holded: 		// 3# ENEMY IS TAKEN	
 				BeingHolded();
-				break;
+			break;
 				
-			case ShooterState.Shooted: 								// ENEMY IS THROWED IN THE AIR
-					velocity = moveDirection;
-					moveDirection.y -= gravity * Time.deltaTime;
-					transform.RotateAroundLocal( Vector3.forward, -orientation * 2 * Time.deltaTime ); 
+		case ShooterState.Shooted: 		// 4# ENEMY IS THROWED IN THE AIR
+				thisTransform.RotateAroundLocal( Vector3.forward, -orientation * 2 * Time.deltaTime ); 
 									
-				break;				
+			break;				
 				
-			case ShooterState.Dead:									// ENEMY IS DEAD
-					velocity = moveDirection;
-					moveDirection.y -= gravity * Time.deltaTime;
-					transform.RotateAroundLocal( Vector3.forward, -orientation * 45 * Time.deltaTime ); 
-					Destroy(gameObject, 5);							// Keep falling and die after a while
-//				Die();
-				break;
-		
-		}
+		case ShooterState.Dead:			// 5# ENEMY IS DEAD
+				animPlay.PlayFramesFixed(3 , 2, 1, orientation);
+				thisTransform.RotateAroundLocal( Vector3.forward, -orientation * 45 * Time.deltaTime ); 
+				
+//				Destroy(gameObject, 5);											// Keep falling and die after a while
+			break;		
+	}
+	
+	if (!grounded)	velocity.y -= gravity * Time.deltaTime ;	
+	thisTransform.position += velocity * Time.deltaTime;
+}
 
-	transform.position += velocity * Time.deltaTime;
+function OnTriggerStay ( other : Collider) 										// function OnCollisionStay ()
+{
+//	if ( other.CompareTag( "Untagged" ) )
+    	grounded = (enemyState < 3 );    
 }
 
 function Sleeping()
 {
-	if( AnimFlag) animPlay.PlayFrames(0 , 0, 2, 4, orientation);
-
- 	if (  distanceToTarget <= AlertRangeX2 )
+	if( AnimFlag)
  	{
- 		AnimFlag = false;
- 		var timertrigger = Time.time + 0.75f;
-		while( timertrigger > Time.time )
-		{
-			animPlay.PlayFrames(1 , 0, 2, orientation); 
-			if ( enemyState != ShooterState.Sleeping) return;
+		velocity = Vector3.zero;
+		animPlay.PlayFrames( 0, 0, 4, orientation, 2);							// Do zzZZZ Animation
+	
+
+ 		if (  distanceToTarget <= AlertRangeX2 )
+ 		{
+			AnimFlag = false;
+ 			var groundPosition = thisTransform.position.y;
+ 			var timertrigger = Time.time + 0.55f;
+ 			
+			while( timertrigger > Time.time )
+			{
+//				thisTransform.Translate( 0, 1.5 * Time.deltaTime, 0);
+				thisTransform.position.y = groundPosition + Mathf.Sin((timertrigger - Time.time) * 5) * .5;
+				animPlay.PlayFramesFixed(1 , 0, 2, orientation); 				// Do Wake up Animation
+			
+				if ( enemyState != ShooterState.Sleeping)
+				 {	thisTransform.position.y = groundPosition; AnimFlag = true;  return; }
     		
-    		yield;
+    			yield;
+			}
+			thisTransform.position.y = groundPosition;
+			AnimFlag = true;
+ 			enemyState = ShooterState.Alert;
+			return;
 		}
-		AnimFlag = true;
- 		enemyState = ShooterState.Alert;
-		return;
 	}
 }
 
+
 function Search()
-{	
-	// Seek distance and players position/angle
-	var lookPos : Quaternion = Quaternion.LookRotation( transform.position - target.position, Vector3.forward );
-	orientation = Mathf.Sign( target.position.x - transform.position.x  );
-//	print( target.position + " - gaucho: " + transform.position );
+{
+//  Seek distance and players position/angle
+	var lookPos : Quaternion = Quaternion.LookRotation( thisTransform.position - target.position, Vector3.forward );
+	orientation = Mathf.Sign( target.position.x - thisTransform.position.x  );
 	
 	lookPos.y = 0;
 	lookPos.x = 0;
-
 	aimCompass.rotation = Quaternion.Slerp( aimCompass.rotation, lookPos, Time.deltaTime * aimDamping);
 				
-    if ( distanceToTarget <= AttackRangeX2 )						// if player's near enemy -> Aim & Attack him
+    if ( distanceToTarget <= AttackRangeX2 )									// if player's near enemy -> Aim & Attack him
     {	
-    	if( AnimFlag) animPlay.PlayFrames(1 , 2, 2, orientation);	
+    	if( AnimFlag) animPlay.PlayFramesFixed( 1, 2, 2, orientation);			// Do Seeking Animation
     			
-    	if ( Time.time > nextFire )									// wait some time between shots 
+    	if ( Time.time > nextFire )												// wait some time between shots 
     	{
     		AnimFlag = false;
     		Shoot();				
     		
 			var timertrigger = Time.time + .5f;
-			while( timertrigger > Time.time )						// do some throw animation for a while 
+			while( timertrigger > Time.time )									// do some throw animation for a while 
 			{
-    			animPlay.PlayFrames(2 , 0, 2, orientation); 
-				if ( enemyState != ShooterState.Alert){ AnimFlag = true; return; }
+    			animPlay.PlayFramesFixed( 2, 0, 2, orientation); 				// Do Throw Animation
+				if ( enemyState != ShooterState.Alert) { AnimFlag = true; return;}
     			yield;
 			}
     		AnimFlag = true;
     	}
     }
-    else
-     enemyState = ShooterState.Sleeping;						// else if player it's out enemy range -> go Sleep
+    else enemyState = ShooterState.Sleeping;								// else if player it's out enemy range -> go Sleep
 }
 
 function Shoot() 
@@ -191,10 +206,10 @@ function Shoot()
     nextFire = Time.time + fireRate;
 
 	// Instantiate the projectile
-    var clone : GameObject = Instantiate (projectile, aimCompass.position , aimCompass.rotation);
+    var clone : GameObject = Instantiate ( projectile, aimCompass.position, aimCompass.rotation);
     
-    Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 	// it works but the distance it s lame
- // clone.transform.Translate( Vector3( 0, 1, 0) ); 					// avoid hits between shot & shooter own colliders  
+    Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 				// it works but the distance it s lame
+ // clone.transform.Translate( Vector3( 0, 1, 0) ); 						// avoid hits between shot & shooter own colliders  
 
     clone.name = "Shot";
 
@@ -204,35 +219,35 @@ function Shoot()
 	clone.GetComponent(BulletShot).FireAnimated( aimCompass.up * shootPower, 1, 1, 2); 	// shot with a short animation
 }
 
-function Stunned()														// "Boleado"
+function Stunned()																	// "Boleado"
 {
-	this.tag = "pickup";  												//  change tag to a pickable thing for being holded
+	this.tag = "pickup";  													// change tag to a pickable thing for being holded
 
 	var timertrigger = Time.time + stunTime;
-	while( timertrigger > Time.time )									// start knock out time counter
+	while( timertrigger > Time.time )												// start knock out time counter
 	{
-		animPlay.PlayFrames(3 , 0, 2, orientation);						// animate Stunning..
+		animPlay.PlayFramesFixed( 3, 0, 2, orientation);							// animate Stunning..
 		
-//		if ( transform.parent && linkToPlayerControls.isHoldingObj && !collider.enabled ) 
-		if ( transform.parent && !collider.enabled ) 
-		{																// if Player Grabs him change EnemyState > Handled	
-		
-			transform.position = transform.parent.position +  HoldedPosition;	// Update own hold position & player's too
-   			linkToPlayerControls.properties.GrabPosition  =   HoldedPosition; 	
-			enemyState = ShooterState.Holded ;									// & change enemy state to holded..
-		}
-		
-		if ( enemyState != ShooterState.Stunned) return;				// so he is not stunned anymore & must quit here
+//	//	if ( transform.parent && linkToPlayerControls.isHoldingObj && !collider.enabled ) 
+//	//	if ( thisTransform.IsChildOf( target) && !collider.enabled ) 		// if Player Grabs him change EnemyState > Handled
+//		if ( thisTransform.IsChildOf( target) ) 	 
+//		{																	
+//			thisTransform.position = target.position +  HoldedPosition; 			// Update own hold position & player's too
+//	//		linkToPlayerControls.properties.GrabPosition = HoldedPosition; 	
+//   			enemyState = ShooterState.Holded ;									// & change enemy state to holded..
+//   			moveDirection =	ThrowDirection;
+//		}	
+		if ( enemyState != ShooterState.Stunned) return;					// so he is not stunned anymore & must quit here
     	yield;
 	}
 		
-	if ( !transform.parent  )											// but if stun time is over & player !isHolding( this)..
+	if ( !thisTransform.parent  )										// but if stun time is over & player !isHolding( this)..
 	{
-		this.tag = "Untagged";  
+		this.tag = "Enemy";  
     	if ( distanceToTarget > AlertRangeX2 )
-			enemyState = ShooterState.Sleeping;							// after a while change EnemyState > Default
+			enemyState = ShooterState.Sleeping;										// after a while change EnemyState > Default
 		else 
-			enemyState = ShooterState.Alert;							// or alert if the player is near
+			enemyState = ShooterState.Alert;										// or alert if the player is near
 	}
 }
 
@@ -240,38 +255,40 @@ function Stunned()														// "Boleado"
 
 function BeingHolded()
 {
+   grounded = true;		
+   velocity = Vector3.zero;
    orientation = linkToPlayerControls.orientation;						// update own orientation according player direction
-   animPlay.PlayFrames(3 , 2, 1, orientation); 
+   animPlay.PlayFramesFixed( 3, 2, 1, orientation); 
    
-   if ( collider.enabled &&  !transform.parent) 						// if collider returned & we haven't parent anymore..
+   if ( collider.enabled &&  !thisTransform.parent) 					// if collider returned & we haven't parent anymore..
    {
-  	grounded = false;
+    grounded = false;
 		
 //	moveDirection = Vector3( Mathf.Sign(orientation) * 5, 3, 0);
-	moveDirection.x  *= Mathf.Sign(orientation);
-   	enemyState = ShooterState.Shooted;									// Then it means we have been shooted...
+	velocity = moveDirection;
+	velocity.y += 3.5 * Input.GetAxis("Vertical");				
+	velocity.x *= Mathf.Sign(orientation);
+   	enemyState = ShooterState.Shooted;												// Then it means we have been shooted...
    }
 }
 
 
 
-function OnTriggerStay () 		//function OnCollisionStay ()
-{
-    grounded = true;    
-}
 
-function OnTriggerEnter( other : Collider)
-{																		// other.transform.position == target.position
-	if ( other.tag == "Player" && other.transform.position.y > transform.position.y + .1 )
+
+function OnTriggerEnter( other : Collider)											// other.transform.position == target.position
+{																		
+	if ( other.CompareTag( "Player") && target.position.y > thisTransform.position.y + .1 )
 	{
-//			Debug.Log(" Enemy: " + transform.position.y );
-//			Debug.Log(" Player: " + other.transform.position.y);
-			linkToPlayerControls.velocity.y = deathForce; 
-	
-		if ( this.tag != "pickup"  )
+			
+		if ( !this.CompareTag( "pickup")  )
 		{
+			linkToPlayerControls.velocity.y = deathForce; 
+		
 			enemyState = ShooterState.Stunned;
 		}
+		else if ( Input.GetAxis("Vertical") )
+			linkToPlayerControls.velocity.y = deathForce; 
  
 //		if (bounceHit)
 //		{
@@ -291,11 +308,17 @@ function OnTriggerEnter( other : Collider)
 //			Debug.Log("Could not load box Collider");
 //		}		
 	}
-	if ( enemyState == ShooterState.Shooted &&  other.tag != "Player"  )
+	if (  !other.CompareTag("Player")  )
 	{
-//			moveDirection = Vector3( Mathf.Sign(orientation) * 5, 3, 0)
-		moveDirection *= -.5;
-		enemyState = ShooterState.Dead;
+		if ( other.CompareTag("p_shot")  || enemyState == ShooterState.Shooted )
+		{
+	//		moveDirection = Vector3( Mathf.Sign(orientation) * 5, 3, 0)
+			this.tag = "pickup";
+			velocity.x *= -.25;
+			velocity.y = 4.5;
+   			animPlay.PlayFramesFixed( 3, 2, 1, orientation); 
+			enemyState = ShooterState.Dead;
+		}
 	}
 //	if ( other.tag == "enemy" )
 //	{
@@ -307,7 +330,7 @@ function OnTriggerEnter( other : Collider)
 }
 
 
-function OnDrawGizmos()		// toggle the gizmos for designer to see 6 Debug reaching ranges
+function OnDrawGizmos()										// toggle the gizmos for designer to see 6 Debug reaching ranges
 {
 	if (gizmoToggle)
 	{

@@ -40,7 +40,7 @@ function PlayFrames( rowFrameStart :int, colFrameStart :int, totalframes :int, f
 
 
 
-function PlayFrames( rowFrameStart :int, colFrameStart :int, FPS : int, totalframes :int, flipped :int)
+function PlayFrames( rowFrameStart :int, colFrameStart :int, totalframes :int, flipped :int, FPS : int)
 {
  var index : int = Time.time * FPS;										// time control fps
  index = index % totalframes; 
@@ -60,4 +60,26 @@ function PlayFrames( rowFrameStart :int, colFrameStart :int, FPS : int, totalfra
   
  renderer.material.mainTextureOffset = offset ;							// texture offset
  renderer.material.mainTextureScale = size  ;							// texture scale
+}
+
+
+//function PlayFrames( rowFrameStart :int, colFrameStart :int, totalframes :int, flipped :int, HeightFactor : float)
+function PlayFramesFixed( rowFrameStart :int, colFrameStart :int, totalframes :int, flipped :int )
+{
+ var index : int = Time.time * framesPerSecond;							// time control fps
+ index = index % totalframes; 
+ 
+ var size : Vector2 = Vector2(  1.0 / ColumnSize , 1.01 / RowSize );	// scale
+ 
+ var u : int = index % ColumnSize;
+ var v : int = index / ColumnSize;
+   
+ var offset = Vector2 ( ((u + colFrameStart ) * size.x ) , (1.0 - size.y) - ( v + rowFrameStart ) * size.y ); // offset
+ 
+   offset.x = (( offset.x * flipped ) - size.x * ( System.Convert.ToByte(flipped < 0) ) ) * flipped  ;
+
+  size.x *= flipped ;
+  
+ renderer.material.mainTextureOffset = offset ;		// texture offset
+ renderer.material.mainTextureScale = size  ;		// texture scale
 }
