@@ -3,7 +3,6 @@
 
 public var LifeTime			: float = 5f;
 public var rotationSpeed	: float = 0;	// Add some value for rotation
-private var moveDirection 	: Vector3 ;		// == orientation * speed (force Magnitude )
 
 public var RowSize			: int = 1;		// Input the number of Rows of the sprite sheet 
 public var ColumnSize		: int = 1;		// Input the number of columns of the sprite sheet 
@@ -13,8 +12,13 @@ public var rowFrameStart	: int = 1;
 public var colFrameStart	: int = 1;
 public var totalFrames		: int = 1;
 
+private var thisTransform	: Transform;	// own obj's tranform cached
+private var moveDirection 	: Vector3 ;		// == orientation * speed (force Magnitude )
+
+
 function Fire( moveSpeed : Vector3, rotSpeed : float)
 {
+	thisTransform = transform;
 	moveDirection 	= moveSpeed; 	// == transform.up * speed
 	rotationSpeed 	= rotSpeed;
 		PlayFrames(rowFrameStart, colFrameStart, totalFrames, Mathf.Sign( moveDirection.x ));
@@ -25,6 +29,7 @@ function Fire( moveSpeed : Vector3, rotSpeed : float)
 
 function FireAnimated( moveSpeed : Vector3, rowStart :int, colStart :int, totalframes :int)
 {
+	thisTransform = transform;
 	moveDirection 	= moveSpeed; 	// == transform.up * speed ( orientation of move + force of impulse )
 	rowFrameStart 	= rowStart;
 	colFrameStart	= colStart;
@@ -41,9 +46,9 @@ function FireAnimated( moveSpeed : Vector3, rowStart :int, colStart :int, totalf
 
 function CoUpdate () : IEnumerable
 {
-    	transform.position += Time.deltaTime * moveDirection;							// moveDirection == orientation * speed ;
+    	thisTransform.position += Time.deltaTime * moveDirection;							// moveDirection == orientation * speed ;
 
-		transform.RotateAroundLocal( Vector3.forward, rotationSpeed * Time.deltaTime); 	// if > 0, Rotate around own z-axis
+		thisTransform.RotateAroundLocal( Vector3.forward, rotationSpeed * Time.deltaTime); 	// if > 0, Rotate around own z-axis
 
  		Destroy(gameObject, LifeTime);
 }
