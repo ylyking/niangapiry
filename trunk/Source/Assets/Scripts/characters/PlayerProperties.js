@@ -26,6 +26,7 @@ var hatPower				: int   = 0;
 var coins					: int  	= 0;
 private var coinLife		: int 	= 20;
 
+var projectileHat			: GameObject;
 var projectileFire			: GameObject;
 
 //var materialPlayerStandard	: Material;
@@ -139,7 +140,7 @@ function UpdatePlayerState()
 			else 
 				if ( !_pickedObject && Input.GetButtonDown("Fire2")	)	UseInventory();
 
-		if ( Input.GetButtonDown("Fire2")) ThrowHat();
+		if ( Input.GetButtonDown("Fire2")) ThrowFire(); // ThrowHat();
 	}
 	
 }
@@ -439,7 +440,7 @@ function Burning()		: IEnumerator
 function ThrowHat()
 {
 	// Instantiate the projectile
-    var clone : GameObject = Instantiate (projectileFire, thisTransform.position , thisTransform.rotation);
+    var clone : GameObject = Instantiate (projectileHat, thisTransform.position + GrabPosition , thisTransform.rotation);
     
     Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 	// it works but the distance it s lame
  // clone.thisTransform.Translate( Vector3( 0, 1, 0) ); 					// avoid hits between shot & shooter own colliders  
@@ -447,7 +448,38 @@ function ThrowHat()
     clone.name = "Hat";
 
 	// Add speed to the target
-	clone.GetComponent(BulletShot).FireAnimated( Vector3 ( playerControls.orientation * 1, 0, 0) , 5, 0, 4); 	// shot with a short animation
+	clone.GetComponent(BulletShot).FireBoomerang( Vector3( playerControls.orientation * 8, 0, 0) , 5, 0, 4); 	// shot with a short animation
+   
+    var timertrigger = Time.time + 0.25f;
+	while( timertrigger > Time.time )
+	{
+		animPlay.PlayFrames( 3, 1, 1, playerControls.orientation); 
+     	yield;
+	}
+}
+
+function ThrowFire()
+{
+	// Instantiate the projectile
+    var orientation = playerControls.orientation;
+	
+    var clone : GameObject = Instantiate (projectileFire,
+    									  thisTransform.position + Vector3(orientation * .25,0,0),
+    									   thisTransform.rotation);
+    Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 	// it works but the distance it s lame
+ // clone.thisTransform.Translate( Vector3( 0, 1, 0) ); 					// avoid hits between shot & shooter own colliders  
+
+    clone.name = "Fire";
+
+	// Add speed to the target
+	clone.GetComponent(BulletShot).Fire(  Vector3( orientation * 4, 0, 0), 10); 	// shot with a short animation
+   
+    var timertrigger = Time.time + 0.75f;
+	while( timertrigger > Time.time )
+	{
+		animPlay.PlayFrames( 3, 6, 2, orientation); 
+     	yield;
+	}
 }
 
 function PlayerThrows()												// Object Throwing without physics engine

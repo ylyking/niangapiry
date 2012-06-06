@@ -170,14 +170,18 @@ function Sleeping()
 
 function Search()
 {
-//  Seek distance and players position/angle
-	var lookPos : Quaternion = Quaternion.LookRotation( thisTransform.position - target.position, Vector3.forward );
 	orientation = Mathf.Sign( target.position.x - thisTransform.position.x  );
+
+	//  Seek distance and players position/angle
+//	if (aimCompass)
+//	{
+		var lookPos : Quaternion = Quaternion.LookRotation( thisTransform.position - target.position, Vector3.forward );
 	
-	lookPos.y = 0;
-	lookPos.x = 0;
-	aimCompass.rotation = Quaternion.Slerp( aimCompass.rotation, lookPos, Time.deltaTime * aimDamping);
-				
+		lookPos.y = 0;
+		lookPos.x = 0;
+		aimCompass.rotation = Quaternion.Slerp( aimCompass.rotation, lookPos, Time.deltaTime * aimDamping);
+//	}
+	
     if ( distanceToTarget <= AttackRangeX2 )									// if player's near enemy -> Aim & Attack him
     {	
     	if( AnimFlag) animPlay.PlayFramesFixed( 1, 2, 2, orientation);			// Do Seeking Animation
@@ -185,7 +189,7 @@ function Search()
     	if ( Time.time > nextFire )												// wait some time between shots 
     	{
     		AnimFlag = false;
-    		Shoot();				
+    		Shoot();		
     		
 			var timertrigger = Time.time + .5f;
 			while( timertrigger > Time.time )									// do some throw animation for a while 
@@ -202,21 +206,32 @@ function Search()
 
 function Shoot() 
 {
-    // Add fireRate and current time to nextFire
-    nextFire = Time.time + fireRate;
+//	if (aimCompass) 
+//	{
+    	// Add fireRate and current time to nextFire
+    	nextFire = Time.time + fireRate;
 
-	// Instantiate the projectile
-    var clone : GameObject = Instantiate ( projectile, aimCompass.position, aimCompass.rotation);
+		// Instantiate the projectile
+    	var clone : GameObject = Instantiate ( projectile, aimCompass.position, aimCompass.rotation);
     
-    Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 				// it works but the distance it s lame
- // clone.transform.Translate( Vector3( 0, 1, 0) ); 						// avoid hits between shot & shooter own colliders  
+    	Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 				// it works but the distance it s lame
+ 	// clone.transform.Translate( Vector3( 0, 1, 0) ); 						// avoid hits between shot & shooter own colliders  
 
-    clone.name = "Shot";
+    	clone.name = "Shot";
 
-	// Add speed to the target
-//   if (clone.rigidbody) clone.rigidbody.velocity = aimCompass.TransformDirection (  Vector3.up * shootPower); else
-//	clone.GetComponent(BulletShot).Fire( aimCompass.up * shootPower, 5); 	// shot with a speed of 5 & a rotation of 10
-	clone.GetComponent(BulletShot).FireAnimated( aimCompass.up * shootPower, 1, 1, 2); 	// shot with a short animation
+		// Add speed to the target
+	//   if (clone.rigidbody) clone.rigidbody.velocity = aimCompass.TransformDirection (  Vector3.up * shootPower); else
+	//	clone.GetComponent(BulletShot).Fire( aimCompass.up * shootPower, 5); 	// shot with a speed of 5 & a rotation of 10
+		clone.GetComponent(BulletShot).FireAnimated( aimCompass.up * shootPower, 2, 2, 2); 	// shot with a short animation
+//	}	
+//	else 
+//    {
+// 		nextFire = Time.time + fireRate;
+//		var simpleClone : GameObject = Instantiate ( projectile, thisTransform.position, thisTransform.rotation);
+// 		Physics.IgnoreCollision(simpleClone.collider, this.gameObject.collider); 				 
+//	   	simpleClone.name = "Shot";
+//		simpleClone.GetComponent(BulletShot).FireAnimated( Vector3( orientation * shootPower,0,0), 2, 2, 2); 	 
+// 	}
 }
 
 function Stunned()																	// "Boleado"

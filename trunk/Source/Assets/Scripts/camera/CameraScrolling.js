@@ -1,6 +1,8 @@
 #pragma strict
 
 public var target 		: Transform;	// The object in our scene that our camera is currently tracking.
+private var thisTransform : Transform;	// The object in our scene that our camera is currently tracking.
+
 
 private var distance	: float	= 1.0;	// How far back should camera be from the target?
 private var springiness : float	= 4.0;	// How strict should camera follow the target?  Lower values make the camera more lazy.
@@ -9,12 +11,14 @@ private var levelAttributes : LevelAttributes;			// Keep handy reference store o
 private var levelBounds : Rect; 						// We set up these references in the Awake () function.
 private var targetLock = false;
 
+
 // This is for setting interpolation on our target, but making sure we don't permanently
 // alter the target's interpolation setting.  This is used in the SetTarget () function.
 private var savedInterpolationSetting = RigidbodyInterpolation.None;
 
 function Awake () 
 {
+ 	thisTransform = transform;
 	levelAttributes = LevelAttributes.GetInstance ();			// Set up our convenience references.
 	if (levelAttributes) levelBounds = levelAttributes.bounds;
 	else 														// else use some defaults values..
@@ -28,9 +32,9 @@ function LateUpdate ()
 	var goalPosition  : Vector3 = GetGoalPosition ();	// Where should our camera be looking right now?
 	
 	// Interpolate between the current camera position and the goal position.
-	transform.position = Vector3.Lerp (transform.position, goalPosition, Time.deltaTime * springiness);	
+	thisTransform.position = Vector3.Lerp (thisTransform.position, goalPosition, Time.deltaTime * springiness);	
 	
-	this.camera.orthographicSize =	Mathf.Lerp(this.camera.orthographicSize, -goalPosition.z, Time.deltaTime * springiness);
+	 camera.orthographicSize =	Mathf.Lerp( camera.orthographicSize, -goalPosition.z, Time.deltaTime * springiness);
 	 									 
 // You almost always want camera motion to go inside of LateUpdate (), so that the camera follows
 // the target after_ it has moved.  Otherwise, the camera may lag one frame behind.
@@ -39,7 +43,7 @@ function LateUpdate ()
 function GetGoalPosition ()	// find out where the camera should move to, Based on camera and target's attributes
 {
 
-	if  (!target)	return transform.position;			// If there isn't target, don't move the camera & return current position.
+	if  (!target)	return thisTransform.position;			// If there isn't target, don't move the camera & return current position.
 	
 	// Our camera script can take attributes from the target.  
 	// If there are no attributes attached, we have the following defaults.
@@ -96,8 +100,8 @@ function GetGoalPosition ()	// find out where the camera should move to, Based o
 	// To put the icing on the cake, we will make so the positions beyond the level boundaries are never seen.  
 	var clampOffset = Vector3.zero;		// This gives your level a great contained feeling, with a definite beginning and end.
 	
-	var cameraPositionSave = transform.position;							 // But first, save the previous position.
-	transform.position = goalPosition;	// Temporarily set camera to the goal position so we can test positions for clamping.
+	var cameraPositionSave = thisTransform.position;							 // But first, save the previous position.
+	thisTransform.position = goalPosition;	// Temporarily set camera to the goal position so we can test positions for clamping.
 	
 	// Get the target position in viewport space.  Viewport space is relative to the camera.
 	// bottom left is (0,0) and upper right is (1,1)
@@ -120,7 +124,7 @@ function GetGoalPosition ()	// find out where the camera should move to, Based o
 	// if the level is really small.  That way you'll for sure never see past the lower-left of the level, but if the camera is
 	// zoomed out too far for the level size, you will see past the right or top of the level.
 	
-	transform.position = goalPosition;
+	thisTransform.position = goalPosition;
 	var lowerLeftCameraInWorld = camera.ViewportToWorldPoint (Vector3 (0.0, 0.0, targetViewportPosition.z));
 	
 	// Find out how far outside the world the camera is right now.
@@ -131,7 +135,7 @@ function GetGoalPosition ()	// find out where the camera should move to, Based o
 	goalPosition += clampOffset;
 	
 	// Now that we're done calling functions on the camera, we can set the position back to the saved position;
-	transform.position = cameraPositionSave;
+	thisTransform.position = cameraPositionSave;
 	
 	if (FixedHeight)						// in case we set fixed the height position set the global value;
 		goalPosition.y = heightOffset;
