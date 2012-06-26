@@ -471,15 +471,20 @@ function ThrowFire()
 
     clone.name = "Fire";
 
+//	playerControls.velocity = Vector3.zero;
+	playerControls.enabled = false;
+	
 	// Add speed to the target
 	clone.GetComponent(BulletShot).Fire(  Vector3( orientation * 4, 0, 0), 10); 	// shot with a short animation
-   
+    
     var timertrigger = Time.time + 0.75f;
 	while( timertrigger > Time.time )
 	{
 		animPlay.PlayFrames( 3, 6, 2, orientation); 
      	yield;
 	}
+   	playerControls.enabled = true;
+	
 }
 
 function PlayerThrows()												// Object Throwing without physics engine
