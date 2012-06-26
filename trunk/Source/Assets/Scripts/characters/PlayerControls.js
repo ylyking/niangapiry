@@ -15,6 +15,7 @@ var runSpeed  							: float = 2.0; 				// running speed
 	
 var walkJump  							: float = 8.0;				// jump height from walk
 var runJump   							: float = 9.0;				// jump height from run	
+var Depth								: float = .25f;				// Depth in position.z for the player's character
 
 private var jumpEnable 					: boolean = false;			// toggle for default jump
 private var runJumpEnable				: boolean = false;			// toggle for run jump
@@ -24,7 +25,6 @@ private var isHoldingObj				: int 	= 0;				// anim row index change when player 
 
 @HideInInspector public var orientation	: int = 1;					// Move Direction: -1 == left, +1 == right
 @HideInInspector public var velocity 	: Vector3 = Vector3.zero;	// Start quiet 
-@HideInInspector public var Depth		: float = .25f;				// Depth in position.z for the player's character
 
 function Start()						//	var ballScript : BallScript = target.GetComponent(BallScript) as BallScript;
 {
@@ -34,13 +34,17 @@ function Start()						//	var ballScript : BallScript = target.GetComponent(BallS
 	animPlay 	=	GetComponent(AnimSprite);
 	animPlay.PlayFrames(2 , 0, 1, orientation);
 	
+	Physics.IgnoreCollision(controller.collider,  transform.GetComponentInChildren(BoxCollider));
+//	if(controller.collider != gameObject.collider) print("CHan!");
+	
 //	transform.GetComponentInChildren(BoxCollider).transform.position = controller.transform.position - Vector3(0, -.22,0);
+	
 }
 
 function Update()
+//function FixedUpdate()
 {
    isHoldingObj = System.Convert.ToByte( properties._pickedObject != null )	;
-//   gravity = 20.0; 															// Refresh gravity force
    
    if ( controller.isGrounded )
 	{
@@ -50,23 +54,31 @@ function Update()
 		velocity = Vector3 ( Input.GetAxis( "Horizontal"), 0, 0 );
 	
 		if (!Input.GetAxis( "Horizontal") )									// IDLE -> keep stand quiet
-			 animPlay.PlayFrames (2 + isHoldingObj, 0, 1, orientation );	
+//			 animPlay.PlayFrames(2 + isHoldingObj, 0, 1, orientation  );	
+			 animPlay.PlayFramesFixed (2 + isHoldingObj, 0, 1, orientation );	
 	
 		if ( Input.GetAxis(	"Horizontal") )									// WALK
 		{
 			orientation = Mathf.Sign(velocity.x); 							// If move direction changes -> flip sprite
 			
 			velocity.x *= walkSpeed;										// If player is moving ->  Animate Walking..
-			animPlay.PlayFrames ( 0 + isHoldingObj, 0, 8, orientation );	
+//			animPlay.PlayFrames ( 0 + isHoldingObj, 0, 8, orientation ) ;	
+			animPlay.PlayFramesFixed ( 0 + isHoldingObj, 0, 8, orientation ) ;	
 		}	
 		
 		if ( velocity.x &&  Input.GetButton( "Fire1") )						// RUN 
 		{
 			velocity *= runSpeed;
-			animPlay.PlayFrames ( 2, 1, 2, orientation );
+//			animPlay.PlayFrames( 2, 1, 2, orientation ) ;
+			animPlay.PlayFramesFixed ( 2, 1, 2, orientation , 1.005) ;
 		}
-
-																			// JUMP
+	}
+	
+//   Debug.DrawLine ( thisTransform.position  , thisTransform.TransformPoint ( -Vector3.up   ), Color.blue);
+	
+   var Stand : boolean = Physics.Linecast (thisTransform.position, thisTransform.TransformPoint ( -Vector3.up)) ;
+   if(Stand)
+   {																		// JUMP
 		if ( Input.GetButtonDown ( "Jump" ) && ( !Input.GetButton( "Fire1")	||  !velocity.x ) )	// Quiet jump
 		{											// check player dont make a Running Jump being quiet in the same spot
 			velocity.y = walkJump;
@@ -83,8 +95,8 @@ function Update()
 			runJumpEnable = true;
 		}
 	}
-	
-	if ( !controller.isGrounded )
+  	
+	if ( !controller.isGrounded )	// && !Stand	// Do Slide
 	{
 		velocity.x = Input.GetAxis( "Horizontal");
 //		animPlay.PlayFrames ( 2, 5, 1, orientation );
@@ -95,6 +107,7 @@ function Update()
 				
 		if ( velocity.x )
 			orientation = Mathf.Sign(velocity.x); 				// If move direction changes -> update & flip sprite
+		
 		
 		if ( jumpEnable )
 		{
@@ -108,13 +121,12 @@ function Update()
 			animPlay.PlayFrames ( 2 + isHoldingObj, 4, 1, orientation );
 		}
 		
-		if ( velocity.y < 0 ) 									// check when player stops elevation & becomes down..
+		if ( velocity.y < 0  && !Stand ) 						// check when player stops elevation & becomes down..
 		{
 			animPlay.PlayFrames ( 2 + isHoldingObj, 5, 1, orientation );
 		
 			if ( Input.GetButton ( "Jump" )  && !isHoldingObj ) // check if the player keep pressing jump button..
 			{
-//		  	  gravity = 1.0 ;									// then use the hat to brake the gravity force like parachute
 			  velocity.y += 19 * Time.deltaTime;
 			  animPlay.PlayFrames ( 2, 6, 2, orientation );
 			}
@@ -130,6 +142,7 @@ function Update()
 	velocity.y -= gravity * Time.deltaTime;
 	controller.Move( velocity * Time.deltaTime );
 		
+
 	if (thisTransform.position.y < 0 )	thisTransform.position = Vector3( 0.5, 10, Depth );	// If character falls get it up again 
 
     thisTransform.position.z = Depth;
@@ -138,7 +151,11 @@ function Update()
     // take Character Controller Skin Width = 0.05 else 0.001
 }
 
-
+//function OnDrawGizmos()	
+//{
+//	Gizmos.DrawLine(  transform.position , transform.TransformPoint ( -Vector3.up ));	 
+//
+//}
 
 
 // This Version of the Script allows to run without any buttons

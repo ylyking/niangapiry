@@ -1,0 +1,26 @@
+OBjetivo:
+Build a good Tiled XML file Loader for unity, that could be recicled & reused anywhere sometime in another code, It must have a series of Features:
+- A simple GUI interface inside Unity to Select, or Drag & Drop the TMX file inside project. and a Button to load the file. 
+	+ and if it was loaded already maybe change the button to reload it too)
+	+ and a Output Tile Size to draw the size of the poligons planes...
+	+ Keep some ReBuild-Prefab bool option inside GUI in case we want to Refresh all the prefabs too.
+
+- inside TMX File Must load the total number of Rows and Columns and the tile size inside the Bitmap, and if not setted up the poligon size by user, use the Bitmap one. 
+- Read every Layer (and some properties about depth size, it's visible or else like ), and Tile and take their index number inside bitmap, Save every Tile properties for example: Size, HasCollider(& Collider Type), KillBox, Name, Tag, Etc.
+- Check with the 32 Bitfield info of tiled if the Index it's Flipped Horizontally, Vertical or Rotated, and Set their UVs in consecuencies(a pain in ass thing)...
+- Check If the Tile index was already Created and saved as a Prefab if not then Build and Use or Re-Use it!.
+- Every Tile Prefab must Use a logic Name as The TMX name + index Number + Flipped or Rotated thing and arranged inside it's own TMX Folder with name and all..
+- Group Every Tile Prefab inside one GameObject name as the TMX, Bitmap or Level Name.
+-Study some Vertex Join, for reduce that edge bleeding thing and optimize the performance
+
+
+2147483696
+
+<example>
+	<value type=\"String\">
+		Foobar
+	</value>
+	<value type=\"Int\">
+		3
+	</value>
+</example>

@@ -27,7 +27,8 @@ function Awake ()
 }
 
 
-function LateUpdate () 
+//function LateUpdate () 
+function Update () 
 {
 	var goalPosition  : Vector3 = GetGoalPosition ();	// Where should our camera be looking right now?
 	

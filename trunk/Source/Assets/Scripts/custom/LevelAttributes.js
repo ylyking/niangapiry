@@ -1,5 +1,6 @@
 // Size of the level
-var bounds : Rect;
+var bounds : Rect = Rect( 0, 0, 60, 10);
+var ShowMapLimits : boolean = true; 
 var fallOutBuffer = 5.0;
 var colliderThickness = 10.0;
 
@@ -22,6 +23,8 @@ function OnDisable () {
 }
 
 function OnDrawGizmos () {
+if (ShowMapLimits)
+{
 	Gizmos.color = sceneViewDisplayColor;
 	var lowerLeft = Vector3 (bounds.xMin, bounds.yMax, 0);
 	var upperLeft = Vector3 (bounds.xMin, bounds.yMin, 0);
@@ -33,6 +36,21 @@ function OnDrawGizmos () {
 	Gizmos.DrawLine (upperRight, lowerRight);
 	Gizmos.DrawLine (lowerRight, lowerLeft);
 }
+}
+
+//function PleaseDrawGizmos () {
+// 
+//	Gizmos.color = sceneViewDisplayColor;
+//	var lowerLeft = Vector3 (bounds.xMin, bounds.yMax, 0);
+//	var upperLeft = Vector3 (bounds.xMin, bounds.yMin, 0);
+//	var lowerRight = Vector3 (bounds.xMax, bounds.yMax, 0);
+//	var upperRight = Vector3 (bounds.xMax, bounds.yMin, 0);
+//	
+//	Gizmos.DrawLine (lowerLeft, upperLeft);
+//	Gizmos.DrawLine (upperLeft, upperRight);
+//	Gizmos.DrawLine (upperRight, lowerRight);
+//	Gizmos.DrawLine (lowerRight, lowerLeft);
+//}
 
 function Start () {
 	createdBoundaries = new GameObject ("Created Boundaries");
@@ -61,4 +79,7 @@ function Start () {
 	boxCollider = bottomBoundary.AddComponent (BoxCollider);
 	boxCollider.size = Vector3 (bounds.width + colliderThickness * 2.0, colliderThickness, colliderThickness);
 	boxCollider.center = Vector3 (bounds.x + bounds.width * 0.5, bounds.yMin - colliderThickness * 0.5 - fallOutBuffer, 0.0);
+
+//while (ShowMapLimits) yield PleaseDrawGizmos;
+
 }
