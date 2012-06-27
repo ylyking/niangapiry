@@ -12,7 +12,7 @@ static var FlippedDiagonallyFlag 	: int  = 0x20000000;
 
 static var TileOutputSize			: float = 1.0;					// Tile Poligonal Modulation inside Unity ( Plane 
 static var LayerDepth 				: float = 0.0;					// depth size separation between Layers  
-
+static var eps 						: float = 0.000005f;			// epsilon to fix some Horrendous Texture bleed
 
     @MenuItem("GameObject/Create Other/Read Tiled File %_t")
     
@@ -70,7 +70,19 @@ static function ReadTiled()
 	 var SrcImgName		: String = TileSet.Attributes["name"].Value;					// Image Source data references
 	 var SrcImgPath		: String = TileSet.FirstChild.Attributes["source"].Value ;
 
-		
+	 var CollisionList  : int[] = new int[(SrcColumns * SrcRows)+1 ];
+	 var Properties 	: XmlNodeList = Doc.GetElementsByTagName("property");
+	 
+	 for ( var Property : XmlNode in Properties )
+	 {
+	 	if (Property.Attributes["name"].Value == "Collision" && Property.ParentNode.ParentNode.Name == "tile")
+//	 	{
+//	 		print("Voila!" + int.Parse( Property.ParentNode.ParentNode.Attributes["id"].Value) );
+	 		CollisionList[ int.Parse( Property.ParentNode.ParentNode.Attributes["id"].Value ) + 1 ] = 
+	 									int.Parse( Property.ParentNode.ParentNode.Attributes["id"].Value ) +1 ;
+//	 	}
+	 }
+	 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // REBUILD AND HOLD MATERIAL		 Search The material inside that folder or create it if not exists and then hold it
@@ -118,18 +130,19 @@ static function ReadTiled()
 //	 		var LevelRows    : int = System.Convert.ToInt16( LayerInfo.Attributes["height"].Value ); // 5
 	 		
 			var ColIndex	: int = 0.0;
-			var RowIndex	: int = System.Convert.ToInt16( LayerInfo.Attributes["height"].Value );
-			var AddCollision	: boolean = false;
+			var RowIndex	: int = int.Parse( LayerInfo.Attributes["height"].Value );
+			var AddCollision: boolean = false;
+			
 //			var RowIndex	: int = LevelRows;
 			
 			var Data 		: XmlElement = LayerInfo.FirstChild;
 			if ( Data.Name == "properties" )
 			{
-				var Properties : XmlElement = Data.FirstChild;
+				var LayerProp : XmlElement = Data.FirstChild;
 				
 				Data = Data.NextSibling;
 				
-				if ( Properties.GetAttribute("name") == "Collision")
+				if ( LayerProp.GetAttribute("name") == "Collision")
 					AddCollision = true;
 			}
 			
@@ -141,9 +154,10 @@ static function ReadTiled()
 			  	var TileId 		: uint = System.Convert.ToUInt32( TileInfo.Attributes["gid"].Value );
 				var Flipped_X 	: boolean = false;
 				var Flipped_Y 	: boolean = false;
+				AddCollision = false;
+				
 
-				if ( TileId )    //	 if ( FirstGid => TileId && TileId <= TotalTiles)
-					 	 
+				if ( TileId )    //	 if ( FirstGid => TileId && TileId <= TotalTiles)					 	 
 				{				
 				 var Index 	  	: uint = TileId & ~(FlippedHorizontallyFlag | FlippedVerticallyFlag | FlippedDiagonallyFlag);
 			 	 var TileName 	: String = "Tile_" + Index   ;
@@ -154,6 +168,9 @@ static function ReadTiled()
 			 	 if (TileId & FlippedVerticallyFlag)		
 			 	 {	Flipped_Y = true; TileName += "_FlippedY";	}
 			 	 
+			 	 
+			 	 if ( CollisionList[ Index ] == Index   ) AddCollision = true;
+
 			 	 var TileClone: GameObject ;
 
 // IF EXISTS SOME PREFAB WITH THE SAME ID THEN USE IT, ELSE CREATE THE OBJECT AND SAVE IN ONE PREFAB 	 	 
@@ -196,30 +213,33 @@ static function ReadTiled()
     				 var offset_y 	:int = SrcRows - (Mathf.FloorToInt( Index / SrcColumns ) + 
     				 						System.Convert.ToByte( ( Index % SrcRows ) != 0 ) );
     				 						
-//    				 var offset_y 	:int = Mathf.FloorToInt( Index / SrcColumns ) + 
-//    				 						System.Convert.ToByte( ( Index % SrcRows ) != 0 );		
-    				 						
-//    				 offset_y = SrcRows - offset_y ;	   
-    				 			   
-//     				 m.uv = [ Vector2(1, 0),
-//     				 		  Vector2(0, 0),
-//     				 		  Vector2(0, 1),
-//     				 		  Vector2 (1, 1)];
+				
 
-					
-
-     				 m.uv = [ Vector2((offset_x - System.Convert.ToByte(Flipped_X) ) * ModuleWidth,
-     				 				  (offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight),	// 1-'
+//     				 m.uv = [ Vector2( System.Math.Round((offset_x - System.Convert.ToByte(Flipped_X) ) * ModuleWidth, 3),
+//     				 				   System.Math.Round((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight,3)),	// 1-'
+//     				 
+//     				 		  Vector2( System.Math.Round((offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth, 3),
+//     				 		  		    System.Math.Round((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight,3)),	// 2'-_  
+//     				 		  
+//     				 		  Vector2(  System.Math.Round((offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth,3),
+//     				 		  		   System.Math.Round((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight,3)),	//  3¡-    
+//     				 		  
+//     				 		  Vector2( System.Math.Round((offset_x - System.Convert.ToByte(Flipped_X) )  * ModuleWidth,3),
+//     				 		          System.Math.Round((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight,3))];	//  4¬
      				 
-     				 		  Vector2((offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth,
-     				 		  		   (offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight),	// 2'-_  
+//     				 var eps : float = 0.00005f;
+//     				 var eps : float = 0.000005f;
+     				 m.uv = [ Vector2( (offset_x - System.Convert.ToByte(Flipped_X) ) * ModuleWidth,
+     				 				    ((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight )-eps ),	// 1-'
+     				 
+     				 		  Vector2( (offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth,
+     				 		  		    ((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight )-eps),	// 2'-_  
      				 		  
-     				 		  Vector2((offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth,
-     				 		  		  (offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight),	//  3¡-    
+     				 		  Vector2( (offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth,
+     				 		  		   ((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight )-eps),	//  3¡-    
      				 		  
-     				 		  Vector2((offset_x - System.Convert.ToByte(Flipped_X) )  * ModuleWidth,
-     				 		         (offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight)];	//  4¬
-     				     
+     				 		  Vector2( (offset_x - System.Convert.ToByte(Flipped_X) )  * ModuleWidth ,
+     				 		           ((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight )-eps)];	// 
      				 
      				 /////////////////////////////////////////////////////////////////////////////////////////////////////
      				 
@@ -265,8 +285,12 @@ static function ReadTiled()
 			 												
 			 	 TileClone.transform.parent = LayerTransform; 
 
-			 	if ( AddCollision)
+			 	 if ( AddCollision)
+			 	 {
 	    			TileClone.AddComponent("BoxCollider");
+			 	 	(TileClone.GetComponent("BoxCollider")as BoxCollider).size.z =
+			 	 	(TileClone.GetComponent("BoxCollider")as BoxCollider).size.x ;
+			 	 }
 			 	}
 			 	
 	 			var LevelColumns : int = System.Convert.ToInt16( LayerInfo.Attributes["width"].Value  );

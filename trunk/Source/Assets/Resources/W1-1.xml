@@ -2,6 +2,21 @@
 <map version="1.0" orientation="orthogonal" width="60" height="10" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="texture0" tilewidth="64" tileheight="64">
   <image source="texture0.png" width="512" height="512"/>
+  <tile id="11">
+   <properties>
+    <property name="Collision" value="box"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="Collision" value="box"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="Collision" value="box"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Fondo" width="60" height="10">
   <data>
@@ -1816,9 +1831,6 @@
   </data>
  </layer>
  <layer name="Primer Plano" width="60" height="10">
-  <properties>
-   <property name="Collision" value="Boxes"/>
-  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
