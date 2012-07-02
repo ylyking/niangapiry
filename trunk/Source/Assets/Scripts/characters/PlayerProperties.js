@@ -140,7 +140,7 @@ function UpdatePlayerState()
 			else 
 				if ( !_pickedObject && Input.GetButtonDown("Fire2")	)	UseInventory();
 
-		if ( Input.GetButtonDown("Fire2")) ThrowFire(); // ThrowHat();
+		if ( Input.GetButtonDown("Fire2")) ThrowHat(); // ThrowHat();
 	}
 	
 }

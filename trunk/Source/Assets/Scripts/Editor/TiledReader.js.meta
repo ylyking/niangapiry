@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: 02a1376c01a982c4595de1ed2c9804bd
+guid: 16d830962ab16b141a6983771e09331d
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - dialogueXMLFile: {fileID: 4900000, guid: 6c87be22fb5226f41874489b8085b963, type: 1}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
