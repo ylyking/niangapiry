@@ -86,6 +86,7 @@ static function CreateQuad()
     	m = new Mesh();     
     	m.name = plane.name;
     	m.vertices = [Vector3(size, -size, 0.01), Vector3(-size, -size, 0.01), Vector3(-size, size, 0.01), Vector3(size, size, 0.01) ];
+//    	m.vertices = [Vector3(size *2, size*2, -size), Vector3(0, 0, -size), Vector3(0, 0,  size ), Vector3(size * 2, size*2,  size ) ];
      	m.uv = [ Vector2(1, 0), Vector2 (0, 0), Vector2 (0, 1), Vector2 (1, 1)];  // 1-'    2'-_   3¡-     4¬
     	m.triangles = [0, 1, 2, 0, 2, 3];
     	m.RecalculateNormals();
