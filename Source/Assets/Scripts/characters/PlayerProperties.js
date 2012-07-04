@@ -16,7 +16,7 @@ public var playerState 	 : PlayerState 	= PlayerState.Normal;	// set display sta
 
 enum Items		{ Empty = 0, Hat = 1, Whistler = 2, Invisibility = 4, Smallibility = 8, Fire = 16 }
 
-public var Inventory	 	: Items	= Items.Empty;			// Inventory system activation
+public var Inventory	 	: Items	= Items.Empty;				// Inventory system activation
 
 var lifes					: int	= 3;
 var health					: int	= 2;
@@ -29,22 +29,16 @@ private var coinLife		: int 	= 20;
 var projectileHat			: GameObject;
 var projectileFire			: GameObject;
 
-//var materialPlayerStandard	: Material;
-//var materialPlayerFire		: Material;
-
 var changeState				: boolean 	= true;
-private var HoldingKey		: boolean 	= false;					// simple flag to know if the throwing button was released 
 
 @HideInInspector var dead 	: boolean 	= false;
 @HideInInspector var normal	: boolean 	= false;
 @HideInInspector var inmune	: boolean 	= false;
 
-private var wasKinematic	: boolean = false;
-private var hitLeft			: boolean 	= false;
+private var HoldingKey		: boolean 	= false;					// simple flag to know if the throwing button was released 
+private var wasKinematic	: boolean 	= false;					// flag to remeber if the taken thing was Kinematic or not
+private var hitLeft			: boolean 	= false;					// flag to detect player collision with dangerous things
 private var hitRight		: boolean 	= false;
-
-var hitDistance				: float 	= 3.0;	// this and hitTime for seconds on wait - goal is push player back one block
-//var hitTime					: float 	= 0.2;	// time for pushing player back 
 
 //private var canShoot		: boolean 	= false;
 
@@ -59,9 +53,7 @@ private var charController 	: CharacterController;
 
 public var GrabPosition   	: Vector3 	= Vector3( 0f, 0.5f, 0f);	// Grab & Throw Funcionality assuming obj has a rigidbody attached				
 public var ThrowForce   	: float		= 400f;						// How strong the throw is. 
-//public var AlphaAmount  	: float 	= 0.5f; 					// this will be the alpha amount 
-//private var _originalColor: Color;								// var to keep the original color. 
-				
+var hitDistance				: float 	= 3.0;						// Distance to push the player on being hitted
 
 @HideInInspector var _pickedObject 	: Transform;					// is HoldingObj ? 
 private var thisTransform			: Transform;					// own player tranform cached
@@ -85,6 +77,7 @@ function CoUpdate() : IEnumerator
 {
 	HitDead();
 	UpdatePlayerState();
+	if ( Input.GetButtonDown( "Fire1") ) HoldingKey = true;
    	if ( Input.GetButtonUp("Fire1")) HoldingKey = false;
 }	
 
@@ -140,7 +133,7 @@ function UpdatePlayerState()
 			else 
 				if ( !_pickedObject && Input.GetButtonDown("Fire2")	)	UseInventory();
 
-		if ( Input.GetButtonDown("Fire2")) ThrowHat(); // ThrowHat();
+		if (  !_pickedObject && Input.GetButtonDown("Fire2")) ThrowHat(); // ThrowHat();
 	}
 	
 }
@@ -162,11 +155,12 @@ function OnTriggerEnter( other : Collider )
 
 function OnTriggerStay( hit : Collider)  					// function OnControllerColliderHit (hit : ControllerColliderHit)
 {
- 	if ( playerState < 8 && hit.CompareTag( "pickup") ||  hit.CompareTag( "p_shot") )
+ 	if ( HoldingKey &&  hit.CompareTag( "pickup") ||  hit.CompareTag( "p_shot") )
+// 	if ( Input.GetButtonDown( "Fire1") && hit.CompareTag( "pickup") ||  hit.CompareTag( "p_shot") )
 
-       if ( !_pickedObject && Input.GetButtonDown( "Fire1") )
+       if ( playerState < 8 && !_pickedObject  )
        {
-         HoldingKey = true;
+//         HoldingKey = true;
              	
          _pickedObject = hit.transform; 									// caches the picked object
          
@@ -176,9 +170,6 @@ function OnTriggerStay( hit : Collider)  					// function OnControllerColliderHi
          _pickedObject.rigidbody.isKinematic = true;
          
          _pickedObject.collider.enabled = false;
-                  
-//         _originalColor = hit.transform.renderer.material.color; 			// caches picked object's color for restore later
-//         _originalColor = _pickedObject.renderer.material.color;
 
          									//this will snap the picked object to the "hands" of the player
          _pickedObject.position = thisTransform.position + GrabPosition; 	// Could be changed with every object properties
@@ -187,26 +178,21 @@ function OnTriggerStay( hit : Collider)  					// function OnControllerColliderHi
          _pickedObject.parent = thisTransform; 
 //         _pickedObject.parent = HoldPosition; 							// = this.transform;
 
-         									//this will change the alpha amount on the object's color to half transparent
-//         _pickedObject.renderer.material.color = new Color( _pickedObject.renderer.material.color.r,
-//                             								_pickedObject.renderer.material.color.g,
-//                            								_pickedObject.renderer.material.color.b,
-//                                      					 AlphaAmount);
        }
 }
 
 function HitDead()
 {
-	if ((hitRight || hitLeft ))
+	if ((hitRight || hitLeft ))												// If we were hitten get pushdirection 
 	{
 		var pushDirection = System.Convert.ToByte(hitLeft) - System.Convert.ToByte(hitRight) ; // hitLeft == 1, hitRight == -1
 		hitLeft = false;
 		hitRight = false;
 
-		var orientation = playerControls.orientation;
+		var orientation = playerControls.orientation;							
 		
 	
-		if ( health )
+		if ( health )														// If health still available do damage and continue 
 		{
 			health -= 1;
 //			AddPlayerState( PlayerState.Flickering );
@@ -221,7 +207,7 @@ function HitDead()
 //			health -= 1;
 			AddPlayerState( PlayerState.Flickering );
 		}
-		else
+		else																// else lose a Life and start dying mode
 		{
 			lifes -= 1;
 			renderer.material.color = Color.white;
@@ -229,7 +215,7 @@ function HitDead()
 
 			playerControls.enabled = false;
 			var dieTimer = Time.time + 0.5f;
- 			while( dieTimer > Time.time )
+ 			while( dieTimer > Time.time )									// Do jump and sad animation...
 			{
 //				thisTransform.Translate( -pushDirection * hitDistance * Time.deltaTime * .5, 0, 0);
 				charController.Move( Vector3( -pushDirection * hitDistance * Time.deltaTime * .5, 
@@ -238,16 +224,16 @@ function HitDead()
 				yield;
 			}
 
-			while ( !charController.isGrounded )
+			while ( !charController.isGrounded )							// set to ground the character ...
 			{
 				charController.Move( Vector3( 0, -4.0, 0 ) * Time.deltaTime );
 				yield;
 			}
 			
 			dieTimer = 0.0f;
- 			while( dieTimer < 3.0 )
+ 			while( dieTimer < 3.0 )											// Do Hat flying animation
 			{
-				dieTimer += Time.deltaTime;
+				dieTimer += Time.deltaTime * 2;
 			
 				animPlay.PlayFrames( 4, Mathf.FloorToInt(dieTimer), 1, orientation);
 				yield;
@@ -255,30 +241,13 @@ function HitDead()
 			
 			health = 2;
 //			if ( lifes )
-			SetPlayerState( PlayerState.Asleep );
-//			else 
+			SetPlayerState( PlayerState.Asleep );							// if there are life change state to Asleep
+//			else 															// else GameOver
 		}
 	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -519,6 +488,8 @@ function PlayerThrows()												// Object Throwing without physics engine
 		 while( timertrigger > Time.time )
 		 {
 			animPlay.PlayFrames( 3, 1, 1, orientation); 
+         	HoldingKey = false;
+			
     	 	yield;
 		 }
 	}
@@ -574,12 +545,6 @@ function AddCoin(numCoin : int)
 {
 	coins = coins + numCoin;
 }
-
-
-
-
-
-
 
 
 @script AddComponentMenu( "Utility/Player Propierties Script" )

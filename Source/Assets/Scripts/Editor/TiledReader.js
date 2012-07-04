@@ -1,6 +1,6 @@
 #pragma strict
 #pragma downcast
-
+import System.Collections.Generic;
 import System.Xml;
 import System.IO;
 
@@ -15,14 +15,15 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 	public var TileOutputSize			: Vector3 = new Vector3(1.0,1.0,1.0);	// Tile Poligonal Modulation inside Unity(Plane)
 	public var eps 						: Vector2 = new Vector2(0, 0.000005f);	// epsilon to fix some Horrendous Texture bleed
 	public var PrefabRebuild			: boolean = false;						// boolean to check mesh and prefabs RE-BUILD
+//	var Contents 						: List.<String> = new List.<String>();
+	
 	
 	@MenuItem("Utility / Tiled Reader %_t")
 	static function Init ()  // in one start I think of settings the path input as reference but I guess this is faster & better
 	{
-
-		var source : TextAsset = Selection.activeObject as TextAsset;
+		var source : TextAsset = Selection.activeObject as TextAsset; 
 		
-		if (source == null ||
+		if ((source == null )||
 			( AssetDatabase.GetAssetPath(source).Remove(0, AssetDatabase.GetAssetPath(source).IndexOf(".")) != ".xml" ))
 		{
 			EditorUtility.DisplayDialog("Select one Tiled File", "You Must Select a XML Tiled file first!", "Ok");
@@ -31,7 +32,6 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 //		var window : TiledLoader = EditorWindow.GetWindow (typeof (TiledLoader)) as TiledLoader;
 		var window : TiledReader = EditorWindow.GetWindowWithRect(  typeof(TiledReader), new Rect(0, 0, 320, 160));
 
-		
 		window.TiledXMLFile = source;
 	}
 	
@@ -88,14 +88,12 @@ function ReadTiled()
 
 	var FolderPath : String = FilePath  + FileName + " Prefabs/"; 						// Assets/Resources/FileName_Prefabs/
 	
-//	Debug.Log( );
 	
 //	if ( PrefabRebuild && Directory.Exists( Application.dataPath + FolderPath.Remove(0,FolderPath.IndexOf("/"))) )
 	//	DeleteDirectory( Application.dataPath + FolderPath.Remove(0,FolderPath.IndexOf("/")) );	
 
 	if ( PrefabRebuild && AssetDatabase.DeleteAsset( FolderPath.Remove(FolderPath.LastIndexOf("/"))) )
 		Debug.Log(" Folder deleted & Rebuilded");
-//	Debug.Log(" Found folder");
 	
 	Directory.CreateDirectory( FolderPath );											// build a Folder to hold everything
  	Directory.CreateDirectory( FolderPath + "Meshes/" );								// build a Folder to hold Meshes too
