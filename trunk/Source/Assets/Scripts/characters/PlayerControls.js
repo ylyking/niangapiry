@@ -133,11 +133,11 @@ function Update()
 		}
 	}
 	
-//	if ( controller.collisionFlags == CollisionFlags.Above )
-//	{
-//		velocity.y = 0;											// set velocity on Y to 0, stop upward motion
-//		velocity.y -= afterHitForceDown;						// apply force downward so player doesn't have in the air
-//	}
+	if ( controller.collisionFlags == CollisionFlags.Above )
+	{
+		velocity.y = 0;											// set velocity on Y to 0, stop upward motion
+		velocity.y -= afterHitForceDown;						// apply force downward so player doesn't have in the air
+	}
 
 	velocity.y -= gravity * Time.deltaTime;
 	controller.Move( velocity * Time.deltaTime );
