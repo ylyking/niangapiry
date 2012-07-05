@@ -1,8 +1,32 @@
 #pragma strict
 #pragma downcast
+
 import System.Collections.Generic;
 import System.Xml;
 import System.IO;
+
+class cTileSet {
+     var TileInputWidth : int 	= 32; 											// Tile width inside bitmap file  ( 64 )
+     var TileInputHeight: int 	= 32;											// Tile height inside bitmap file 
+	 var FirstGid 		: int 	= 1;
+                    
+	 var SrcImgWidth	: int 	= 512 ; 										// File Resolution (512)
+	 var SrcImgHeight	: int 	= 512; 
+	 
+	 var SrcColumns 	: int 	= SrcImgWidth / TileInputWidth;
+     var SrcRows 		: int 	= SrcImgHeight / TileInputHeight;
+     
+     var ModuleWidth 	: double = 1.0 / SrcColumns;
+     var ModuleHeight	: double = 1.0 / SrcRows;
+	 
+	 var SrcImgName		: String = "Image";											// Image Source data references
+	 var SrcImgPath		: String = "";
+
+	 var CollisionList  : int[] = new int[(SrcColumns * SrcRows)+1 ];
+	 var Properties 	: XmlNodeList;
+	 
+//	 var Mat 			: Material ; 
+}
 
 class TiledReader extends EditorWindow {										// we need the same name of the script here
 	
@@ -13,7 +37,7 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 	private var FlippedDiagonallyFlag 	: int = 0x20000000;
 
 	public var TileOutputSize			: Vector3 = new Vector3(1.0,1.0,1.0);	// Tile Poligonal Modulation inside Unity(Plane)
-	public var eps 						: Vector2 = new Vector2(0, 0.000005f);	// epsilon to fix some Horrendous Texture bleed
+	public var eps 						: Vector2 = new Vector2(0.000005f, 0.000005f);// epsilon to fix some Texture bleeding
 	public var PrefabRebuild			: boolean = false;						// boolean to check mesh and prefabs RE-BUILD
 //	var Contents 						: List.<String> = new List.<String>();
 	
@@ -55,11 +79,12 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 function ReadTiled()
 {
 	var FileLoad 		: String = AssetDatabase.GetAssetPath(TiledXMLFile);
-	var FilePath		: String = FileLoad.Remove( FileLoad.LastIndexOf("/") + 1);	  	// Assets/etc/
-	var FileName		: String = FileLoad.Remove( 0, FileLoad.LastIndexOf("/") + 1);	// quit folder path structure
+	var FilePath		: String = FileLoad.Remove( FileLoad.LastIndexOf("/") + 1);	  		// Assets/etc/
+	var FileName		: String = FileLoad.Remove( 0, FileLoad.LastIndexOf("/") + 1);		// quit folder path structure
+		FileName = FileName.Remove( FileName.LastIndexOf("."));								// quit .xml extension
+		
+	var FolderPath : String = FilePath  + FileName + " Prefabs/"; 							// Assets/Resources/FileName_Prefabs/
 	
-	
-	FileName = FileName.Remove( FileName.LastIndexOf("."));							  	// quit .xml extension
 
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                    
@@ -70,41 +95,33 @@ function ReadTiled()
     
  if ( Doc ) 
  { 
-  var root 	  : XmlElement = Doc.DocumentElement;										// Access Map
+  var root 	  : XmlElement = Doc.DocumentElement;											// Access Map
 
 // CHECK IT S A TMX FILE FROM TILED	
    if ( root.Name == "map" )
    {
    
 // REBUILD TMX OBJECT IN UNITY SCENE						
-	DestroyImmediate( GameObject.Find( FileName ) ); 									// ReBuild the Layers Container & stuff.
-	var map : GameObject = new GameObject( FileName );									// inside the editor hierarchy.
-	var MapTransform = map.transform;													// take map transform cached
-//	map.AddComponent("CombineMeshes");
-	map.AddComponent("LevelAttributes");
+	DestroyImmediate( GameObject.Find( FileName ) ); 										// ReBuild the Layers Container & stuff.
+	var map : GameObject = new GameObject( FileName );										// inside the editor hierarchy.
+	var MapTransform = map.transform;														// take map transform cached
+	map.AddComponent("LevelAttributes");	//	map.AddComponent("CombineMeshes");
 	
-//	Debug.Log(Application.dataPath);
-	
-
-	var FolderPath : String = FilePath  + FileName + " Prefabs/"; 						// Assets/Resources/FileName_Prefabs/
-	
-	
-//	if ( PrefabRebuild && Directory.Exists( Application.dataPath + FolderPath.Remove(0,FolderPath.IndexOf("/"))) )
-	//	DeleteDirectory( Application.dataPath + FolderPath.Remove(0,FolderPath.IndexOf("/")) );	
-
 	if ( PrefabRebuild && AssetDatabase.DeleteAsset( FolderPath.Remove(FolderPath.LastIndexOf("/"))) )
 		Debug.Log(" Folder deleted & Rebuilded");
 	
-	Directory.CreateDirectory( FolderPath );											// build a Folder to hold everything
- 	Directory.CreateDirectory( FolderPath + "Meshes/" );								// build a Folder to hold Meshes too
+	Directory.CreateDirectory( FolderPath );												// build a Folder to hold everything
+ 	Directory.CreateDirectory( FolderPath + "Meshes/" );									// build a Folder to hold Meshes too
+
      
+               
 // SEEK BITMAP SOURCE FILE	 
-	var TileSets : XmlNodeList = Doc.GetElementsByTagName("tileset"); 					// array of the level nodes.
+	var TileSets : XmlNodeList = Doc.GetElementsByTagName("tileset"); 						// array of the level nodes.
 	for ( var TileSet : XmlNode in TileSets )
 	{ 
 	 	 	 	 	 
-     var TileInputWidth : int 	= System.Convert.ToByte( root.GetAttribute("tilewidth")); // Tile width inside bitmap file  ( 64 )
-     var TileInputHeight: int 	= System.Convert.ToByte( root.GetAttribute("tileheight"));// Tile height inside bitmap file 
+     var TileInputWidth : int 	= System.Convert.ToByte( root.GetAttribute("tilewidth")); 	// Tile width inside bitmap file  ( 64 )
+     var TileInputHeight: int 	= System.Convert.ToByte( root.GetAttribute("tileheight"));	// Tile height inside bitmap file 
           
 	 var SrcImgWidth	: int 	= System.Convert.ToInt16( TileSet.FirstChild.Attributes["width"].Value ); // File Resolution (512)
 	 var SrcImgHeight	: int 	= System.Convert.ToInt16( TileSet.FirstChild.Attributes["height"].Value); 
@@ -115,7 +132,7 @@ function ReadTiled()
      var ModuleWidth 	: double = 1.0 / SrcColumns;
      var ModuleHeight	: double = 1.0 / SrcRows;
 	 
-	 var SrcImgName		: String = TileSet.Attributes["name"].Value;					// Image Source data references
+	 var SrcImgName		: String = TileSet.Attributes["name"].Value;						// Image Source data references
 	 var SrcImgPath		: String = TileSet.FirstChild.Attributes["source"].Value ;
 
 	 var CollisionList  : int[] = new int[(SrcColumns * SrcRows)+1 ];
@@ -125,7 +142,6 @@ function ReadTiled()
 	 {
 	 	if (Property.Attributes["name"].Value == "Collision" && Property.ParentNode.ParentNode.Name == "tile")
 //	 	{
-//	 		print("Voila!" + int.Parse( Property.ParentNode.ParentNode.Attributes["id"].Value) );
 	 		CollisionList[ int.Parse( Property.ParentNode.ParentNode.Attributes["id"].Value ) + 1 ] = 
 	 									int.Parse( Property.ParentNode.ParentNode.Attributes["id"].Value ) +1 ;
 //	 	}
@@ -136,7 +152,7 @@ function ReadTiled()
 // REBUILD AND HOLD MATERIAL		 Search The material inside that folder or create it if not exists and then hold it
 		var mat : Material = AssetDatabase.LoadAssetAtPath( FolderPath + SrcImgName + "_Mat" + ".mat", typeof(Material) );
    
-   		if ( mat == null)																// Check if default material exists . . 
+   		if ( mat == null)																	// Check if default material exists . . 
     	{
     	 var tex = AssetDatabase.LoadAssetAtPath( FilePath + SrcImgPath , typeof(Texture2D) );
     	 
@@ -151,7 +167,7 @@ function ReadTiled()
     	 	tex.wrapMode = TextureWrapMode.Repeat;
 		 	tex.anisoLevel = 0;
     	 
-    	 	mat =  new Material(Shader.Find("Transparent/Diffuse")) ;
+    	 	mat =  new Material(Shader.Find("Unlit/Transparent Cutout")) ;
 		 	mat.mainTexture = tex ;
 		 
     	 	AssetDatabase.CreateAsset( mat, FolderPath + SrcImgName + "_Mat" + ".mat" );
@@ -161,6 +177,8 @@ function ReadTiled()
     	 	Debug.Log("Re-creating new material: " + SrcImgName + "_Mat"); 	 	
     	 }
     	}
+    	
+//    	MaterialSetup( SrcImgName : String, SrcImgPath : String, filePath : String, FolderPath : String);
 
 
 	    var LayersList : XmlNodeList = Doc.GetElementsByTagName("layer"); 					// array of the level nodes.
@@ -184,8 +202,7 @@ function ReadTiled()
 			var AddCollision	: boolean = false;
 			var CollisionLayer	: boolean = false;
 			
-//			var RowIndex	: int = LevelRows;
-			var Data 		: XmlElement = LayerInfo.FirstChild;
+			var Data 			: XmlElement = LayerInfo.FirstChild;
 	
 			if ( Data.Name == "properties" )
 			{
@@ -197,7 +214,7 @@ function ReadTiled()
 					CollisionLayer = true;
 			}
 			
-			var TileList 	: XmlNodeList = Data.GetElementsByTagName("tile"); // array of the level nodes.
+			var TileList 		: XmlNodeList = Data.GetElementsByTagName("tile"); // array of the level nodes.
 			
 // & CREATE OR BUILD ALL TILES INSIDE			
 	        for (  var TileInfo : XmlNode in TileList)
@@ -205,6 +222,8 @@ function ReadTiled()
 			  	var TileId 		: uint = System.Convert.ToUInt32( TileInfo.Attributes["gid"].Value );
 				var Flipped_X 	: boolean = false;
 				var Flipped_Y 	: boolean = false;
+				var Rotated 	: boolean = false;
+				
 				AddCollision = false;
 				
 
@@ -219,6 +238,8 @@ function ReadTiled()
 			 	 if (TileId & FlippedVerticallyFlag)		
 			 	 {	Flipped_Y = true; TileName += "_FlippedY";	}
 			 	 
+			 	 if (TileId & FlippedDiagonallyFlag)		
+			 	 {	Rotated = true; TileName += "_Rotated";	}
 			 	 
 			 	 if ( CollisionList[ Index ] == Index   ) AddCollision = true;
 
@@ -228,12 +249,10 @@ function ReadTiled()
 			 	 if ( AssetDatabase.LoadAssetAtPath( FolderPath + TileName + ".prefab", typeof(GameObject) )  )
 			 	 {
 			 	 	TileClone  = PrefabUtility.InstantiatePrefab( 
-			 	 	AssetDatabase.LoadAssetAtPath( FolderPath + TileName + ".prefab", typeof(GameObject) ) );
-			 	 	
+			 	 	AssetDatabase.LoadAssetAtPath( FolderPath + TileName + ".prefab", typeof(GameObject) ) );			 	 	
 			 	 }
 			 	 else
-			 	 {
-			 	 	
+			 	 {			 	 	
 				 	 var Tile : GameObject = new GameObject();
 				 	 
 				 	 Tile.name = TileName;
@@ -257,31 +276,46 @@ function ReadTiled()
     				 			   Vector3( 0, 					 			 0, 0.01),
     				 			   Vector3( 0, 				  TileOutputSize.y, 0.01),
     				 			   Vector3( TileOutputSize.x, TileOutputSize.y, 0.01) ];
-
     				 
     				 var offset_x   :int = Index % SrcColumns;
     				 
     				 var offset_y 	:int = SrcRows - (Mathf.FloorToInt( Index / SrcColumns ) + 
     				 						System.Convert.ToByte( ( Index % SrcRows ) != 0 ) );
-    				 						
- 
+    		 
 //     				 var eps : float = 0.00005f;
 //     				 var eps : float = 0.000005f;
-     				 m.uv = [ Vector2( (offset_x - System.Convert.ToByte(Flipped_X) ) * ModuleWidth - eps.x,
-     				 				    ((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight ) - eps.y),	// 1-'
+						
+					 var vt1 : Vector2 = Vector2((offset_x - System.Convert.ToByte(Flipped_X) ) * ModuleWidth - eps.x,
+     				 				    ((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight ) - eps.y);
+					 var vt2 : Vector2 = Vector2((offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth - eps.x,
+     				 		  		    ((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight ) - eps.y);
+					 var vt3 : Vector2 = Vector2((offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth - eps.x,
+     				 		  		   ((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight ) - eps.y);
+					 var vt4 : Vector2 = Vector2((offset_x - System.Convert.ToByte(Flipped_X) )  * ModuleWidth - eps.x,
+     				 		           ((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight ) - eps.y);
      				 
-     				 		  Vector2( (offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth - eps.x,
-     				 		  		    ((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight ) - eps.y),	// 2'-_  
-     				 		  
-     				 		  Vector2( (offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth - eps.x,
-     				 		  		   ((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight ) - eps.y),	// 3¡-    
-     				 		  
-     				 		  Vector2( (offset_x - System.Convert.ToByte(Flipped_X) )  * ModuleWidth - eps.x,
-     				 		           ((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight ) - eps.y)];	// 4 ¬
+     				 if ( Rotated ) {
+     				 	var vtAux : Vector2 = vt3;
+     				 	vt3 = vt1;
+     				 	vt1 = vtAux;
+     				 }
+     				 		           
+     			     m.uv = [ vt1, vt2, vt3, vt4];
+					
+//     				 m.uv = [ Vector2( (offset_x - System.Convert.ToByte(Flipped_X) ) * ModuleWidth - eps.x,
+//     				 				    ((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight ) - eps.y),	// 1-'
+//     				 
+//     				 		  Vector2( (offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth - eps.x,
+//     				 		  		    ((offset_y + System.Convert.ToByte(Flipped_Y)) * ModuleHeight ) - eps.y),	// 2'-_  
+//     				 		  
+//     				 		  Vector2( (offset_x - System.Convert.ToByte(!Flipped_X) ) * ModuleWidth - eps.x,
+//     				 		  		   ((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight ) - eps.y),	// 3¡-    
+//     				 		  
+//     				 		  Vector2( (offset_x - System.Convert.ToByte(Flipped_X) )  * ModuleWidth - eps.x,
+//     				 		           ((offset_y + System.Convert.ToByte(!Flipped_Y)) * ModuleHeight ) - eps.y)];	// 4 ¬
      				 
      				 /////////////////////////////////////////////////////////////////////////////////////////////////////
-     				 
-    	
+     				 	
     				 m.triangles = [0, 1, 2, 0, 2, 3];
     	
     				 m.RecalculateNormals();
@@ -300,6 +334,13 @@ function ReadTiled()
 	    			
 //	    			if ( AddCollision)
 //	    			Tile.AddComponent("BoxCollider");
+
+			 	 if ( AddCollision || CollisionLayer)
+			 	 {
+	    			 Tile.AddComponent("BoxCollider");
+			 	 	(Tile.GetComponent("BoxCollider")as BoxCollider).size.z =
+			 	 	(Tile.GetComponent("BoxCollider")as BoxCollider).size.x ;
+			 	 }
 
 			 	 
 			 	 
@@ -325,22 +366,13 @@ function ReadTiled()
 			 												
 			 	 TileClone.transform.parent = LayerTransform; 
 
-			 	 if ( AddCollision || CollisionLayer)
-			 	 {
-	    			TileClone.AddComponent("BoxCollider");
-			 	 	(TileClone.GetComponent("BoxCollider")as BoxCollider).size.z =
-			 	 	(TileClone.GetComponent("BoxCollider")as BoxCollider).size.x ;
-			 	 }
 			 	}
 			 	
 	 			var LevelColumns : int = System.Convert.ToInt16( LayerInfo.Attributes["width"].Value  );
 			 	ColIndex++;
-//			  	RowIndex -= System.Convert.ToByte( ColIndex >= TileColumns ); 
 			  	RowIndex -= System.Convert.ToByte( ColIndex >= LevelColumns ); 
-//			 	ColIndex = ColIndex % TileColumns;
 			 	ColIndex = ColIndex % LevelColumns;
 		 	}
-//		 	TotalTiles *= 2; 
 		 }
 		 TileOutputSize.z = 0.0;
 	}
@@ -352,23 +384,5 @@ function ReadTiled()
  this.Close();
  }
  
-// function DeleteDirectory( target_dir : String)
-//    {
-//        var files : String[] = Directory.GetFiles(target_dir);
-//        var dirs  : String[] = Directory.GetDirectories(target_dir);
-//
-//        for (var file : String in files)
-//        {
-//            File.SetAttributes(file, FileAttributes.Normal);
-//            File.Delete(file);
-//        }
-//
-//        for  (var dir : String in dirs)
-//        {
-//            DeleteDirectory(dir);
-//        }
-//
-//        Directory.Delete(target_dir, false);
-//    }
-// 
+
 }
