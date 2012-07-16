@@ -96,14 +96,13 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 	Debug.Log("Building Assets from " + TileSetList.Count + " TileSets, please hold a minute.."); 	
 	
 	for ( var TileSet 		: XmlNode in TileSetList )
-	{ 	 	 	
+	{ 	
+	//  TileSets[TileSetIndex] =  new cTileSet();
+	//  TileSets[TileSetIndex].LoadNode( TileSet, FolderPath, FilePath); 	 	
 	 	 	 
    		TileSets[TileSetIndex] =  new cTileSet(TileSet, FolderPath, FilePath);
-//   		TileSets[TileSetIndex] =  new cTileSet();
-//   		TileSets[TileSetIndex].LoadNode( TileSet, FolderPath, FilePath);
    		TileSetIndex += 1 ;
-   		
-	}
+   	}
 	 	
 	 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,26 +124,37 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 		var CollisionLayer	: boolean = false;
 			
 		var Data 			: XmlElement = LayerInfo.FirstChild;
-		if ( Data.Name == "properties" )										// if Layer data has properties get them
+		while ( Data.Name != "data"  )	
+//		if ( Data.Name == "properties" )										// if Layer data has properties get them											// if Layer data has properties get them
 		{
 			var LayerProp : XmlElement = Data.FirstChild;
 			Data = Data.NextSibling;
 				
-			if ( LayerProp.GetAttribute("name") == "Collision")
+			if ( LayerProp.GetAttribute("name").CompareTo( "Collision") )
 				CollisionLayer = true;
+				
+			if ( LayerProp.GetAttribute("name").CompareTo( "Depth") )
+				LayerTransform.position.z =  float.Parse( LayerProp.GetAttribute("value"));
+				
 		}
 
 
-// & CREATE OR BUILD ALL TILES INSIDE			
+// & CREATE OR BUILD ALL TILES INSIDE EACH LAYER			
 		var TileList 		: XmlNodeList = Data.GetElementsByTagName("tile"); // array of the level nodes.			
 	    for (  var TileInfo : XmlNode in TileList)
 	  	{
 			var TileRef = BuildTile( TileInfo, TileSets, FolderPath);
 			if (TileRef != null)
     		{
-				TileRef.transform.position = Vector3( ColIndex * TileOutputSize.x, RowIndex * TileOutputSize.y, TileOutputSize.z);
+				TileRef.transform.position = Vector3( ColIndex * TileOutputSize.x,
+													  RowIndex * TileOutputSize.y,
+													  TileOutputSize.z);
 			 												
 			 	TileRef.transform.parent = LayerTransform;
+			 	
+			 	if ( CollisionLayer)	{ TileRef.AddComponent("BoxCollider");
+  					(TileRef.GetComponent("BoxCollider")as BoxCollider).size = Vector3.one;   }
+                                
 		 	}
 			 	
 	 		var LevelColumns : int = System.Convert.ToInt16( LayerInfo.Attributes["width"].Value  );
@@ -186,10 +196,10 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 		
 		 	 
 		if (TileId & FlippedHorizontallyFlag)			 	
-		{	Flipped_X = true; TileName += "_FlippedX";	}
+		{	Flipped_X = true; TileName += "_FlipX";	}
 			 	
 		if (TileId & FlippedVerticallyFlag)		
-		{	Flipped_Y = true; TileName += "_FlippedY";	}
+		{	Flipped_Y = true; TileName += "_FlipY";	}
 			 	 
 		if (TileId & FlippedDiagonallyFlag)		
 		{	Rotated = true; TileName += "_Rotated";	}
@@ -277,12 +287,11 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 					meshFilter.sharedMesh = m;
 			     			
 					m.RecalculateBounds();
-
+					
 			 	 	if ( AddCollision ) // || CollisionLayer
 					{
 			    		Tile.AddComponent("BoxCollider");
-					 	(Tile.GetComponent("BoxCollider")as BoxCollider).size.z =
-					 	(Tile.GetComponent("BoxCollider")as BoxCollider).size.x ;
+						(Tile.GetComponent("BoxCollider")as BoxCollider).size = Vector3.one; 
 					}
 				
 					 	 		 	 
@@ -389,7 +398,7 @@ class cTileSet {
 	 			tex.anisoLevel = 0;
     	 
 //   	 			mat =  new Material(Shader.Find("Unlit/Transparent Cutout")) ;
-   	 			mat =  new Material(Shader.Find("Mobile/Particles/Alpha B")) ;
+   	 			mat =  new Material(Shader.Find("Mobile/Particles/Alpha Blended")) ;
 	 			mat.mainTexture = tex ;
 		 
    	 			AssetDatabase.CreateAsset( mat, FolderPath + SrcImgName + "_Mat" + ".mat" );

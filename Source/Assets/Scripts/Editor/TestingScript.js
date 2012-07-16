@@ -1,7 +1,7 @@
 
 @MenuItem("Utility / Test Script #_t") // "Ctrl + Shift + l"
 
-static function CreatePrefab() 
+static function TestScript() 
 { 
 	var FlippedHorizontallyFlag : int = 0x80000000;
 	var FlippedVerticallyFlag 	: int = 0x40000000;
