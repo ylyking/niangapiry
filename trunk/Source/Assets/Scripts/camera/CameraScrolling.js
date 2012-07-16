@@ -33,7 +33,6 @@ function LateUpdate ()
 	var goalPosition  : Vector3 = GetGoalPosition ();	// Where should our camera be looking right now?
 	
 	// Interpolate between the current camera position and the goal position.
-//	thisTransform.position = Vector3.Lerp ( thisTransform.position, goalPosition, Time.deltaTime * springiness);	
 	thisTransform.position =   Vector3.Lerp ( thisTransform.position, goalPosition, Time.deltaTime * springiness) ;	
 	
 	thisTransform.position.y = System.Math.Round(thisTransform.position.y , 2);

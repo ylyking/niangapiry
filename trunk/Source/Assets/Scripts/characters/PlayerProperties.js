@@ -40,11 +40,10 @@ private var wasKinematic	: boolean 	= false;					// flag to remeber if the taken
 private var hitLeft			: boolean 	= false;					// flag to detect player collision with dangerous things
 private var hitRight		: boolean 	= false;
 
-//private var canShoot		: boolean 	= false;
+private var HatShoot		: boolean 	= false;
 
 public  var soundDie		: AudioClip;
 private var soundRate		: float 	= 0.0;
-//private var AuxGrav 		: float		= 0.0;
 private var	soundDelay		: float 	= 0.0;
 
 private var playerControls  : PlayerControls;
@@ -64,8 +63,9 @@ function Start()
 	playerControls = GetComponent ( PlayerControls );
 	charController = GetComponent ( CharacterController );
 	animPlay 	   = GetComponent ( AnimSprite);
+	
+	Inventory |= Items.Hat ;
 
-//	AuxGrav = playerControls.gravity;	
 	SetPlayerState( PlayerState.Asleep);
 	
 	while (true)
@@ -133,7 +133,7 @@ function UpdatePlayerState()
 			else 
 				if ( !_pickedObject && Input.GetButtonDown("Fire2")	)	UseInventory();
 
-		if (  !_pickedObject && Input.GetButtonDown("Fire2")) ThrowHat(); // ThrowHat();
+//		if (  !_pickedObject && HatShoot && Input.GetButtonDown("Fire2")) ThrowHat(); // ThrowHat();
 	}
 	
 }
@@ -150,12 +150,20 @@ function OnTriggerEnter( other : Collider )
 		 
 		 hitRight =( thisTransform.position.x  > other.transform.position.x );	// check right toggle true  
 	}
+	
+	if ( other.name == "Hat" )//other.CompareTag( "p_shot") && !HatShoot   )
+	{
+		Destroy( other.gameObject );
+		renderer.material.SetFloat("_KeyY", 0.05);
+		Inventory |= Items.Hat ;
+	}
+
 }
 
 
 function OnTriggerStay( hit : Collider)  					// function OnControllerColliderHit (hit : ControllerColliderHit)
 {
- 	if ( HoldingKey &&  hit.CompareTag( "pickup") ||  hit.CompareTag( "p_shot") )
+ 	if ( HoldingKey &&  hit.CompareTag( "pickup") )// ||  hit.CompareTag( "p_shot") )
 // 	if ( Input.GetButtonDown( "Fire1") && hit.CompareTag( "pickup") ||  hit.CompareTag( "p_shot") )
 
        if ( playerState < 8 && !_pickedObject  )
@@ -169,16 +177,18 @@ function OnTriggerStay( hit : Collider)  					// function OnControllerColliderHi
          wasKinematic = _pickedObject.rigidbody.isKinematic;
          _pickedObject.rigidbody.isKinematic = true;
          
-         _pickedObject.collider.enabled = false;
+    	  Physics.IgnoreCollision(_pickedObject.collider, gameObject.collider, true );
+    	  
+         _pickedObject.collider.enabled = false;	 
 
          									//this will snap the picked object to the "hands" of the player
          _pickedObject.position = thisTransform.position + GrabPosition; 	// Could be changed with every object properties
 
          									//this will set the HoldPosition as the parent of the pickup so it will stay there
          _pickedObject.parent = thisTransform; 
-//         _pickedObject.parent = HoldPosition; 							// = this.transform;
 
        }
+       
 }
 
 function HitDead()
@@ -253,43 +263,33 @@ function HitDead()
 
 
 
-
-
-
-
-
-
-
-
-
 function UseInventory()
 {
-	// Use Inventory
-	
 	switch ( Inventory )
 	{
 		case Items.Empty: 
 			break;
 			
-		case Items.Hat: 			// Throw Hat..
+		case Items.Hat: 								// Throw Hat..
 		if( (Inventory  & Items.Hat) == Items.Hat )
+			ThrowHat();
 			Inventory &= (~Items.Hat);
 			break;
 						
-		case Items.Whistler:		// Wisp Whistler
+		case Items.Whistler:							// Wisp Whistler
 			Inventory &= (~Items.Whistler);
 			break;
 			
-		case Items.Invisibility:	// Turn Invisible 
+		case Items.Invisibility:						// Turn Invisible 
 			AddPlayerState( PlayerState.Invisible );
 			Inventory &= (~Items.Invisibility);
 			break;
 			
-		case Items.Smallibility: 	// Get Smaller
+		case Items.Smallibility: 						// Get Smaller
 			Inventory &= (~Items.Smallibility);
 			break;			
 			
-		case Items.Fire: 			// Do Fire things..
+		case Items.Fire: 								// Do Fire things..
 				if ( fireGauge == 1 ) ; 	// instantiate flame
 			else 
 				if ( fireGauge  < 3 ) ;	// instantiate fireball
@@ -326,11 +326,6 @@ function Flickering()	: IEnumerator
 		if(Time.frameCount % 4 == 0)
 			renderer.enabled = !renderer.enabled;
 
-//		if ((Mathf.FloorToInt(Time.time) % 2) == 0)
-//			renderer.material.color = Color.red;
-//		else 
-//			renderer.material.color = Color.white;
-
 		if ( !normal ) return;
 		
 		yield ;
@@ -353,16 +348,9 @@ function Invisible()	: IEnumerator
 			 
 	while( timertrigger > Time.time )
 	{
-//		if ( playerState == PlayerState.Invisible )
-//		{
+
  			var lerp : float = Mathf.PingPong (Time.time * .45f, 1.0) ;
-// 			renderer.material.color.a = Mathf.Lerp ( .0f, .5f,  lerp);
  			renderer.material.SetFloat( "_Cutoff", Mathf.Lerp ( -0.15f, .7f,  lerp));
-// 		}
-// 		else 
-// 		{
-// 			renderer.material.color = Color.white;
-//		}
 
 		if ( !normal ) return;
 			
@@ -409,42 +397,43 @@ function Burning()		: IEnumerator
 function ThrowHat()
 {
 	// Instantiate the projectile
-    var clone : GameObject = Instantiate (projectileHat, thisTransform.position + GrabPosition , thisTransform.rotation);
+    var clone : GameObject = Instantiate (projectileHat, thisTransform.position , thisTransform.rotation);
     
-    Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 	// it works but the distance it s lame
- // clone.thisTransform.Translate( Vector3( 0, 1, 0) ); 					// avoid hits between shot & shooter own colliders  
+    Physics.IgnoreCollision(clone.collider, this.gameObject.collider, true );	 // it works but the distance it s lame
 
     clone.name = "Hat";
 
-	// Add speed to the target
-	clone.GetComponent(BulletShot).FireBoomerang( Vector3( playerControls.orientation * 8, 0, 0) , 5, 0, 4); 	// shot with a short animation
-   
+	clone.GetComponent(BulletShot).FireBoomerang( Vector3( playerControls.orientation * 8, 0, 0) , 1, 0, 4);
+	// shot with a short animation
+  
+	renderer.material.SetFloat("_KeyY", 0.25);
+     
     var timertrigger = Time.time + 0.25f;
 	while( timertrigger > Time.time )
 	{
 		animPlay.PlayFrames( 3, 1, 1, playerControls.orientation); 
      	yield;
 	}
+	Physics.IgnoreCollision(clone.collider, this.gameObject.collider, false);
 }
 
 function ThrowFire()
 {
-	// Instantiate the projectile
-    var orientation = playerControls.orientation;
+    var orientation = playerControls.orientation;  	 							// Instantiate the projectile
+     	 	    
 	
     var clone : GameObject = Instantiate (projectileFire,
     									  thisTransform.position + Vector3(orientation * .25,0,0),
     									   thisTransform.rotation);
-    Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 	// it works but the distance it s lame
+    Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 			// it works but the distance it s lame
  // clone.thisTransform.Translate( Vector3( 0, 1, 0) ); 					// avoid hits between shot & shooter own colliders  
 
     clone.name = "Fire";
 
-//	playerControls.velocity = Vector3.zero;
 	playerControls.enabled = false;
 	
 	// Add speed to the target
-	clone.GetComponent(BulletShot).Fire(  Vector3( orientation * 4, 0, 0), 10); 	// shot with a short animation
+	clone.GetComponent(BulletShot).Fire(  Vector3( orientation * 4, 0, 0), 10);  // shot with a short animation
     
     var timertrigger = Time.time + 0.75f;
 	while( timertrigger > Time.time )
@@ -459,19 +448,19 @@ function ThrowFire()
 function PlayerThrows()												// Object Throwing without physics engine
 {
     if ( _pickedObject )
-    {
-	   	var orientation = playerControls.orientation;
-	
-       	_pickedObject.parent = null;        		//resets the pickup's parent to null so it won't keep following the player
+    {    	
+    	
+	   	  var orientation = playerControls.orientation;
+	   	
+       	 _pickedObject.parent = null;        		//resets the pickup's parent to null so it won't keep following the player	
 
-//	    _pickedObject.renderer.material.color = _originalColor; 	//resets pickup's color so it won't stay half transparent 
-         
          _pickedObject.collider.enabled = true;
          
          _pickedObject.tag = "p_shot" ;
                     
          _pickedObject.rigidbody.isKinematic =	wasKinematic;
-                    
+         
+                           
          //applies force to the rigidbody to create a throw
 //       pickedObject.rigidbody.AddForce( Vector3( orientation, 1,0) * ThrowForce, ForceMode.Impulse);
 		 if ( !_pickedObject.rigidbody.isKinematic )
@@ -480,6 +469,10 @@ function PlayerThrows()												// Object Throwing without physics engine
 		   	_pickedObject.rigidbody.AddForce( Vector3( orientation, Input.GetAxis( "Vertical"),0) * ThrowForce, ForceMode.Impulse);
 //       pickedObject.position += Vector3( orientation, Input.GetAxis( "Vertical"),0) * 1.5;
   		 }
+    	
+    	 Physics.IgnoreCollision(_pickedObject.collider, gameObject.collider, false );	
+    	 
+//    	    EditorApplication.isPaused = true;
   		
          //resets the _pickedObject 
          _pickedObject = null;
@@ -492,6 +485,8 @@ function PlayerThrows()												// Object Throwing without physics engine
 			
     	 	yield;
 		 }
+		 
+		 
 	}
 }
 
