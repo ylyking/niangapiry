@@ -128,13 +128,14 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 //		if ( Data.Name == "properties" )										// if Layer data has properties get them											// if Layer data has properties get them
 		{
 			var LayerProp : XmlElement = Data.FirstChild;
-			Data = Data.NextSibling;
 				
-			if ( LayerProp.GetAttribute("name").CompareTo( "Collision") )
+			if ( LayerProp.GetAttribute("name") == "Collision" )
 				CollisionLayer = true;
 				
-			if ( LayerProp.GetAttribute("name").CompareTo( "Depth") )
-				LayerTransform.position.z =  float.Parse( LayerProp.GetAttribute("value"));
+			if ( LayerProp.GetAttribute("name") == "Depth" )
+				LayerTransform.position.z = float.Parse( LayerProp.GetAttribute("value"));
+			
+			Data = Data.NextSibling;
 				
 		}
 
@@ -143,17 +144,19 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 		var TileList 		: XmlNodeList = Data.GetElementsByTagName("tile"); // array of the level nodes.			
 	    for (  var TileInfo : XmlNode in TileList)
 	  	{
+	  		// if ( GameReferences ) 
 			var TileRef = BuildTile( TileInfo, TileSets, FolderPath);
 			if (TileRef != null)
     		{
 				TileRef.transform.position = Vector3( ColIndex * TileOutputSize.x,
 													  RowIndex * TileOutputSize.y,
-													  TileOutputSize.z);
+													  LayerTransform.position.z );
 			 												
 			 	TileRef.transform.parent = LayerTransform;
 			 	
-			 	if ( CollisionLayer)	{ TileRef.AddComponent("BoxCollider");
-  					(TileRef.GetComponent("BoxCollider")as BoxCollider).size = Vector3.one;   }
+			 	if ( CollisionLayer) 
+			 		(TileRef.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;
+
                                 
 		 	}
 			 	
@@ -210,9 +213,9 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 		 	{			 	 	
 				var localIndex : int = (Index - TileSets[i].FirstGid) + 1;
 				 	 				 	 
-//	 			CollisionList.Add(int.Parse( TileSetNode.Attributes["id"].Value )  ;
-			 	 
-			 	if ( localIndex in TileSets[i].CollisionList ) AddCollision = true;
+//			 	if ( localIndex in TileSets[i].CollisionList ) AddCollision = true;
+			 	
+
 	
 // IF EXISTS SOME PREFAB WITH THE SAME ID THEN USE IT, ELSE CREATE THE OBJECT AND SAVE IN ONE PREFAB 	 	 
 				if ( AssetDatabase.LoadAssetAtPath( FolderPath + TileName + ".prefab", typeof(GameObject) )  )
@@ -288,11 +291,33 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 			     			
 					m.RecalculateBounds();
 					
-			 	 	if ( AddCollision ) // || CollisionLayer
-					{
-			    		Tile.AddComponent("BoxCollider");
-						(Tile.GetComponent("BoxCollider")as BoxCollider).size = Vector3.one; 
-					}
+					
+					if ( localIndex in TileSets[i].Collisions.Keys )							// Prefab Collision Setup
+			 		{
+			 			switch(	TileSets[i].Collisions[localIndex] )
+			 			{
+			 			case "Plane": 
+			 					Tile.AddComponent("MeshCollider").sharedMesh = 
+			 					AssetDatabase.LoadAssetAtPath( "Assets/Meshes/Planes/1_0 ColPlane.asset", typeof(Mesh) ) ;
+								break;
+								
+			 			case "Slope_Left":
+			 					Tile.AddComponent("MeshCollider").sharedMesh = 
+			 					AssetDatabase.LoadAssetAtPath( "Assets/Meshes/Planes/SlopeLeft.asset", typeof(Mesh) ) ; 
+			 				 	break;  
+			 				 	
+			 			case "Slope_Right": 
+			 					Tile.AddComponent("MeshCollider").sharedMesh = 
+			 					AssetDatabase.LoadAssetAtPath( "Assets/Meshes/Planes/SlopeRight.asset", typeof(Mesh) ) ;
+			 					break;  	
+			 								 			
+			 			default: 																// same as case "Box":
+			 			   		(Tile.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;
+			 					
+			 			}
+			 		
+//			 	  		AddCollision = true;
+			 		}
 				
 					 	 		 	 
 		// AND REPLACE IT WITH THE NEW PREFAB			 	 
@@ -338,8 +363,8 @@ class cTileSet {
 	 
  var mat			: Material;
 
-// var Collisions 	: int[];
- var CollisionList 	: List.<int> = new List.<int>();
+// var CollisionList 	: List.<int> = new List.<int>();
+ var Collisions		: Dictionary.<int, String> = new Dictionary.<int, String>();
 	 
  function cTileSet( TileSet : XmlNode, FolderPath : String, FilePath : String )			// if ( TileSet.HasChildNodes ) {  var lTileSet : cTileSet = new cTileSet(); lTileSet.Load(
  {	
@@ -357,10 +382,6 @@ class cTileSet {
  			SrcColumns 					= SrcImgWidth / TileInputWidth;
    			SrcRows 					= SrcImgHeight / TileInputHeight;
      			
-// 			Collisions = new int[SrcColumns * SrcRows];
-// 			Collisions.
-     			
-     			
    			ModuleWidth 				= 1.0 / SrcColumns;
    			ModuleHeight				= 1.0 / SrcRows;
      	
@@ -373,8 +394,14 @@ class cTileSet {
  		else if ( TileSetNode.Name == "tile" )
  		{
 	 		
+	 		
  			if (TileSetNode.FirstChild.FirstChild.Attributes["name"].Value == "Collision" )
- 			CollisionList.Add(int.Parse( TileSetNode.Attributes["id"].Value)+1 )  ;
+ 			{ 			
+// 			CollisionList.Add(int.Parse( TileSetNode.Attributes["id"].Value)+1 )  ;
+ 			
+ 			Collisions.Add( int.Parse( TileSetNode.Attributes["id"].Value)+1, 
+ 								TileSetNode.FirstChild.FirstChild.Attributes["value"].Value ); 			
+ 			}
 	 			
  		}	
 	 		
