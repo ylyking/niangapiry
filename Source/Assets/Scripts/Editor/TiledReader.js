@@ -1,8 +1,9 @@
-
 import System.Collections.Generic;
 import System.Xml;
 import System.IO;
-
+import System;
+import System.Text;
+import Ionic.Zlib;
 
 
 class TiledReader extends EditorWindow {										// we need the same name of the script here
@@ -71,8 +72,8 @@ class TiledReader extends EditorWindow {										// we need the same name of th
  if ( Doc ) 
  { 
 // CHECK IT S A TMX FILE FROM TILED	
-   if ( Doc.DocumentElement.Name == "map" )													// Access root Map		
-   {
+  if ( Doc.DocumentElement.Name == "map" )													// Access root Map		
+  {
    
 // REBUILD TMX OBJECT IN UNITY SCENE						
 	DestroyImmediate( GameObject.Find( FileName ) ); 										// ReBuild the Layers Container & stuff.
@@ -80,7 +81,7 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 	var MapTransform = map.transform;														// take map transform cached
 	map.AddComponent("LevelAttributes");	//	map.AddComponent("CombineMeshes");
 	
-	if ( PrefabRebuild && AssetDatabase.DeleteAsset( FolderPath.Remove(FolderPath.LastIndexOf("/"))) )
+	if ( PrefabRebuild && AssetDatabase.DeleteAsset( FolderPath.Remove(FolderPath.LastIndexOf("/")) )  )
 		Debug.Log(" Folder deleted & Rebuilded");
 	
 	Directory.CreateDirectory( FolderPath );												// build a Folder to hold everything
@@ -89,43 +90,33 @@ class TiledReader extends EditorWindow {										// we need the same name of th
      
                           
 // SEEK BITMAP SOURCE FILE	 
-	var TileSetList 		: XmlNodeList 	= Doc.GetElementsByTagName("tileset"); 						// array of the level nodes.
+	var TileSetList 		: XmlNodeList 	= Doc.GetElementsByTagName("tileset"); 			// array of the level nodes.
     var TileSets 			: cTileSet[] 	= new cTileSet[TileSetList.Count] ; 
-    var TileSetIndex		: int 			= 0;
     
+    for ( var TileSetIndex	: int = 0; TileSetIndex < TileSetList.Count; TileSetIndex++ )
+   		TileSets[TileSetIndex] =  new cTileSet( TileSetList[TileSetIndex], FolderPath, FilePath);
+   		
 	Debug.Log("Building Assets from " + TileSetList.Count + " TileSets, please hold a minute.."); 	
-	
-	for ( var TileSet 		: XmlNode in TileSetList )
-	{ 	
-	//  TileSets[TileSetIndex] =  new cTileSet();
-	//  TileSets[TileSetIndex].LoadNode( TileSet, FolderPath, FilePath); 	 	
-	 	 	 
-   		TileSets[TileSetIndex] =  new cTileSet(TileSet, FolderPath, FilePath);
-   		TileSetIndex += 1 ;
-   	}
-	 	
-	 
+  
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // CREATE LAYERS . . .	    
-	var LayersList : XmlNodeList = Doc.GetElementsByTagName("layer"); 					// array of the level nodes.	    
-	for (  var LayerInfo : XmlNode in LayersList)
+	for (  var LayerInfo : XmlNode in Doc.GetElementsByTagName("layer") )
 	{
 		var Layer : GameObject = new GameObject( LayerInfo.Attributes["name"].Value ); // add Layer Childs inside hierarchy.
 		Layer.AddComponent("CombineMeshes");
 			
-		var LayerTransform = Layer.transform;
-		LayerTransform.position.z = TileOutputSize.z;
-		LayerTransform.parent = MapTransform;
-		TileOutputSize.z -= 0.5f;
+		var LayerTransform			= Layer.transform;
+		LayerTransform.position.z 	= TileOutputSize.z;
+		LayerTransform.parent 		= MapTransform;
+		TileOutputSize.z 		   -= 0.5f;
 	 		
 		var ColIndex	 	: int = 0.0;
 		var RowIndex		: int = int.Parse( LayerInfo.Attributes["height"].Value );
 		var CollisionLayer	: boolean = false;
 			
 		var Data 			: XmlElement = LayerInfo.FirstChild;
-		while ( Data.Name != "data"  )	
-//		if ( Data.Name == "properties" )										// if Layer data has properties get them											// if Layer data has properties get them
+		while ( Data.Name != "data"  )	//		if ( Data.Name == "properties" )    // if Layer data has properties get them
 		{
 			var LayerProp : XmlElement = Data.FirstChild;
 				
@@ -135,57 +126,81 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 			if ( LayerProp.GetAttribute("name") == "Depth" )
 				LayerTransform.position.z = float.Parse( LayerProp.GetAttribute("value"));
 			
-			Data = Data.NextSibling;
-				
+			Data = Data.NextSibling;			
 		}
+			
+// & CHECK IF DATA IS GZIP COMPRESSED OR DEFAULT XML AND CREATE OR BUILD ALL TILES INSIDE EACH LAYER			
 
-
-// & CREATE OR BUILD ALL TILES INSIDE EACH LAYER			
-		var TileList 		: XmlNodeList = Data.GetElementsByTagName("tile"); // array of the level nodes.			
-	    for (  var TileInfo : XmlNode in TileList)
-	  	{
-	  		// if ( GameReferences ) 
-			var TileRef = BuildTile( TileInfo, TileSets, FolderPath);
-			if (TileRef != null)
-    		{
-				TileRef.transform.position = Vector3( ColIndex * TileOutputSize.x,
-													  RowIndex * TileOutputSize.y,
-													  LayerTransform.position.z );
+		if ( Data.HasAttribute("compression") && Data.Attributes["compression"].Value == "gzip" )
+		{	
+			// Decode Base64 and then Uncompress Gzip Tile Information
+			var decodedBytes : byte[] = Ionic.Zlib.GZipStream.UncompressBuffer( Convert.FromBase64String( Data.InnerText ) );			
+			for ( var tile_index : int = 0; tile_index < decodedBytes.Length; tile_index += 4 )
+			{
+				var global_tile_id : uint = decodedBytes[tile_index] 			| decodedBytes[tile_index + 1] << 8  |
+                              				decodedBytes[tile_index + 2] << 16 	| decodedBytes[tile_index + 3] << 24;
+               
+               	var TileRef = BuildTile( global_tile_id, TileSets, FolderPath);
+               	
+				if (TileRef != null)
+    			{
+					TileRef.transform.position = Vector3( ColIndex * TileOutputSize.x,
+														  RowIndex * TileOutputSize.y,
+														  LayerTransform.position.z );
 			 												
-			 	TileRef.transform.parent = LayerTransform;
+			 		TileRef.transform.parent = LayerTransform;
 			 	
-			 	if ( CollisionLayer) 
-			 		(TileRef.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;
-
-                                
-		 	}
+			 		if ( CollisionLayer) (TileRef.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;                  
+		 		}
 			 	
-	 		var LevelColumns : int = System.Convert.ToInt16( LayerInfo.Attributes["width"].Value  );
-			ColIndex++;
-			RowIndex -= System.Convert.ToByte( ColIndex >= LevelColumns ); 
-			ColIndex = ColIndex % LevelColumns;
+				ColIndex++;
+				RowIndex -= System.Convert.ToByte( ColIndex >= int.Parse(  LayerInfo.Attributes["width"].Value ) ); 
+				ColIndex = ColIndex % int.Parse(  LayerInfo.Attributes["width"].Value ) ;      // ColIndex % TotalColumns           			
+			}//end of each Tile GZIP Compression Info 
 		
-		}//end of each Tile Info
+		}	
+		
+		else if ( Data.HasChildNodes ) 								// Else if not a Gzip Compression then try as XML data
+		{		
+	    	for (  var TileInfo : XmlNode in Data.GetElementsByTagName("tile"))
+	  		{
+				var TileRefXml = BuildTile( System.Convert.ToUInt32( TileInfo.Attributes["gid"].Value ), TileSets, FolderPath);
+				if (TileRefXml != null)
+    			{
+					TileRefXml.transform.position = Vector3( ColIndex * TileOutputSize.x,
+														  	 RowIndex * TileOutputSize.y,
+														     LayerTransform.position.z );
+			 												
+				 	TileRefXml.transform.parent = LayerTransform;
+			 	
+				 	if ( CollisionLayer) ( TileRefXml.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;                  
+		 		}
+			 	
+				ColIndex++;
+				RowIndex -= System.Convert.ToByte( ColIndex >= int.Parse(  LayerInfo.Attributes["width"].Value ) ); 
+				ColIndex = ColIndex % int.Parse(  LayerInfo.Attributes["width"].Value)  ;  
+		
+			}//end of each Tile XML Info 
+		}
 		 	
 		 	
 	}	// end of each Layer Info 
 		 
 	TileOutputSize.z = 0.0;
-	}		 
-	
- else Debug.Log( FileName + " it's not a Tiled File!, try changing extension to .XML");
- }	 		 
+   }		 	
+   else Debug.Log( FileName + " it's not a Tiled File!, try changing extension to .XML");
  
+ }	 		 
  else Debug.Log("File not found or wrong load at: " + FilePath);
  
  Debug.Log("Tiled Level Build Sucesfully "); 	 	
  
  this.Close();
-}			// End of Method loader
+}	// End of Method loader
  
- function BuildTile( TileInfo : XmlNode, TileSets : cTileSet[], FolderPath : String) : GameObject
+ function BuildTile( TileId : uint, TileSets : cTileSet[], FolderPath : String) : GameObject
 {
- 	var TileId 		: uint = System.Convert.ToUInt32( TileInfo.Attributes["gid"].Value );
+// 	var TileId 		: uint = System.Convert.ToUInt32( TileInfo.Attributes["gid"].Value );
 	var Flipped_X 	: boolean = false;
 	var Flipped_Y 	: boolean = false;
 	var Rotated 	: boolean = false;
@@ -199,13 +214,13 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 		
 		 	 
 		if (TileId & FlippedHorizontallyFlag)			 	
-		{	Flipped_X = true; TileName += "_FlipX";	}
+			{	Flipped_X = true; TileName += "_H";	}
 			 	
 		if (TileId & FlippedVerticallyFlag)		
-		{	Flipped_Y = true; TileName += "_FlipY";	}
+			{	Flipped_Y = true; TileName += "_V";	}
 			 	 
 		if (TileId & FlippedDiagonallyFlag)		
-		{	Rotated = true; TileName += "_Rotated";	}
+			{	Rotated = true; TileName += "_VH";	}
 					 	 			 	 
 		for ( var i : int = TileSets.Length -1; i >= 0; i--)		// Recorrer en reversa la lista y checar el TileSet firstGid
 		{
@@ -214,26 +229,21 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 				var localIndex : int = (Index - TileSets[i].FirstGid) + 1;
 				 	 				 	 
 //			 	if ( localIndex in TileSets[i].CollisionList ) AddCollision = true;
-			 	
-
 	
 // IF EXISTS SOME PREFAB WITH THE SAME ID THEN USE IT, ELSE CREATE THE OBJECT AND SAVE IN ONE PREFAB 	 	 
 				if ( AssetDatabase.LoadAssetAtPath( FolderPath + TileName + ".prefab", typeof(GameObject) )  )
 				{
 					TileClone  = PrefabUtility.InstantiatePrefab( 
-				 	AssetDatabase.LoadAssetAtPath( FolderPath + TileName + ".prefab", typeof(GameObject) ) );			 	 	
-				}
-				else
+				 		AssetDatabase.LoadAssetAtPath( FolderPath + TileName + ".prefab", typeof(GameObject) ) 	);			 	 	
+				}else
 				{			 	 	
 					var Tile : GameObject = new GameObject();
-							 
+	
 					Tile.name = TileName;
-						 	 
 					Tile.transform.position = Vector3.zero;
 						 	 
 					var meshFilter 	 : MeshFilter 	= Tile.AddComponent(typeof(MeshFilter));
-			   		var meshRenderer 	 : MeshRenderer = Tile.AddComponent(typeof(MeshRenderer));
-				   			 
+			   		var meshRenderer : MeshRenderer = Tile.AddComponent(typeof(MeshRenderer));				   			 
 		    		meshRenderer.sharedMaterial = TileSets[i].mat;
 			    		 	 
 					var m : Mesh =  AssetDatabase.LoadAssetAtPath( FolderPath + "Meshes/" + TileName + "_mesh.asset", typeof(Mesh) );
@@ -241,16 +251,13 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 					if ( m == null )
 					{
 		   				m  = new Mesh();   
-		    				   
-		   				m.name = TileName + "_mesh" ;
-		   				 
-		   				m.vertices = [Vector3( TileOutputSize.x, 			  	 0, 0.01),
+		    			m.name = TileName + "_mesh" ;
+		   				m.vertices = [ Vector3( TileOutputSize.x, 			  	 0, 0.01),
 						 			   Vector3( 0, 					 			 0, 0.01),
 		    			 			   Vector3( 0, 				  TileOutputSize.y, 0.01),
 		    			 			   Vector3( TileOutputSize.x, TileOutputSize.y, 0.01) ];
 		    				 
-		    			var offset_x   :int = localIndex % TileSets[i].SrcColumns;
-		    				 
+		    			var offset_x   :int = localIndex % TileSets[i].SrcColumns;	 
 		    			var offset_y 	:int = TileSets[i].SrcRows - (Mathf.FloorToInt( localIndex / TileSets[i].SrcColumns ) + 
 		    				 						System.Convert.ToByte( ( localIndex % TileSets[i].SrcRows ) != 0 ) );
 		    		 
@@ -264,31 +271,23 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 						var vt4 : Vector2 = Vector2((offset_x - System.Convert.ToByte(Flipped_X) )  * TileSets[i].ModuleWidth - eps.x,
 		    		 		           ((offset_y + System.Convert.ToByte(!Flipped_Y)) * TileSets[i].ModuleHeight ) - eps.y);
 		     				 
-		    			if ( Rotated )
-		    			{
+		    			if ( Rotated )	{
 		    			 	var vtAux : Vector2 = vt3;
 		    			 	vt3 = vt1;
 		    			 	vt1 = vtAux;
 		    			}
 		     				 		           
-		    		    m.uv = [ vt1, vt2, vt3, vt4];
-		     				 
-		     	/////////////////////////////////////////////////////////////////////////////////////////////////////
-		     				 	
-		    			m.triangles = [0, 1, 2, 0, 2, 3];
-		    	
-		    			m.RecalculateNormals();
-		    			 
+		    		    m.uv = [ vt1, vt2, vt3, vt4]; 		 	
+		    			m.triangles = [0, 1, 2, 0, 2, 3];		    	
+		    			m.RecalculateNormals(); 
 		    			m.Optimize();
 		    				 
-		    			AssetDatabase.CreateAsset(m, FolderPath + "Meshes/" + TileName + "_mesh.asset");
-		    					
+		    			AssetDatabase.CreateAsset(m, FolderPath + "Meshes/" + TileName + "_mesh.asset");					
 		    			AssetDatabase.SaveAssets();
 				 	}
+		     	/////////////////////////////////////////////////////////////////////////////////////////////////////
 		    				 
-			     			 
-					meshFilter.sharedMesh = m;
-			     			
+					meshFilter.sharedMesh = m;     			
 					m.RecalculateBounds();
 					
 					
@@ -312,8 +311,7 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 			 					break;  	
 			 								 			
 			 			default: 																// same as case "Box":
-			 			   		(Tile.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;
-			 					
+			 			   		(Tile.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;			 					
 			 			}
 			 		
 //			 	  		AddCollision = true;
@@ -322,13 +320,9 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 					 	 		 	 
 		// AND REPLACE IT WITH THE NEW PREFAB			 	 
 		 			var newPrefab : Object = PrefabUtility.CreateEmptyPrefab( FolderPath + TileName + ".prefab" );
-		  
 		 			PrefabUtility.ReplacePrefab(Tile, newPrefab);						//  Creando prefab con seleccion
-		 
 		 			AssetDatabase.Refresh(); 											// Actualizar inmediatamente
-		 
-		 			DestroyImmediate(Tile);												// Eliminar y reemplazar objeto por Prefab
-		 					
+		 			DestroyImmediate(Tile);												// Eliminar y reemplazar objeto por Prefab		 					
 		 			TileClone  = PrefabUtility.InstantiatePrefab( 
 					AssetDatabase.LoadAssetAtPath( FolderPath + TileName + ".prefab", typeof(GameObject) ) );
 		 
@@ -349,6 +343,8 @@ class TiledReader extends EditorWindow {										// we need the same name of th
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
+
 class cTileSet {
 	 	 
  var SrcColumns 	: int 		= 1;
@@ -363,13 +359,14 @@ class cTileSet {
 	 
  var mat			: Material;
 
-// var CollisionList 	: List.<int> = new List.<int>();
- var Collisions		: Dictionary.<int, String> = new Dictionary.<int, String>();
+ var Collisions		: Dictionary.< int, String > = new Dictionary.< int, String >();
+ var Prefabs		: Dictionary.< int, String > = new Dictionary.< int, String >();
 	 
  function cTileSet( TileSet : XmlNode, FolderPath : String, FilePath : String )			// if ( TileSet.HasChildNodes ) {  var lTileSet : cTileSet = new cTileSet(); lTileSet.Load(
  {	
 	 	
-	for( var TileSetNode : XmlNode = TileSet.FirstChild; TileSetNode != null ;  TileSetNode = TileSetNode.NextSibling )
+//	for( var TileSetNode : XmlNode = TileSet.FirstChild; TileSetNode != null ;  TileSetNode = TileSetNode.NextSibling )
+	for( var TileSetNode : XmlNode in TileSet  )
  	{
  		if ( TileSetNode.Name == "image" )
  		{
@@ -393,30 +390,22 @@ class cTileSet {
  		}
  		else if ( TileSetNode.Name == "tile" )
  		{
-	 		
-	 		
- 			if (TileSetNode.FirstChild.FirstChild.Attributes["name"].Value == "Collision" )
- 			{ 			
-// 			CollisionList.Add(int.Parse( TileSetNode.Attributes["id"].Value)+1 )  ;
- 			
- 			Collisions.Add( int.Parse( TileSetNode.Attributes["id"].Value)+1, 
- 								TileSetNode.FirstChild.FirstChild.Attributes["value"].Value ); 			
- 			}
+ 			if ( TileSetNode.FirstChild.FirstChild.Attributes["name"].Value == "Collision" )
+ 					Collisions.Add( int.Parse( 	TileSetNode.Attributes["id"].Value)+1, 
+ 										  		TileSetNode.FirstChild.FirstChild.Attributes["value"].Value ); 			
 	 			
  		}	
 	 		
  		// REBUILD AND HOLD MATERIAL		 Search The material inside that folder or create it if not exists and then hold it
 		mat = AssetDatabase.LoadAssetAtPath( FolderPath + SrcImgName + "_Mat" + ".mat", typeof(Material) );
-   
 		if ( mat == null)																	// Check if default material exists . . 
    		{
-   	 		var tex = AssetDatabase.LoadAssetAtPath( FilePath + SrcImgPath , typeof(Texture2D) );
-    	 
+   		
+   	 		var tex = AssetDatabase.LoadAssetAtPath( FilePath + SrcImgPath , typeof(Texture2D) );   	 
    	 		if ( tex == null)
    	 		{
    	 			Debug.Log( SrcImgPath + " texture file not found, put it in the same Tiled map folder: " + FilePath);
-// 	 			this.close;
-   	 			return;
+   	 			return;   //	 this.close; 
    	 		}
 			else																			// and if not build and save it
    	 		{
@@ -424,7 +413,7 @@ class cTileSet {
    	 			tex.wrapMode = TextureWrapMode.Repeat;
 	 			tex.anisoLevel = 0;
     	 
-//   	 			mat =  new Material(Shader.Find("Unlit/Transparent Cutout")) ;
+//   	 		mat =  new Material(Shader.Find("Unlit/Transparent Cutout")) ;
    	 			mat =  new Material(Shader.Find("Mobile/Particles/Alpha Blended")) ;
 	 			mat.mainTexture = tex ;
 		 
@@ -439,3 +428,4 @@ class cTileSet {
  
  
 }
+
