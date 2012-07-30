@@ -23,8 +23,8 @@ function OnDisable () {
 }
 
 function OnDrawGizmos () {
-if (ShowMapLimits)
-{
+ if (ShowMapLimits)
+ {
 	Gizmos.color = sceneViewDisplayColor;
 	var lowerLeft = Vector3 (bounds.xMin, bounds.yMax, 0);
 	var upperLeft = Vector3 (bounds.xMin, bounds.yMin, 0);
@@ -35,22 +35,11 @@ if (ShowMapLimits)
 	Gizmos.DrawLine (upperLeft, upperRight);
 	Gizmos.DrawLine (upperRight, lowerRight);
 	Gizmos.DrawLine (lowerRight, lowerLeft);
-}
+ }
 }
 
-//function PleaseDrawGizmos () {
-// 
-//	Gizmos.color = sceneViewDisplayColor;
-//	var lowerLeft = Vector3 (bounds.xMin, bounds.yMax, 0);
-//	var upperLeft = Vector3 (bounds.xMin, bounds.yMin, 0);
-//	var lowerRight = Vector3 (bounds.xMax, bounds.yMax, 0);
-//	var upperRight = Vector3 (bounds.xMax, bounds.yMin, 0);
-//	
-//	Gizmos.DrawLine (lowerLeft, upperLeft);
-//	Gizmos.DrawLine (upperLeft, upperRight);
-//	Gizmos.DrawLine (upperRight, lowerRight);
-//	Gizmos.DrawLine (lowerRight, lowerLeft);
-//}
+
+
 
 function Start () {
 	createdBoundaries = new GameObject ("Created Boundaries");

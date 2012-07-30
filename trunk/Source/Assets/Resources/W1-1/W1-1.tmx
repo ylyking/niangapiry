@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="60" height="10" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="texture0" tilewidth="64" tileheight="64">
+  <image source="texture0.png" width="512" height="512"/>
+  <tile id="11">
+   <properties>
+    <property name="Collision" value="box"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="Collision" value="Slope"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="Collision" value="Slope"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="Collision" value="box"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="Collision" value="box"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Fondo" width="60" height="10">
+  <properties>
+   <property name="Depth" value="2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGFjAN8D2jyTACMRMQMw80A4ZBgA53ZIbrtRM+5w4xLmI0AtU00BFp5AM+AbYfkKA1PDhHOT+GQWjYBTQBwAAJD4CRmAJAAA=
+  </data>
+ </layer>
+ <layer name="Tercer Plano" width="60" height="10">
+  <properties>
+   <property name="Depth" value="1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2Syw6CMBBFu8MFxA1EFhLY+V74ii+MfJqf7imURElrsBGJSW9yMu10ppkLFaI7zWD+g56+dVRxDZsPe216+lbxtD63qI+FuA+IHpxa9vyzMvz6xBT8al++kSX5BTTrV+RMZ31L/reRIjbUTJl7QqxhX76RA/ltw5P8DntyO83ZN+SpWW0l508VmaFG+o0gZB1Ve3GBm8ZPAVfyeQdeA+4cqlkDyztCRe1DJ+k3gTHr5E2dk5PTqx7OTY68YAkAAA==
+  </data>
+ </layer>
+ <layer name="Segundo Plano" width="60" height="10">
+  <properties>
+   <property name="Depth" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+1TywrCMBDcm970oNSDYo7a6sUqvlraT8unO9lkISwRQVQKZmCYTEg2+yBEGRmvUYE7cEFkC+gIHHs/OOw/EKMGz6BBvWvoBJx6PziclJdZoQ+W/NpWYS0o4bfRnjvbQTfQOTjz6jz386Lux++k4n0TbbRGXjyrI3Ef+H3MzdYql4PyctbVuwKXXrle188+UYu8E8eT/1DQb/5CH7Qh7gPn0CVyvam9VnnUS1Kv6+f9yeyaKN4VNOE/OJo38s/I+Cc8AOxUeh5gCQAA
+  </data>
+ </layer>
+ <layer name="Primer Plano" width="60" height="10">
+  <properties>
+   <property name="Depth" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+1RMQ6DMAzMRgcQHUjp0AIbbPQJPC1P42k9lLg6TKPSiqFDLJ1sHPtsH8YkS5YsmTFXY1wNX/v4Ly07kKvDvS186+PDjfX8VtMCvXnYLfffL55Fg9ObWPiXuRnVCwbke/jex5t3vafm0XN1X0d6sqasg9xVEN8FuQawtF9DPCVwpljzL3M5L+gV9PsnnthcgexsSVPh4Rq+p6Qc+uYKfg8s8Q9hbqxO7g01LsbzwNu4rt1wyX3kZ2Aaff+KZw9uO3FX/Ph2sTq5N9S4GI8hvqD9xLAeM3v+r7/YE21IMDdgCQAA
+  </data>
+ </layer>
+</map>

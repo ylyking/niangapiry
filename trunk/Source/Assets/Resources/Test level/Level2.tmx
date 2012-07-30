@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="400" height="100" tilewidth="64" tileheight="64" backgroundcolor="#55aaff">
+ <tileset firstgid="1" name="plancha1" tilewidth="64" tileheight="64">
+  <image source="plancha1.png" width="512" height="512"/>
+  <tile id="2">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Collision" value="Slope"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="Player" value="Spawn"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="Collision" value="Slope"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="Collision|" value="Plane"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="65" name="plancha2" tilewidth="64" tileheight="64">
+  <image source="plancha2.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="129" name="PLANCHA3" tilewidth="64" tileheight="64">
+  <image source="PLANCHA3.png" width="512" height="512"/>
+ </tileset>
+ <layer name="Fondo" width="400" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3cvQ3DIBAGUBZwlVmyipPCQ3gERg9NFIyIfyTHduz3pKuguO4THCIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADOol95HwDn1KZ6pHqOrH9bA4Bct2BvypaYMib+qhcAAOBalpxHAAAAAGBrU2+wOvNzAApmHwCs5Z6qyQoA5siz47ZzLwAcT23u0VQKgOuq5UKeDemcEWUGAKVadrzvpvowzI9Su0mHABzRWH6E8MkPAMjNyY8d2gLgT0397w4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAV/UC7kq+YwBxAgA=
+  </data>
+ </layer>
+ <layer name="Arboles 2" width="400" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3VMQrAIBBFwd+ZSnPkHF1TpLEyEAjCDCxbLWz3EgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDv1eQ6xm5/PwLANu52nGM/UxdvSvQGgHVt6o2GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwHsdjF9vOABxAgA=
+  </data>
+ </layer>
+ <layer name="Plataformas 2" width="400" height="100">
+  <properties>
+   <property name="Depth" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3VsQkAIBAEwUfQCrRfS1f4xFAzgxk4toSLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPhDOQYAt0bE7FkAuNb2f9QsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8GgB5Kkr0wBxAgA=
+  </data>
+ </layer>
+ <layer name="Arboles 1" width="400" height="100">
+  <properties>
+   <property name="Depth" value="0.3"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OoRKCUABEUX5NTEpCGtno2AQKyqezmeCYnsqcM3PTlq0qAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD43P3Ndkh1Ohb6AsB/eKQhjWlK181+SufUFP4FwG+b0zO90pJum71Nl9SVvQXADvTfPgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7sAJephnUAHECAA==
+  </data>
+ </layer>
+ <layer name="Plataformas 1" width="400" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3bUQqCQBRA0SkqSPxqRS2lpbiUltLSGilhiCnRosJ3DjzUeB/9XXAqJQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+L1VSt0w6/xcGwB4tB+Zpth91peyMZvcof3tCsCCbUdmV+w29za8agwAMUzpR76/jO0AEIN+ADDHO/3Iz+d+2mKnP/9w9gGwfHP7cUjp+N1vCsA/mdOPoR352uXPTv20egIQSqUX53LKd1P5vivb4QwEIK45DXhsh34AxDO1AbV26AdAPJUOnMpp8wy77ZPf7+oHQDyf+P+HfgDEM7Ef1XdX+gEQj34AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsERXejx3gQBxAgA=
+  </data>
+ </layer>
+ <objectgroup name="Capa de Objetos 1" width="400" height="100">
+  <object name="Fruit" gid="136" x="448" y="3969"/>
+  <object name="Fruit" gid="136" x="513" y="3969"/>
+  <object name="Fruit" gid="136" x="576" y="3968"/>
+  <object name="Fruit" gid="136" x="640" y="3968"/>
+  <object name="Fruit" gid="136" x="705" y="3838"/>
+  <object name="Fruit" gid="136" x="704" y="3710"/>
+  <object name="Fruit" gid="136" x="703" y="3581"/>
+  <object name="Fruit" gid="136" x="960" y="3453"/>
+  <object name="Fruit" gid="136" x="1088" y="3453"/>
+  <object name="Fruit" gid="136" x="1025" y="3453"/>
+  <object name="Fruit" gid="136" x="897" y="3454"/>
+  <object name="Fruit" gid="136" x="1153" y="3453"/>
+  <object name="Fruit" gid="136" x="1025" y="3261"/>
+  <object name="Fruit" gid="136" x="1088" y="3261"/>
+  <object name="Fruit" gid="136" x="1153" y="3261"/>
+  <object name="Fruit" gid="136" x="704" y="3325"/>
+  <object name="Fruit" gid="136" x="768" y="3325"/>
+  <object name="Fruit" gid="136" x="1152" y="3072"/>
+  <object name="Fruit" gid="136" x="1088" y="3072"/>
+  <object name="Fruit" gid="136" x="1088" y="3136"/>
+  <object name="Fruit" gid="136" x="1216" y="3009"/>
+  <object name="Fruit" gid="136" x="1279" y="2945"/>
+  <object name="Fruit" gid="136" x="896" y="3965"/>
+  <object name="Fruit" gid="136" x="960" y="3901"/>
+  <object name="Fruit" gid="136" x="1024" y="3837"/>
+  <object name="Fruit" gid="136" x="1088" y="3773"/>
+  <object name="Fruit" gid="136" x="1216" y="3776"/>
+ </objectgroup>
+</map>

@@ -12,26 +12,26 @@ enum PlayerState			// main character states builded as bitfields to had simultan
 	Small			= 8,
 	WildFire		= 16
 }
-public var playerState 	 : PlayerState 	= PlayerState.Normal;	// set display state of mario in Inspector 
+public var playerState 	 : PlayerState 	= PlayerState.Normal;		// set display state of mario in Inspector 
 
 enum Items		{ Empty = 0, Hat = 1, Whistler = 2, Invisibility = 4, Smallibility = 8, Fire = 16 }
 
-public var Inventory	 	: Items	= Items.Empty;				// Inventory system activation
+public var Inventory	 	: Items	= Items.Empty;					// Inventory system activation
 
 var lifes					: int	= 3;
 var health					: int	= 2;
 var key						: int   = 0;
-var fireGauge				: int   = 0;
-var hatPower				: int   = 0;
-var coins					: int  	= 0;
-private var coinLife		: int 	= 20;
+var fireGauge				: int   = 0;							// Character Caña Gauge power state increment x1, x2 y x3
+//var hatPower				: int   = 0;
+var fruits					: int  	= 0;							// Ñangapiry fruits it's the same as coins in other games
+private var fruitLife		: int 	= 20;							// fruits amount to get 1+ extra life for the plahyer 					
 
-var projectileHat			: GameObject;
+var projectileHat			: GameObject;							
 var projectileFire			: GameObject;
 
-var changeState				: boolean 	= true;
+var changeState				: boolean 	= true;						// flag to switch state
 
-@HideInInspector var dead 	: boolean 	= false;
+@HideInInspector var dead 	: boolean 	= false;					// general flags to knew current player state
 @HideInInspector var normal	: boolean 	= false;
 @HideInInspector var inmune	: boolean 	= false;
 
@@ -40,7 +40,7 @@ private var wasKinematic	: boolean 	= false;					// flag to remeber if the taken
 private var hitLeft			: boolean 	= false;					// flag to detect player collision with dangerous things
 private var hitRight		: boolean 	= false;
 
-private var HatShoot		: boolean 	= false;
+//private var HatShoot		: boolean 	= false;
 
 public  var soundDie		: AudioClip;
 private var soundRate		: float 	= 0.0;
@@ -538,7 +538,7 @@ function AddKeys (  numKey : int)
 
 function AddCoin(numCoin : int)
 {
-	coins = coins + numCoin;
+	fruits += numCoin;
 }
 
 
