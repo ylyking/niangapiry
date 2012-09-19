@@ -5,6 +5,7 @@
 // See the GetGoalPosition () function in CameraScrolling.js for an explanation of these variables.
 var FixedHeight				: boolean	= false;
 var heightOffset 			: float 	= 0.0;
+var widthOffset 			: float 	= 0.0;
 var distanceModifier 		: float 	= 2.0;
 var velocityLookAhead 		: float 	= 0.15;
 var maxLookAhead 			: Vector2 	= Vector2 (3.0, 3.0);

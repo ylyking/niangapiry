@@ -3,17 +3,18 @@ var bounds : Rect = Rect( 0, 0, 60, 10);
 var ShowMapLimits : boolean = true; 
 var fallOutBuffer = 5.0;
 var colliderThickness = 10.0;
+var MinScreenLimit	= 0.0f;
 
 // Sea Green For the Win!
 private var sceneViewDisplayColor = Color (0.20, 0.74, 0.27, 0.50);
 
 static private var instance : LevelAttributes;
 
-static function GetInstance() {
+static function Get() {
 	if (!instance) {
 		instance = FindObjectOfType(LevelAttributes);
 		if (!instance)
-			Debug.LogError("There needs to be one active LevelAttributes script on a GameObject in your scene.");
+			Debug.Log("There needs to be one active LevelAttributes script on a GameObject in your scene.");
 	}
 	return instance;
 }
@@ -68,6 +69,8 @@ function Start () {
 	boxCollider = bottomBoundary.AddComponent (BoxCollider);
 	boxCollider.size = Vector3 (bounds.width + colliderThickness * 2.0, colliderThickness, colliderThickness);
 	boxCollider.center = Vector3 (bounds.x + bounds.width * 0.5, bounds.yMin - colliderThickness * 0.5 - fallOutBuffer, 0.0);
+	
+	MinScreenLimit = gameObject.transform.position.y ;
 
 //while (ShowMapLimits) yield PleaseDrawGizmos;
 

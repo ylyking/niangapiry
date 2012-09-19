@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<Conversations>
+	<Characters>
+	        <Character speakerId = "0" >Till</Character>
+	        <Character speakerId = "1" >Pombero</Character>
+	        <Character speakerId = "2" >Primo</Character>
+	</Characters>
+	
+	<Conversation nameId = "Comienzo" >
+        <Talk speakerId = "0" time = "5.0" >Pst, aqui arriba, Hola ¿que tal? <br /> ¡Bienvenido al coto de Caza! ¿Tienes ganas de Charlar?</Talk>
+		
+        <ChooseTalk> 
+	        <Option>
+	            <Talk speakerId = "1" time = "5.0" >Ey, Hola, Buenos días!</Talk> 
+	            <Talk speakerId = "1" time = "5.0" >¿Que es esto?¿quien eres tu y que está pasando aquí? </Talk>     
+	            <Talk speakerId = "0" time = "5.0" >Soy el Señor Tillandsia, pero puedes llamarme Till</Talk>
+	            <Talk speakerId = "0" time = "8.0" >si vás por allá, quería pedirte un favor,<br />necesito que le lleves un mensaje a mi primo</Talk>
+	            <Talk speakerId = "1" time = "7.0" >¿no tienes cuenta de twitter o una misera casilla de mail? <br />¿Porque justo yo caigo de mensajero? </Talk>     
+	            <Talk speakerId = "0" time = "7.0" >Bueno, es que me quedé sin credito en el celular <br /> pero te advierto que esta zona es muy peligrosa </Talk>
+	            <Talk speakerId = "0" time = "5.0" >y solo con mi ayuda podrás alcanzar el final del nivel..</Talk>
+	            				
+	            <ChooseTalk> 
+						
+                    <Option>
+                            <Talk speakerId = "1" time = "5.0" >¿de que peligros estás hablando?</Talk>        
+                            <Talk speakerId = "0" time = "5.0" >es un poco más adelante, ten mucha precaución, está llena de Ñangapiry </Talk>
+                            <Talk speakerId = "0" time = "7.0" >pero existen cientos de terribles obstaculos: <br /> precipicios mortales, Gauchos ebrios y <br />monos Salvajes</Talk>                  
+							<ChooseTalk> 
+							
+								<Option>
+								        <Talk speakerId = "1" time = "5.0" >¿Que es un Ñangapiry? </Talk>        
+								        <Talk speakerId = "0" time = "7.0" >Es una fruta muy abundante del lugar, juntando cien ganarás una vida extra</Talk>
+								        <Talk speakerId = "0" time = "7.0" >También hay otras cosas raras como Sombreros magicos y Licor de Caña</Talk>
+								        <Talk speakerId = "0" time = "7.0" >si encuentras alguna puedés activar poderes especiales (tecla Alt) </Talk>
+								
+									    <Talk speakerId = "0" time = "9.0" >El Sombrero es como un Boomerang <br /> y la Caña es muy poderosa pero hay que usarla con cuidado</Talk>
+                          				<Talk speakerId = "1" time = "8.0" >Ok, Voy a intentarlo ¿no te falta decirme algo más? </Talk> 
+                          				<Talk speakerId = "0" time = "10.0" >Oh, Cierto el mensaje que debes entregar es: <br />"Reunión el miercoles a la noche" </Talk> 	
+								</Option> 
+								
+								<Option>
+								        <Talk speakerId = "1" time = "5.0" >¿Como voy a Cruzar esos acantilados?  </Talk>        
+								        <Talk speakerId = "0" time = "5.0" >Puedes correr (tecla control) y saltar (tecla espacio) </Talk>
+								        <Talk speakerId = "0" time = "7.0" >y si mantienes presionado el salto podrías planear con tu sombrero </Talk>
+								        <Talk speakerId = "0" time = "5.0" >para cubrír una distancia mayor </Talk>
+								
+									    <Talk speakerId = "0" time = "9.0" >Eso sería casi todo creo, Buena Suerte.</Talk>
+                          				<Talk speakerId = "1" time = "8.0" >Ok, Voy a intentarlo ¿no te falta decirme algo más? </Talk> 
+                          				<Talk speakerId = "0" time = "10.0" >Oh, Cierto el mensaje que debes entregar es: <br />"Reunión el miercoles a la noche" </Talk> 						
+							
+								</Option> 
+								
+								<Option>
+								        <Talk speakerId = "1" time = "5.0" >¿Gauchos y monos?¿Que puedo hacer para combatirlos?</Talk>       
+								        <Talk speakerId = "0" time = "7.0" >Todos tienen su punto debil, normalmente con un buen salto encima se aflojan</Talk>
+								        <Talk speakerId = "0" time = "5.0" >y luego puedes agarrarlos (tecla control) para usarlos como proyectiles </Talk>
+								
+									    <Talk speakerId = "0" time = "9.0" >Eso sería casi todo creo, Buena Suerte.</Talk>
+                          				<Talk speakerId = "1" time = "8.0" >Ok, Voy a intentarlo ¿no te falta decirme algo más? </Talk> 
+                          				<Talk speakerId = "0" time = "10.0" >Oh, Cierto el mensaje que debes entregar es: <br />"Reunión el miercoles a la noche" </Talk> 						
+									</Option> 
+												
+							</ChooseTalk>
+					
+                    </Option> 
+					
+                    <Option>
+                            <Talk speakerId = "1" time = "5.0" >¿y que cosa se supone que eres tu?  </Talk>       
+                            <Talk speakerId = "0" time = "7.0" >Soy un tipo de plantita popularmente conocido como Clavel del aire </Talk>
+                            <Talk speakerId = "0" time = "5.0" >pero hoy puedes considerarme tu Guía espiritual..  </Talk>
+                            <Talk speakerId = "1" time = "5.0" >Mientras no me pidas el diezmo.. </Talk>       
+						
+                    </Option> 
+					
+                    <Option>
+                            <Talk speakerId = "1" time = "5.0" >¿que estoy haciendo yo aqui? </Talk>        
+                            <Talk speakerId = "0" time = "5.0" >Es una pregunta existencial bastante complicada de responder </Talk>
+                            <Talk speakerId = "0" time = "7.0" >pero te diré que eres el Pombero y debes intentar alcanzar el final del nivel </Talk>
+                            <Talk speakerId = "0" time = "8.0" >olvidate de todos tus problemas cotideanos y relajate un poco saltando entre plataformas</Talk>
+                   </Option> 
+					
+	            </ChooseTalk>
+	        </Option>
+			
+	        <Option>
+				
+	            <Talk speakerId = "1" time = "5.0" >Uff, no gracias, disculpa pero estoy apurado, luego hablamos.. </Talk>
+	            <Talk speakerId = "0" time = "7.0" >Esta bien, está bien, ve con precaución <br /> si tienes cualquier duda estaré por aqui...</Talk>
+	            <Talk speakerId = "1" time = "5.0" >Ok, nos vemos luego . . </Talk>
+				
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+	
+	<Conversation nameId = "Final" >
+        <Talk speakerId = "2" time = "5.0" >Caramba ¿quien eres tu y que andas haciendo por aquí? </Talk>     
+	    <Talk speakerId = "1" time = "5.0" >Estoy de paso y traigo un mensaje de parte de tu primo Till</Talk>
+        <Talk speakerId = "2" time = "5.0" >Ajá, ¿y cual es ese mensaje? </Talk>     
+	    <Talk speakerId = "1" time = "5.0" >Una reunión de miercoles, no sé de que, a la noche, no me acuerdo bien </Talk>
+        <Talk speakerId = "2" time = "5.0" >Oh, Genial!, pero vaya, tendré que consultarlo con mi señora entonces.. </Talk>     
+        <Talk speakerId = "2" time = "5.0" >Por cierto, Haz logrado superar todos los obstaculos de esta Demo</Talk>     
+        <Talk speakerId = "2" time = "5.0" > -¡FELICITACIONES!- </Talk>     
+        <Talk speakerId = "2" time = "5.0" >Ah y una cosa más, si luego tienes tiempo cuentanos que te pareció todo esto</Talk>     
+	</Conversation>	
+	
+</Conversations>

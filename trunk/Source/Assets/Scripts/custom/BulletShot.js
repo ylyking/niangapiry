@@ -96,23 +96,3 @@ function PlayFrames( rowFrameStart :int, colFrameStart :int, totalframes :int, f
  renderer.material.mainTextureScale = size  ;		// texture scale
 }
 
-
-//function Start ()
-//{
-//	TotalTime = Time.time + LifeTime;	
-//	moveDirection = transform.up;
-//}
-
-//function Update ()
-//{
-//	if (Fired)
-//	{ 
-//    transform.position += Time.deltaTime * speed * moveDirection;
-//	
-//	  rotation  = rotationSpeed * Time.deltaTime;
-//		transform.RotateAroundLocal( Vector3.forward, rotation);
-//	
-//	if ( Mathf.Abs( transform.position.y) > ScreenOffset || Mathf.Abs( transform.position.x) > ScreenOffset )
-//	if ( Mathf.Abs( transform.position.y) > ScreenOffset || Time.time > TotalTime )
-//  { Destroy(gameObject); }
-//}

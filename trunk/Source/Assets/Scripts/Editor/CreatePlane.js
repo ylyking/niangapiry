@@ -58,7 +58,7 @@ static function CreateQuad()
 {
 	var size : float	= 0.5f;
 	var plane : GameObject = new GameObject();
-	plane.name = "Quad";
+	plane.name = "Clavel";
 	plane.transform.position = Vector3.zero;
 	 
 	var meshFilter 	 : MeshFilter 	= plane.AddComponent(typeof(MeshFilter));
