@@ -1,3 +1,6 @@
+//#pragma strict
+
+
 import System.Collections.Generic;
 import System.Xml;
 import System.IO;
@@ -48,6 +51,7 @@ class TiledReader extends EditorWindow {											// we need the same name of t
 	this.TileOutputSize = EditorGUILayout.Vector3Field(" Tile Output size:", this.TileOutputSize);
 	EditorGUILayout.Separator();
 	this.eps 	= EditorGUILayout.Vector2Field(" Offset Compensation: 				(Facu es un putito) ", this.eps);
+//	EditorGUILayout.HelpBox("re-scale texture size inside each tile to fix bleed factor", MessageType.Info);
 	EditorGUILayout.Separator();
 	this.PrefabRebuild  = EditorGUILayout.Toggle(" Re-Build Assets: ", this.PrefabRebuild);
 	EditorGUILayout.Separator();
@@ -65,7 +69,7 @@ class TiledReader extends EditorWindow {											// we need the same name of t
    var FileName	: String = FileLoad.Remove( 0, FileLoad.LastIndexOf("/") + 1);				// quit folder path structure
 		FileName = FileName.Remove( FileName.LastIndexOf("."));								// quit .xml extension
 		
-   		FolderPath = FilePath  + FileName + " Prefabs/"; 							// Assets/Resources/FileName_Prefabs/
+   		FolderPath = FilePath + FileName + " Prefabs/"; 							// Assets/Resources/FileName_Prefabs/
    var FileContent : String = sr.ReadToEnd();
    sr.Close();
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,12 +104,8 @@ class TiledReader extends EditorWindow {											// we need the same name of t
    		TileSets.Add( TileSetRef );
    	}
 // CREATE LAYERS . . .	    
-//	for (  var LayerInfo : XmlNode in Doc.GetElementsByTagName("layer") )
-//	for ( var LayerInfo : XmlNode = LayerList.Item(LayerList.Count-1); LayerInfo != null ; LayerInfo = LayerInfo.PreviousSibling)
-// 	var LayerList : XmlNodeList = Doc.GetElementsByTagName("layer");	
 	for ( var i : int = Doc.GetElementsByTagName("layer").Count-1; i >= 0 ; i-- )
 	{			
-//		var LayerInfo : XmlNode = LayerList.Item(i);
 		BuildLayer( Doc.GetElementsByTagName("layer").Item(i) );
 	}	// end of each Layer Info 
 
@@ -117,7 +117,7 @@ class TiledReader extends EditorWindow {											// we need the same name of t
 	
 	TileOutputSize.z = 0.0;
 	
- } else Debug.Log( FileName + " it's not a Tiled File!, wrong load at: " + FilePath );
+ } else Debug.LogError( FileName + " it's not a Tiled File!, wrong load at: " + FilePath );
  
  Debug.Log("Tiled Level Build Finished"); 	 	
  
@@ -205,7 +205,7 @@ class TiledReader extends EditorWindow {											// we need the same name of t
 		
 			}//end of each Tile XML Info 
 		}
-	 else Debug.Log(" Format Error: Save Tiled File in XML style or Compressed mode(Gzip + Base64)");		
+	 else Debug.LogError(" Format Error: Save Tiled File in XML style or Compressed mode(Gzip + Base64)");		
 }		
 
  function BuildTile( TileId : uint) : GameObject
@@ -235,6 +235,7 @@ class TiledReader extends EditorWindow {											// we need the same name of t
 		{
 			if ( Index >= TileSets[i].FirstGid )
 		 	{			 	 	
+		 		
 				var localIndex : int = (Index - TileSets[i].FirstGid) + 1;
 				 	 				 	 
 //			 	if ( localIndex in TileSets[i].CollisionList ) AddCollision = true;
@@ -265,6 +266,10 @@ class TiledReader extends EditorWindow {											// we need the same name of t
 						 			   Vector3( 0, 					 			 0, 0.01),
 		    			 			   Vector3( 0, 				  TileOutputSize.y, 0.01),
 		    			 			   Vector3( TileOutputSize.x, TileOutputSize.y, 0.01) ];
+//		   				m.vertices = [ Vector3( TileOutputSize.x *.5f,-TileOutputSize.y *.5f, 0.01),
+//						 			   Vector3( -TileOutputSize.x*.5f,-TileOutputSize.y *.5f, 0.01),
+//		    			 			   Vector3( -TileOutputSize.x*.5f, TileOutputSize.y *.5f, 0.01),
+//		    			 			   Vector3( TileOutputSize.x *.5f, TileOutputSize.y *.5f, 0.01) ];
 		    				 
 		    			var offset_x   :int = localIndex % TileSets[i].SrcColumns;	 
 		    			var offset_y 	:int = TileSets[i].SrcRows - (Mathf.FloorToInt( localIndex / TileSets[i].SrcColumns ) + 
@@ -290,12 +295,7 @@ class TiledReader extends EditorWindow {											// we need the same name of t
          				vt2.x +=  eps.x * Xsign ; 	vt2.y +=  eps.y * Ysign;
          				vt3.x +=  eps.x * Xsign ; 	vt3.y += -eps.y * Ysign;
          				vt4.x += -eps.x * Xsign; 	vt4.y += -eps.y * Ysign;	
-         					    		
-//			    		vt1.x -= eps.x; vt1.y += eps.y;
-//         				vt2.x += eps.x; vt2.y += eps.y;
-//         				vt3.x += eps.x; vt3.y -= eps.y;
-//         				vt4.x -= eps.x; vt4.y -= eps.y;	    		 		           
-		     				 
+
 		    			if ( Rotated )
 		    			{
 		    				if (Flipped_X && Flipped_Y || !Flipped_X && !Flipped_Y){
@@ -328,6 +328,7 @@ class TiledReader extends EditorWindow {											// we need the same name of t
 					
 					if ( localIndex in TileSets[i].Collisions.Keys )							// Prefab Collision Setup
 			 		{
+			 		
 			 			switch(	TileSets[i].Collisions[localIndex] )
 			 			{
 			 			case "Plane": 
@@ -335,12 +336,13 @@ class TiledReader extends EditorWindow {											// we need the same name of t
 			 					AssetDatabase.LoadAssetAtPath( "Assets/Meshes/Planes/1_0 ColPlane.asset", typeof(Mesh) ) ;
 								break;			
 			 			case "Slope":
+			 						Tile.layer = 8; 
 			 					if (Flipped_X && !Flipped_Y || !Flipped_X && Flipped_Y && Rotated || !Flipped_X && Flipped_Y && !Rotated)
 			 						Tile.AddComponent("MeshCollider").sharedMesh = 
 			 						AssetDatabase.LoadAssetAtPath( "Assets/Meshes/Planes/SlopeLeft.asset", typeof(Mesh) ) ;
 			 					else 
 			 						Tile.AddComponent("MeshCollider").sharedMesh = 
-			 						AssetDatabase.LoadAssetAtPath( "Assets/Meshes/Planes/SlopeRight.asset", typeof(Mesh) ) ; 
+			 						AssetDatabase.LoadAssetAtPath( "Assets/Meshes/Planes/SlopeRight.asset", typeof(Mesh) ) ;
 			 				 	break;  			 				 	
 			 			default: 																// same as case "Box":
 			 			   		(Tile.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;			 					
@@ -372,11 +374,16 @@ class TiledReader extends EditorWindow {											// we need the same name of t
     var	height 		: int = int.Parse( ObjectsGroup.ParentNode.Attributes["height"].Value );
  	var tilewidth 	: int = int.Parse( ObjectsGroup.ParentNode.Attributes["tilewidth"].Value );
  	var tileheight 	: int = int.Parse( ObjectsGroup.ParentNode.Attributes["tileheight"].Value );	
+ 	var ObjGroup	: GameObject = new GameObject( ObjectsGroup.Attributes["name"].Value );
+ 	var GrpTransform = ObjGroup.transform ;
+ 	GrpTransform.parent = MapTransform;
  	
 	for ( var ObjInfo : XmlNode in  ObjectsGroup.ChildNodes)
 	{
-	
-	 if ( AssetDatabase.LoadAssetAtPath( "Assets/Prefabs/" + ObjInfo.Attributes["name"].Value + ".prefab", typeof(GameObject)) )
+//		Debug.Log(ObjInfo.Attributes["name"].Value);
+	 if ( !ObjInfo.Attributes["name"] ) continue;
+
+	 if ( (AssetDatabase.LoadAssetAtPath( "Assets/Prefabs/" + ObjInfo.Attributes["name"].Value + ".prefab", typeof(GameObject)))  )
 		{
 			var ObjPrefab : GameObject = PrefabUtility.InstantiatePrefab( AssetDatabase.LoadAssetAtPath( 
 										"Assets/Prefabs/" + ObjInfo.Attributes["name"].Value + ".prefab", typeof(GameObject) ) );
@@ -384,12 +391,12 @@ class TiledReader extends EditorWindow {											// we need the same name of t
 			var ObjTransform : Transform = ObjPrefab.transform ;
 				
 			ObjTransform.position = Vector3(
-			 (int.Parse( ObjInfo.Attributes["x"].Value) / tilewidth) + (ObjTransform.localScale.x * .5 ),			// X
-			 height -(int.Parse( ObjInfo.Attributes["y"].Value) / tileheight - ObjTransform.localScale.y * 1.5),	// Y		 		     
+			 (float.Parse( ObjInfo.Attributes["x"].Value) / tilewidth) + (ObjTransform.localScale.x * .5 ),			// X
+			 height -(float.Parse( ObjInfo.Attributes["y"].Value) / tileheight - ObjTransform.localScale.y * .5),	// Y		 		     
 																					 MapTransform.position.z );		// Z
 				 
-				 ObjTransform.parent = MapTransform ;
-		} else Debug.Log( "Object '" + ObjInfo.Attributes["name"].Value + "' Was not found at: " + "Assets/Prefabs/" );		
+				 ObjTransform.parent = GrpTransform ;
+		} else Debug.LogWarning( "Object '" + ObjInfo.Attributes["name"].Value + "' Was not found at: " + "Assets/Prefabs/" );		
 	}	
  }
  
@@ -398,7 +405,6 @@ class TiledReader extends EditorWindow {											// we need the same name of t
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
 
@@ -426,11 +432,11 @@ class cTileSet {
  	{
  		if ( TileSetNode.Name == "image" )
  		{
- 			var TileInputWidth 	: int 	= System.Convert.ToByte( TileSet.Attributes["tilewidth"].Value); // Tile width inside bitmap file  ( 64 )
-   			var TileInputHeight	: int 	= System.Convert.ToByte( TileSet.Attributes["tileheight"].Value);// Tile height inside bitmap file 
+ 			var TileInputWidth 	: int 	= System.Convert.ToInt32( TileSet.Attributes["tilewidth"].Value); // Tile width inside bitmap file  ( 64 )
+   			var TileInputHeight	: int 	= System.Convert.ToInt32( TileSet.Attributes["tileheight"].Value);// Tile height inside bitmap file 
           
- 			var SrcImgWidth		: int 	= System.Convert.ToInt16( TileSetNode.Attributes["width"].Value ); // File Resolution (512)
- 			var SrcImgHeight	: int 	= System.Convert.ToInt16( TileSetNode.Attributes["height"].Value); 
+ 			var SrcImgWidth		: int 	= System.Convert.ToInt32( TileSetNode.Attributes["width"].Value ); // File Resolution (512)
+ 			var SrcImgHeight	: int 	= System.Convert.ToInt32( TileSetNode.Attributes["height"].Value); 
 	 
  			SrcColumns 					= SrcImgWidth / TileInputWidth;
    			SrcRows 					= SrcImgHeight / TileInputHeight;
@@ -448,8 +454,7 @@ class cTileSet {
  		{
  			if ( TileSetNode.FirstChild.FirstChild.Attributes["name"].Value == "Collision" )
  					Collisions.Add( int.Parse( 	TileSetNode.Attributes["id"].Value)+1, 
- 										  		TileSetNode.FirstChild.FirstChild.Attributes["value"].Value ); 			
-	 			
+ 										  		TileSetNode.FirstChild.FirstChild.Attributes["value"].Value ); 	
  		}	
 	 		
  		// REBUILD AND HOLD MATERIAL		 Search The material inside that folder or create it if not exists and then hold it
@@ -460,7 +465,7 @@ class cTileSet {
    	 		var tex = AssetDatabase.LoadAssetAtPath( FilePath + SrcImgPath , typeof(Texture2D) );   	 
    	 		if ( tex == null)
    	 		{
-   	 			Debug.Log( SrcImgPath + " texture file not found, put it in the same Tiled map folder: " + FilePath);
+   	 			Debug.LogError( SrcImgPath + " texture file not found, put it in the same Tiled map folder: " + FilePath);
    	 			return;   //	 this.close; 
    	 		}
 			else																			// and if not build and save it

@@ -17,6 +17,8 @@ var walkJump  							: float = 8.0;				// jump height from walk
 var runJump   							: float = 9.0;				// jump height from run	
 var Depth								: float = .25f;				// Depth in position.z for the player's character
 
+var JumpSound							: AudioClip;
+
 private var jumpEnable 					: boolean = false;			// toggle for default jump
 private var runJumpEnable				: boolean = false;			// toggle for run jump
 
@@ -25,6 +27,9 @@ private var isHoldingObj				: int 	= 0;				// anim row index change when player 
 
 @HideInInspector public var orientation	: int = 1;					// Move Direction: -1 == left, +1 == right
 @HideInInspector public var velocity 	: Vector3 = Vector3.zero;	// Start quiet 
+
+private var layerMask = 1 << 8;
+
 
 function Start()						//	var ballScript : BallScript = target.GetComponent(BallScript) as BallScript;
 {
@@ -45,16 +50,16 @@ function Update()
 //function FixedUpdate()
 {
    isHoldingObj = System.Convert.ToByte( properties._pickedObject != null )	;
+   var Stand : boolean = Physics.Linecast (thisTransform.position, thisTransform.TransformPoint ( -Vector3.up), layerMask) ;
    
    if ( controller.isGrounded )
 	{
 		jumpEnable 		= false;
 		runJumpEnable 	= false;
-		
+
 		velocity = Vector3 ( Input.GetAxis( "Horizontal"), 0, 0 );
 	
 		if (!Input.GetAxis( "Horizontal") )									// IDLE -> keep stand quiet
-//			 animPlay.PlayFrames(2 + isHoldingObj, 0, 1, orientation  );	
 			 animPlay.PlayFramesFixed (2 + isHoldingObj, 0, 1, orientation );	
 	
 		if ( Input.GetAxis(	"Horizontal") )									// WALK
@@ -62,48 +67,49 @@ function Update()
 			orientation = Mathf.Sign(velocity.x); 							// If move direction changes -> flip sprite
 			
 			velocity.x *= walkSpeed;										// If player is moving ->  Animate Walking..
-//			animPlay.PlayFrames ( 0 + isHoldingObj, 0, 8, orientation ) ;	
 			animPlay.PlayFramesFixed ( 0 + isHoldingObj, 0, 8, orientation ) ;	
 		}	
 		
 		if ( velocity.x &&  Input.GetButton( "Fire1") )						// RUN 
 		{
 			velocity *= runSpeed;
-//			animPlay.PlayFrames( 2, 1, 2, orientation ) ;
 			animPlay.PlayFramesFixed ( 2, 1, 2, orientation , 1.005) ;
 		}
-	}
-	
+
 //   Debug.DrawLine ( thisTransform.position  , thisTransform.TransformPoint ( -Vector3.up   ), Color.blue);
-	
-   var Stand : boolean = Physics.Linecast (thisTransform.position, thisTransform.TransformPoint ( -Vector3.up)) ;
-   if(Stand)
-   {																		// JUMP
+//   if(Stand)
+//   {																		// JUMP
 		if ( Input.GetButtonDown ( "Jump" ) && ( !Input.GetButton( "Fire1")	||  !velocity.x ) )	// Quiet jump
 		{											// check player dont make a Running Jump being quiet in the same spot
 			velocity.y = walkJump;
 //			Instantiate ( particleJump, particlePlacement, transform.rotation );
-//			PlaySound ( soundJump, 0);
+			AudioManager.Get().Play(JumpSound, thisTransform, 1.0, 1.0);
 			jumpEnable = true;
 		}
 		
-		if ( Input.GetButtonDown( "Jump" ) && Input.GetButton( "Fire1") && velocity.x ) 	   // running jump
+		if ( Input.GetButtonDown( "Jump" ) && ((Input.GetButton( "Fire1") && velocity.x) || properties.BurnOut))// running jump
 		{
 			velocity.y = runJump;
 //			Instantiate ( particleJump, particlePlacement, transform.rotation );
-//			PlaySound ( soundJump, 0);
+			AudioManager.Get().Play(JumpSound, thisTransform, 1.0, 0.75);
 			runJumpEnable = true;
 		}
 	}
+	
+	if ( Input.GetButtonDown ( "Jump" ) && Stand )	// slope jump
+		{	
+			velocity.y = walkJump;
+			AudioManager.Get().Play(JumpSound, thisTransform, 1.0, 1.25);
+			jumpEnable = true;
+		}
   	
-	if ( !controller.isGrounded )	// && !Stand	// Do Slide
+	if ( !controller.isGrounded && !Stand)	// && !Stand	// Do Slide
 	{
 		velocity.x = Input.GetAxis( "Horizontal");
 //		animPlay.PlayFrames ( 2, 5, 1, orientation );
 		
 		if ( Input.GetButtonUp ( "Jump" ) )						// check if the player keep pressing jump button..
 			velocity.y *= fallSpeed ;							// if not then brake the jump
-//			velocity.y -= 2 ;									// keep checking this value in case of bugs 
 				
 		if ( velocity.x )
 			orientation = Mathf.Sign(velocity.x); 				// If move direction changes -> update & flip sprite
@@ -139,16 +145,28 @@ function Update()
 		velocity.y -= afterHitForceDown;						// apply force downward so player doesn't have in the air
 	}
 
+
+	if (properties.BurnOut)
+		BurnOut();
+	
+	if (ConversationManager.Get().IsInConversation())
+		velocity.x = 0;
+
 	velocity.y -= gravity * Time.deltaTime;
 	controller.Move( velocity * Time.deltaTime );
 		
 
-	if (thisTransform.position.y < 0 )	thisTransform.position = Vector3( 0.5, 10, Depth );	// If character falls get it up again 
 
     thisTransform.position.z = Depth;
     thisTransform.rotation.y = 0;
     thisTransform.rotation.x = 0;
     // take Character Controller Skin Width = 0.05 else 0.001
+}
+
+function BurnOut()
+{
+	velocity.x =  orientation * runSpeed * 2;
+	animPlay.PlayFramesFixed ( 5, 0, 4, orientation , 1.005) ;
 }
 
 //function OnDrawGizmos()	

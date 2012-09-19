@@ -9,7 +9,7 @@ public var enemyState				: ShooterState = ShooterState.Sleeping ;	// set default
 public var aimDamping 				: float 		= 4.0;			// speed & time taken for aiming
 public var fireRate					: float		 	= 2.0;			// delay between shots, more lower, more harder to avoid
 public var shootPower	 			: float 		= 10;			// the power or speed of the projectile.
-public var deathForce				: float 		= 8.0;			// when the player jumps on me force him off 'x' amount
+public var deathForce				: float 		= 12.0;			// when the player jumps on me force him off 'x' amount
 
 public var gizmoToggle				: boolean		= true;			// toggle the debug display radius
 public var bounceHit				: AudioClip;					// hot sound for the enemy splat
@@ -17,7 +17,7 @@ public var bounceHit				: AudioClip;					// hot sound for the enemy splat
 private var orientation			 	: int 			= -1;			// orientation of the enemy
 private var nextFire				: float 		= 3.0;			// delay between attacks
 private var gravity					: float 		= 9.8;			// weight of the world pushing enemy down
-private var stunTime				: float 		= 10.0;			// enemy knocked out time...
+private var stunTime				: float 		= 6.0;			// enemy knocked out time...
 
 public 	var alertRange				: float 		= 2.0;			// set the range for finding the player
 public 	var attackRange				: float 		= 5.0;			// set range for speed increase
@@ -29,6 +29,7 @@ private var AttackRangeX2 			: float			= attackRange * attackRange;
 private var Holded					: boolean 		= false;
 private var AnimFlag 				: boolean 		= true;
 private var grounded 				: boolean		= false;
+//private var KnockOut 				: boolean		= false;
 
 public 	var HoldedPosition			: Vector3 = Vector3( 0,.3,-.1);	// change own enemy position when grabed
 public  var moveDirection 			: Vector3 = Vector3( 5, 3,  0);	// Force * direction of throwing the enemy 
@@ -41,6 +42,10 @@ private var thisTransform			: Transform;					// own enemy's tranform cached
 public var projectile 				: GameObject;					// Prefab to be shooted ( set previously it's values )
 private var animPlay 				: AnimSprite; 					// : Component
 private var linkToPlayerControls 	: PlayerControls;
+
+var soundCrash 						: AudioClip;
+var soundAttack						: AudioClip;
+var ParticleStars					: GameObject;
 
 
 
@@ -101,8 +106,7 @@ function CoUpdate ()	: IEnumerable											// function Update ()
 			break;
 				
 		case ShooterState.Stunned: 		// 2# KNOCK OUT:
-				velocity = Vector3.zero;
-				
+				velocity = Vector3.zero;				
 				Stunned();								
 			break;			
 			
@@ -118,13 +122,15 @@ function CoUpdate ()	: IEnumerable											// function Update ()
 		case ShooterState.Dead:			// 5# ENEMY IS DEAD
 				animPlay.PlayFramesFixed(1 , 1, 1, orientation);
 				thisTransform.RotateAroundLocal( Vector3.forward, -orientation * 45 * Time.deltaTime ); 
-				
 //				Destroy(gameObject, 5);											// Keep falling and die after a while
 			break;		
 	}
 	
 	if (!grounded)	velocity.y -= gravity * Time.deltaTime ;	
 	thisTransform.position += velocity * Time.deltaTime;
+	
+	if (thisTransform.position.y < 0 )	Destroy(gameObject, 2);	// If character falls get it up again 
+	
 }
 
 function OnTriggerStay ( other : Collider) 										// function OnCollisionStay ()
@@ -207,6 +213,7 @@ function Shoot()
 {
 //	if (aimCompass) 
 //	{
+		AudioManager.Get().Play(soundAttack, thisTransform);
     	// Add fireRate and current time to nextFire
     	nextFire = Time.time + fireRate;
 
@@ -235,6 +242,8 @@ function Shoot()
 
 function Stunned()																	// "Boleado"
 {
+	if ( this.CompareTag("pickup") ) return;
+// 		AnimFlag = false;
 	this.tag = "pickup";  													// change tag to a pickable thing for being holded
 
 	var timertrigger = Time.time + stunTime;
@@ -251,11 +260,11 @@ function Stunned()																	// "Boleado"
 //   			enemyState = ShooterState.Holded ;									// & change enemy state to holded..
 //   			moveDirection =	ThrowDirection;
 //		}	
-		if ( enemyState != ShooterState.Stunned) return;					// so he is not stunned anymore & must quit here
+		if ( enemyState != ShooterState.Stunned ) return;	// so he is not stunned anymore & must quit here
     	yield;
 	}
 		
-	if ( !thisTransform.parent  )										// but if stun time is over & player !isHolding( this)..
+	if ( !thisTransform.parent.CompareTag("Player") )								// but if stun time is over & player !isHolding( this)..
 	{
 		this.tag = "Enemy";  
     	if ( distanceToTarget > AlertRangeX2 )
@@ -263,6 +272,7 @@ function Stunned()																	// "Boleado"
 		else 
 			enemyState = ShooterState.Alert;										// or alert if the player is near
 	}
+//	}
 }
 
 function BeingHolded()
@@ -275,7 +285,8 @@ function BeingHolded()
    if ( collider.enabled &&  !thisTransform.parent) 					// if collider returned & we haven't parent anymore..
    {
     grounded = false;
-		
+	
+	gameObject.tag = "p_shot";		
 //	moveDirection = Vector3( Mathf.Sign(orientation) * 5, 3, 0);
 	velocity = moveDirection;
 	velocity.y += 3.5 * Input.GetAxis("Vertical");				
@@ -290,17 +301,24 @@ function BeingHolded()
 
 function OnTriggerEnter( other : Collider)											// other.transform.position == target.position
 {																		
-	if ( other.CompareTag( "Player") && target.position.y > thisTransform.position.y + .1 )
+	if ( other.CompareTag( "Player") )
 	{
-			
-		if ( !this.CompareTag( "pickup")  )
+		if ( gameObject.CompareTag( "Enemy") && (target.position.y > thisTransform.position.y + .1) )
 		{
 			linkToPlayerControls.velocity.y = deathForce; 
-		
+			AudioManager.Get().Play( soundCrash, thisTransform, 6.0, 1.0);		
 			enemyState = ShooterState.Stunned;
+			Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+			
 		}
 		else if ( Input.GetAxis("Vertical") )
+		{
+			Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+		
+			AudioManager.Get().Play(soundCrash, thisTransform);
 			linkToPlayerControls.velocity.y = deathForce; 
+		}
+ 
  
 //		if (bounceHit)
 //		{
@@ -320,38 +338,55 @@ function OnTriggerEnter( other : Collider)											// other.transform.position
 //			Debug.Log("Could not load box Collider");
 //		}		
 	}
-	if (  !other.CompareTag("Player")  )
+	else if ( other.CompareTag("p_shot")  )
 	{
-		if ( other.CompareTag("p_shot")  || enemyState == ShooterState.Shooted )
-		{
-	//		moveDirection = Vector3( Mathf.Sign(orientation) * 5, 3, 0)
-			this.tag = "pickup";
-			velocity.x *= -.25;
-			velocity.y = 4.5;
-   			animPlay.PlayFramesFixed( 1, 1, 1, orientation); 
-			enemyState = ShooterState.Dead;
-		}
+		GameManager.Get().Score += 100;
+		BeatDown();
 	}
-//	if ( other.tag == "enemy" )
-//	{
-//		if ( other.collider != this.collider )
-//		{
-//			Physics.IgnoreCollision(other.collider, this.collider);
-//		}
-//	}
+	else if ( gameObject.CompareTag("p_shot") && !other.CompareTag("Item") )
+	{
+		yield WaitForSeconds(0.01);
+		BeatDown();
+	}
 }
 
-function OnDrawGizmos()										// toggle the gizmos for designer to see 6 Debug reaching ranges
+function BeatDown()
 {
-	if (gizmoToggle)
-	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere( transform.position, alertRange);
-		Gizmos.color = Color.blue;
-		Gizmos.DrawWireSphere( transform.position, attackRange);
-		Gizmos.color = Color.green;
-		Gizmos.DrawLine(  aimCompass.position , aimCompass.TransformPoint ( Vector3.up * 1.5) );
-//		Gizmos.DrawWireSphere( homePosition.position, returnHomeRange);
-	}
+	GameManager.Get().Score += 100;
+	AudioManager.Get().Play( soundCrash, thisTransform, 6.0, 1.0);		
+	gameObject.tag = "pickup";
+	velocity.x *= -.25;
+	velocity.y = 4.5;
+	animPlay.PlayFramesFixed( 1, 1, 1, orientation ); 
+	enemyState = ShooterState.Dead;
+	Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+	
 }
+//	else if (  !other.CompareTag("Untagged") && !other.CompareTag("Item")  )
+//	{
+//		if ( other.CompareTag("p_shot")  ||  gameObject.CompareTag("p_shot")  )
+//		{
+//			
+//			gameObject.tag = "pickup";
+//			velocity.x *= -.25;
+//			velocity.y = 4.5;
+//   			animPlay.PlayFramesFixed( 1, 1, 1, orientation); 
+//			enemyState = ShooterState.Dead;
+//		}
+//	}
+//}
+
+//function OnDrawGizmos()										// toggle the gizmos for designer to see 6 Debug reaching ranges
+//{
+//	if (gizmoToggle)
+//	{
+//		Gizmos.color = Color.red;
+//		Gizmos.DrawWireSphere( transform.position, alertRange);
+//		Gizmos.color = Color.blue;
+//		Gizmos.DrawWireSphere( transform.position, attackRange);
+//		Gizmos.color = Color.green;
+//		Gizmos.DrawLine(  aimCompass.position , aimCompass.TransformPoint ( Vector3.up * 1.5) );
+////		Gizmos.DrawWireSphere( homePosition.position, returnHomeRange);
+//	}
+//}
 

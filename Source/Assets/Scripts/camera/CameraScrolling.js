@@ -19,7 +19,7 @@ private var savedInterpolationSetting = RigidbodyInterpolation.None;
 function Awake () 
 {
  	thisTransform = transform;
-	levelAttributes = LevelAttributes.GetInstance ();			// Set up our convenience references.
+	levelAttributes = LevelAttributes.Get();			// Set up our convenience references.
 	if (levelAttributes) levelBounds = levelAttributes.bounds;
 	else 														// else use some defaults values..
 	{ levelBounds.xMin = levelBounds.yMin = 0; levelBounds.xMax = levelBounds.yMax = 10; }
@@ -53,6 +53,7 @@ function GetGoalPosition ()	// find out where the camera should move to, Based o
 	
 	var FixedHeight 		: boolean 	= false;	// this it's used for set fixed the camera's vertical move 
 	var heightOffset 		: float 	= 0.0f;		// How high in world space should the camera look above the target?
+	var widthOffset			: float		= 0.0f;
 	var distanceModifier	: float 	= 2.0f;		// How much should we zoom the camera based on this target?
 	var velocityLookAhead 	: float 	= 0.0f;		// By default, we won't account for any target velocity in calculations;
 	var maxLookAhead 		: Vector2 	= Vector2 (0.0, 0.0);
@@ -63,6 +64,7 @@ function GetGoalPosition ()	// find out where the camera should move to, Based o
 	{
 		FixedHeight 		= cameraTargetAttributes.FixedHeight;
 		heightOffset 		= cameraTargetAttributes.heightOffset;
+		widthOffset			= cameraTargetAttributes.widthOffset;
 		distanceModifier 	= cameraTargetAttributes.distanceModifier;
 		velocityLookAhead 	= cameraTargetAttributes.velocityLookAhead;
 		maxLookAhead 		= cameraTargetAttributes.maxLookAhead;
@@ -70,7 +72,7 @@ function GetGoalPosition ()	// find out where the camera should move to, Based o
 	
 	// First do a rough goalPosition that simply follows the target at a certain relative height and distance.
 	//	var goalPosition = target.position + Vector3 (0, heightOffset,  -distance * distanceModifier );
-	var goalPosition = target.position + Vector3 ( 0, heightOffset, 0);
+	var goalPosition = target.position + Vector3 ( widthOffset, heightOffset, 0);
 	goalPosition.z = -distance * distanceModifier; 							// some provisory fixes for ortogonal camera
 	
 	
