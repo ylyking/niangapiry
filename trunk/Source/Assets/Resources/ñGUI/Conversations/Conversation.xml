@@ -7,7 +7,7 @@
 	</Characters>
 	
 	<Conversation nameId = "Comienzo" >
-        <Talk speakerId = "0" time = "5.0" >Pst, aqui arriba, Hola ¿que tal? <br /> ¡Bienvenido al coto de Caza! ¿Tienes ganas de Charlar?</Talk>
+        <Talk speakerId = "0" time = "5.0" >Pst, Eu Ñeri, Hola ¿que tal? <br /> ¡Bienvenido al coto de Caza! ¿Tienes ganas de Charlar?</Talk>
 		
         <ChooseTalk> 
 	        <Option>

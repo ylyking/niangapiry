@@ -20,13 +20,20 @@ private var ThisTransform 	: Transform;
 private var ChooseOption	: uint = 0;
 private var TotalOptions	: uint = 3;
 private var OptionsList		: Dictionary.< int, String> = new Dictionary.< int, String>() ;
+public var PreOpening       : AudioClip = null;
+public var Opening          : AudioSource = null;
 
 
 
 function Start()
 {
 //	audio.
+    
 	ThisTransform = transform;
+    AudioManager.Get().Play(PreOpening, ThisTransform, 1.0, 1.0);
+    Opening = gameObject.GetComponent(AudioSource);
+    
+    
 	OptionsList.Add( 0,  "Start Game");
 	OptionsList.Add( 1,  "Help/Info");
 	OptionsList.Add( 2,  "Quit");
@@ -85,7 +92,7 @@ function CoUpdateCAM()
 
 	if(camera.orthographicSize < 0.9)
 	{
-		camera.orthographicSize += 0.025f;
+		camera.orthographicSize += 1 * Time.deltaTime;
 		yield;
 	}
 	else	return;
@@ -117,6 +124,9 @@ function OnGUI()
 	
 	if (!DisplayMenu)
 			return;
+			
+    if ( Opening && !Opening.isPlaying )
+        Opening.Play();
 			
 	if( Event.current.type == EventType.Repaint) 
 	{

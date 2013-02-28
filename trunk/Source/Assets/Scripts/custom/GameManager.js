@@ -55,7 +55,7 @@ class GameManager 	//	: MonoBehaviour
     {
     	gSkin = Resources.Load("ñGUI/ÑGUISkin B") as GUISkin;
 		gSkin.label.fontSize 	= Mathf.RoundToInt( Screen.width * 0.035f );
-		gSkin.label.fontStyle 	= FontStyle.Bold;
+//		gSkin.label.fontStyle 	= FontStyle.Bold;
 		
 		HealthTex = Resources.Load("ñGUI/Items") as Texture2D;
  		HealthPos = Rect( (Screen.width * .025f), (Screen.height * .75f), HealthTex.width * .65, HealthTex.height * .65);
@@ -213,7 +213,7 @@ class GameManager 	//	: MonoBehaviour
 		    if( Lifes <= 0 )
 		    {
 //		    	GUI.skin.label.fontSize = 64;
-		    	GUI.skin.label.fontStyle = FontStyle.Bold;
+//		    	GUI.skin.label.fontStyle = FontStyle.Bold;
 		    	GUI.color = Color.magenta;	
 		    	GUI.Label (  Rect( (Screen.width * .35f)  , (Screen.height * .5f) , 100, 50), "- GAME OVER -" );
 		    }

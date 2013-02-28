@@ -15,11 +15,18 @@ private var PlayerController: PlayerControls;
 private var ThisTransform 	: Transform;  
 private var ObjAnim			: AnimSprite;
 
+public var IntroA       : AudioClip = null;
+public var Falling       : AudioClip = null;
+public var IntroB       : AudioClip = null;
+
+
 
 
 function Start()
 {
 	ThisTransform = transform;
+    AudioManager.Get().Play(IntroA, ThisTransform, 0.75, 1.0);
+	
 	ObjAnim = GetComponent(AnimSprite) as AnimSprite ; 
 	PlayerController = PlayerPrefab.GetComponent(PlayerControls) as PlayerControls;
 	
@@ -73,11 +80,14 @@ function Start()
 	PlayerController.enabled = true;
 	
 
-
+    var FallOut : AudioSource = AudioManager.Get().Play(Falling, ThisTransform, 1.0, 1.0);
+    
  	while( !PlayerCollide )
 	{
 		yield;
 	}
+	
+	FallOut.Stop();
 
 	SceneCamera.enabled 		= true;
 	PlayerCamera.enabled 		= false;
@@ -90,6 +100,8 @@ function Start()
 	}
 	
 	GameManager.Get().IsPlaying = false;
+	
+    AudioManager.Get().Play(IntroB, ThisTransform, 0.65, 1.0);
 	
 	SceneCamera.orthographicSize = 0.15;
 	timertrigger = Time.time + 3.0f;	// Animate Cabalgarcha #2
