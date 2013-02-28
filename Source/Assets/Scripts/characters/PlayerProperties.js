@@ -46,6 +46,7 @@ public  var soundFruits		: AudioClip;
 public  var soundExplosion	: AudioClip;
 public  var soundFlaming	: AudioClip;
 public  var SoundTrack		: AudioClip;
+public  var SoundDelirium   : AudioClip;
 
 private var playerControls  : PlayerControls;
 private var animPlay 		: AnimSprite; 							// : Component
@@ -511,7 +512,12 @@ function Invisible()	: IEnumerator
 function Burning()		: IEnumerator
 {
 	renderer.material.color = Color.white;
-	renderer.enabled = true;
+	
+	var Clip : AudioSource = null;
+	
+//	if ( SoundDelirium )
+//		AudioSource = AudioManager.Get().PlayLoop( SoundDelirium, thisTransform, .65f, 1.0f);
+//	renderer.enabled = true;
 	BurnOut = true;
 	
 	var timertrigger = Time.time + 30;
@@ -522,12 +528,18 @@ function Burning()		: IEnumerator
 		else 
 		renderer.material.SetFloat("_KeyY", 0.7f);
 						
-		if ( !playerState  ) {BurnOut = false; renderer.material.SetFloat("_KeyY", 0.25); return;} 
+		if ( !playerState  ) {
+		    BurnOut = false;
+		    renderer.material.SetFloat("_KeyY", 0.25);
+//		    if ( SoundDelirium )
+//		        AudioManager.Get().PlayLoop( SoundDelirium, thisTransform, .65f, 1.0f);
+		     return;} 
 
 		yield;
 	}
 	
 	AudioManager.Get().Play( soundFlaming, thisTransform);
+
 	BurnOut = false;
 	renderer.material.SetFloat("_KeyY", 0.25);
 	renderer.material.color = Color.white;
