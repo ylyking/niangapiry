@@ -108,9 +108,9 @@ function CoUpdateScene()
 	
 	if ( !DisplayMenu )
 	{
-		CamBack.fov 	-=  1;
-		CamMiddle.fov 	-=  1;
-		CamFront.fov 	-=  1;
+		CamBack.fov 	-=  100 * Time.deltaTime;
+		CamMiddle.fov 	-=  100 * Time.deltaTime;
+		CamFront.fov 	-=  100 * Time.deltaTime;
 		yield;
 	}
 	else
@@ -147,7 +147,7 @@ function OnGUI()
 		}
 		if (DisplayInfo)
 		{
-			GUI.color = Color(1, 0.36, 0.22, 1);
+			GUI.color = new Color(1, 0.36, 0.22, 1);
 			GUI.Box(Rect((Screen.width * .5f)-(Screen.width * .3f) ,
 						 (Screen.height * .5f)-(Screen.height * .35f) ,
 						  (Screen.width * .6f), (Screen.height * .7f)),
@@ -166,9 +166,9 @@ function OnGUI()
 			if ( Option == ChooseOption )
 				GUI.color = Color.white;
   			else
-				GUI.color = Color(1, 0.36, 0.22, 1);
+				GUI.color = Color(1, 0.36f, 0.22f, 1);
 				
-            GUI.Label( Rect( (Screen.width *.65), (Screen.height *.8) + Option * 32, 400, 50), OptionsList[Option]);
+            GUI.Label( Rect( (Screen.width * .65f), (Screen.height *.8f) + Option * 32, 400, 50), OptionsList[Option]);
 		
 		}
 	}
