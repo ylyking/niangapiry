@@ -53,16 +53,16 @@ class GameManager 	//	: MonoBehaviour
 
     public function Init() 
     {
-    	gSkin = Resources.Load("ñGUI/ÑGUISkin B") as GUISkin;
+    	gSkin = Resources.Load("GUI/GUISkin B") as GUISkin;
 		gSkin.label.fontSize 	= Mathf.RoundToInt( Screen.width * 0.035f );
 //		gSkin.label.fontStyle 	= FontStyle.Bold;
 		
-		HealthTex = Resources.Load("ñGUI/Items") as Texture2D;
+		HealthTex = Resources.Load("GUI/Items") as Texture2D;
  		HealthPos = Rect( (Screen.width * .025f), (Screen.height * .75f), HealthTex.width * .65, HealthTex.height * .65);
  		
- 		FlashTex = Resources.Load("ñGUI/Rainbow") as Texture2D;
+ 		FlashTex = Resources.Load("GUI/Rainbow") as Texture2D;
 		
-		LifesTex = Resources.Load("ñGUI/Lifes") as Texture2D;
+		LifesTex = Resources.Load("GUI/Lifes") as Texture2D;
 		LifesPos = Rect( (Screen.width * .85f), (Screen.height * .85f), LifesTex.width , LifesTex.height );
 
    	}       

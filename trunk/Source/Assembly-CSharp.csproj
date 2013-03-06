@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
 	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-	<ProductVersion>10.0.20506</ProductVersion>
+	<ProductVersion>9.0.21022</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{9A11237F-ED63-616E-DBDE-C39399B84FC5}</ProjectGuid>
+	<ProjectGuid>{5B9FF267-005F-A3BF-219E-FEAE2D8C894F}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_3_5_5;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_WIN;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;UNITY_STANDALONE_WIN;ENABLE_PROFILER;UNITY_EDITOR;UNITY_TEAM_LICENSE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -37,25 +37,47 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Users/pc/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Users/pc/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\custom\GUITypeWriter.cs" />
+     <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\LevelAttributes.cs" />
+     <Compile Include="Assets\Scripts\Managers\Managers.cs" />
+     <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\StageManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\TileManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\_Missions\IngameState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\CompletedState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\ConfigMenuState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\GameOverState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\GameState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\InfoMenuState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\IntroState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\LevelMenuState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\LoadingState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\MainMenuState.cs" />
+     <Compile Include="Assets\Scripts\Managers\_States\PauseState.cs" />
+     <Compile Include="Assets\Scripts\custom\CombineMeshes.cs" />
      <None Include="Assets\Resources\W1-1\W1-1.xml" />
      <None Include="Assets\Scripts\Shaders\Color Keys.shader" />
      <None Include="Assets\Scripts\Shaders\Tinted alpha.shader" />
      <None Include="Assets\Scripts\Editor\TiledReader.txt" />
      <None Include="Assets\Scripts\Shaders\Color Key diffuse.shader" />
+     <None Include="Assets\Resources\Test\level1.xml" />
      <None Include="Assets\Scripts\Shaders\Triple Scroll.shader" />
-     <None Include="Assets\Scenes\Conversations\Conversation.xml" />
+     <None Include="Assets\Resources\GUI\Conversations\Conversation.xml" />
      <None Include="Assets\Resources\Untitled\untitled.xml" />
      <None Include="Assets\Scripts\Shaders\Scrolling Layer.shader" />
      <None Include="Assets\Scripts\Shaders\Color Key CG.shader" />
      <None Include="Assets\Scripts\Shaders\Masked Tint.shader" />
+ <Reference Include="Ionic.Zip">
+ <HintPath>Assets\Scripts\Managers\Ionic.Zip.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

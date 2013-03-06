@@ -70,8 +70,8 @@ class ConversationManager 	//	: MonoBehaviour
 
     public function Init( lacConversationFile : TextAsset ) 
     {
-    	gSkin = Resources.Load ("ñGUI/ÑGUISkin") as GUISkin;
-		ComicTex = Resources.Load("ñGUI/Rainbow") as Texture2D;
+    	gSkin = Resources.Load ("GUI/GUISkin") as GUISkin;
+		ComicTex = Resources.Load("GUI/Rainbow") as Texture2D;
  		ComicPos = Rect( (Screen.width * .26f), (Screen.height * .05f), ComicTex.width  , ComicTex.height *.5);
  		ComicCoord = Rect( 0, 0, .5, .25);
  
@@ -319,19 +319,19 @@ class ConversationManager 	//	: MonoBehaviour
         {
             case eConversationNodeType.eNormalTalk: 													// Enum 0; Nodo activo de tipo eNormalTalk
 
-				GUI.Label (  Rect( (Screen.width * .5f) -200, (Screen.height * .1f) , 486, 200), 
+				GUI.Label (  Rect( (Screen.width * .5f) -220, (Screen.height * .1f) , 486, 200), 
 					 mSpeakers[mpCurrentConversationNode.miCharacterId].macCharacterName + ":"  );		// Show character Id Dialog
 					 
 				miChatDirection = mpCurrentConversationNode.miCharacterId % 2;
                                 
-				GUI.Label (  Rect( (Screen.width * .5f) -200 , (Screen.height * .15f) , 486, 200), mpCurrentConversationNode.macText );// Character Speak														///*///
+				GUI.Label (  Rect( (Screen.width * .5f) -220 , (Screen.height * .15f) , 486, 200), mpCurrentConversationNode.macText );// Character Speak														///*///
             	break;
 	                
            	case eConversationNodeType.eChooseTalk: 													// Enum 1; Nodo activo de tipo eChooseTalk
 	
                 var lcpChoice : cConversationNode = (mpCurrentConversationNode.mChildren[ muiChooseOption ]) as cConversationNode;// Choosen option
 
-				GUI.Label (  Rect( (Screen.width * .5f) -200, (Screen.height * .1f) , 486, 200), 
+				GUI.Label (  Rect( (Screen.width * .5f) -220, (Screen.height * .1f) , 486, 200), 
 					 mSpeakers[lcpChoice.miCharacterId].macCharacterName + ":"  );						// Show character Id Questions..
 					 
 				miChatDirection = lcpChoice.miCharacterId % 2;
@@ -343,14 +343,14 @@ class ConversationManager 	//	: MonoBehaviour
                     if( lcpOptions != lcpChoice)// Printing the unselected Options
                     {
 						GUI.color = Color(.322, .306, .631, 1);
-                    	GUI.Label (  Rect( (Screen.width * .5f)-200 , (Screen.height * .15f)+ liOptionIndex * 20, 486, 200), lcpOptions.macText );
+                    	GUI.Label (  Rect( (Screen.width * .5f)-220 , (Screen.height * .15f)+ liOptionIndex * 20, 486, 200), lcpOptions.macText );
                     }
                     else	if( lcpOptions == lcpChoice) // Printing the Choice
                     {
 						GUI.color = Color.magenta;
 //						GUI.color = Color(1, 0.36, 0.22, 1);
 						
-                    	GUI.Label (  Rect( (Screen.width * .5f)-200 , (Screen.height * .15f) + liOptionIndex * 20, 486, 200),  lcpOptions.macText );
+                    	GUI.Label (  Rect( (Screen.width * .5f)-220 , (Screen.height * .15f) + liOptionIndex * 20, 486, 200),  lcpOptions.macText );
                     }
                 }
             	break;
