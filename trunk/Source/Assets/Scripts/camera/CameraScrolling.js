@@ -22,7 +22,7 @@ function Awake ()
 	levelAttributes = LevelAttributes.Get();			// Set up our convenience references.
 	if (levelAttributes) levelBounds = levelAttributes.bounds;
 	else 														// else use some defaults values..
-	{ levelBounds.xMin = levelBounds.yMin = 0; levelBounds.xMax = levelBounds.yMax = 10; }
+	{ levelBounds.xMin = levelBounds.yMin = 0; levelBounds.xMax = levelBounds.yMax = 100; }
 
 }
 

@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>9.0.21022</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{5B9FF267-005F-A3BF-219E-FEAE2D8C894F}</ProjectGuid>
+	<ProjectGuid>{9A11237F-ED63-616E-DBDE-C39399B84FC5}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -63,6 +63,8 @@
      <Compile Include="Assets\Scripts\Managers\_States\MainMenuState.cs" />
      <Compile Include="Assets\Scripts\Managers\_States\PauseState.cs" />
      <Compile Include="Assets\Scripts\custom\CombineMeshes.cs" />
+     <Compile Include="Assets\Scripts\custom\PlatformMove.cs" />
+     <Compile Include="Assets\SpriteChain.cs" />
      <None Include="Assets\Resources\W1-1\W1-1.xml" />
      <None Include="Assets\Scripts\Shaders\Color Keys.shader" />
      <None Include="Assets\Scripts\Shaders\Tinted alpha.shader" />
