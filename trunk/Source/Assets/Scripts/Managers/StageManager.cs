@@ -12,9 +12,13 @@ public class StageManager : MonoBehaviour
     {
 //        SetMission(typeof(Brief)); // Loading some State
         //Managers.Tiled.Load("/Resources/Untitled/Tiled.xml");
-        Managers.Tiled.Load("/Levels/Tiled.tmx");
-        //Managers.Tiled.LoadXML("Untitled/Tiled");
-        //Managers.Tiled.LoadXML("Test/level1");
+        
+        //Managers.Tiled.Load("/Levels/Tiled.tmx");
+
+        //Managers.Tiled.Load("/Resources/Test/level1.tmx");
+
+        //Managers.Tiled.Load("/Levels/level1.tmx");    // < - - For Level Loader Deploy
+ 
     }
 	
 	void Update()

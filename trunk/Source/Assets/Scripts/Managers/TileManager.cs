@@ -18,7 +18,7 @@ using Ionic.Zlib;
  * - Remember To always Use 2x Power Texture sizes..
  * 
  * - Never mix two diferent TileSet images inside the same Layer
- * 
+ *  (Remember when Using Resources.Load(..) to quit the first '/' & the last '.whatever' extension)
  * */
 
 public class TileManager : MonoBehaviour {
@@ -32,35 +32,29 @@ public class TileManager : MonoBehaviour {
     public bool CombineMesh                 = false;
 
     List<cTileSet> TileSets = new List<cTileSet>();
-    public Transform MapTransform;
+    [HideInInspector] public Transform MapTransform;
+    private int LastUsedMat = 0;
 
     public bool Load( string filePath )
     {
         //Debug.Log(Application.dataPath + filePath);
         
-        string fileName = filePath.Remove(0, filePath.LastIndexOf("/") + 1);			// quit folder path structure
-        fileName = fileName.Remove(fileName.LastIndexOf("."));							// quit .xml extension
+        string fileName = filePath.Remove(0, filePath.LastIndexOf("/") + 1);			        // quit folder path structure
+        fileName = fileName.Remove(fileName.LastIndexOf("."));							        // quit .tmx or .xml extension
 
-        StreamReader sr = File.OpenText(Application.dataPath + filePath);				// Do Stream Read
+        StreamReader sr = File.OpenText(Application.dataPath + filePath);				        // Do Stream Read
         XmlDocument Doc = new XmlDocument();
 
-        Doc.LoadXml(sr.ReadToEnd());                                                    // Read XML
+        Doc.LoadXml(sr.ReadToEnd());                                                            // and Read XML
         sr.Close();
 
-        //var sr = new StreamReader(Application.dataPath + filePath);					   
-        //string FileContent = sr.ReadToEnd();
-        //sr.Close();
-        //XmlDocument Doc = new XmlDocument();
-        //Doc.LoadXml(FileContent);
-
        // CHECK IT S A TMX FILE FROM TILED	
-        if (Doc.DocumentElement.Name == "map")														// Access root Map		
+        if (Doc.DocumentElement.Name == "map")													// Access root Map		
         {
+            GameObject map = new GameObject(fileName);											// inside the editor hierarchy.
+            MapTransform = map.transform;														// take map transform cached
 
-            GameObject map = new GameObject(fileName);												// inside the editor hierarchy.
-            MapTransform = map.transform;																// take map transform cached
-
-            (map.AddComponent<LevelAttributes>() as LevelAttributes).bounds = new Rect(0, 0,			// Set Level bounds for camera 
+            (map.AddComponent<LevelAttributes>() as LevelAttributes).bounds = new Rect(0, 0,	// Set Level bounds for camera 
                 int.Parse(Doc.DocumentElement.Attributes["width"].Value) * TileOutputSize.x,
                 int.Parse(Doc.DocumentElement.Attributes["height"].Value) * TileOutputSize.y);
             //map.AddComponent("CombineMeshes");
@@ -79,72 +73,14 @@ public class TileManager : MonoBehaviour {
             }	// end of each Layer Info 
 
             //	INSTANTIATE PREFABS OBJECTS 
-            //foreach (XmlNode ObjectsGroup in Doc.GetElementsByTagName("objectgroup"))
-            //{
-            //    //BuildPrefabs(ObjectsGroup);
-            //}
-
-            TileOutputSize.z = 0;
-            if (CombineMesh)
-                map.AddComponent<CombineMeshes>();
-
-        }
-        else
-        {
-            Debug.LogError(fileName + " it's not a Tiled File!, wrong load at: "+ filePath);
-            return false;
-        }
-
-        Debug.Log("Tiled Level Build Finished: "+ fileName);
-        //this.Close();
-
-        return true;
-    }
-
-    public bool LoadXML(string filePath)
-    {
-        string fileName = filePath.Remove(0, filePath.LastIndexOf("/") +1 );
-
-        TextAsset tileAsset = (TextAsset)Resources.Load(filePath, typeof(TextAsset));
-        XmlDocument Doc = new XmlDocument();
-        Doc.LoadXml(tileAsset.text);
-
-
-        // CHECK IT S A TMX FILE FROM TILED	
-        if (Doc.DocumentElement.Name == "map")														// Access root Map		
-        {
-
-            GameObject map = new GameObject(fileName);												// inside the editor hierarchy.
-            MapTransform = map.transform;																// take map transform cached
-
-            (map.AddComponent<LevelAttributes>() as LevelAttributes).bounds = new Rect(0, 0,			// Set Level bounds for camera 
-                int.Parse(Doc.DocumentElement.Attributes["width"].Value) * TileOutputSize.x,
-                int.Parse(Doc.DocumentElement.Attributes["height"].Value) * TileOutputSize.y);
-            //map.AddComponent("CombineMeshes");
-
-
-            // SEEK BITMAP SOURCE FILE	 
-            foreach (XmlNode TileSetInfo in Doc.GetElementsByTagName("tileset"))				// array of the level nodes.
+            foreach (XmlNode ObjectsGroup in Doc.GetElementsByTagName("objectgroup"))
             {
-                var TileSetRef = new cTileSet(TileSetInfo, filePath);
-                TileSets.Add(TileSetRef);
+                BuildPrefabs(ObjectsGroup);
             }
-            // CREATE LAYERS . . .	    
-            for (int i = Doc.GetElementsByTagName("layer").Count - 1; i >= 0; i--)
-            {
-                BuildLayer(Doc.GetElementsByTagName("layer").Item(i));
-            }	// end of each Layer Info 
 
-            //	INSTANTIATE PREFABS OBJECTS 
-            //foreach (XmlNode ObjectsGroup in Doc.GetElementsByTagName("objectgroup"))
-            //{
-            //    //BuildPrefabs(ObjectsGroup);
-            //}
-
+            //if (CombineMesh)
+            //map.AddComponent<CombineMeshes>();
             TileOutputSize.z = 0;
-            if (CombineMesh)
-                map.AddComponent<CombineMeshes>();
-
         }
         else
         {
@@ -152,14 +88,11 @@ public class TileManager : MonoBehaviour {
             return false;
         }
 
-
-  
         Debug.Log("Tiled Level Build Finished: "+ fileName);
         //this.Close();
 
         return true;
     }
-
 
     public void Unload()
     {
@@ -180,8 +113,7 @@ public class TileManager : MonoBehaviour {
     void BuildLayer(XmlNode LayerInfo)
     {
         GameObject Layer = new GameObject(LayerInfo.Attributes["name"].Value); // add Layer Childs inside hierarchy.
-        if (CombineMesh)
-            Layer.AddComponent<CombineMeshes>();
+        //    Layer.AddComponent<CombineMeshes>();
 
         var LayerTransform = Layer.transform;
         LayerTransform.position = new Vector3(Layer.transform.position.x, Layer.transform.position.y, TileOutputSize.z);
@@ -242,7 +174,7 @@ public class TileManager : MonoBehaviour {
             }//end of each Tile GZIP Compression Info 
 
         }
-        else if (Data.HasChildNodes) 								// Else if not a Gzip Compression then try as XML data
+        else if (Data.HasChildNodes) 								// Else if not a Gzip Compression then read as XML data
         {
             foreach (XmlNode TileInfo in Data.GetElementsByTagName("tile"))
             {
@@ -265,6 +197,9 @@ public class TileManager : MonoBehaviour {
             }//end of each Tile XML Info 
         }
         else Debug.LogError(" Format Error: Save Tiled File in XML style or Compressed mode(Gzip + Base64)");
+
+        if (CombineMesh && LastUsedMat == 0)
+            Layer.AddComponent<CombineMeshes>();
     }
 
     GameObject BuildTile(uint TileId)
@@ -295,84 +230,150 @@ public class TileManager : MonoBehaviour {
 
                     int localIndex = (int)(Index - TileSets[i].FirstGid) + 1;
 
-                        GameObject Tile = new GameObject();
+                    GameObject Tile = new GameObject();                                             // Build new Tile inside layer
 
-                        Tile.name = TileName;
-                        Tile.transform.position = Vector3.zero;
+                    Tile.name = TileName;
+                    Tile.transform.position = Vector3.zero;
 
-                        MeshFilter meshFilter = (MeshFilter)Tile.AddComponent<MeshFilter>();
-                        MeshRenderer meshRenderer = (MeshRenderer)Tile.AddComponent<MeshRenderer>();
-                        meshRenderer.sharedMaterial = TileSets[i].mat;
+                    MeshFilter meshFilter = (MeshFilter)Tile.AddComponent<MeshFilter>();            // Add mesh Filter & Renderer
+                    MeshRenderer meshRenderer = (MeshRenderer)Tile.AddComponent<MeshRenderer>();
+             
+                    meshRenderer.sharedMaterial = TileSets[i].mat;                                  // Set His own Material w/ texture
+                    LastUsedMat = i;
+                    //Debug.Log("\n Mat index: " + i);
 
-                        Mesh m = new Mesh();
-                            m.name = TileName + "_mesh";
-                            m.vertices = new Vector3[4]	{
-											new Vector3( TileOutputSize.x, 			  	   0, 0.01f),
-											new Vector3( 0, 					 		   0, 0.01f),
-											new Vector3( 0, 			 	TileOutputSize.y, 0.01f),
-											new Vector3( TileOutputSize.x, 	TileOutputSize.y, 0.01f) };
+                    Mesh m = new Mesh();                                                            // Prepare mesh UVs offsets
+                    m.name = TileName + "_mesh";
+                    m.vertices = new Vector3[4]	{
+									new Vector3( TileOutputSize.x, 			  	   0, 0.01f),
+									new Vector3( 0, 					 		   0, 0.01f),
+									new Vector3( 0, 			 	TileOutputSize.y, 0.01f),
+									new Vector3( TileOutputSize.x, 	TileOutputSize.y, 0.01f) };
 
-                            int offset_x = localIndex % TileSets[i].SrcColumns;
-                            int offset_y = TileSets[i].SrcRows - (Mathf.FloorToInt(localIndex / TileSets[i].SrcColumns) +
-                                                        System.Convert.ToByte((localIndex % TileSets[i].SrcRows) != 0));
+                    int offset_x = localIndex % TileSets[i].SrcColumns;
+                    int offset_y = TileSets[i].SrcRows - (Mathf.FloorToInt(localIndex / TileSets[i].SrcColumns) +
+                                                System.Convert.ToByte((localIndex % TileSets[i].SrcRows) != 0));
 
 
-                            Vector2 vt1 = new Vector2((offset_x - System.Convert.ToByte(Flipped_X)) * TileSets[i].ModuleWidth,
-                                            ((offset_y + System.Convert.ToByte(Flipped_Y)) * TileSets[i].ModuleHeight));
-                            Vector2 vt2 = new Vector2((offset_x - System.Convert.ToByte(!Flipped_X)) * TileSets[i].ModuleWidth,
-                                            ((offset_y + System.Convert.ToByte(Flipped_Y)) * TileSets[i].ModuleHeight));
-                            Vector2 vt3 = new Vector2((offset_x - System.Convert.ToByte(!Flipped_X)) * TileSets[i].ModuleWidth,
-                                           ((offset_y + System.Convert.ToByte(!Flipped_Y)) * TileSets[i].ModuleHeight));
-                            Vector2 vt4 = new Vector2((offset_x - System.Convert.ToByte(Flipped_X)) * TileSets[i].ModuleWidth,
-                                           ((offset_y + System.Convert.ToByte(!Flipped_Y)) * TileSets[i].ModuleHeight));
+                    Vector2 vt1 = new Vector2((offset_x - System.Convert.ToByte(Flipped_X)) * TileSets[i].ModuleWidth,
+                                             ((offset_y + System.Convert.ToByte(Flipped_Y)) * TileSets[i].ModuleHeight));
+                    Vector2 vt2 = new Vector2((offset_x - System.Convert.ToByte(!Flipped_X)) * TileSets[i].ModuleWidth,
+                                             ((offset_y + System.Convert.ToByte(Flipped_Y)) * TileSets[i].ModuleHeight));
+                    Vector2 vt3 = new Vector2((offset_x - System.Convert.ToByte(!Flipped_X)) * TileSets[i].ModuleWidth,
+                                             ((offset_y + System.Convert.ToByte(!Flipped_Y)) * TileSets[i].ModuleHeight));
+                    Vector2 vt4 = new Vector2((offset_x - System.Convert.ToByte(Flipped_X)) * TileSets[i].ModuleWidth,
+                                             ((offset_y + System.Convert.ToByte(!Flipped_Y)) * TileSets[i].ModuleHeight));
 
-                            int Xsign = 1;
-                            int Ysign = 1;
+                    int Xsign = 1;
+                    int Ysign = 1;
 
-                            if (Flipped_X) Xsign = -1;
-                            if (Flipped_Y) Ysign = -1;
+                    if (Flipped_X) Xsign = -1;
+                    if (Flipped_Y) Ysign = -1;
 
-                            vt1.x += -eps.x * Xsign; vt1.y += eps.y * Ysign;
-                            vt2.x += eps.x * Xsign; vt2.y += eps.y * Ysign;
-                            vt3.x += eps.x * Xsign; vt3.y += -eps.y * Ysign;
-                            vt4.x += -eps.x * Xsign; vt4.y += -eps.y * Ysign;
+                    vt1.x += -eps.x * Xsign;    vt1.y +=  eps.y * Ysign;
+                    vt2.x +=  eps.x * Xsign;    vt2.y +=  eps.y * Ysign;
+                    vt3.x +=  eps.x * Xsign;    vt3.y += -eps.y * Ysign;
+                    vt4.x += -eps.x * Xsign;    vt4.y += -eps.y * Ysign;
 
-                            if (Rotated)
-                            {
-                                if (Flipped_X && Flipped_Y || !Flipped_X && !Flipped_Y)
+                    if (Rotated)                                                                // This is some Math for flip 
+                    {
+                        if (Flipped_X && Flipped_Y || !Flipped_X && !Flipped_Y)                 // & I don't want to explain!
+                        {
+                            Vector2 vtAux1 = vt2;
+                            vt2 = vt4;
+                            vt4 = vtAux1;
+                        }
+                        else
+                        {
+                            Vector2 vtAux2 = vt3;
+                            vt3 = vt1;
+                            vt1 = vtAux2;
+                        }
+                    }
+
+                    m.uv = new Vector2[4] { vt1, vt2, vt3, vt4 };
+                    m.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
+                    m.RecalculateNormals();
+                    m.Optimize();
+
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                    meshFilter.sharedMesh = m;
+                    m.RecalculateBounds();
+
+                                            
+                    if (TileSets[i].Collisions.ContainsKey(localIndex))                         // If there's a Collision property,
+                        switch ((string)(TileSets[i].Collisions[localIndex]))                   // Check type and Setup:
+                        {
+                            case "Plane":
+                                Tile.AddComponent<MeshCollider>().sharedMesh =
+                                    (Mesh)Resources.Load("Prefabs/Collision/1_0 ColPlane", typeof(Mesh));   // One-Way Plane Collision 
+                                break;
+
+                            case "Slope":
+                                Tile.layer = 8;
+                                if (Flipped_X && !Flipped_Y || !Flipped_X && Flipped_Y && Rotated || !Flipped_X && Flipped_Y && !Rotated)
                                 {
-                                    Vector2 vtAux1 = vt2;
-                                    vt2 = vt4;
-                                    vt4 = vtAux1;
+                                    Tile.AddComponent<MeshCollider>().sharedMesh =
+                                        (Mesh)Resources.Load("Prefabs/Collision/SlopeLeft", typeof(Mesh));  // Left Slope Collision
                                 }
                                 else
                                 {
-                                    Vector2 vtAux2 = vt3;
-                                    vt3 = vt1;
-                                    vt1 = vtAux2;
+                                    Tile.AddComponent<MeshCollider>().sharedMesh =
+                                        (Mesh)Resources.Load("Prefabs/Collision/SlopeRight", typeof(Mesh)); // Right Slope Collision
                                 }
-                            }
+                                break;
 
-
-
-                            m.uv = new Vector2[4] { vt1, vt2, vt3, vt4 };
-                            m.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
-                            m.RecalculateNormals();
-                            m.Optimize();
-
-
-                        /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                        meshFilter.sharedMesh = m;
-                        m.RecalculateBounds();
+                            default:
+                                (Tile.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;       // or default's Box Collision 
+                                break;
+                        }
 
                         return Tile;
                     }
-                    break;
+                    //break;
                 }
             
             }
     return null;
+    }                                                                                                       // End of BuidTile Function
+
+    void BuildPrefabs(XmlNode ObjectsGroup)
+    {
+        int height = int.Parse(ObjectsGroup.ParentNode.Attributes["height"].Value);
+        int tilewidth = int.Parse(ObjectsGroup.ParentNode.Attributes["tilewidth"].Value);
+        int tileheight = int.Parse(ObjectsGroup.ParentNode.Attributes["tileheight"].Value);
+        GameObject ObjGroup = new GameObject(ObjectsGroup.Attributes["name"].Value);
+        var GrpTransform = ObjGroup.transform;
+        GrpTransform.parent = MapTransform;
+
+        foreach (XmlNode ObjInfo in ObjectsGroup.ChildNodes)
+        {
+            Debug.Log(ObjInfo.Attributes["name"].Value);
+            if (ObjInfo.Attributes["name"] == null) continue;
+
+            string ObjName = "Prefabs/" + ObjInfo.Attributes["name"].Value;
+
+            //if (( Resources.Load("Prefabs/" + ObjInfo.Attributes["name"].Value, typeof(GameObject) ) ) )
+            if (( Resources.Load( ObjName, typeof(GameObject) ) ) )
+            {
+
+                GameObject ObjPrefab = (GameObject)Instantiate(
+                    Resources.Load("Prefabs/" + ObjInfo.Attributes["name"].Value, typeof(GameObject)));
+
+                //ObjPrefab.name = ObjName.Remove(0, ObjName.LastIndexOf("/") +1);
+
+                Transform ObjTransform = ObjPrefab.transform;
+
+                ObjTransform.position = new Vector3(
+                 (float.Parse(ObjInfo.Attributes["x"].Value) / tilewidth) + (ObjTransform.localScale.x * .5f),		    // X
+                 height - (float.Parse(ObjInfo.Attributes["y"].Value) / tileheight - ObjTransform.localScale.y * .5f),	// Y		 		     
+                                                                                         MapTransform.position.z);		// Z
+                ObjTransform.name = ObjName.Remove(0, ObjName.LastIndexOf("/") + 1);
+                ObjTransform.parent = GrpTransform;
+            }
+            else Debug.LogWarning("Object '" + ObjName + "' Was not found at: " + "Resources/Prefabs/");
+        }
     }
 }
 
@@ -390,7 +391,6 @@ class cTileSet
     public string SrcImgPath    = "";
 
     public Material mat;
-
     public Dictionary<int, string> Collisions = new Dictionary<int, string>();
     // var Prefabs		: Dictionary.< int, String > = new Dictionary.< int, String >();
 
@@ -429,16 +429,16 @@ class cTileSet
 
 
         #if UNITY_EDITOR
-            SrcImgPath = "Assets" + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath;
-            Texture2D tex = (Texture2D)UnityEditor.AssetDatabase.LoadAssetAtPath(SrcImgPath, typeof(Texture2D));
-            Debug.Log(SrcImgPath);
+            //SrcImgPath = "Assets" + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath;
+            //Texture2D tex = (Texture2D)UnityEditor.AssetDatabase.LoadAssetAtPath(SrcImgPath, typeof(Texture2D));
+            //Debug.Log(SrcImgPath);
 
             //SrcImgPath = FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgName;
             //Texture2D tex = (Texture2D)Resources.Load(SrcImgPath.Remove(0, 11), typeof(Texture2D));
 
             //WWW www = new WWW("file://d:/TiledReader.png");
-            //WWW www = new WWW("file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath); 
-            //Texture2D tex = www.texture;                                                               // We have some 'Ñ' issue
+            WWW www = new WWW("file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
+            Texture2D tex = www.texture;                                                               // We have some 'Ñ' issue
             //Debug.Log        ("file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
         #else
             //Debug.Log(        "file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
