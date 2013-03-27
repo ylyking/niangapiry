@@ -39,6 +39,12 @@ public class Managers : MonoBehaviour
     {
         get { return tileManager; }
     }
+
+    private static ConversationManager conversationManager;
+    public static ConversationManager Dialog
+    {
+        get { return conversationManager; }
+    }
  
 	    // Use this for initialization
     void Awake ()
@@ -49,6 +55,8 @@ public class Managers : MonoBehaviour
         audioManager = GetComponentInChildren<AudioManager>();
         stageManager = GetComponentInChildren<StageManager>();
         tileManager = GetComponentInChildren<TileManager>();
+        conversationManager = GetComponentInChildren<ConversationManager>();
+
  
         //Make this game object persistant
         DontDestroyOnLoad(gameObject);

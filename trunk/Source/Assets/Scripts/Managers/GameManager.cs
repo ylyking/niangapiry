@@ -4,36 +4,34 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    uint Score          = 0;
-    uint Fruits         = 0;
-    uint TopScore       = 100;
+    public uint Score              = 0;
+    public uint Fruits             = 0;
+    public uint TopScore           = 100;
 
-    //int FireGauge       = 0;
-    //int Key             = 0;
-    uint Health         = 3;
-    uint Lifes          = 3;
+    //int FireGauge         = 0;
+    //int Key               = 0;
+    public uint Health      = 3;
+    public uint Lifes       = 3;
 
-    bool ShowState      = true;
-    bool IsPlaying      = false;
-    bool IsPaused       = false;
+    public bool ShowState   = true;
+    public bool IsPlaying   = false;
+    public bool IsPaused    = false;
 
-    float ShowDelay     = 6.0f;
-    float TimeLapse     = 0.0f;
+    //float ShowDelay         = 6.0f;
+    //float TimeLapse         = 0.0f;
 
-    Texture2D HealthTex = null;
-    Rect HealthPos      = new Rect();
-    Rect HealthCoord    = new Rect(0, 0, .25f, .25f);
+    //Texture2D HealthTex     = null;
+    //Rect HealthPos          = new Rect();
+    //Rect HealthCoord        = new Rect(0, 0, .25f, .25f);
 
-    Texture2D LifesTex  = null;
-    Rect LifesPos       = new Rect();
-    Rect LifesCoord     = new Rect(0, 0, 0.5f, 0.5f);
+    //Texture2D LifesTex      = null;
+    //Rect LifesPos           = new Rect();
+    //Rect LifesCoord         = new Rect(0, 0, 0.5f, 0.5f);
 
     //////////////////////////////////////////////////////////////
 
     private List<GameState> states = new List<GameState>();
-
     private bool Running;
-
 
     public GameObject PlayerPrefab;
     public int UnlockedStages = 1;
@@ -41,6 +39,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefab = GameObject.FindGameObjectWithTag("Player")as GameObject;
+        if (!PlayerPrefab) Debug.LogWarning("Player not in Scene");
+
         PushState(typeof(IntroState)); // Loading some State
         UnlockedStages = PlayerPrefs.GetInt("UnlockedStages");
         if (UnlockedStages == 0)
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+
         if (states.Count > 0)
             states[states.Count - 1].OnUpdate();
     }
@@ -147,11 +149,11 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void ShowStatus()
-    {
-        ShowState = true;
-        TimeLapse = ShowDelay;
-    }
+    //public void ShowStatus()
+    //{
+    //    ShowState = true;
+    //    TimeLapse = ShowDelay;
+    //}
     //////////////////////////////////////////////////////////////
 
 
@@ -174,7 +176,6 @@ public class GameManager : MonoBehaviour
         AudioListener.pause = IsPaused;
 
     }
-
     //////////////////////////////////////////////////////////////
 
     public void GameOver()
@@ -219,61 +220,81 @@ public class GameManager : MonoBehaviour
             GameOver();
         }
 
-        HealthCoord = new Rect(Health * .25f, 0, .25f, .25f);
+        //HealthCoord = new Rect(Health * .25f, 0, .25f, .25f);
 
         if (((Fruits % 100) == 0) && System.Convert.ToBoolean(Fruits))
-        { ShowState = true; Lifes++; Fruits++; }
-
-
-        if (ShowState)
-        {
-            TimeLapse -= lfTimestep;	                					// Decrease the message time
-            ShowState = (TimeLapse > 0.0f);
+        { 
+            ShowState = true; 
+            Lifes++; 
+            Fruits++;
         }
+
+
+        //if (ShowState)
+        //{
+        //    TimeLapse -= lfTimestep;	                					        // Decrease the message time
+        //    ShowState = (TimeLapse > 0.0f);
+        //}
+
+        //if (Input.GetButtonDown("Fire1"))
+        //    Managers.Tiled.Load("/Levels/level1.tmx");
+        //if (Input.GetButtonDown("Fire2"))
+        //    Managers.Tiled.Unload();
+
+        //if (Input.GetKeyUp("i"))
+        //    Managers.Display.ShowImage("D:/Niangapiry/Source/Assets/Materials/Textures/sunhouse.png", 3);
+        //if (Input.GetKeyUp("i"))
+        //    Managers.Display.ShowImage("GUI/Lifes", 3);
+
+        //if (Input.GetButtonDown("Fire2"))
+        //    Managers.Display.ShowFadeOut(2);
+
+        //if (Input.GetButtonDown("Fire1"))
+        //    Managers.Display.ShowFadeIn(5);
+
     }
     //////////////////////////////////////////////////////////////     
 
-    public void Render()
-    {
+    //public void Render()
+    //{
 
 
-        //if (gSkin ) GUI.skin = gSkin; 
 
 
-        if (IsPaused)
-        {
-            GUI.color = new Color(1, 0.36f, 0.22f, 1);
-            GUI.Box(new Rect((Screen.width * .5f) - (Screen.width * .15f),
-                         (Screen.height * .5f) - (Screen.height * .15f),
-                          (Screen.width * .3f), (Screen.height * .3f)),
-                            "\n\n - PAUSE - \n press 'Q' to Quit Game \n and return Main Menu ");
-            GUI.color = Color.clear;
-            return;
-        }
+        //if (IsPaused)
+        //{
+        //    GUI.color = new Color(1, 0.36f, 0.22f, 1);
+        //    GUI.Box(new Rect((Screen.width * .5f) - (Screen.width * .15f),
+        //                 (Screen.height * .5f) - (Screen.height * .15f),
+        //                  (Screen.width * .3f), (Screen.height * .3f)),
+        //                    "\n\n - PAUSE - \n press 'Q' to Quit Game \n and return Main Menu ");
+        //    GUI.color = Color.clear;
+        //    return;
+        //}
 
-        if (IsPlaying)
-        {
-            GUI.DrawTextureWithTexCoords(HealthPos, HealthTex, HealthCoord);
+        //if (IsPlaying)
+        //{
+        //    GUI.DrawTextureWithTexCoords(HealthPos, HealthTex, HealthCoord);
 
-            if (!ShowState) return;
+        //    if (!ShowState) return;
 
-            GUI.DrawTextureWithTexCoords(LifesPos, LifesTex, LifesCoord);
+        //    GUI.DrawTextureWithTexCoords(LifesPos, LifesTex, LifesCoord);
 
-            GUI.color = Color.magenta;
-            GUI.Label(new Rect((Screen.width * .05f), (Screen.height * .02f), 100, 50),
-                 "Score: " + Score + "\n" + "Fruits: " + Fruits);
-            GUI.Label(new Rect((Screen.width * .92f), (Screen.height * .9f), 200, 50), "x" + Lifes);
-        }
+        //    GUI.color = Color.magenta;
+        //    GUI.Label(new Rect((Screen.width * .05f), (Screen.height * .02f), 100, 50),
+        //         "Score: " + Score + "\n" + "Fruits: " + Fruits);
+        //    GUI.Label(new Rect((Screen.width * .92f), (Screen.height * .9f), 200, 50), "x" + Lifes);
+        //}
 
-        if (Lifes <= 0)
-        {
-            //		    	GUI.skin.label.fontSize = 64;
-            //		    	GUI.skin.label.fontStyle = FontStyle.Bold;
-            GUI.color = Color.magenta;
-            GUI.Label(new Rect((Screen.width * .35f), (Screen.height * .5f), 100, 50), "- GAME OVER -");
-        }
+        //if (Lifes <= 0)
+        //{
+        //    //		    	GUI.skin.label.fontSize = 64;
+        //    //		    	GUI.skin.label.fontStyle = FontStyle.Bold;
+        //    GUI.color = Color.magenta;
+        //    GUI.Label(new Rect((Screen.width * .35f), (Screen.height * .5f), 100, 50), "- GAME OVER -");
+        //}
 
-    }
+    //}
 
 }
 

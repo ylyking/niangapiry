@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 95b06b8b13c51ec44b5e65d908b61871
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - properties: {instanceID: 0}
+  - animPlay: {instanceID: 0}
+  - JumpSound: {fileID: 8300000, guid: 9e14c21221fbed04bacafe836789c59c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

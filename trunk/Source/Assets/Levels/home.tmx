@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="8" height="6" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="PLANCHA3" tilewidth="64" tileheight="64">
+  <image source="PLANCHA3.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="65" name="home" tilewidth="64" tileheight="64">
+  <image source="home.png" width="512" height="512"/>
+  <tile id="0">
+   <properties>
+    <property name="Collision" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="queso" width="8" height="6">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC0tkYGBIYkCAZCBOAeJUIE4D4kwgzkKSzwbiHCDOBeI8BsLAnYGhIQBIJ0D5QLrBAyLOEEGEfkIAAPAG96zAAAAA
+  </data>
+ </layer>
+ <layer name="fondieu" width="8" height="6">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgwA88gdgLiL2B2AeLfCAQBwFxMBCHQMVCgTgMiMOBOBKIo4A4GohjoPKxQBwHxPEE7CYGAABAhBFnwAAAAA==
+  </data>
+ </layer>
+ <layer name="house" width="8" height="6">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoA4oBOIiPPKVQFxFJbuQAQBhnLNnwAAAAA==
+  </data>
+ </layer>
+ <layer name="1 plano" width="8" height="6">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoC1wBmIXIHZFEoPyG4ByDY5ANhJG5zM4QfACNFoBiBNANABht7/HwAAAAA==
+  </data>
+ </layer>
+ <objectgroup name="Capa de Objetos 1" width="8" height="6">
+  <object name="3" type="Door" x="192" y="192" width="64" height="64">
+   <properties>
+    <property name="Exit" value="Level1.tmx"/>
+   </properties>
+  </object>
+  <object name="salida" type="Door" x="448" y="192" width="64" height="64">
+   <properties>
+    <property name="Warp" value="3"/>
+   </properties>
+  </object>
+  <object name="2" type="Mono" x="64" y="192" width="64" height="64">
+   <properties>
+    <property name="Exit" value="Level1.tmx"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

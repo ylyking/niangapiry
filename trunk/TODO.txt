@@ -1,5 +1,7 @@
 -> Next Goals:
- * Add moving platform feature...
+ * Refactorize Object Prefab Instantiation from tiled Convention,
+Using something more intuitive like type Configs inside Tiled 0.9
+
  * Add Player level Spawn reading (a feature too)
- * Add Warp system level like: Input -> A ... Output -> A
+ * Add Warp system level like: Input -> A ... Output -> A ( Door -> WarpTo: Id, Warp -> WarpTo: "File...tmx")
  * Edit Items and projectiles TileSets...

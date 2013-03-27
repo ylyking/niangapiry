@@ -20,7 +20,7 @@ public class TiledReader : EditorWindow
     private uint FlippedVerticallyFlag = 0x40000000;
     private uint FlippedDiagonallyFlag = 0x20000000;
 
-    public Vector3 TileOutputSize = new Vector3(1, 1, 0);			// Tile Poligonal Modulation inside Unity(Plane)
+    public Vector3 TileOutputSize = new Vector3(1, 1, 0);			// scrollLayer Poligonal Modulation inside Unity(Plane)
     public Vector2 eps = new Vector2(0.000005f, 0.000005f);	        // epsilon to fix some Texture bleeding
     public bool PrefabRebuild = false;								// boolean to check mesh and prefabs RE-BUILD
 
@@ -166,7 +166,7 @@ public class TiledReader : EditorWindow
         // & CHECK IF DATA IS GZIP COMPRESSED OR DEFAULT XML AND CREATE OR BUILD ALL TILES INSIDE EACH LAYER			
         if (Data.HasAttribute("compression") && Data.Attributes["compression"].Value == "gzip")
         {
-            // Decode Base64 and then Uncompress Gzip Tile Information
+            // Decode Base64 and then Uncompress Gzip scrollLayer Information
             byte[] decodedBytes = Ionic.Zlib.GZipStream.UncompressBuffer(Convert.FromBase64String(Data.InnerText));
             for (int tile_index = 0; tile_index < decodedBytes.Length; tile_index += 4)
             {
@@ -189,7 +189,7 @@ public class TiledReader : EditorWindow
                 ColIndex++;
                 RowIndex -= System.Convert.ToByte(ColIndex >= int.Parse(LayerInfo.Attributes["width"].Value));
                 ColIndex = ColIndex % int.Parse(LayerInfo.Attributes["width"].Value);      // ColIndex % TotalColumns           			
-            }//end of each Tile GZIP Compression Info 
+            }//end of each scrollLayer GZIP Compression Info 
 
         }
         else if (Data.HasChildNodes) 								// Else if not a Gzip Compression then try as XML data
@@ -212,7 +212,7 @@ public class TiledReader : EditorWindow
                 RowIndex -= System.Convert.ToByte(ColIndex >= int.Parse(LayerInfo.Attributes["width"].Value));
                 ColIndex = ColIndex % int.Parse(LayerInfo.Attributes["width"].Value);
 
-            }//end of each Tile XML Info 
+            }//end of each scrollLayer XML Info 
         }
         else Debug.LogError(" Format Error: Save Tiled File in XML style or Compressed mode(Gzip + Base64)");
     }
@@ -456,8 +456,8 @@ class cTileSet
         {
             if (TileSetNode.Name == "image")
             {
-                int TileInputWidth = System.Convert.ToInt32(TileSet.Attributes["tilewidth"].Value); // Tile width inside bitmap file  ( 64 )
-                int TileInputHeight = System.Convert.ToInt32(TileSet.Attributes["tileheight"].Value);// Tile height inside bitmap file 
+                int TileInputWidth = System.Convert.ToInt32(TileSet.Attributes["tilewidth"].Value); // scrollLayer width inside bitmap file  ( 64 )
+                int TileInputHeight = System.Convert.ToInt32(TileSet.Attributes["tileheight"].Value);// scrollLayer height inside bitmap file 
 
                 int SrcImgWidth = System.Convert.ToInt32(TileSetNode.Attributes["width"].Value); // File Resolution (512)
                 int SrcImgHeight = System.Convert.ToInt32(TileSetNode.Attributes["height"].Value);

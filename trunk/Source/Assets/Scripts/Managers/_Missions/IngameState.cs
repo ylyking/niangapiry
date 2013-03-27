@@ -4,29 +4,29 @@ using System.Collections;
 public abstract class IngameState : GameState		// Using Decorator Pattern to avoid GamePlay HUD things redundance 
 {
 	
-	protected uint 				score 		= 0;
-	public override uint 		Score	{ get { return this.score ; } set { this.score = value; }  }
+    //protected uint 				score 		= 0;
+    //public override uint 		Score	{ get { return this.score ; } set { this.score = value; }  }
 
 
-	protected float TimeDisplay = 0;
+    //protected float TimeDisplay = 0;
 	
-	private Vector2 PausePos;
-	private Vector2 TimePos;
-	private Vector2 ScorePos;
-	private Vector2 AbductionPos;
+    //private Vector2 PausePos;
+    //private Vector2 TimePos;
+    //private Vector2 ScorePos;
+    //private Vector2 AbductionPos;
 	
     public override void Init()
 	{
-		score = 0;
+        //score = 0;
 
-		if ( (Managers.Display.HUDCorned) == true )
-		{
+        //if ( (Managers.Display.HUDCorned) == true )
+        //{
 	
-		}
-		else
-		{
-            //Debug.Log("Corned");
-		}	
+        //}
+        //else
+        //{
+        //    //Debug.Log("Corned");
+        //}	
 
 	}
 	
