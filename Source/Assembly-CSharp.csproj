@@ -45,10 +45,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\Conversation.cs" />
+     <Compile Include="Assets\Scripts\Managers\ConversationManager.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelAttributes.cs" />
      <Compile Include="Assets\Scripts\Managers\Managers.cs" />
      <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\ScrollLayer.cs" />
      <Compile Include="Assets\Scripts\Managers\StageManager.cs" />
      <Compile Include="Assets\Scripts\Managers\TileManager.cs" />
      <Compile Include="Assets\Scripts\Managers\_Missions\IngameState.cs" />
@@ -62,10 +65,20 @@
      <Compile Include="Assets\Scripts\Managers\_States\LoadingState.cs" />
      <Compile Include="Assets\Scripts\Managers\_States\MainMenuState.cs" />
      <Compile Include="Assets\Scripts\Managers\_States\PauseState.cs" />
+     <Compile Include="Assets\Scripts\camera\CameraScrolling.cs" />
+     <Compile Include="Assets\Scripts\camera\CameraTargetAttributes.cs" />
+     <Compile Include="Assets\Scripts\characters\DengueFly.cs" />
+     <Compile Include="Assets\Scripts\characters\GauchoShooter.cs" />
+     <Compile Include="Assets\Scripts\characters\MonoShooter.cs" />
+     <Compile Include="Assets\Scripts\characters\PlayerControls.cs" />
+     <Compile Include="Assets\Scripts\characters\PlayerProperties.cs" />
+     <Compile Include="Assets\Scripts\custom\AnimSprite.cs" />
+     <Compile Include="Assets\Scripts\custom\BulletShot.cs" />
      <Compile Include="Assets\Scripts\custom\CombineMeshes.cs" />
      <Compile Include="Assets\Scripts\custom\PlatformMove.cs" />
      <Compile Include="Assets\SpriteChain.cs" />
      <None Include="Assets\Resources\W1-1\W1-1.xml" />
+     <None Include="Assets\Scripts\Shaders\IntroScroll.shader" />
      <None Include="Assets\Scripts\Shaders\Color Keys.shader" />
      <None Include="Assets\Scripts\Shaders\Tinted alpha.shader" />
      <None Include="Assets\Scripts\Editor\TiledReader.txt" />
@@ -74,7 +87,7 @@
      <None Include="Assets\Scripts\Shaders\Triple Scroll.shader" />
      <None Include="Assets\Resources\GUI\Conversations\Conversation.xml" />
      <None Include="Assets\Resources\Untitled\untitled.xml" />
-     <None Include="Assets\Scripts\Shaders\Scrolling Layer.shader" />
+     <None Include="Assets\Scripts\Shaders\ScrollingLayer.shader" />
      <None Include="Assets\Scripts\Shaders\Color Key CG.shader" />
      <None Include="Assets\Scripts\Shaders\Masked Tint.shader" />
  <Reference Include="Ionic.Zip">

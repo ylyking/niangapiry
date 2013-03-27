@@ -64,6 +64,28 @@
  <tileset firstgid="129" name="PLANCHA3" tilewidth="64" tileheight="64">
   <image source="PLANCHA3.png" width="512" height="512"/>
  </tileset>
+ <imagelayer name="Sky" width="200" height="50">
+  <image source="cielo.png"/>
+  <properties>
+   <property name="Padding" value="1.5,0"/>
+   <property name="Repeat" value="x"/>
+   <property name="Size" value="Fullscreen"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="FarClouds" width="200" height="50">
+  <image source="nube1.png"/>
+  <properties>
+   <property name="Repeat" value=""/>
+   <property name="Size" value="Original"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="NearClouds" width="200" height="50">
+  <image source="nube2.png"/>
+  <properties>
+   <property name="Repeat" value=""/>
+   <property name="Size" value="Original"/>
+  </properties>
+ </imagelayer>
  <layer name="Fondo" width="200" height="50">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3XQQqDMBQEUC9QKPQsvV+P3i6jaI0g/OHzHrifxUwSlwUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg7VkdAAAAAAD+eEx+r6qAG78cn7RM9DS7jaQu2kcv72XdsxRXtpHURfvoJbFjV7eRlJ0+9npWbTx/07LRw1m/th1McrQPuMvZ+2PsYJq9fXTkP6XO7D4SJd9td7KPOjP7KIjFwD7gmH0AQL4ve6VZ/0CcAAA=

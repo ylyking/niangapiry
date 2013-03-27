@@ -15,14 +15,14 @@ using System.Collections;
 public class AudioManager : MonoBehaviour
 {
 	public bool SoundEnable = true;
-	AudioSource Music = null;
+	public AudioSource Music = null;
 	
-	void Start()
+	void Awake()
 	{
-        if (Camera.mainCamera)
+        if (Camera.mainCamera != null)
         {
             //Music = gameObject.AddComponent<AudioSource>();
-            Music = (Camera.mainCamera.gameObject).AddComponent<AudioSource>();
+            Music = (AudioSource)(Camera.mainCamera.gameObject).AddComponent<AudioSource>();
             Music.playOnAwake = false;
             Music.Stop();
             Music.loop = true;

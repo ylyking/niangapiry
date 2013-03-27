@@ -5,30 +5,32 @@ using System.Collections;
 public class LevelAttributes : MonoBehaviour {
 // Size of the level
 
-public Rect bounds = new Rect( 0, 0, 60, 10);
-bool  ShowMapLimits = true; 
-float fallOutBuffer= 5.0f;
-float colliderThickness= 10.0f;
-float MinScreenLimit= 0.0f;
+public Rect bounds = new Rect( 0, 0, 100, 50);
+public bool  ShowMapLimits = true;
+public float fallOutBuffer = 5.0f;
+public float colliderThickness = 10.0f;
+public float MinScreenLimit = 0.0f;
 
 // Sea Green For the Win!
 private Color sceneViewDisplayColor= new Color (0.20f, 0.74f, 0.27f, 0.50f);
+private GameObject createdBoundaries;
 
-static private LevelAttributes instance;
+//static private LevelAttributes instance;
 
-static LevelAttributes Get()
-{
-	if (!instance) {
-        instance = Object.FindObjectOfType(typeof(LevelAttributes)) as LevelAttributes;
-		if (!instance)
-			Debug.Log("There needs to be one active LevelAttributes script on a GameObject in your scene.");
-	}
-	return instance;
-}
+//static public LevelAttributes Get()
+//{
+//    if (!instance) {
+//        instance = Object.FindObjectOfType(typeof(LevelAttributes)) as LevelAttributes;
+//        if (!instance)
+//            Debug.Log("There needs to be one active LevelAttributes script on a GameObject in your scene.");
+//    }
+//    return instance;
+//}
 
-void  OnDisable (){
-	instance = null;
-}
+//void  OnDisable (){
+//    instance = null;
+//}
+
 
 void  OnDrawGizmos (){
  if (ShowMapLimits)
@@ -47,7 +49,7 @@ void  OnDrawGizmos (){
 }
 
 void  Start (){
-    GameObject createdBoundaries = new GameObject("Created Boundaries");
+    createdBoundaries = new GameObject("Created Boundaries");
 	createdBoundaries.transform.parent = transform;
 
     GameObject leftBoundary = new GameObject("Left Boundary");
@@ -78,6 +80,13 @@ void  Start (){
 
 //while (ShowMapLimits) yield return PleaseDrawGizmos;
 
+}
+
+//void OnDestroy()
+void OnDisable()
+{
+    Debug.Log(" Bound Destroyed");
+    DestroyImmediate(createdBoundaries);
 }
 
 }
