@@ -39,25 +39,39 @@
   <image source="nube1.png"/>
   <properties>
    <property name="Scroll" value="Relative"/>
-   <property name="Speed" value="0.15, 1.015"/>
+   <property name="Speed" value="0.1, 0.15"/>
   </properties>
  </imagelayer>
  <layer name="TileLayer2" width="20" height="10">
+  <properties>
+   <property name="depth" value="0.5"/>
+  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgYGDgZ2Bo4ABiPgaGBwwUAqAZDQJQzE4F8/DYk8ABoakCgGYlAN3MAML8mHY1oItRAmD2UMvto4B2AAC6FPhpIAMAAA==
+   H4sIAAAAAAAAC2NgGHmAn4GhgQNI8zEwPKDULKAZDQJQzE4F8/DYkwB1M1UA0KwEoJsZQJgf064GdDFKAMwearmdngAAcNuWXSADAAA=
   </data>
  </layer>
  <layer name="TileLayer1" width="20" height="10">
+  <properties>
+   <property name="depth" value="0"/>
+  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC5gQsOUAhYGhgZmCAaxaQZwuRvIbiDHPFzu5gKKcQNpRgbqhA8P0DxWIM0JMZsqQIiB4QAbA8MCHiqZN5QBAE4CQwAgAwAA
+   H4sIAAAAAAAAC2NgGAWUACY0TClgYWBoYIZgEJtmAJe7gewGcszD5W4uoBg3kGZkoE748ADNYwXSnBCzqQKEGBgOsDEwLODBIgcAMnhlaSADAAA=
   </data>
  </layer>
  <imagelayer name="Foreground" width="20" height="10">
   <image source="nube2.png"/>
   <properties>
-   <property name="Depth" value="-1"/>
    <property name="Scroll" value="Relative"/>
-   <property name="Speed" value="0.1, 0.1"/>
+   <property name="Speed" value="0.2, 0.2"/>
+   <property name="depth" value="-1"/>
   </properties>
  </imagelayer>
+ <layer name="Frente" width="20" height="10">
+  <properties>
+   <property name="depth" value="-.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWDHfAxMDTwU9c8BXYGhgNAzEANc4FmNHAAaQGI2QsoNQ9oxgGgeQeoYRalAACC7pO9IAMAAA==
+  </data>
+ </layer>
 </map>

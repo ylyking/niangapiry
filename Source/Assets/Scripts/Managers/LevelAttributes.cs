@@ -82,8 +82,8 @@ void  Start (){
 
 }
 
-//void OnDestroy()
-void OnDisable()
+void OnDestroy()
+//void OnDisable()
 {
     Debug.Log(" Bound Destroyed");
     DestroyImmediate(createdBoundaries);

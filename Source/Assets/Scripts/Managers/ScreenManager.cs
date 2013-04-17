@@ -5,6 +5,8 @@ using System.Collections;
 public class ScreenManager : MonoBehaviour
 {
     //public bool HUDCorned           = true;
+    public Camera MainCamera        ;
+    public CameraScrolling  cameraScroll ;   
 
     public float ShowDelay          = 6.0f;                          // Time lapse to display Player status and then hide
     bool ShowState                  = false;
@@ -49,6 +51,11 @@ public class ScreenManager : MonoBehaviour
 
 	void Awake () 
 	{
+        if (MainCamera == null)
+            Debug.Log("Warning, Main Camera not setup");
+        else
+            cameraScroll = MainCamera.gameObject.GetComponent<CameraScrolling>();
+
         //Camera.main.transparencySortMode = TransparencySortMode.Orthographic;
         FlashTex = Resources.Load("GUI/Rainbow") as Texture2D;
         gSkin    = Resources.Load("GUI/GUISkin") as GUISkin;
@@ -78,10 +85,10 @@ public class ScreenManager : MonoBehaviour
 
     public bool ShowImage( string path, float lapse = 2)
     {
-        //WWW www = new WWW("file://" + path);
-        //ImageTex = www.texture  ;
+        WWW www = new WWW("file://" + path);
+        ImageTex = www.texture  ;
          
-        ImageTex = (Texture2D)Resources.Load( path, typeof(Texture2D) )  ;
+        //ImageTex = (Texture2D)Resources.Load( path, typeof(Texture2D) )  ;
 
         if ( ImageTex != null )
         {
@@ -94,6 +101,7 @@ public class ScreenManager : MonoBehaviour
 
     public void ShowFadeIn(  float speed = 2 )                                  // SI SE PERMITEN ESPECIFICADORES de PARAMETROS
     {
+         //alphaColor.a = currentAlpha = 0.99f;
         FadeDir = -1;	
         FadeSpeed = speed;
         Fading  = true;
@@ -140,6 +148,20 @@ public class ScreenManager : MonoBehaviour
         }
     }
     //////////////////////////////////////////////////////////////     
+    void  OnGUI ()
+    {
+    //	if ( !Managers.Display.IsPlaying ) return;
+    	
+	    if( Event.current.type == EventType.Repaint) 
+	    {
+            Managers.Game.Render();
+
+            Managers.Display.Render();
+    		
+		    if( Managers.Dialog.IsInConversation() )
+                Managers.Dialog.Render();
+	    }
+    }
 
     public void Render()
     {

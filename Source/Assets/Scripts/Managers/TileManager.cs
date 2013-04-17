@@ -18,6 +18,9 @@ using Ionic.Zlib;
  * 
  * - Never mix two diferent TileSet images inside the same Layer
  *  (when Using Resources.Load(..) always quit the first '/' & the last '.whatever' extension)
+ *  
+ * - A new Scroll Parallax system was added, the only issue it's that these layers not follow world position b
+ * because they are Camera's childs, but the depth property is still working (just with a diferent output)
  * */
 
 public class TileManager : MonoBehaviour {
@@ -68,16 +71,24 @@ public class TileManager : MonoBehaviour {
        // CHECK IT'S A TMX FILE FROM TILED	
         if (Doc.DocumentElement.Name == "map")												// Access root Map		
         {
+            
+            if (Managers.Game.PlayerPrefab)
+                PlayerTransform = Managers.Game.PlayerPrefab.transform;
+
             GameObject map = new GameObject(fileName);										// inside the editor hierarchy.
             MapTransform = map.transform;													// take map transform cached
 
-            //(map.AddComponent<LevelAttributes>() as LevelAttributes).bounds = 
-            var LevAtt = Managers.Stages.GetComponent<LevelAttributes>() as LevelAttributes;
-            if ( LevAtt != null)  LevAtt.bounds =
-                new Rect(0, 0,	// Set Level bounds for camera 
+            Managers.Display.cameraScroll.ResetBounds(new Rect(0, 0,	// Set Level bounds for camera 
                 int.Parse(Doc.DocumentElement.Attributes["width"].Value) * TileOutputSize.x,
-                int.Parse(Doc.DocumentElement.Attributes["height"].Value) * TileOutputSize.y);
-            //map.AddComponent("CombineMeshes");
+                int.Parse(Doc.DocumentElement.Attributes["height"].Value) * TileOutputSize.y));
+
+            // SEEK PROPERTIES SOURCE FILE
+            //if ( Doc.DocumentElement.FirstChild.Name == "properties" )
+            //foreach (XmlNode Property in Doc.DocumentElement.FirstChild.ChildNodes)			// array of map properties.
+            //{
+            //  if ( Property.Attributes["name"] != null )
+            //    Debug.Log(Property.Attributes["name"].Value);
+            //}
 
 
             // SEEK BITMAP SOURCE FILE	 
@@ -101,12 +112,8 @@ public class TileManager : MonoBehaviour {
                         StartCoroutine(BuildPrefabs(Layer));
                         break;
                 }
-                //Debug.Log(Layer.Attributes["name"].Value);      // Gives Back node 'name' attribute
             }
 
-            //if (CombineMesh)
-            //  map.AddComponent<CombineMeshes>();
-            TileOutputSize.z = 0;
             //if ( ScrollLayers != null)
                 SetupScroll();
 
@@ -117,10 +124,14 @@ public class TileManager : MonoBehaviour {
             return false;
         }
 
+        if ( PlayerTransform && Managers.Register.GetComponent<LevelAttributes>() )
+        {
+            Managers.Display.cameraScroll.ResetBounds();
         PlayerTransform.position =          // a Provisory Fix: Everytime we Change Level move player to the very start of map
-            new Vector3( ( (LevelAttributes)Managers.Stages.GetComponent<LevelAttributes>()).bounds.xMin +1,
-                            ((LevelAttributes)Managers.Stages.GetComponent<LevelAttributes>()).bounds.yMax -1,
+            new Vector3( ( (LevelAttributes)Managers.Register.GetComponent<LevelAttributes>()).bounds.xMin +1,
+                            ((LevelAttributes)Managers.Register.GetComponent<LevelAttributes>()).bounds.yMax -1,
                             0);
+        }
         Debug.Log("Tiled Level Build Finished: "+ fileName);
         return true;
     }
@@ -130,14 +141,16 @@ public class TileManager : MonoBehaviour {
         //StopCoroutine("BuildPrefabs");
         StopAllCoroutines();
 
-        if (Managers.Stages.GetComponent<LevelAttributes>())
-            DestroyImmediate(Managers.Stages.GetComponent<LevelAttributes>());
-        Managers.Stages.gameObject.AddComponent<LevelAttributes>();
-        Camera.main.GetComponent<CameraScrolling>().ResetBounds();
+        if ( MapTransform == null ) 
+            return;
 
+        Managers.Display.cameraScroll.ResetBounds();
 
         if ( MapTransform != null )
-            Destroy(MapTransform.gameObject);
+        {
+            DestroyImmediate(MapTransform.gameObject);
+            MapTransform = null;
+        }
 
         if (ScrollLayers != null && ScrollLayers.Length > 0)
         {
@@ -145,6 +158,13 @@ public class TileManager : MonoBehaviour {
                DestroyImmediate(Layers.gameObject);
             ScrollLayers = null;
         }
+
+        TileSets.Clear();
+        LastUsedMat = 0;
+        ScrollBaseSpeed = 1;
+        TileOutputSize.z = 0;
+        oldPos = Vector3.zero;
+        scrollValue = Vector3.zero;
     }
 
     void OnApplicationQuit() 	
@@ -156,15 +176,16 @@ public class TileManager : MonoBehaviour {
     IEnumerator BuildLayer(XmlNode LayerInfo)
     {
         GameObject Layer = new GameObject(LayerInfo.Attributes["name"].Value); // add Layer Childs inside hierarchy.
-        //    Layer.AddComponent<CombineMeshes>();
 
         var LayerTransform = Layer.transform;
         LayerTransform.position = new Vector3(Layer.transform.position.x, Layer.transform.position.y, TileOutputSize.z);
         LayerTransform.parent = MapTransform;
+        TileOutputSize.z += 0.5f;
 
         int ColIndex = 0;
         int RowIndex = int.Parse(LayerInfo.Attributes["height"].Value) - 1;
-        bool CollisionLayer = false;
+        //bool CollisionLayer = false;
+        uint CollisionLayer = 0;
 
         XmlElement Data = (XmlElement)LayerInfo.FirstChild;
         while (Data.Name != "data")	//		if ( Data.Name == "properties" )    // if Layer data has properties get them
@@ -172,20 +193,24 @@ public class TileManager : MonoBehaviour {
             XmlElement LayerProp = (XmlElement)Data.FirstChild;
 
             if (LayerProp.GetAttribute("name").ToLower() == "collision")
-                CollisionLayer = true;
+                if (LayerProp.GetAttribute("value").ToLower() != "plane") 
+                    CollisionLayer = 1;                                         // check if it's a boxed collision and setup
+                else 
+                    CollisionLayer = 2;                                         // else it's a plane type collsion Layer..
 
             if (LayerProp.GetAttribute("name").ToLower() == "depth")
             {
-                LayerTransform.position = new Vector3(LayerTransform.position.x,
+                LayerTransform.position = new Vector3(  LayerTransform.position.x,
                                                         LayerTransform.position.y,
                                                         float.Parse(LayerProp.GetAttribute("value")));
-                //TileOutputSize.z = LayerTransform.position.z;  // uncomment This for an "auto-arrangement" of layer's depth
+                //Debug.Log(float.Parse(LayerProp.GetAttribute("value")));
+                //TileOutputSize.z = LayerTransform.position.z + 0.5f;  // uncomment This for an "auto-arrangement" of layer's depth
+                //TileOutputSize.z -= 0.5f;
             }
 
             Data = (XmlElement)Data.NextSibling;
         }
 
-        TileOutputSize.z += 0.5f;
 
 
         // & CHECK IF DATA IS GZIP COMPRESSED OR DEFAULT XML AND CREATE OR BUILD ALL TILES INSIDE EACH LAYER			
@@ -208,7 +233,12 @@ public class TileManager : MonoBehaviour {
 
                     TileRef.transform.parent = LayerTransform;
 
-                    if (CollisionLayer) (TileRef.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;
+                    if (CollisionLayer > 0)
+                        if ( CollisionLayer == 1 && TileRef.GetComponent<BoxCollider>() == null) 
+                           (TileRef.AddComponent<BoxCollider>() as BoxCollider).size = Vector3.one; // simple boxed collision
+                        else if ( TileRef.GetComponent<MeshCollider>() == null)
+                           (TileRef.AddComponent<MeshCollider>()as MeshCollider).sharedMesh = 
+                            (Mesh)Resources.Load("Prefabs/Collision/1_0 ColPlane", typeof(Mesh));   // One-Way Plane Collision 
                 }
 
                 ColIndex++;
@@ -376,6 +406,7 @@ public class TileManager : MonoBehaviour {
                                 break;
                         }
 
+
                         return Tile;
                     }
                     //break;
@@ -384,6 +415,7 @@ public class TileManager : MonoBehaviour {
             }
     return null;
     }                                                                                                       // End of BuidTile Function
+
 
     IEnumerator BuildPrefabs(XmlNode ObjectsGroup)
     {
@@ -399,45 +431,40 @@ public class TileManager : MonoBehaviour {
 
         foreach (XmlNode ObjInfo in ObjectsGroup.ChildNodes)
         {
-            Debug.Log(ObjInfo.Attributes["name"].Value);        
-            if (ObjInfo.Attributes["name"] == null) continue;
+            string ObjName;
 
-            if (ObjInfo.Attributes["type"] != null )                                        // Check Obj type and if exists..
-            {
-                switch ( ObjInfo.Attributes["type"].Value.ToLower()  )                      // create and Setup it
-                {
-                    case "door":
-                            Debug.Log("Obj Type Name: "+ ObjInfo.Attributes["type"].Value + " Door");
-                        break;
-                    case "warp":
-                            Debug.Log("Obj Type Name: "+ ObjInfo.Attributes["type"].Value + " warp");
-                        break;
-                    default:
-                            Debug.Log("Obj Type Name: "+ ObjInfo.Attributes["type"].Value + " Default");
-                        break;
+             if ( ObjInfo.Attributes["type"] != null)
+                 ObjName = ObjInfo.Attributes["type"].Value.ToLower();
+            else if ( ObjInfo.Attributes["name"] != null )
+                 ObjName = ObjInfo.Attributes["name"].Value.ToLower();
+            else 
+                continue;
 
-                }
-                Debug.Log("Obj Exit/Warp prop Value: " + 
-                    ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0).Attributes["value"].Value);
-            }
+           //Debug.Log(" name type: "+ ObjName);        
 
-            string ObjName = "Prefabs/" + ObjInfo.Attributes["name"].Value;
-            if (( Resources.Load( ObjName, typeof(GameObject) ) ) )                         // Else check simple name 
+            if (( Resources.Load( "Prefabs/" + ObjName, typeof(GameObject) ) ))                     // Else check simple name 
             {
 
-                GameObject ObjPrefab = (GameObject)Instantiate(
-                    Resources.Load("Prefabs/" + ObjInfo.Attributes["name"].Value, typeof(GameObject)));
-
-                //ObjPrefab.name = ObjName.Remove(0, ObjName.LastIndexOf("/") +1);
-
+                GameObject ObjPrefab =(GameObject)Instantiate( Resources.Load( "Prefabs/" + ObjName , typeof(GameObject)));
                 Transform ObjTransform = ObjPrefab.transform;
-
                 ObjTransform.position = new Vector3(
-                 (float.Parse(ObjInfo.Attributes["x"].Value) / tilewidth) + (ObjTransform.localScale.x * .5f),		    // X
-                 height - (float.Parse(ObjInfo.Attributes["y"].Value) / tileheight - ObjTransform.localScale.y * .5f),	// Y		 		     
-                                                                                         MapTransform.position.z);		// Z
+                    (float.Parse(ObjInfo.Attributes["x"].Value) / tilewidth) + (ObjTransform.localScale.x * .5f),        // X
+                    height - (float.Parse(ObjInfo.Attributes["y"].Value) / tileheight - ObjTransform.localScale.y * .5f),// Y		 		     
+                                                                                         MapTransform.position.z);		 // Z
+                if (ObjInfo.Attributes["gid"] == null)
+                    ObjTransform.position += Vector3.down * (float.Parse(ObjInfo.Attributes["height"].Value)/tileheight);//Fix
+
                 ObjTransform.name = ObjName.Remove(0, ObjName.LastIndexOf("/") + 1);
                 ObjTransform.parent = GrpTransform;
+
+                if ( ObjName.ToLower() == "door" || ObjName.ToLower() == "warp")                
+                {
+                    Portal portal = (Portal)ObjPrefab.GetComponent<Portal>();
+                    portal.SetType( (Portal.type)Enum.Parse( typeof(Portal.type), ObjName));
+                    portal.SetTarget( ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0).Attributes["value"].Value);
+                    portal.SetId( ObjInfo.Attributes["name"].Value);
+                }
+
             }
             else Debug.LogWarning("Object '" + ObjName + "' Was not found at: " + "Resources/Prefabs/");
 
@@ -453,15 +480,15 @@ public class TileManager : MonoBehaviour {
             yield break;
 
         var cam = Camera.main;
-        float Depth = (TileOutputSize.z - cam.transform.position.z);
+        //float Depth = (TileOutputSize.z - cam.transform.position.z);
+        float Depth = TileOutputSize.z ;
         TileOutputSize.z += 0.5f;
 
         GameObject scrollLayer = new GameObject(LayerInfo.Attributes["name"].Value);   // Build new scrollLayer inside layer
 
-		        // Config Layer position from Tiled file 'Depth' property or else by Layer order by Default
+                // Config Layer position from Tiled file 'Depth' property or else by Layer order by Default
         scrollLayer.transform.parent = cam.transform;
         scrollLayer.transform.localScale = Vector3.one;
-        scrollLayer.transform.localPosition = Vector3.forward * Depth;
 
         // Add magic scroll component
         var scroll = scrollLayer.AddComponent<ScrollLayer>();
@@ -474,8 +501,11 @@ public class TileManager : MonoBehaviour {
                 switch (LayerProp.Attributes["name"].Value.ToLower())
                 {
                     case "depth":
-                        scrollLayer.transform.localPosition = Vector3.forward * float.Parse(LayerProp.Attributes["value"].Value);               // Set scroll Layer depth
-                        //Depth = float.Parse(LayerProp.Attributes["value"].Value);               // Set scroll Layer depth
+                        //scrollLayer.transform.position = new Vector3( cam.transform.position.x,
+                        //                                              cam.transform.position.y,
+                        //                                              float.Parse(LayerProp.Attributes["value"].Value));               // Set scroll Layer depth
+                        Depth = float.Parse(LayerProp.Attributes["value"].Value);               // Set scroll Layer depth
+                        //TileOutputSize.z -= 0.5f;
                         break;
 
                     case "scroll":
@@ -488,9 +518,11 @@ public class TileManager : MonoBehaviour {
                          else if (LayerProp.Attributes["value"].Value.ToLower() == "original")
                              scroll.pixelPerfect = !(scroll.streched = false);                  // Set texture pixelperfectv
                          else if (LayerProp.Attributes["value"].Value.ToLower() == "repeatx")
-                             scroll.pixelPerfect = !(scroll.tileY = scroll.streched = false);   // Set texture pixelperfect
+                             scroll.pixelPerfect = !(scroll.tileY = scroll.streched = false);   // Set pixelperfect tiling X
                          else if (LayerProp.Attributes["value"].Value.ToLower() == "repeaty")
-                             scroll.pixelPerfect = !(scroll.tileX = scroll.streched = false);   // Set texture pixelperfect
+                             scroll.pixelPerfect = !(scroll.tileX = scroll.streched = false);   // Set pixelperfect tiling Y
+                         else if (LayerProp.Attributes["value"].Value.ToLower() == "norepeat")
+                             scroll.pixelPerfect = !(scroll.tileX = scroll.tileY = scroll.streched = false);//Set without tile
                         break;
 
                     case "speed":
@@ -514,12 +546,22 @@ public class TileManager : MonoBehaviour {
                         break;
                 }
             }
+        		        
+        // Config Layer position from Tiled file 'Depth' property or else by Layer order by Default
+        scrollLayer.transform.position =  new Vector3( cam.transform.position.x, cam.transform.position.y, Depth);
 
+#if TEXTURE_RESOURCE
+        string AuxPath = LayerInfo.FirstChild.Attributes["source"].Value;
+        Texture2D tex = (Texture2D)Resources.Load( AuxPath.Remove(AuxPath.LastIndexOf(".")+1), typeof(Texture2D) );
+
+#else
         // Add textures
         WWW www = new WWW(  "file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) +
                             LayerInfo.FirstChild.Attributes["source"].Value);
-
         Texture2D tex = www.texture;
+
+#endif
+
         tex.filterMode = FilterMode.Point;
         tex.anisoLevel = 0;
         scroll.SetTexture(tex);
@@ -535,7 +577,8 @@ public class TileManager : MonoBehaviour {
 
     void SetupScroll()
     {
-        PlayerTransform = Managers.Game.PlayerPrefab.transform;
+        //if (Managers.Game.PlayerPrefab)
+        //    PlayerTransform = Managers.Game.PlayerPrefab.transform;
 
         List<ScrollLayer> scrollList = new List<ScrollLayer>(FindObjectsOfType(typeof(ScrollLayer)) as ScrollLayer[]);
 
@@ -570,7 +613,8 @@ public class TileManager : MonoBehaviour {
         if ( ScrollLayers == null) return;
 
         UpdateScroll();
-        scrollValue = PlayerTransform.position - oldPos;
+        if ( PlayerTransform )
+            scrollValue = PlayerTransform.position - oldPos;
 
         foreach (ScrollLayer scrollLayer in ScrollLayers)
         {
@@ -598,7 +642,8 @@ public class TileManager : MonoBehaviour {
                 }
             }
         }
-        oldPos = PlayerTransform.position;
+        if ( PlayerTransform )
+            oldPos = PlayerTransform.position;
     }
 
     private Vector2 ReadVector(string input, float AxisY = 1)                                                     
@@ -664,28 +709,25 @@ class cTileSet
             }
             else if (TileSetNode.Name == "tile")
             {
-                if (TileSetNode.FirstChild.FirstChild.Attributes["name"].Value == "Collision")
+                if (TileSetNode.FirstChild.FirstChild.Attributes["name"].Value.ToLower() == "collision")
                     Collisions.Add(int.Parse(TileSetNode.Attributes["id"].Value) + 1,
                                                 TileSetNode.FirstChild.FirstChild.Attributes["value"].Value);
             }
 
 
-        #if UNITY_EDITOR
+        #if TEXTURE_RESOURCE
             //SrcImgPath = "Assets" + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath;
             //Texture2D tex = (Texture2D)UnityEditor.AssetDatabase.LoadAssetAtPath(SrcImgPath, typeof(Texture2D));
             //Debug.Log(SrcImgPath);
 
-            //SrcImgPath = FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgName;
-            //Texture2D tex = (Texture2D)Resources.Load(SrcImgPath.Remove(0, 11), typeof(Texture2D));
+            SrcImgPath = FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgName;
+            Texture2D tex = (Texture2D)Resources.Load(SrcImgPath.Remove(0, 11), typeof(Texture2D));
 
-            //WWW www = new WWW("file://d:/TiledReader.png");
-            WWW www = new WWW("file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
-            Texture2D tex = www.texture;                                                               // We have some 'Ñ' issue
-            //Debug.Log        ("file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
         #else
             //Debug.Log(        "file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
             WWW www = new WWW("file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
             Texture2D tex = www.texture;
+
         #endif
 
             if (tex == null)

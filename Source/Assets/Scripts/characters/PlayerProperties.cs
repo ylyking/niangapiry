@@ -66,7 +66,7 @@ public float DownSideLimit	= 0f;						// How strong the throw is.
 [HideInInspector]
     public Transform _pickedObject;					    // is HoldingObj ? 
 private Transform thisTransform;					    // own player tranform cached
-private Transform PlayerTransform;					    // own player tranform cached
+//private Transform PlayerTransform;					    // own player tranform cached
 private Transform startPoint = null;				    // donde el player commienza nivel (opcional)
 private Vector3 curSavePos ;						    // current saved position
 
@@ -76,7 +76,8 @@ public GameObject ParticleFlame ;
 
 void  Start (){
 	thisTransform   = transform;
-	PlayerTransform = thisTransform.parent.transform;
+    //PlayerTransform = thisTransform.parent.transform;
+    //PlayerTransform = transform;
 	playerControls  = GetComponent< PlayerControls>();
     charController  = GetComponent<CharacterController>();
 	animPlay 	    = GetComponent<AnimSprite>();
@@ -101,8 +102,8 @@ void  Start (){
 
     Managers.Display.ShowFlash(1.0f);
 
-    if (Managers.Stages.GetComponent<LevelAttributes>())
-        DownSideLimit = Managers.Stages.GetComponent<LevelAttributes>().MinScreenLimit;
+    if (Managers.Register.GetComponent<LevelAttributes>())
+        DownSideLimit = Managers.Register.GetComponent<LevelAttributes>().MinScreenLimit;
 
     StartCoroutine(CoUpdate());
 
@@ -205,7 +206,7 @@ void  OnTriggerEnter (  Collider other   ){
 		}
 	}
 	
-	if ( other.name == "Fruit" )//other.CompareTag( "p_shot") && !HatShoot   )
+	if ( other.name.ToLower() == "fruit" )//other.CompareTag( "p_shot") && !HatShoot   )
 	{
 		Managers.Display.ShowStatus();	
 		if (ParticleStars)
@@ -216,8 +217,8 @@ void  OnTriggerEnter (  Collider other   ){
         Managers.Game.Score += 50;
 		Managers.Audio.Play( soundFruits, thisTransform);
 	}
-	
-	if ( other.name == "Hat" )//other.CompareTag( "p_shot") && !HatShoot   )
+
+    if (other.name.ToLower() == "hat")//other.CompareTag( "p_shot") && !HatShoot   )
 	{
 		Managers.Audio.Play( soundPowerUp2, thisTransform);
 		Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
@@ -228,7 +229,7 @@ void  OnTriggerEnter (  Collider other   ){
 		Inventory |= Items.Hat ;
 	}
 
-    if (other.name == "Ca" + (char)0x00F1 + "a")// Should say 'Caña' //other.CompareTag( "p_shot") && !HatShoot   )
+    if (other.name.ToLower() == "ca" + (char)0x00F1 + "a")// Should say 'Caña' //other.CompareTag( "p_shot") && !HatShoot   )
 	{
 		Managers.Audio.Play( soundPowerUp, thisTransform);
 		Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
@@ -246,19 +247,6 @@ void  OnTriggerEnter (  Collider other   ){
 		InstaKill(true , 1);
 
 
-}
-
-void  OnGUI (){
-//	if ( !Managers.Display.IsPlaying ) return;
-	
-	if( Event.current.type == EventType.Repaint) 
-	{
-        //Managers.Display.Render();
-        Managers.Display.Render();
-		
-		if( Managers.Dialog.IsInConversation() )
-            Managers.Dialog.Render();
-	}
 }
 
 
@@ -298,7 +286,7 @@ void OnTriggerStay(  Collider hit  )  					// void  OnControllerColliderHit ( Co
 void OnTriggerExit(  Collider hit  )  					// void  OnControllerColliderHit ( ControllerColliderHit hit  ){
 {
     if ( hit.CompareTag( "Platform" ) )
-		thisTransform.parent = PlayerTransform;
+		thisTransform.parent = null;
 }
 
 IEnumerator  HitDead (){

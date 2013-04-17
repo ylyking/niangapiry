@@ -25,7 +25,7 @@ public class SpriteChain : MonoBehaviour
 
                 mChainElementArray[i].transform.position = new Vector3(mChainElementArray[i].transform.position.x + DELTA,
                                                                           mChainElementArray[i].transform.position.y + DELTA,
-                                                                          mChainElementArray[i].transform.position.z);
+                                                                          mChainElementArray[i].transform.position.z+1);
             }
 
  
@@ -47,7 +47,7 @@ public class SpriteChain : MonoBehaviour
 
             mChainElementArray[i].transform.position = new Vector3(mChainElementArray[i - 1].transform.position.x - dX * DELTA,
                                                                     mChainElementArray[i - 1].transform.position.y - dY * DELTA,
-                                                                    mChainElementArray[i - 1].transform.position.z);
+                                                                    mChainElementArray[i - 1].transform.position.z + 1);
 
         }
         

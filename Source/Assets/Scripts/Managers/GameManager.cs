@@ -17,17 +17,6 @@ public class GameManager : MonoBehaviour
     public bool IsPlaying   = false;
     public bool IsPaused    = false;
 
-    //float ShowDelay         = 6.0f;
-    //float TimeLapse         = 0.0f;
-
-    //Texture2D HealthTex     = null;
-    //Rect HealthPos          = new Rect();
-    //Rect HealthCoord        = new Rect(0, 0, .25f, .25f);
-
-    //Texture2D LifesTex      = null;
-    //Rect LifesPos           = new Rect();
-    //Rect LifesCoord         = new Rect(0, 0, 0.5f, 0.5f);
-
     //////////////////////////////////////////////////////////////
 
     private List<GameState> states = new List<GameState>();
@@ -39,9 +28,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefab = GameObject.FindGameObjectWithTag("Player")as GameObject;
-        if (!PlayerPrefab) Debug.LogWarning("Player not in Scene");
+        //PlayerPrefab = GameObject.FindGameObjectWithTag("Player")as GameObject;
+        if (!PlayerPrefab)
+        {
+            PlayerPrefab = gameObject;
+            Debug.LogWarning("Player not in Scene, faking one");
+        }
 
+        //PushState(typeof(MainMenuState)); // Loading some State
         PushState(typeof(IntroState)); // Loading some State
         UnlockedStages = PlayerPrefs.GetInt("UnlockedStages");
         if (UnlockedStages == 0)
@@ -62,9 +56,35 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if ( !PlayerPrefab )
+            PlayerPrefab = gameObject;                          // When Player it's not in Game Player not in Scene, fake one
+
+        //HealthCoord = new Rect(Health * .25f, 0, .25f, .25f);
+
+        if (((Fruits % 100) == 0) && System.Convert.ToBoolean(Fruits))
+        { 
+            ShowState = true; 
+            Lifes++; 
+            Fruits++;
+        }
+
+
+        //if (ShowState)
+        //{
+        //    TimeLapse -= lfTimestep;	                					        // Decrease the message time
+        //    ShowState = (TimeLapse > 0.0f);
+        //}
+
 
         if (states.Count > 0)
             states[states.Count - 1].OnUpdate();
+    }
+
+    public void Render()
+    {
+        if (states.Count > 0)
+            states[states.Count - 1].OnRender();
+
     }
 
     public void ChangeState(System.Type newStateType)		// Swap two states
@@ -117,19 +137,8 @@ public class GameManager : MonoBehaviour
         get { return states[states.Count - 1]; }
     }
 
-    public void ShowHelp()
-    {
-        if (states.Count > 0)
-            states[states.Count - 1].ShowHelp();
-    }
-
-    //Changes the current game state
-    public void SetState(System.Type newStateType)
-    {
-        this.SetState(newStateType, 0);
-    }
-
-    public void SetState(System.Type newStateType, float Delay)
+    //Changes the current game state after a specific time
+    public void SetState(System.Type newStateType, float Delay = 0)
     {
         StartCoroutine(CloseLastState(newStateType, Delay));
     }
@@ -157,25 +166,25 @@ public class GameManager : MonoBehaviour
     //////////////////////////////////////////////////////////////
 
 
-    public void SetPause(bool PauseState)
-    {
-        IsPaused = PauseState;
-        //GameObject player = GameObject.FindGameObjectWithTag("Player");
+    //public void SetPause(bool PauseState)
+    //{
+    //    IsPaused = PauseState;
+    //    //GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        if (IsPaused)
-        {
-            Time.timeScale = 0.00000000000001f;
-            //(player.GetComponent<PlayerControls>() as PlayerControls).enabled = false;
-            //( (PlayerControls) player.GetComponent(typeof(PlayerControls)) ).enabled = false;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            //(player.GetComponent<PlayerControls>()as PlayerControls).enabled = true;
-        }
-        AudioListener.pause = IsPaused;
+    //    if (IsPaused)
+    //    {
+    //        Time.timeScale = 0.00000000000001f;
+    //        //(player.GetComponent<PlayerControls>() as PlayerControls).enabled = false;
+    //        //( (PlayerControls) player.GetComponent(typeof(PlayerControls)) ).enabled = false;
+    //    }
+    //    else
+    //    {
+    //        Time.timeScale = 1f;
+    //        //(player.GetComponent<PlayerControls>()as PlayerControls).enabled = true;
+    //    }
+    //    AudioListener.pause = IsPaused;
 
-    }
+    //}
     //////////////////////////////////////////////////////////////
 
     public void GameOver()
@@ -209,51 +218,12 @@ public class GameManager : MonoBehaviour
     public void DeInit() { ;}
     //////////////////////////////////////////////////////////////
 
-    public void Update(float lfTimestep)
-    {
-
-        if (IsPlaying && Input.GetKeyDown("escape"))
-            SetPause(!IsPaused);
-        if (IsPaused && Input.GetKeyDown("q"))
-        {
-            SetPause(false);
-            GameOver();
-        }
-
-        //HealthCoord = new Rect(Health * .25f, 0, .25f, .25f);
-
-        if (((Fruits % 100) == 0) && System.Convert.ToBoolean(Fruits))
-        { 
-            ShowState = true; 
-            Lifes++; 
-            Fruits++;
-        }
-
-
-        //if (ShowState)
-        //{
-        //    TimeLapse -= lfTimestep;	                					        // Decrease the message time
-        //    ShowState = (TimeLapse > 0.0f);
-        //}
-
-        //if (Input.GetButtonDown("Fire1"))
-        //    Managers.Tiled.Load("/Levels/level1.tmx");
-        //if (Input.GetButtonDown("Fire2"))
-        //    Managers.Tiled.Unload();
-
-        //if (Input.GetKeyUp("i"))
-        //    Managers.Display.ShowImage("D:/Niangapiry/Source/Assets/Materials/Textures/sunhouse.png", 3);
-        //if (Input.GetKeyUp("i"))
-        //    Managers.Display.ShowImage("GUI/Lifes", 3);
-
-        //if (Input.GetButtonDown("Fire2"))
-        //    Managers.Display.ShowFadeOut(2);
-
-        //if (Input.GetButtonDown("Fire1"))
-        //    Managers.Display.ShowFadeIn(5);
-
-    }
     //////////////////////////////////////////////////////////////     
+    //public void ShowHelp()
+    //{
+    //    if (states.Count > 0)
+    //        states[states.Count - 1].ShowHelp();
+    //}
 
     //public void Render()
     //{

@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(GameManager))]
 [RequireComponent(typeof(ScreenManager))]
 [RequireComponent(typeof(AudioManager))]
-[RequireComponent(typeof(StageManager))]
+[RequireComponent(typeof(DataManager))]
 [RequireComponent(typeof(TileManager))]
 
 public class Managers : MonoBehaviour
@@ -27,13 +27,13 @@ public class Managers : MonoBehaviour
     {
         get { return audioManager; }
     }
- 
-    private static StageManager stageManager;
-    public static StageManager Stages
-    {
-        get { return stageManager; }
-    }
 
+    private static DataManager dataManager;
+    public static DataManager Register
+    {
+        get { return dataManager; }
+    }
+ 
     private static TileManager tileManager;
     public static TileManager Tiled
     {
@@ -53,7 +53,7 @@ public class Managers : MonoBehaviour
         gameManager = GetComponentInChildren<GameManager>();
         screenManager = GetComponentInChildren<ScreenManager>();
         audioManager = GetComponentInChildren<AudioManager>();
-        stageManager = GetComponentInChildren<StageManager>();
+        dataManager = GetComponentInChildren<DataManager>();
         tileManager = GetComponentInChildren<TileManager>();
         conversationManager = GetComponentInChildren<ConversationManager>();
 
@@ -61,7 +61,5 @@ public class Managers : MonoBehaviour
         //Make this game object persistant
         DontDestroyOnLoad(gameObject);
     }
-	
-	
 
 }

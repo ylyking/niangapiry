@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="8" height="6" tilewidth="64" tileheight="64">
- <tileset firstgid="1" name="PLANCHA3" tilewidth="64" tileheight="64">
-  <image source="PLANCHA3.png" width="512" height="512"/>
- </tileset>
- <tileset firstgid="65" name="home" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="home" tilewidth="64" tileheight="64">
   <image source="home.png" width="512" height="512"/>
   <tile id="0">
    <properties>
@@ -11,30 +8,33 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="65" name="PLANCHA3" tilewidth="64" tileheight="64">
+  <image source="PLANCHA3.png" width="512" height="512"/>
+ </tileset>
  <layer name="queso" width="8" height="6">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC0tkYGBIYkCAZCBOAeJUIE4D4kwgzkKSzwbiHCDOBeI8BsLAnYGhIQBIJ0D5QLrBAyLOEEGEfkIAAPAG96zAAAAA
+   H4sIAAAAAAAAC1NkYGBQYkAAZSBWAWJVIFYDYk0g1kKS1wZiHSDWBWI9BsKAnYGhQQBIK0D5QLqBAyLOIEGEfkIAABy0HnTAAAAA
   </data>
  </layer>
  <layer name="fondieu" width="8" height="6">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgwA88gdgLiL2B2AeLfCAQBwFxMBCHQMVCgTgMiMOBOBKIo4A4GohjoPKxQBwHxPEE7CYGAABAhBFnwAAAAA==
+   H4sIAAAAAAAAC2NgwA84gZgLiLmBmAeLvCAQCwGxMBCLQMVEgVgMiMWBWBKIpYBYGohloPKyQCwHxPIE7CYGAAAkDDuxwAAAAA==
   </data>
  </layer>
  <layer name="house" width="8" height="6">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoA4oBOIiPPKVQFxFJbuQAQBhnLNnwAAAAA==
+   H4sIAAAAAAAAC2NgoA4wBGIjPPKWQGxFJbuQAQDQCeoxwAAAAA==
   </data>
  </layer>
  <layer name="1 plano" width="8" height="6">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC1wBmIXIHZFEoPyG4ByDY5ANhJG5zM4QfACNFoBiBNANABht7/HwAAAAA==
+   H4sIAAAAAAAAC2NgoC1gBmIWIGZFEoPyG4ByDYxANhJG5zMwQfACNFoBiBNANACTkDq6wAAAAA==
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="8" height="6">
   <object name="3" type="Door" x="192" y="192" width="64" height="64">
    <properties>
-    <property name="Exit" value="Level1.tmx"/>
+    <property name="Exit" value="/Levels/parallax.tmx"/>
    </properties>
   </object>
   <object name="salida" type="Door" x="448" y="192" width="64" height="64">
@@ -42,10 +42,11 @@
     <property name="Warp" value="3"/>
    </properties>
   </object>
-  <object name="2" type="Mono" x="64" y="192" width="64" height="64">
-   <properties>
-    <property name="Exit" value="Level1.tmx"/>
-   </properties>
-  </object>
+  <object name="Mosqui" type="Dengue" gid="67" x="192" y="128"/>
+  <object name="Chala" x="256" y="64" width="192" height="64"/>
+  <object type="Mono" gid="66" x="384" y="192"/>
+  <object name="monoco" type="Mono" gid="66" x="448" y="128"/>
+  <object name="Monk" type="Mono" x="320" y="192" width="64" height="64"/>
+  <object name="Monkey" type="Mono" x="320" y="128" width="64" height="64"/>
  </objectgroup>
 </map>
