@@ -4,41 +4,61 @@ using System.Collections;
 
 public class CameraScrolling : MonoBehaviour {
 
-public Transform target;	// The object in our scene that our camera is currently tracking.
-private Transform thisTransform;	// The object in our scene that our camera is currently tracking.
+public Transform target;	                            // The object in our scene that our camera is currently tracking.
+private Transform thisTransform;	                    // The object in our scene that our camera is currently tracking.
 
+private float distance	        = 1.0f;	                // How far back should camera be from the target?
+private float springiness	    = 4.0f;	                // How strict should camera follow the target?  Lower input make the camera more lazy.
 
-private float distance	= 1.0f;	// How far back should camera be from the target?
-private float springiness	= 4.0f;	// How strict should camera follow the target?  Lower input make the camera more lazy.
+//public Rect bounds              = new Rect( 0, 0, 100, 50);
+public bool  ShowMapLimits      = true;
+public float fallOutBuffer      = 5.0f;
+public float colliderThickness  = 10.0f;
+public float MinScreenLimit     = 0.0f;
 
-//private LevelAttributes levelAttributes;			// Keep handy reference store our level's attributes. 
-private Rect levelBounds; 						// We set up these references in the Awake () function.
-//private bool targetLock= false;
+private Rect levelBounds            = new Rect( 0, 0, 100, 50); 	// We set up these references in the Awake () function.
+private Color sceneViewDisplayColor = Color.green;
+private GameObject createdBoundaries;
+
+void  OnDrawGizmos ()
+{
+     if (ShowMapLimits)
+     {
+	    Gizmos.color        = sceneViewDisplayColor;
+	    Vector3 lowerLeft   = new Vector3 (levelBounds.xMin, levelBounds.yMax, 0);
+	    Vector3 upperLeft   = new Vector3 (levelBounds.xMin, levelBounds.yMin, 0);
+	    Vector3 lowerRight  = new Vector3 (levelBounds.xMax, levelBounds.yMax, 0);
+	    Vector3 upperRight  = new Vector3 (levelBounds.xMax, levelBounds.yMin, 0);
+    	
+	    Gizmos.DrawLine (lowerLeft, upperLeft);
+	    Gizmos.DrawLine (upperLeft, upperRight);
+	    Gizmos.DrawLine (upperRight, lowerRight);
+	    Gizmos.DrawLine (lowerRight, lowerLeft);
+     }
+}
 
 
 // This is for setting interpolation on our target, but making sure we don't permanently
 // alter the target's interpolation setting.  This is used in the SetTarget () function.
-//private RigidbodyInterpolation savedInterpolationSetting = RigidbodyInterpolation.None;   /// <<<<<<<<<<<<<<<<<< VINOS HEREFORD
+private RigidbodyInterpolation savedInterpolationSetting = RigidbodyInterpolation.None;    
 
 void  Awake (){
  	thisTransform = transform;
-    if (Managers.Stages.GetComponent<LevelAttributes>())
-        levelBounds = Managers.Stages.GetComponent<LevelAttributes>().bounds;
-	else 														// else use some defaults input..
-	{ levelBounds.xMin = levelBounds.yMin = 0; levelBounds.xMax = levelBounds.yMax = 10; }
 
-}
+    //if (Managers.Register.GetComponent<LevelAttributes>())
+    //    levelBounds = Managers.Register.GetComponent<LevelAttributes>().bounds;
+    //else 														// else use some defaults input..
+    //{ levelBounds.xMin = levelBounds.yMin = 0; levelBounds.xMax = levelBounds.yMax = 10; }
 
-public void ResetBounds()
-{
-    var levelAttribs =    (Managers.Stages.GetComponent<LevelAttributes>());
-    if (levelAttribs != null && this.levelBounds != levelAttribs.bounds)
-        levelBounds = levelAttribs.bounds;
 }
 
 
 void Update()
 {
+    //if ( this.target == null )
+    //    SetTarget(Managers.Display.transform, false);
+
+
 	Vector3 goalPosition = GetGoalPosition ();	// Where should our camera be looking right now?
 
     // Set Zoom Level accord the target needs
@@ -157,56 +177,109 @@ Vector3 GetGoalPosition ()	// find out where the camera should move to, Based on
 	thisTransform.position = cameraPositionSave;
 	
 	if (FixedHeight)						// in case we set fixed the height position set the global value;
-		goalPosition.y = heightOffset;
+    {
+        goalPosition.y = heightOffset;
+
+        if ( target.position.y >  heightOffset)
+        goalPosition.y = target.position.y;
+
+        //if ( target.position.y < (heightOffset * 0.5f))
+        //goalPosition.y = target.position.y;
+
+
+    }
 	
 	// Send back our spiffily calculated goalPosition back to the caller!
 	return goalPosition;
 }
 
-//
-//// Provide another version of SetTarget that doesn't require the snap variable to set.
-//// This is for convenience and cleanliness.  By default, we will not snap to the target.
-//void  SetTarget ( Transform newTarget  ){
-//	SetTarget (newTarget, false);
-//}
-//
-//// This is a simple accessor function, sometimes called a "getter".  It is a publically callable
-//// function that returns a private variable.  Notice how target defined at the top of the script
-//// is marked "private"?  We can not access it from other scripts directly.  Therefore, we just
-//// have a function that returns it.  Sneaky!
-//void  GetTarget (){
-//	return target;
-//}
-//
-//
-//void  SetTarget ( Transform newTarget ,   bool snap  ){
- //	// If there was a target, reset its interpolation value if it had a rigidbody.
-//	if  (target) {
-//		// Reset the old target's interpolation back to the saved value.
-//		Rigidbody targetRigidbody = target.GetComponent (Rigidbody);
-//		if  (targetRigidbody)
-//			targetRigidbody.interpolation = savedInterpolationSetting;
-//	}
-//	
-//	// Set our current target to be the value passed to SetTarget ()
-//	target = newTarget;
-//	
-//	// Now, save the new target's interpolation setting and set it to interpolate for now.
-//	// This will make our camera move more smoothly.  Only do this if we didn't set the
-//	// target to null (nothing).
-//	if (target) {
-//		targetRigidbody = target.GetComponent (Rigidbody);
-//		if (targetRigidbody) {
-//			savedInterpolationSetting = targetRigidbody.interpolation;
-//			targetRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-//		}
-//	}
-//	
-//	// If we should snap the camera to the target, do so now.
-//	// Otherwise, the camera's position will change in the LateUpdate () function.
-//	if  (snap) {
-//		transform.position = GetGoalPosition ();
-//	}
-//}
+
+public void SetTarget(Transform newTarget, bool snap = false)
+{
+    // If there was a target, reset its interpolation value if it had a rigidbody.
+    if (target)
+    {
+        // Reset the old target's interpolation back to the saved value.
+        Rigidbody targetRigidbody = target.GetComponent<Rigidbody>();
+        if (targetRigidbody)
+            targetRigidbody.interpolation = savedInterpolationSetting;
+    }
+
+    // Set our current target to be the value passed to SetTarget ()
+    target = newTarget;
+
+    // Now, save the new target's interpolation setting and set it to interpolate for now.
+    // This will make our camera move more smoothly.  Only do this if we didn't set the
+    // target to null (nothing).
+    if (target)
+    {
+        Rigidbody targetRigidbody = target.GetComponent<Rigidbody>();
+        if (targetRigidbody)
+        {
+            savedInterpolationSetting = targetRigidbody.interpolation;
+            targetRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+        }
+    }
+
+    // If we should snap the camera to the target, do so now.
+    // Otherwise, the camera's position will change in the LateUpdate () function.
+    if (snap)
+        transform.position = GetGoalPosition();
+
+   
+    ResetBounds();
+}
+    
+public void ResetBounds()
+{
+    ResetBounds( new Rect( 0, 0, 100, 50)) ;
+}
+    
+public void ResetBounds( Rect Bounds )
+{
+    if ( createdBoundaries != null )
+        DestroyImmediate(createdBoundaries);
+
+    levelBounds = Bounds;
+
+    createdBoundaries = new GameObject("Created Boundaries");
+    //createdBoundaries.transform.parent = transform;
+
+    GameObject leftBoundary = new GameObject("Left Boundary");
+	leftBoundary.transform.parent = createdBoundaries.transform;
+    BoxCollider boxCollider = (BoxCollider)leftBoundary.AddComponent(typeof(BoxCollider));
+    boxCollider.size = new Vector3(colliderThickness, levelBounds.height + colliderThickness * 2.0f + fallOutBuffer, colliderThickness);
+    boxCollider.center = new Vector3(levelBounds.xMin - colliderThickness * 0.5f, levelBounds.y + levelBounds.height * 0.5f - fallOutBuffer * 0.5f, 0.0f);
+
+    GameObject rightBoundary = new GameObject("Right Boundary");
+	rightBoundary.transform.parent = createdBoundaries.transform;
+    boxCollider = (BoxCollider)rightBoundary.AddComponent(typeof(BoxCollider));
+    boxCollider.size = new Vector3(colliderThickness, levelBounds.height + colliderThickness * 2.0f + fallOutBuffer, colliderThickness);
+    boxCollider.center = new Vector3(levelBounds.xMax + colliderThickness * 0.5f, levelBounds.y + levelBounds.height * 0.5f - fallOutBuffer * 0.5f, 0.0f);
+
+    GameObject topBoundary = new GameObject("Top Boundary");
+	topBoundary.transform.parent = createdBoundaries.transform;
+    boxCollider = (BoxCollider)topBoundary.AddComponent(typeof(BoxCollider));
+	boxCollider.size = new Vector3 (levelBounds.width + colliderThickness * 2.0f, colliderThickness, colliderThickness);
+    boxCollider.center = new Vector3(levelBounds.x + levelBounds.width * 0.5f, levelBounds.yMax + colliderThickness * 0.5f, 0.0f);
+
+    GameObject  bottomBoundary = new GameObject("Bottom Boundary (Including Fallout Buffer)");
+	bottomBoundary.transform.parent = createdBoundaries.transform;
+    boxCollider = (BoxCollider)bottomBoundary.AddComponent(typeof(BoxCollider));
+    boxCollider.size = new Vector3(levelBounds.width + colliderThickness * 2.0f, colliderThickness, colliderThickness);
+    boxCollider.center = new Vector3(levelBounds.x + levelBounds.width * 0.5f, levelBounds.yMin - colliderThickness * 0.5f - fallOutBuffer, 0.0f);
+	
+	MinScreenLimit = gameObject.transform.position.y ;
+
+    //var levelAttribs = (Managers.Register.GetComponent<LevelAttributes>());
+    //if (levelAttribs != null && this.levelBounds != levelAttribs.bounds)
+    //    levelBounds = levelAttribs.bounds;
+}
+   
+public Rect GetBounds()
+    {
+        return this.levelBounds;
+    }
+
 
 }

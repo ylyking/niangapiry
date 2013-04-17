@@ -92,9 +92,9 @@ void  Start (){
 
 IEnumerator CoUpdate ()	 											// void  Update ()
 {
-    while (true)
+    while (thisTransform)
     {
-
+        if (target)
         if (thisTransform.IsChildOf(target)) 									// check if the player has taken us... 
         {
             thisTransform.position = target.position + HoldedPosition; 			// Update own hold position & player's too
@@ -140,7 +140,7 @@ IEnumerator CoUpdate ()	 											// void  Update ()
         if (!grounded) velocity.y -= gravity * Time.deltaTime;
         thisTransform.position += velocity * Time.deltaTime;
 
-        if (thisTransform.position.y < 0) Destroy(gameObject, 2);	// If character falls get it up again 
+        if (thisTransform.position.y < 0 && thisTransform != null) Destroy(gameObject, 2);	// If character falls get it up again 
 
         yield return 0;
     }

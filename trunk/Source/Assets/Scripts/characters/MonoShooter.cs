@@ -59,9 +59,11 @@ void  Start (){
     	rigidbody.freezeRotation = true;
     	rigidbody.useGravity = false;
     }
-    	
-	if (!target) 
-		target =  GameObject.Find("Pombero").transform;			//	We can Use this system to get the player's Id & position
+    
+	if (!target && Managers.Game.PlayerPrefab)
+        target = Managers.Game.PlayerPrefab.transform;
+    //if (!target) 
+    //    target =  GameObject.Find("Pombero").transform;			//	We can Use this system to get the player's Id & position
 	
 	if (!aimCompass)
 		aimCompass = thisTransform.FindChild("AimCompass");
@@ -90,10 +92,10 @@ void  OnBecameInvisible (){
 
 IEnumerator CoUpdate()	                                                        // void  Update (){
 {
-    while (true)
+    while (thisTransform )
     {
-
-        if (thisTransform.IsChildOf(target)) 									// check if the player has taken us... 
+        if (target)
+        if ( thisTransform.IsChildOf(target)) 									// check if the player has taken us... 
         {
             thisTransform.position = target.position + HoldedPosition; 			// Update own hold position & player's too
             enemyState = ShooterState.Holded;										// & change enemy state to holded..
@@ -140,7 +142,7 @@ IEnumerator CoUpdate()	                                                        /
         if (!grounded) velocity.y -= gravity * Time.deltaTime;
         thisTransform.position += velocity * Time.deltaTime;
 
-        if (thisTransform.position.y < 0) Destroy(gameObject, 2);	// If character falls get it up again 
+        if (thisTransform.position.y < 0 && thisTransform != null) Destroy(gameObject, 2);	// If character falls get it up again 
 
         yield return 0;
     }
