@@ -79,17 +79,8 @@ public class TileManager : MonoBehaviour {
             MapTransform = map.transform;													// take map transform cached
 
             Managers.Display.cameraScroll.ResetBounds(new Rect(0, 0,	// Set Level bounds for camera 
-                int.Parse(Doc.DocumentElement.Attributes["width"].Value) * TileOutputSize.x,
-                int.Parse(Doc.DocumentElement.Attributes["height"].Value) * TileOutputSize.y));
-
-            // SEEK PROPERTIES SOURCE FILE
-            //if ( Doc.DocumentElement.FirstChild.Name == "properties" )
-            //foreach (XmlNode Property in Doc.DocumentElement.FirstChild.ChildNodes)			// array of map properties.
-            //{
-            //  if ( Property.Attributes["name"] != null )
-            //    Debug.Log(Property.Attributes["name"].Value);
-            //}
-
+                                            int.Parse(Doc.DocumentElement.Attributes["width"].Value) * TileOutputSize.x,
+                                            int.Parse(Doc.DocumentElement.Attributes["height"].Value) * TileOutputSize.y));
 
             // SEEK BITMAP SOURCE FILE	 
             foreach (XmlNode TileSetInfo in Doc.GetElementsByTagName("tileset"))			// array of the level nodes.
@@ -124,14 +115,17 @@ public class TileManager : MonoBehaviour {
             return false;
         }
 
-        if ( PlayerTransform && Managers.Register.GetComponent<LevelAttributes>() )
-        {
-            Managers.Display.cameraScroll.ResetBounds();
-        PlayerTransform.position =          // a Provisory Fix: Everytime we Change Level move player to the very start of map
-            new Vector3( ( (LevelAttributes)Managers.Register.GetComponent<LevelAttributes>()).bounds.xMin +1,
-                            ((LevelAttributes)Managers.Register.GetComponent<LevelAttributes>()).bounds.yMax -1,
-                            0);
-        }
+        //if ( PlayerTransform )
+        //{
+        //    //Managers.Display.cameraScroll.ResetBounds();
+        //    // a Provisory Fix: Everytime we Change Level move player to the very start of map
+        //    PlayerTransform.position = new Vector3( Managers.Display.cameraScroll.GetBounds().xMin +1, 
+        //                                            Managers.Display.cameraScroll.GetBounds().yMax -1, 0);
+        //}
+
+        Managers.Register.currentLevelFile = filePath ;
+
+
         Debug.Log("Tiled Level Build Finished: "+ fileName);
         return true;
     }
@@ -148,16 +142,29 @@ public class TileManager : MonoBehaviour {
 
         if ( MapTransform != null )
         {
-            DestroyImmediate(MapTransform.gameObject);
+            Destroy(MapTransform.gameObject);
             MapTransform = null;
         }
 
-        if (ScrollLayers != null && ScrollLayers.Length > 0)
-        {
-            foreach( ScrollLayer Layers in ScrollLayers)
-               DestroyImmediate(Layers.gameObject);
-            ScrollLayers = null;
-        }
+        if ( ScrollLayers != null && ScrollLayers.Length > 0)
+            for ( int LayerIndex = ScrollLayers.Length - 1; LayerIndex >= 0 ; LayerIndex-- )
+            {
+                if ( ScrollLayers[LayerIndex] != null )
+                    Destroy(ScrollLayers[LayerIndex].gameObject);
+            }
+        ScrollLayers = null;
+
+
+        //if ( ScrollLayers != null && ScrollLayers.Length > 0)
+        //{
+        //    foreach( ScrollLayer Layers in ScrollLayers)
+        //        if ( Layers != null )
+        //            Destroy( Layers.gameObject);
+        //}
+        //ScrollLayers = null;
+
+        Managers.Register.StartPoint = Vector3.zero;
+        Managers.Register.currentLevelFile = "" ;
 
         TileSets.Clear();
         LastUsedMat = 0;
@@ -416,6 +423,7 @@ public class TileManager : MonoBehaviour {
     return null;
     }                                                                                                       // End of BuidTile Function
 
+    //----------------------------------------------------------------------------------------//
 
     IEnumerator BuildPrefabs(XmlNode ObjectsGroup)
     {
@@ -434,35 +442,46 @@ public class TileManager : MonoBehaviour {
             string ObjName;
 
              if ( ObjInfo.Attributes["type"] != null)
-                 ObjName = ObjInfo.Attributes["type"].Value.ToLower();
+                 ObjName = ObjInfo.Attributes["type"].Value.ToLower();                      // Check type match
             else if ( ObjInfo.Attributes["name"] != null )
-                 ObjName = ObjInfo.Attributes["name"].Value.ToLower();
+                 ObjName = ObjInfo.Attributes["name"].Value.ToLower();                      // else take it's name
             else 
-                continue;
+                continue;                                                                   // else discard object
 
-           //Debug.Log(" name type: "+ ObjName);        
-
-            if (( Resources.Load( "Prefabs/" + ObjName, typeof(GameObject) ) ))                     // Else check simple name 
+            if ( Resources.Load( "Prefabs/" + ObjName, typeof(GameObject) ) )                
             {
 
                 GameObject ObjPrefab =(GameObject)Instantiate( Resources.Load( "Prefabs/" + ObjName , typeof(GameObject)));
+
                 Transform ObjTransform = ObjPrefab.transform;
                 ObjTransform.position = new Vector3(
                     (float.Parse(ObjInfo.Attributes["x"].Value) / tilewidth) + (ObjTransform.localScale.x * .5f),        // X
                     height - (float.Parse(ObjInfo.Attributes["y"].Value) / tileheight - ObjTransform.localScale.y * .5f),// Y		 		     
                                                                                          MapTransform.position.z);		 // Z
-                if (ObjInfo.Attributes["gid"] == null)
-                    ObjTransform.position += Vector3.down * (float.Parse(ObjInfo.Attributes["height"].Value)/tileheight);//Fix
+                
+                if (ObjInfo.Attributes["gid"] == null)                          //  If not a gid it's a Trigger Volume (Great)
+                {
+                    ObjTransform.localScale = new Vector3(  float.Parse(ObjInfo.Attributes["width"].Value)/tilewidth,
+                                                            float.Parse(ObjInfo.Attributes["height"].Value)/tileheight, 1 )  ;
+                
+                     ObjTransform.position += new Vector3(  (ObjTransform.localScale.x * .5f) - .5f,
+                                                            -(ObjTransform.localScale.y * .5f + .5f), 
+                                                             MapTransform.position.z );                // Model your own space!
+                }
+
 
                 ObjTransform.name = ObjName.Remove(0, ObjName.LastIndexOf("/") + 1);
                 ObjTransform.parent = GrpTransform;
 
-                if ( ObjName.ToLower() == "door" || ObjName.ToLower() == "warp")                
+                if ( ObjName.ToLower() == "door" || ObjName.ToLower() == "warp" || ObjName.ToLower() == "start")                
                 {
                     Portal portal = (Portal)ObjPrefab.GetComponent<Portal>();
                     portal.SetType( (Portal.type)Enum.Parse( typeof(Portal.type), ObjName));
-                    portal.SetTarget( ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0).Attributes["value"].Value);
-                    portal.SetId( ObjInfo.Attributes["name"].Value);
+
+                    if ( ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0) != null )
+                        portal.SetTarget( ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0).Attributes["value"].Value);
+                    
+                    portal.SetId( ( ObjInfo.Attributes["name"] != null ? ObjInfo.Attributes["name"].Value : ObjName ) );
                 }
 
             }
@@ -501,11 +520,7 @@ public class TileManager : MonoBehaviour {
                 switch (LayerProp.Attributes["name"].Value.ToLower())
                 {
                     case "depth":
-                        //scrollLayer.transform.position = new Vector3( cam.transform.position.x,
-                        //                                              cam.transform.position.y,
-                        //                                              float.Parse(LayerProp.Attributes["value"].Value));               // Set scroll Layer depth
                         Depth = float.Parse(LayerProp.Attributes["value"].Value);               // Set scroll Layer depth
-                        //TileOutputSize.z -= 0.5f;
                         break;
 
                     case "scroll":

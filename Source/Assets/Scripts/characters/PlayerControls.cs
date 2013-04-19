@@ -15,6 +15,8 @@ private CharacterController controller;
 [HideInInspector] public int orientation = 1;					// Move Direction: -1 == left, +1 == right
 [HideInInspector] public Vector3 velocity = Vector3.zero;	// Start quiet 
 
+
+
 public float gravity = 20.0f;
 public float fallSpeed = 0.5f;				// speed of falling down ( division factor )
 
@@ -173,6 +175,8 @@ void  BurnOut (){
 	velocity.x =  orientation * runSpeed * 2;
 	animPlay.PlayFramesFixed ( 5, 0, 4, orientation , 1.005f) ;
 }
+
+
 
 //function OnDrawGizmos()	
 //{

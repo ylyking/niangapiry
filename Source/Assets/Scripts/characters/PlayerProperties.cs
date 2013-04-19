@@ -26,14 +26,10 @@ public GameObject projectileFire;
 
 bool  changeState 	    = true;						    // flag to switch state
 
-[HideInInspector]
-   public bool  dead    = false;					    // general flags to knew current player state
-[HideInInspector]
-    public bool normal  = false;
-[HideInInspector]
-    public bool inmune  = false;
-[HideInInspector]
-    public bool BurnOut = false;
+[HideInInspector] public bool dead    = false;					    // general flags to knew current player state
+[HideInInspector] public bool normal  = false;
+[HideInInspector] public bool inmune  = false;
+[HideInInspector] public bool BurnOut = false;
 
 private bool  HoldingKey 	= false;					// simple flag to know if the throwing button was released 
 private bool  wasKinematic 	= false;					// flag to remeber if the taken thing was Kinematic or not
@@ -63,13 +59,8 @@ public Vector3 GrabPosition = new Vector3( 0f, 0.5f, 0f);	// Grab & Throw Funcio
 public float ThrowForce		= 400f;						// How strong the throw is. 
 public float DownSideLimit	= 0f;						// How strong the throw is. 
 
-[HideInInspector]
-    public Transform _pickedObject;					    // is HoldingObj ? 
+[HideInInspector] public Transform _pickedObject;					    // is HoldingObj ? 
 private Transform thisTransform;					    // own player tranform cached
-//private Transform PlayerTransform;					    // own player tranform cached
-private Transform startPoint = null;				    // donde el player commienza nivel (opcional)
-private Vector3 curSavePos ;						    // current saved position
-
 public GameObject ParticleStars ;
 public GameObject ParticleFlame ;
 
@@ -90,15 +81,6 @@ void  Start (){
 	
 //	Inventory |= Items.Hat ;
 //	SetPlayerState( PlayerState.Asleep);
-
-
-	if ( startPoint != null )
-	{
-		thisTransform.position = startPoint.position	;
-		curSavePos = startPoint.position	;
-	}
-	else 
-        curSavePos = thisTransform.position ;
 
     Managers.Display.ShowFlash(1.0f);
 
@@ -237,11 +219,7 @@ void  OnTriggerEnter (  Collider other   ){
 		Destroy( other.gameObject );
 		Inventory = Items.Fire ;
 	}
-	if ( other.CompareTag("savePoint") )										// check tag savepoint
-	{
-		Managers.Audio.Play( soundPowerUp, thisTransform);
-		curSavePos = thisTransform.position;									// current player position is saved curSavePosition
-	}
+
 	
 	if ( other.CompareTag( "killbox") )	
 		InstaKill(true , 1);
@@ -375,7 +353,7 @@ IEnumerator  InstaKill (  bool ReSpawn ,    int pushDirection   ){
 			{
 				yield return new WaitForSeconds( 0.5f );
                 Managers.Display.ShowFlash(1.5f);
-				thisTransform.position = curSavePos;	
+                thisTransform.position = Managers.Register.StartPoint;	
 				playerControls.velocity = Vector3.zero;
 			}
 			SetPlayerState( PlayerState.Asleep );						// if there are life change state to Asleep

@@ -5,18 +5,19 @@ public class WorldState0 : InGameState
 {
     public override void Init()
     {
-        //Debug.Log("Enter World 0 State: Pampero");
+       //Debug.Log("Enter World 0 State: Pampero");
+        Managers.Register.StartPoint = Managers.Register.PamperoStart;
+        Managers.Tiled.Load(Managers.Register.PamperoFile);
         base.Init();
-       Managers.Tiled.Load("/Levels/pampero.tmx") ;
-        //if ( Managers.Tiled.Load("/Levels/parallax.tmx") )
-            //(Managers.Display.MainCamera).GetComponent<CameraScrolling>().ResetBounds();
-        //else
-        //    Debug.Log( " level map Not found");
+
     }
 
     public override void DeInit()
     {
         //Debug.Log("Exit the current State and returning map");
+        Managers.Register.PamperoStart = Managers.Register.StartPoint;
+        Managers.Register.PamperoFile = Managers.Register.currentLevelFile ;
+
         Managers.Tiled.Unload();
         base.DeInit();
     }

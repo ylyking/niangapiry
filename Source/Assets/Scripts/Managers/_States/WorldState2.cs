@@ -5,20 +5,19 @@ public class WorldState2 : InGameState
 {
     public override void Init()
     {
-        Debug.Log("Enter World 2 State: Pombero's House");
+        //Debug.Log("Enter World 2 State: Pombero's House");
+        Managers.Register.StartPoint = Managers.Register.HomeStart;
+        Managers.Tiled.Load(Managers.Register.HomeFile);
         base.Init();
-        Managers.Tiled.Load("/Levels/home.tmx");
-
-        //if ( Managers.Tiled.Load("/Levels/home.tmx") )
-        //    (Managers.Display.MainCamera).GetComponent<CameraScrolling>().ResetBounds();
-        //else
-        //    Debug.Log(" level map Not found");
 
     }
 
     public override void DeInit()
     {
-        Debug.Log("Exit the current State and returning map");
+        //Debug.Log("Exit the current State and returning map");
+        Managers.Register.HomeStart = Managers.Register.StartPoint;
+        Managers.Register.HomeFile = Managers.Register.currentLevelFile;
+
         Managers.Tiled.Unload();
         base.DeInit();
     }

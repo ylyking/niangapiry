@@ -5,20 +5,18 @@ public class WorldState3 : InGameState
 {
     public override void Init()
     {
-        Debug.Log("Enter World 3 State: Iguazú");
+        //Debug.Log("Enter World 3 State: Iguazú");
+        Managers.Register.StartPoint = Managers.Register.IguazuStart;
+        Managers.Tiled.Load(Managers.Register.IguazuFile);
         base.Init();
-        Managers.Tiled.Load("/Levels/world3.tmx");
-
-        //if ( Managers.Tiled.Load("/Levels/world3.tmx") )
-        //    (Managers.Display.MainCamera).GetComponent<CameraScrolling>().ResetBounds();
-        //else
-        //    Debug.Log(" level map Not found");
-
     }
 
     public override void DeInit()
     {
-        Debug.Log("Exit the current State and returning map");
+        //Debug.Log("Exit the current State and returning map");
+        Managers.Register.IguazuStart = Managers.Register.StartPoint;
+        Managers.Register.IguazuFile = Managers.Register.currentLevelFile;
+
         Managers.Tiled.Unload();
         base.DeInit();
     }

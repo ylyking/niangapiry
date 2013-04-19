@@ -9,21 +9,15 @@ public abstract class InGameState : GameState {
         Managers.Game.PlayerPrefab.name = "Pombero";
         Managers.Display.cameraScroll.SetTarget(Managers.Game.PlayerPrefab.transform, false);
 
+        Managers.Register.SetPlayerPos();
     }
 
     public override void DeInit()
     {
-        //Debug.Log("Exit the current State and returning map");
-        //Managers.Tiled.Unload();
         var Player = Managers.Game.PlayerPrefab;
         if (Player == null) 
             return;
 
-        //Managers.Game.PlayerPrefab = Managers.Game.gameObject;
-        //CameraScrolling cam = (CameraScrolling)(Managers.Display.MainCamera).GetComponent<CameraScrolling>();
-        //cam.SetTarget( Managers.Display.transform, false);
-
-        //Managers.Display.cameraScroll.SetTarget(Managers.Display.transform, false);
         if (Player)
             Destroy(Player);
 
