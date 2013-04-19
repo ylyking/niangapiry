@@ -473,6 +473,8 @@ public class TileManager : MonoBehaviour {
                 ObjTransform.name = ObjName.Remove(0, ObjName.LastIndexOf("/") + 1);
                 ObjTransform.parent = GrpTransform;
 
+#region OBJS PROPS
+
                 if ( ObjName.ToLower() == "door" || ObjName.ToLower() == "warp" || ObjName.ToLower() == "start")                
                 {
                     Portal portal = (Portal)ObjPrefab.GetComponent<Portal>();
@@ -483,6 +485,44 @@ public class TileManager : MonoBehaviour {
                     
                     portal.SetId( ( ObjInfo.Attributes["name"] != null ? ObjInfo.Attributes["name"].Value : ObjName ) );
                 }
+
+
+                if ( ObjName.ToLower() == "flyplatforma" )                
+                {
+                    PlatformMove platform = (PlatformMove)ObjPrefab.GetComponent<PlatformMove>();
+                    
+                    foreach (XmlNode ObjProp in ((XmlElement)ObjInfo).GetElementsByTagName("property") )
+                    {
+                        if (ObjProp.Attributes["name"].Value.ToLower() == "target" )
+                        {
+                            var target = ReadVector(ObjProp.Attributes["value"].Value, 0);
+                            platform.EndPosition = target;
+                        }
+                        if (ObjProp.Attributes["name"].Value.ToLower() == "speed" )
+                            platform.Speed = float.Parse( ObjProp.Attributes["value"].Value );
+
+                    }
+                        Debug.Log("Deploying Flying platform");
+                }
+
+                if ( ObjName.ToLower() == "clavel" )                
+                {
+                    Conversation chat = (Conversation)ObjPrefab.GetComponent<Conversation>();
+                    
+                    foreach (XmlNode ObjProp in ((XmlElement)ObjInfo).GetElementsByTagName("property") )
+                    {
+                        if ( ObjProp.Attributes["name"].Value.ToLower() == "nameid" ) 
+                            chat.NameId = ObjProp.Attributes["value"].Value;
+
+                        if (ObjProp.Attributes["name"].Value.ToLower() == "file" )
+                           chat.ConversationFile = (TextAsset)Resources.Load( ObjProp.Attributes["value"].Value, typeof(TextAsset));
+                       
+                        //if (ObjProp.Attributes["name"].Value.ToLower() == "oneshot" ) chat.oneshot = true;
+
+                    }
+                        Debug.Log("Deploying Conversation");
+                }
+#endregion
 
             }
             else Debug.LogWarning("Object '" + ObjName + "' Was not found at: " + "Resources/Prefabs/");
@@ -661,7 +701,7 @@ public class TileManager : MonoBehaviour {
             oldPos = PlayerTransform.position;
     }
 
-    private Vector2 ReadVector(string input, float AxisY = 1)                                                     
+    private Vector2 ReadVector(string input, float AxisY = 1) // AxisY sets value for both axis in case of found only 1 value                                                     
     {                                                                                   // seek float values inside string
         if (input.Contains(","))                                                        // if there's a comma, separate things
         {
