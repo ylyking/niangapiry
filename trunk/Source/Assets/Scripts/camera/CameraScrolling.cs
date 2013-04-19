@@ -227,7 +227,7 @@ public void SetTarget(Transform newTarget, bool snap = false)
         transform.position = GetGoalPosition();
 
    
-    ResetBounds();
+    //ResetBounds();
 }
     
 public void ResetBounds()
@@ -238,7 +238,7 @@ public void ResetBounds()
 public void ResetBounds( Rect Bounds )
 {
     if ( createdBoundaries != null )
-        DestroyImmediate(createdBoundaries);
+        Destroy(createdBoundaries);
 
     levelBounds = Bounds;
 

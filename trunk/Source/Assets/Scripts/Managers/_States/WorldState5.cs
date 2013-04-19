@@ -5,20 +5,19 @@ public class WorldState5 : InGameState
 {
     public override void Init()
     {
-        Debug.Log("Enter World 5 State: Impenetrable");
-
+        //Debug.Log("Enter World 5 State: Impenetrable");
+        Managers.Register.StartPoint = Managers.Register.ImpenetrableStart;
+        Managers.Tiled.Load(Managers.Register.ImpenetrableFile);
         base.Init();
-        Managers.Tiled.Load("/Levels/world5.tmx");
 
-        //if ( Managers.Tiled.Load("/Levels/world5.tmx") )
-        //    (Managers.Display.MainCamera).GetComponent<CameraScrolling>().ResetBounds();
-        //else
-        //    Debug.Log(" level map Not found");
     }
 
     public override void DeInit()
     {
-        Debug.Log("Exit the current State and returning map");
+        //Debug.Log("Exit the current State and returning map");
+        Managers.Register.ImpenetrableStart = Managers.Register.StartPoint;
+        Managers.Register.ImpenetrableFile = Managers.Register.currentLevelFile;
+
         Managers.Tiled.Unload();
         base.DeInit();
     }

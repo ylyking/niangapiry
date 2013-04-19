@@ -56,4 +56,9 @@
    H4sIAAAAAAAAC+2W0QrCMAxF48aQTRT843y6ZV2xxpZl4qiTc+CSNe3am4eGigAAAAAAAAAAAPwuY9AkoklhrK09/TND0DlGbWwF4IWlF8z9oJWHa9AtxmYewM9pUWe+87HJq82vSGt72XUm5vniHiU5z3LPr9Vb+VcLdbzV5q1pqxyei/PJTy/fIe9HR32X3BEyukikf97z1J+0ok/v8eY1e/WU2rkPt/eDtkAfAAA=
   </data>
  </layer>
+ <objectgroup name="Capa de Objetos 1" width="200" height="10">
+  <object type="Warp" x="640" y="128" width="64" height="64"/>
+  <object name="start" type="Warp" x="832" y="448" width="64" height="64"/>
+  <object type="Door" x="1152" y="384" width="64" height="64"/>
+ </objectgroup>
 </map>
