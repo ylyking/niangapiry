@@ -15,25 +15,27 @@ public class ConversationManager : MonoBehaviour {
 	Rect ComicPos ;	
 	Rect ComicCoord ;
     int miChatDirection = 0;														//  indicates the current Dialog's direction of Comic balloon 
-	
 
  	List<cCharacterSpeaker> mSpeakers = new List<cCharacterSpeaker>();// Characters talk able list
     List<cConversation> mConversations = new List<cConversation>();		// Conversations list
-
-//	cConversation cConversationIt;
-//	cConversation cCIterator	;
-	
 	cConversationNode mpCurrentConversationNode;
 		
   	bool  mbConversationState = false;
     float mfMessageTime;
     uint muiChooseOption = 0;														// Actual choice
+    CameraTargetAttributes CamTarget = null;
+
+    //	cConversation cConversationIt;
+    //	cConversation cCIterator	;
 
     public void  Init (  TextAsset lacConversationFile   ){
-    	gSkin = Resources.Load ("ñGUI/ÑGUISkin") as GUISkin;
-		ComicTex = Resources.Load("ñGUI/Rainbow") as Texture2D;
- 		ComicPos = new Rect( (Screen.width * .26f), (Screen.height * .05f), ComicTex.width  , ComicTex.height *.5f);
+    	gSkin = Resources.Load ("GUI/GUISkin") as GUISkin;
+		ComicTex = Resources.Load("GUI/Rainbow") as Texture2D;
+ 		ComicPos = new Rect( (Screen.width * .24f), (Screen.height * .05f), ComicTex.width *1.02f , ComicTex.height *.5f);
  		ComicCoord = new Rect( 0, 0, .5f, .25f);
+
+        if ( CamTarget == null && Managers.Game.PlayerPrefab )
+        CamTarget = Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>() as CameraTargetAttributes;
  
     
     	XmlDocument Doc = new XmlDocument();
@@ -207,7 +209,14 @@ public class ConversationManager : MonoBehaviour {
 
             if (!mbConversationState) yield return 0;
 
+            if (CamTarget.Offset.x > 0)                                                     // Check Player Position and Id
+                miChatDirection = System.Convert.ToByte(miChatDirection != 0);              // the Player is on left side
+            else
+                miChatDirection = System.Convert.ToByte(miChatDirection == 0);              // else the Player is on right 
+
+
             ComicCoord = new Rect(.5f * miChatDirection, 0, (miChatDirection > 0 ? -.5f : .5f), .25f);
+
 
             if (mpCurrentConversationNode != null)
             {
@@ -215,7 +224,7 @@ public class ConversationManager : MonoBehaviour {
                 {
                     case eConversationNodeType.eNormalTalk:									// Enum 0; Nodo activo de tipo eNormalTalk
 
-                        mfMessageTime -= lfTimestep;	                					// Decrease the message time
+                        mfMessageTime -= lfTimestep * .5f;	                					// Decrease the message time
 
                         if ((mfMessageTime <= 0.0f) || Input.GetButtonDown("Fire1") || Input.GetKeyDown("return"))
                             NextMessage(0);               								//Need to continue with the next message or node
@@ -271,7 +280,9 @@ public class ConversationManager : MonoBehaviour {
 	
 		if ( gSkin )		
 		GUI.skin = gSkin;
-   		GUI.skin.label.fontSize = 16;
+
+        GUI.color = Color.white;
+        GUI.skin.label.fontSize = 16;
 		GUI.skin.label.fontStyle = FontStyle.Bold;
 		GUI.DrawTextureWithTexCoords( ComicPos, ComicTex,  ComicCoord ); 								// Dibujar Globito de COMIC 
 		GUI.color = new Color(.322f, .306f, .631f, 1);
@@ -303,12 +314,19 @@ public class ConversationManager : MonoBehaviour {
 
                     if( lcpOptions != lcpChoice)// Printing the unselected Options
                     {
+
 						GUI.color = new Color(.322f, .306f, .631f, 1);
                     	GUI.Label ( new Rect( (Screen.width * .5f)-220 , (Screen.height * .15f)+ liOptionIndex * 20, 486, 200), lcpOptions.macText );
                     }
                     else	if( lcpOptions == lcpChoice) // Printing the Choice
                     {
-						GUI.color = Color.magenta;
+                        if (((int)(Time.time * 5)) % 2 == 0)
+                            GUI.color = new Color(1, 0.36f, 0.75f, 1);
+     
+                        else 
+    						GUI.color = Color.magenta;
+
+
 //						GUI.color = Color(1, 0.36f, 0.22f, 1);
 						
                     	GUI.Label ( new Rect( (Screen.width * .5f)-220 , (Screen.height * .15f) + liOptionIndex * 20, 486, 200),  lcpOptions.macText );
@@ -317,12 +335,21 @@ public class ConversationManager : MonoBehaviour {
             	break;
         }
     }
+     GUI.color = Color.white;
+
  }
         //////////////////////////////////////////////////////////////
                
- 	public bool IsInConversation (){
+ 	public bool IsInConversation ()
+    {
 	   return (mbConversationState) ; 
- } 
+    }
+
+    public void StopConversation()
+    {
+        mpCurrentConversationNode = null;
+        mbConversationState = false;
+    }
         //////////////////////////////////////////////////////////////
       
 }

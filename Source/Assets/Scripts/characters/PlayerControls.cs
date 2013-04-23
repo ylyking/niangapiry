@@ -155,8 +155,8 @@ void Update(){
     if (properties.BurnOut)
         BurnOut();
 
-    if (Managers.Dialog.IsInConversation())
-        velocity.x = 0;
+    //if (Managers.Dialog.IsInConversation())           // Commented because too gameplay invasive
+    //    velocity.x = 0;
 
 	velocity.y -= gravity * Time.deltaTime ;
 	controller.Move( velocity * Time.deltaTime );

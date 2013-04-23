@@ -2,22 +2,26 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(BoxCollider))]
 public class Conversation : MonoBehaviour {
 
-//[script RequireComponent(BoxCollider);
-//@script RequireComponent(OnGUIShit);
 
 public TextAsset ConversationFile;
 public string NameId;
 public GameObject PlayerRef = null;
 public  AudioClip soundChat;
+
+public bool OneShot = true;
+private AudioSource soundSource;
 private CameraTargetAttributes PlayerCamera;
-//private bool  CharacterActive = false;
 
-
-void  Start (){
-	if ( PlayerRef != null)
+void  Start ()
+{
+    if (!PlayerRef && Managers.Game.PlayerPrefab)
+        PlayerRef = Managers.Game.PlayerPrefab ;
+	if ( PlayerRef != null )
         PlayerCamera = PlayerRef.GetComponent<CameraTargetAttributes>();
+
 	if (  ConversationFile != null )
 		Managers.Dialog.Init( ConversationFile );
 	else 
@@ -28,42 +32,98 @@ void  Start (){
 
 }
 
+void Update()
+{
+    if (Managers.Dialog.IsInConversation())
+    {
+        OneShot = false;
 
-void  OnTriggerEnter (  Collider other   ){
-    if (!Managers.Dialog.IsInConversation() && other.CompareTag("Player"))
-	{
-		if (PlayerCamera)
-		{
-			PlayerCamera.Offset.y = 1.0f;
-            PlayerCamera.Offset.x = (PlayerRef.GetComponent<PlayerControls>() as PlayerControls).orientation;
-			PlayerCamera.distanceModifier = 2.0f;
-		}
-		
-        //CharacterActive = true;
-		
-		if ( NameId != null )	
-		{	
-			Managers.Audio.Play( soundChat, gameObject.transform, 1f, 2.0f);
+        if (PlayerCamera)
+        {
+            PlayerCamera.Offset.y = 1.0f;
+            PlayerCamera.Offset.x = (transform.position.x - Managers.Game.PlayerPrefab.transform.position.x) * .5f;
+            PlayerCamera.distanceModifier = 2.0f;
+        }
 
-            Managers.Dialog.StartConversation(NameId);
-		}
-		else Debug.Log ( "Conversation ID not assigned");
-		
-	}
+    }
+
 }
 
-void  OnTriggerExit (  Collider other   ){
-    if (!Managers.Dialog.IsInConversation() && other.CompareTag("Player"))
+void  OnTriggerEnter (  Collider other   )
+{
+    if (other.CompareTag("Player"))
+    {
+        enabled = true;
+
+        if (OneShot && !Managers.Dialog.IsInConversation())
+        {
+
+            if (NameId != null)
+            {
+                soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 1f, 2.0f);
+                Managers.Dialog.StartConversation(NameId);
+            }
+            else Debug.Log("Conversation ID not assigned");
+
+        }
+    }
+}
+
+void OnTriggerStay(Collider hit)
+{
+    if (hit.tag == "Player" && InputUp && !Managers.Dialog.IsInConversation())
+    {
+        if (NameId != null)
+        {
+            soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 1f, 2.0f);
+            Managers.Dialog.StartConversation(NameId);
+        }
+        else Debug.Log("Conversation ID not assigned");
+    }
+}
+
+void  OnTriggerExit (  Collider other   )
+{
+    if (other.CompareTag("Player") )
 	{
-        //CharacterActive = false;
+        Managers.Dialog.StopConversation();
 	
 		if (PlayerCamera)
 		{
             PlayerCamera.Offset.y = 0.0f;
 			PlayerCamera.Offset.x = 0.0f;
 			PlayerCamera.distanceModifier = 2.5f;
+
+            if (soundSource && soundSource.isPlaying)
+            {
+                soundSource.Stop();
+                Destroy(soundSource);
+            }
 		}
+        enabled = false;
 	}
 }
+
+
+
+
+
+static bool ToggleUp = true;
+static bool InputUp                             // This it's a little oneShot Up Axis check for doors & like   
+{
+    get
+    {
+        if (Input.GetAxis("Vertical") == 0)                      // It's like an "Input.GetAxisDown" 
+            ToggleUp = true;
+
+        if (ToggleUp == true && Input.GetAxis("Vertical") > 0)
+        {
+            ToggleUp = false;
+            return true;
+        }
+        return false;
+    }
+}
+
 
 }

@@ -353,7 +353,7 @@ IEnumerator  InstaKill (  bool ReSpawn ,    int pushDirection   ){
 			{
 				yield return new WaitForSeconds( 0.5f );
                 Managers.Display.ShowFlash(1.5f);
-                thisTransform.position = Managers.Register.StartPoint;	
+                thisTransform.position = Managers.Register.MapCheckPoints[Managers.Register.currentLevelFile];	
 				playerControls.velocity = Vector3.zero;
 			}
 			SetPlayerState( PlayerState.Asleep );						// if there are life change state to Asleep

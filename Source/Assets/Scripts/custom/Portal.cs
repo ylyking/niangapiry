@@ -32,11 +32,9 @@ public class Portal : MonoBehaviour
         {
             if (Target.ToLower() == "exit")
             {
-                Managers.Game.PopState();                                 // if it's an exit Return Map
+                Managers.Game.PopState();                                 // if it's an exit Return Map and stop inmediately
                 return;
             }
-
-            Managers.Register.StartPoint = transform.position;            //  current player position is saved curSavePosition     
 
             if (Target.ToLower().Contains(".tmx"))                        // if it had .tmx extension it's a map
             {
@@ -45,7 +43,6 @@ public class Portal : MonoBehaviour
 
                 if (Managers.Tiled.Load(Target))
                 {
-                    Managers.Register.StartPoint = Vector3.zero;
                     Managers.Register.SetPlayerPos();
                     return;
                 }
@@ -60,6 +57,9 @@ public class Portal : MonoBehaviour
                     return;
                 }
             }
+
+            //  else current player position is saved as a checkpoint
+            Managers.Register.MapCheckPoints[Managers.Register.currentLevelFile] = transform.position; 
         }
     }
 
@@ -68,7 +68,8 @@ public class Portal : MonoBehaviour
         //if (this.myType == type.door && hit.tag == "Player" && Input.GetAxis("Vertical") >0)
         if (this.myType == type.door && hit.tag == "Player")
         {
-            Managers.Register.StartPoint = transform.position;                // current player position is saved curSavePosition     
+                                                                            // current player position is saved      
+            Managers.Register.MapCheckPoints[Managers.Register.currentLevelFile] = transform.position; 
 
             if (InputUp)
             {
@@ -85,7 +86,7 @@ public class Portal : MonoBehaviour
 
                     if (Managers.Tiled.Load(Target))
                     {
-                        Managers.Register.StartPoint = Vector3.zero;
+                        //Managers.Register.StartPoint = Vector3.zero;
                         Managers.Register.SetPlayerPos();
                         return;
                     }

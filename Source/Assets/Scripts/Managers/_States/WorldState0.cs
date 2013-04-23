@@ -6,7 +6,6 @@ public class WorldState0 : InGameState
     public override void Init()
     {
        //Debug.Log("Enter World 0 State: Pampero");
-        Managers.Register.StartPoint = Managers.Register.PamperoStart;
         Managers.Tiled.Load(Managers.Register.PamperoFile);
         base.Init();
 
@@ -15,7 +14,6 @@ public class WorldState0 : InGameState
     public override void DeInit()
     {
         //Debug.Log("Exit the current State and returning map");
-        Managers.Register.PamperoStart = Managers.Register.StartPoint;
         Managers.Register.PamperoFile = Managers.Register.currentLevelFile ;
 
         Managers.Tiled.Unload();

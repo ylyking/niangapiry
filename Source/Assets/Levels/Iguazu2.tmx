@@ -148,9 +148,13 @@
   <object name="Hat" gid="133" x="256" y="2944"/>
   <object type="Warp" x="1344" y="2496" width="64" height="64">
    <properties>
-    <property name="target" value="/Levels/Iguazu2.tmx"/>
+    <property name="target" value="exit"/>
    </properties>
   </object>
-  <object name="checkpoint" type="Warp" x="1152" y="2624" width="64" height="64"/>
+  <object name="start" type="Door" x="256" y="2240" width="64" height="64">
+   <properties>
+    <property name="target" value="/Levels/Iguazu.tmx"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

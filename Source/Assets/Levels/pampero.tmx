@@ -63,7 +63,16 @@
     <property name="target" value="10, 0"/>
    </properties>
   </object>
-  <object name="start" type="Warp" x="832" y="448" width="64" height="64"/>
-  <object type="Door" x="1152" y="384" width="64" height="64"/>
+  <object name="start" type="Warp" x="0" y="384" width="64" height="64"/>
+  <object type="Door" x="9408" y="512" width="64" height="64">
+   <properties>
+    <property name="target" value="exit"/>
+   </properties>
+  </object>
+  <object name="Clavel" x="960" y="448" width="64" height="64">
+   <properties>
+    <property name="nameid" value="Comienzo"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
