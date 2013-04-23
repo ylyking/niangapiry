@@ -4,7 +4,7 @@
  * Add Warp system level like: Input -> A ... Output -> A   = DONE
  * FlyPlatforms                                             = DONE
  * Characters Dialog & Conversations                        = DONE
- * Test ConversationManager y Improve more features         = WIP
+ * Test ConversationManager y Improve more features         = DONE
 
  * Edit Items and projectiles TileSets...
  * Enemy BIG BOSSES IA!:

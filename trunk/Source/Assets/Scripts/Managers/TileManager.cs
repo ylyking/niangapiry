@@ -163,7 +163,7 @@ public class TileManager : MonoBehaviour {
         //}
         //ScrollLayers = null;
 
-        Managers.Register.StartPoint = Vector3.zero;
+        //Managers.Register.StartPoint = Vector3.zero;
         Managers.Register.currentLevelFile = "" ;
 
         TileSets.Clear();
@@ -517,7 +517,7 @@ public class TileManager : MonoBehaviour {
                         if (ObjProp.Attributes["name"].Value.ToLower() == "file" )
                            chat.ConversationFile = (TextAsset)Resources.Load( ObjProp.Attributes["value"].Value, typeof(TextAsset));
                        
-                        //if (ObjProp.Attributes["name"].Value.ToLower() == "oneshot" ) chat.oneshot = true;
+                        if (ObjProp.Attributes["name"].Value.ToLower() == "oneshot" ) chat.OneShot = true;
 
                     }
                         Debug.Log("Deploying Conversation");

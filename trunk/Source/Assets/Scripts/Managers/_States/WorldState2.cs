@@ -6,7 +6,6 @@ public class WorldState2 : InGameState
     public override void Init()
     {
         //Debug.Log("Enter World 2 State: Pombero's House");
-        Managers.Register.StartPoint = Managers.Register.HomeStart;
         Managers.Tiled.Load(Managers.Register.HomeFile);
         base.Init();
 
@@ -15,7 +14,6 @@ public class WorldState2 : InGameState
     public override void DeInit()
     {
         //Debug.Log("Exit the current State and returning map");
-        Managers.Register.HomeStart = Managers.Register.StartPoint;
         Managers.Register.HomeFile = Managers.Register.currentLevelFile;
 
         Managers.Tiled.Unload();
