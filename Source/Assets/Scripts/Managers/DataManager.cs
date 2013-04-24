@@ -155,13 +155,13 @@ public class DataManager : MonoBehaviour
         Lifes = 3;
 
         //currentStage;
-        UnlockedStages       = 2;
+        UnlockedStages  = 2;
 
-        HomeFile = "/Levels/Home.tmx";
-        MonteFile = "/Levels/Monte.tmx";
-        PamperoFile = "/Levels/Pampero.tmx";
-        IguazuFile = "/Levels/Iguazu.tmx";
-        SkyFieldFile = "/Levels/CampoDelCielo.tmx";
+        HomeFile        = "/Levels/Home.tmx";
+        MonteFile       = "/Levels/Monte.tmx";
+        PamperoFile     = "/Levels/Pampero.tmx";
+        IguazuFile      = "/Levels/Iguazu.tmx";
+        SkyFieldFile    = "/Levels/CampoDelCielo.tmx";
         ImpenetrableFile = "/Levels/Impenetrable.tmx";
 
         MapCheckPoints.Clear();
@@ -198,12 +198,12 @@ public class DataManager : MonoBehaviour
         Managers.Register.Lifes = instance.Lifes;
         Managers.Register.Health = instance.Health;
 
-        Managers.Register.MapCheckPoints = instance.MapCheckPoints;
-        Managers.Register.MonteFile = instance.MonteFile;
-        Managers.Register.PamperoFile = instance.PamperoFile;
-        Managers.Register.IguazuFile = instance.IguazuFile;
-        Managers.Register.SkyFieldFile = instance.SkyFieldFile;
-        Managers.Register.ImpenetrableFile = instance.ImpenetrableFile;
+        Managers.Register.MapCheckPoints    = instance.MapCheckPoints;
+        Managers.Register.MonteFile         = instance.MonteFile;
+        Managers.Register.PamperoFile       = instance.PamperoFile;
+        Managers.Register.IguazuFile        = instance.IguazuFile;
+        Managers.Register.SkyFieldFile      = instance.SkyFieldFile;
+        Managers.Register.ImpenetrableFile  = instance.ImpenetrableFile;
     }
 }
 
