@@ -8,6 +8,8 @@ public class Conversation : MonoBehaviour {
 
 public TextAsset ConversationFile;
 public string NameId;
+public string oneShotId;
+
 public GameObject PlayerRef = null;
 public  AudioClip soundChat;
 
@@ -46,6 +48,11 @@ void Update()
         }
 
     }
+    else if (soundSource && soundSource.isPlaying)
+    {
+        soundSource.Stop();
+        Destroy(soundSource);
+    }
 
 }
 
@@ -58,7 +65,8 @@ void  OnTriggerEnter (  Collider other   )
         if (OneShot && !Managers.Dialog.IsInConversation())
         {
 
-            if (NameId != null)
+            //if (NameId != null)
+            if (oneShotId != null)
             {
                 soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 1f, 2.0f);
                 Managers.Dialog.StartConversation(NameId);

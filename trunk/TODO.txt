@@ -5,6 +5,8 @@
  * FlyPlatforms                                             = DONE
  * Characters Dialog & Conversations                        = DONE
  * Test ConversationManager y Improve more features         = DONE
+ * Music Loading trough Tiled General Map Property  	    = DONE
+ * Camera Properties configuration by Gral. Map Property too= DONE
 
  * Edit Items and projectiles TileSets...
  * Enemy BIG BOSSES IA!:
@@ -14,5 +16,16 @@
   			- AO AO
  * PLAYER SUPER POWERS: 
 	- Caña X1, X2 Increment
-	- Whistler
+	- Whistler + Fiuuu Shot
 	- Smallability
+
+ * Aditional Extras:
+ + Whistler Fiuuu
+ + Teju Yagua Headless
+ + Arrange Power-Ups + Shots.png
+ + Test Register Save & ReLoad Feature
+ + Clean-Up RainBow
+ + Setup Dengue MiniGame
+ + Setup Mate Puzzle
+ + Setup Pesca MiniGame
+ + Setup General Dialogs Characters

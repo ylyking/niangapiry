@@ -82,13 +82,13 @@ public class TileManager : MonoBehaviour {
                                             int.Parse(Doc.DocumentElement.Attributes["width"].Value) * TileOutputSize.x,
                                             int.Parse(Doc.DocumentElement.Attributes["height"].Value) * TileOutputSize.y));
 
+            
             // SEEK BITMAP SOURCE FILE	 
             foreach (XmlNode TileSetInfo in Doc.GetElementsByTagName("tileset"))			// array of the level nodes.
             {
                 var TileSetRef = new cTileSet(TileSetInfo, filePath);
                 TileSets.Add(TileSetRef);
             }
-
             for (XmlNode Layer = Doc.DocumentElement.LastChild; Layer.Name != "tileset"; Layer = Layer.PreviousSibling)
             {
                 switch(Layer.Name)
@@ -115,15 +115,20 @@ public class TileManager : MonoBehaviour {
             return false;
         }
 
-        //if ( PlayerTransform )
-        //{
-        //    //Managers.Display.cameraScroll.ResetBounds();
-        //    // a Provisory Fix: Everytime we Change Level move player to the very start of map
-        //    PlayerTransform.position = new Vector3( Managers.Display.cameraScroll.GetBounds().xMin +1, 
-        //                                            Managers.Display.cameraScroll.GetBounds().yMax -1, 0);
-        //}
-
         Managers.Register.currentLevelFile = filePath ;
+
+        if ( Doc.DocumentElement.FirstChild.Name == "properties" )
+            foreach(XmlNode MapProperty in Doc.DocumentElement.FirstChild )
+            {
+                if (MapProperty.Attributes["name"].Value.ToLower() == "music")
+                    Managers.Audio.PlayMusic( (AudioClip)Resources.Load("Sound/" + MapProperty.Attributes["value"].Value, typeof(AudioClip)), 1, 1);
+                 
+                if (MapProperty.Attributes["name"].Value.ToLower() == "camerafixedheight")
+                    Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>().FixedHeight = true;
+
+                if (MapProperty.Attributes["name"].Value.ToLower() == "cameraoffset")
+                    Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>().Offset = ReadVector( MapProperty.Attributes["value"].Value, 1);
+            }
 
 
         Debug.Log("Tiled Level Build Finished: "+ fileName);
@@ -153,15 +158,6 @@ public class TileManager : MonoBehaviour {
                     Destroy(ScrollLayers[LayerIndex].gameObject);
             }
         ScrollLayers = null;
-
-
-        //if ( ScrollLayers != null && ScrollLayers.Length > 0)
-        //{
-        //    foreach( ScrollLayer Layers in ScrollLayers)
-        //        if ( Layers != null )
-        //            Destroy( Layers.gameObject);
-        //}
-        //ScrollLayers = null;
 
         //Managers.Register.StartPoint = Vector3.zero;
         Managers.Register.currentLevelFile = "" ;
@@ -255,28 +251,7 @@ public class TileManager : MonoBehaviour {
             }//end of each scrollLayer GZIP Compression Info 
 
         }
-        //else if (Data.HasChildNodes) 								// Else if not a Gzip Compression then read as XML data
-        //{
-        //    foreach (XmlNode TileInfo in Data.GetElementsByTagName("tile"))
-        //    {
-        //        var TileRefXml = BuildTile(System.Convert.ToUInt32(TileInfo.Attributes["gid"].Value));
-        //        if (TileRefXml != null)
-        //        {
-        //            TileRefXml.transform.position = new Vector3(ColIndex * TileOutputSize.x,
-        //                                                         RowIndex * TileOutputSize.y,
-        //                                                         LayerTransform.position.z);
 
-        //            TileRefXml.transform.parent = LayerTransform;
-
-        //            if (CollisionLayer) (TileRefXml.AddComponent("BoxCollider") as BoxCollider).size = Vector3.one;
-        //        }
-
-        //        ColIndex++;
-        //        RowIndex -= System.Convert.ToByte(ColIndex >= int.Parse(LayerInfo.Attributes["width"].Value));
-        //        ColIndex = ColIndex % int.Parse(LayerInfo.Attributes["width"].Value);
-
-        //    }//end of each scrollLayer XML Info 
-        //}
         else Debug.LogError(" Format Error: Save Tiled File in XML style or Compressed mode(Gzip + Base64)");
 
         if (CombineMesh && LastUsedMat == 0)
@@ -519,6 +494,9 @@ public class TileManager : MonoBehaviour {
                        
                         if (ObjProp.Attributes["name"].Value.ToLower() == "oneshot" ) chat.OneShot = true;
 
+                        if ( ObjProp.Attributes["name"].Value.ToLower() == "oneshotid" ) 
+                            chat.oneShotId = ObjProp.Attributes["value"].Value;
+
                     }
                         Debug.Log("Deploying Conversation");
                 }
@@ -733,8 +711,6 @@ class cTileSet
 
     public Material mat;
     public Dictionary<int, string> Collisions = new Dictionary<int, string>();
-    // var Prefabs		: Dictionary.< int, String > = new Dictionary.< int, String >();
-
 
     public cTileSet(XmlNode TileSet, string FilePath)			// if ( TileSet.HasChildNodes ) {  var lTileSet : cTileSet = new cTileSet(); lTileSet.Load(
     {

@@ -122,27 +122,27 @@ public class MapState : GameState
             {
                 case 0:
                     Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState0));
+                    Managers.Game.PushState(typeof(WorldState0));                   // Pampero World
                     break;
                 case 1:
                     Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState1));
+                    Managers.Game.PushState(typeof(WorldState1));                   // Monte World
                     break;
                 case 2:
                     Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState2));
+                    Managers.Game.PushState(typeof(WorldState2));                   // Home World
                     break;
                 case 3:
                     Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState3));
+                    Managers.Game.PushState(typeof(WorldState3));                   // Iguazu World
                     break;
                 case 4:
                     Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState4));
+                    Managers.Game.PushState(typeof(WorldState4));                   // SkyField World       
                     break;
                 case 5:
                     Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState5));
+                    Managers.Game.PushState(typeof(WorldState5));                   // Impenetrable World
                     break;
             }
 	}
