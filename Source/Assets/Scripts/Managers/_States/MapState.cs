@@ -4,11 +4,9 @@ using System.Collections.Generic;
 
 public class MapState : GameState		
 {
-
     uint ChooseOption = 2;
     uint TotalOptions = 0;
     Dictionary<int, MapNode> OptionsList = new Dictionary<int, MapNode>();
-    //string FullText;
 
     GameObject Target;
     AnimSprite MiniAnim;
@@ -22,7 +20,6 @@ public class MapState : GameState
         {
             Debug.Log(" Map not loaded");
             Managers.Game.ChangeState(typeof(MainMenuState));
-            //DestroyImmediate(Target);
         }
 
         Target = GameObject.Find("mapindex");
@@ -48,7 +45,7 @@ public class MapState : GameState
         //TotalOptions = (uint)Managers.Register.UnlockedStages;
 
         Managers.Display.cameraScroll.SetTarget(Target.transform);
-        Managers.Display.cameraScroll.ResetBounds();
+        //Managers.Display.cameraScroll.ResetBounds();
 
 	}
 	
@@ -110,11 +107,6 @@ public class MapState : GameState
                     MiniAnim.PlayFrames(4, 4, 3, (int)Mathf.Sign(OptionsList[(int)ChooseOption].Position.x - Target.transform.position.x));
 
             }
-        //Target.transform.position = OptionsList[(int)ChooseOption].Position;
-            //Managers.Display.MainCamera.transform.localPosition = OptionsList[(int)ChooseOption].Position
-            //    + new Vector3( +.5f, 0, -3);
-
-
 
         //if (Input.GetButtonDown("Fire1") || Input.GetKeyDown("return"))
         if (Input.GetKeyDown("return"))
@@ -170,6 +162,7 @@ public class MapState : GameState
 	{
         Managers.Tiled.Unload();
         Managers.Display.cameraScroll.SetTarget(Managers.Display.transform, false);
+        //Managers.Display.cameraScroll.SetTarget(Managers.Display.transform, false);
         Target = null;
         MiniAnim = null;
 	}
@@ -181,7 +174,9 @@ public class MapState : GameState
         Target = GameObject.Find("mapindex");
         MiniAnim = Target.GetComponent<AnimSprite>();
         Managers.Display.cameraScroll.SetTarget(Target.transform);
+        Managers.Display.cameraScroll.ResetBounds( Managers.Display.cameraScroll.levelBounds);
         //Managers.Display.cameraScroll.ResetBounds();
+
 	}
 	
     //public override void CheckScore()

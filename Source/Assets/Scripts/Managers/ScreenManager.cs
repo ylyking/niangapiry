@@ -4,17 +4,15 @@ using System.Collections;
 
 public class ScreenManager : MonoBehaviour
 {
-    //public bool HUDCorned           = true;
     public Camera MainCamera        ;
     public CameraScrolling  cameraScroll ;   
 
-    public float ShowDelay          = 6.0f;                          // Time lapse to display Player status and then hide
-    bool ShowState                  = false;
-    float TimeLapse                 = 0.0f;
-
     GUISkin   gSkin                 = null;
-    Texture2D FlashTex              = null;                          // Scene Rainbow tranition between scenes
+    GUISkin   gSkinB                = null;
 
+#region Show Flash Transition
+
+    Texture2D FlashTex              = null;                          // Scene Rainbow tranition between scenes
     Rect FlashPos                   = new Rect(0, 0, Screen.width, Screen.height);
     bool FlashBang                  = false;
 
@@ -24,7 +22,15 @@ public class ScreenManager : MonoBehaviour
 	int FlashX	 	                = 0;	
 	int FlashY	 	                = 3;
 
+#endregion
+
 // ----------------------------------------
+
+#region Show InGame Status 
+ 
+    public float ShowDelay          = 6.0f;                          // Time lapse to display Player status and then hide
+    bool ShowState                  = false;
+    float TimeLapse                 = 0.0f;
 
     Texture2D HealthTex             = null;
     Rect HealthPos                  = new Rect();
@@ -34,7 +40,11 @@ public class ScreenManager : MonoBehaviour
     Rect LifesPos                   = new Rect();
     Rect LifesCoord                 = new Rect(0, 0, 0.5f, 0.5f);               // player's Lifes HUD system
 
+#endregion
+
  // ----------------------------------------
+
+#region Show Fading Transition
 
     float FadeSpeed                 = 0.5f;                                     // Fade In/Out Transition speed
     bool  Fading                    = false;                                    // Fading State Activator       
@@ -42,12 +52,19 @@ public class ScreenManager : MonoBehaviour
     float currentAlpha              = 0; 
     Color alphaColor                = new Color();								// Color object for alpha setting
 
+#endregion
+
 // ----------------------------------------
+
+#region Show Image Display
 
     Texture2D ImageTex              = null;
     bool     ImageDisplay           = false;
     float    ImageLapse             = 0;
+
+#endregion
     
+// ----------------------------------------
 
 	void Awake () 
 	{
@@ -60,8 +77,8 @@ public class ScreenManager : MonoBehaviour
         FlashTex = Resources.Load("GUI/Rainbow") as Texture2D;
         gSkin    = Resources.Load("GUI/GUISkin") as GUISkin;
 
-        //gSkin = Resources.Load("GUI/GUISkin B") as GUISkin;
-        //gSkin.label.fontSize 	= Mathf.RoundToInt( Screen.width * 0.035f );
+        gSkinB = Resources.Load("GUI/GUISkin B") as GUISkin;
+        gSkinB.label.fontSize 	= Mathf.RoundToInt( Screen.width * 0.035f );
 		
 		HealthTex = Resources.Load("GUI/Items") as Texture2D;
  		HealthPos = new Rect((Screen.width *.025f), (Screen.height *.75f), HealthTex.width *.65f, HealthTex.height *.65f);
@@ -135,6 +152,7 @@ public class ScreenManager : MonoBehaviour
             TimeLapse -= Time.deltaTime;	                					 // Decrease the message time
             ShowState = (TimeLapse > 0);
         }
+        HealthCoord = new Rect( Managers.Game.Health * .25f, 0, .25f, .25f);
 
         if ( ImageDisplay )                                                     // Display some Image while lapse is bigger
             ImageDisplay = (Time.time < ImageLapse);
@@ -147,19 +165,20 @@ public class ScreenManager : MonoBehaviour
             Fading = !(currentAlpha == 1 || currentAlpha == 0); // "If the the alpha transition ended Then stop Fading"
         }
     }
-    //////////////////////////////////////////////////////////////     
+    //////////////////////////////////////////////////////////////   
+  
     void  OnGUI ()
     {
-    //	if ( !Managers.Display.IsPlaying ) return;
+        //if ( !Managers.Game.IsPlaying ) return;
     	
 	    if( Event.current.type == EventType.Repaint) 
 	    {
-            Managers.Game.Render();
+            if( Managers.Dialog.IsInConversation() )
+                Managers.Dialog.Render();
 
             Managers.Display.Render();
-    		
-		    if( Managers.Dialog.IsInConversation() )
-                Managers.Dialog.Render();
+
+            Managers.Game.Render();
 	    }
     }
 
@@ -188,16 +207,18 @@ public class ScreenManager : MonoBehaviour
             //GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height), FadeTexture);
         }
 
-        if (Managers.Game.IsPaused)
-        {
-            GUI.color = new Color(1, 0.36f, 0.22f, 1);
-            GUI.Box(    new Rect((Screen.width * .5f) - (Screen.width * .15f),
-                                 (Screen.height* .5f) - (Screen.height* .15f),
-                                 (Screen.width * .3f) , (Screen.height* .3f)),
-                                    "\n\n - PAUSE - \n press 'Q' to Quit Game \n and return Main Menu ");
-            GUI.color = Color.clear;
-            return;
-        }
+        if (gSkinB) GUI.skin = gSkinB;
+
+        //if (Managers.Game.IsPaused)           // Moved to "../PauseState.cs"
+        //{
+        //    GUI.color = new Color(1, 0.36f, 0.22f, 1);
+        //    GUI.Box(    new Rect((Screen.width * .5f) - (Screen.width * .15f),
+        //                         (Screen.height* .5f) - (Screen.height* .15f),
+        //                         (Screen.width * .3f) , (Screen.height* .3f)),
+        //                            "\n\n - PAUSE - \n press 'Q' to Quit Game \n and return Main Menu ");
+        //    GUI.color = Color.clear;
+        //    return;
+        //}
 
         if (Managers.Game.IsPlaying)
         {
@@ -215,8 +236,8 @@ public class ScreenManager : MonoBehaviour
 
         if (Managers.Game.Lifes <= 0)
         {
-            //		    	GUI.skin.label.fontSize = 64;
-            //		    	GUI.skin.label.fontStyle = FontStyle.Bold;
+            // GUI.skin.label.fontSize = 64;
+            // GUI.skin.label.fontStyle = FontStyle.Bold;
             GUI.color = Color.magenta;
             GUI.Label(new Rect((Screen.width * .35f), (Screen.height * .5f), 100, 50), "- GAME OVER -");
         }

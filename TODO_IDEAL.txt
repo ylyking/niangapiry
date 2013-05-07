@@ -1,0 +1,78 @@
+-> Next Goals:
+
+
+ + Enemy BIG BOSSES IA!:
+			- Teju Yagua IA + SimpleAnim    D
+			- Yasi Yatere IA + Dialogs	DON 
+			- SNAKES IA			DONE
+  			- AO AO IA + Dialogs           
+
+ + PLAYER SUPER POWERS: 
+	- Caña X1, X2 Increment Power 
+	- Whistler + Fiuuu Shot
+	- Smallability
+
+
+ + Whistler Fiuuu complete going to stone
+ + Use Whistler Power in some level
+
+ + WildFire Magic Orient Sun
+
+ + Smallability use to Reach in Some Level
+
+ + Arbusto' Item Provider + Super-Jump System
+
+ + Agachadita Move + Winning position.
+
+ + Home Special Menu System
+
+ + Obj Loader Property Configurator
+
+ + Separate Obj Prefabs & Scroll Loading out of TileManager in minnor Managers
+
+ + Arrange Power-Ups + Shots.png
+
+ + Test Register Save & ReLoad Feature
+
+ + Clean-Up RainBow
+
+ + Setup Dengue MiniGame
+
+ + Setup Mate Puzzle
+
+ + Setup Pesca MiniGame Health replenish + Puzzle
+
+ + Setup General Dialogs Characters
+ + Meter Chiste del Serial Key en algún dialogo o state
+ + meter Chiste de los duendes construyendo los proximos niveles en Cataratas A -> B
+ + Meter Chiste del Pack de expansiones en algún dialogo o state
+
+ + Add moving platform Prefabs A, B & C
+
+ + Edit Al minnor Enemys TileSets to be joined together...
+
+ + Camera Config. Fixed Height ala "Mario Style" Setup
+ + Camera Properties configuration by Gral. Map Property too 
+
+ + Design Level 0 - Home Start with the  Misteryous Sign + Clavel Talk at Begin
+
+ + Design Level 1 - Talk with Bird + Jagua Cinematic + Jagua Boss Fight
+
+ + Design Level 2 - Talk with Fernando + Mate Builder Puzzle + Moñai Fight + OtherWorld 1
+
+ + Design Level 3A - Talk with kurupi + Pesca MiniGame + Yasi Jatere Fight + Dialog
+ 
+ + Design Level 3B - Pesca MiniGame Puzzle + OtherWorld 2 + Mboi Tui + Dialog
+ 
+ + Design Level 4 - Talk with Luisito + Dengue Hunter + Meteorito's Fall + Ao Ao Fight
+
+ + Design Level 5 - OtherWorld 3 + Dengue Hunter + Desmotadora Fight + Yasi Yatere Final Epiloge
+
+ + Ending.
+
+ + Plus Video Cinematics: 
+ 	- nene Malo Falling + Gaucho Riding
+	- Home Rotation + Cara Loca + Home Destruction
+	- Pombero's Wild Fight Ambition + For the win
+
+

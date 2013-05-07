@@ -14,6 +14,8 @@ public class ConversationManager : MonoBehaviour {
 	Texture2D ComicTex ;	
 	Rect ComicPos ;	
 	Rect ComicCoord ;
+    Rect ComicWord;
+    
     int miChatDirection = 0;														//  indicates the current Dialog's direction of Comic balloon 
 
  	List<cCharacterSpeaker> mSpeakers = new List<cCharacterSpeaker>();// Characters talk able list
@@ -31,8 +33,14 @@ public class ConversationManager : MonoBehaviour {
     public void  Init (  TextAsset lacConversationFile   ){
     	gSkin = Resources.Load ("GUI/GUISkin") as GUISkin;
 		ComicTex = Resources.Load("GUI/Rainbow") as Texture2D;
- 		ComicPos = new Rect( (Screen.width * .24f), (Screen.height * .05f), ComicTex.width *1.02f , ComicTex.height *.5f);
+        //ComicPos = new Rect( ( Screen.width * .24f), (Screen.height * .05f), ComicTex.width *1.02f , ComicTex.height *.5f);
+        ComicPos = new Rect((Screen.width * .24f), (Screen.height * .05f), 
+                                (Screen.width * .76f) - (Screen.width * .24f),
+                                    (Screen.height * .45f) - (Screen.height * .05f) );
  		ComicCoord = new Rect( 0, 0, .5f, .25f);
+
+        ComicWord = new Rect((Screen.width * .27f), (Screen.height * .1f),
+                                (Screen.width * .46f), (Screen.height * .45f) ); 
 
         if ( CamTarget == null && Managers.Game.PlayerPrefab )
         CamTarget = Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>() as CameraTargetAttributes;
@@ -61,8 +69,8 @@ public class ConversationManager : MonoBehaviour {
         }   	
    	}       
         //////////////////////////////////////////////////////////////
-        
-    public void  DeInit (){;}
+
+    public void DeInit() { StopConversation(); mSpeakers.Clear(); mConversations.Clear(); mpCurrentConversationNode = null; }
         //////////////////////////////////////////////////////////////
         
   	public void  ParseCharacter (  XmlNode lpElem   ){
@@ -204,10 +212,12 @@ public class ConversationManager : MonoBehaviour {
     public IEnumerator CoUpdate(  float lfTimestep   ) //: IEnumerator
     {
 //    	if(Input.GetButton("Fire1") )Debug.Log( "\n PRESSING ENTER KEY ");  
+
+
         while (this.IsInConversation())
         {
 
-            if (!mbConversationState) yield return 0;
+            if (!mbConversationState ) yield return 0;
 
             if (CamTarget.Offset.x > 0)                                                     // Check Player Position and Id
                 miChatDirection = System.Convert.ToByte(miChatDirection != 0);              // the Player is on left side
@@ -218,13 +228,14 @@ public class ConversationManager : MonoBehaviour {
             ComicCoord = new Rect(.5f * miChatDirection, 0, (miChatDirection > 0 ? -.5f : .5f), .25f);
 
 
-            if (mpCurrentConversationNode != null)
+          if (!Managers.Game.IsPaused)
+            if (mpCurrentConversationNode != null )
             {
                 switch (mpCurrentConversationNode.meType)
                 {
                     case eConversationNodeType.eNormalTalk:									// Enum 0; Nodo activo de tipo eNormalTalk
 
-                        mfMessageTime -= lfTimestep * .5f;	                					// Decrease the message time
+                        mfMessageTime -= lfTimestep * .1f;	                					// Decrease the message time
 
                         if ((mfMessageTime <= 0.0f) || Input.GetButtonDown("Fire1") || Input.GetKeyDown("return"))
                             NextMessage(0);               								//Need to continue with the next message or node
@@ -286,27 +297,36 @@ public class ConversationManager : MonoBehaviour {
 		GUI.skin.label.fontStyle = FontStyle.Bold;
 		GUI.DrawTextureWithTexCoords( ComicPos, ComicTex,  ComicCoord ); 								// Dibujar Globito de COMIC 
 		GUI.color = new Color(.322f, .306f, .631f, 1);
+
               
         switch ( mpCurrentConversationNode.meType)
         {
             case eConversationNodeType.eNormalTalk: 													// Enum 0; Nodo activo de tipo eNormalTalk
 
-				GUI.Label ( new Rect( (Screen.width * .5f) -220, (Screen.height * .1f) , 486, 200), 
+                //GUI.Label ( new Rect( (Screen.width * .5f) -220, (Screen.height * .1f) , 486, 200), mSpeakers[mpCurrentConversationNode.miCharacterId].macCharacterName + ":"  );	
+                GUI.Label(new Rect(ComicWord.xMin, (Screen.height * .1f), ComicWord.width  , 200),
 					 mSpeakers[mpCurrentConversationNode.miCharacterId].macCharacterName + ":"  );		// Show character Id Dialog
 					 
-				miChatDirection = mpCurrentConversationNode.miCharacterId % 2;
-                                
-				GUI.Label ( new Rect( (Screen.width * .5f) -220 , (Screen.height * .15f) , 486, 200), mpCurrentConversationNode.macText );// Character Speak														///*///
+                //miChatDirection = mpCurrentConversationNode.miCharacterId % 2;
+                //miChatDirection = (mpCurrentConversationNode.miCharacterId == 1 ? 1 : 0);
+                miChatDirection = System.Convert.ToByte(mpCurrentConversationNode.miCharacterId == 1 );
+
+
+                //GUI.Label(new Rect((Screen.width * .5f) - 220, (Screen.height * .15f), 486, 200), mpCurrentConversationNode.macText);// Character Speak														///*///
+                GUI.Label(new Rect(ComicWord.xMin, (Screen.height * .15f), ComicWord.width, 200), mpCurrentConversationNode.macText);// Character Speak														///*///
             	break;
 	                
            	case eConversationNodeType.eChooseTalk: 													// Enum 1; Nodo activo de tipo eChooseTalk
 	
                 cConversationNode lcpChoice = (mpCurrentConversationNode.mChildren[(int) muiChooseOption ]) as cConversationNode;// Choosen option
 
-				GUI.Label ( new Rect( (Screen.width * .5f) -220, (Screen.height * .1f) , 486, 200), 
+                //GUI.Label ( new Rect( (Screen.width * .5f) -220, (Screen.height * .1f) , 486, 200), 
+                GUI.Label(new Rect(ComicWord.xMin, (Screen.height * .1f), ComicWord.width , 200),
 					 mSpeakers[lcpChoice.miCharacterId].macCharacterName + ":"  );						// Show character Id Questions..
-					 
-				miChatDirection = lcpChoice.miCharacterId % 2;
+
+                //miChatDirection = lcpChoice.miCharacterId % 2;
+                miChatDirection = System.Convert.ToByte(lcpChoice.miCharacterId == 1);
+
                 
                 for (int liOptionIndex = 0; liOptionIndex < (mpCurrentConversationNode.mChildren.Count );  liOptionIndex++ )
                 {
@@ -316,7 +336,9 @@ public class ConversationManager : MonoBehaviour {
                     {
 
 						GUI.color = new Color(.322f, .306f, .631f, 1);
-                    	GUI.Label ( new Rect( (Screen.width * .5f)-220 , (Screen.height * .15f)+ liOptionIndex * 20, 486, 200), lcpOptions.macText );
+                        //GUI.Label ( new Rect( (Screen.width * .5f)-220 , (Screen.height * .15f)+ liOptionIndex * 20, 486, 200), lcpOptions.macText + "\n" );
+                        GUI.Label(new Rect(ComicWord.xMin, (Screen.height * .15f) + liOptionIndex * 40, ComicWord.width, 200), lcpOptions.macText);
+                                
                     }
                     else	if( lcpOptions == lcpChoice) // Printing the Choice
                     {
@@ -329,7 +351,9 @@ public class ConversationManager : MonoBehaviour {
 
 //						GUI.color = Color(1, 0.36f, 0.22f, 1);
 						
-                    	GUI.Label ( new Rect( (Screen.width * .5f)-220 , (Screen.height * .15f) + liOptionIndex * 20, 486, 200),  lcpOptions.macText );
+                        //GUI.Label ( new Rect( (Screen.width * .5f)-220 , (Screen.height * .15f) + liOptionIndex * 20, 486, 200),  lcpOptions.macText );
+                        GUI.Label(new Rect(ComicWord.xMin, (Screen.height * .15f) + liOptionIndex * 40, ComicWord.width , 200), lcpOptions.macText);// Character Speak														///*///
+                    
                     }
                 }
             	break;
@@ -348,7 +372,9 @@ public class ConversationManager : MonoBehaviour {
     public void StopConversation()
     {
         mpCurrentConversationNode = null;
+        muiChooseOption = 0;
         mbConversationState = false;
+        StopCoroutine("CoUpdate");
     }
         //////////////////////////////////////////////////////////////
       

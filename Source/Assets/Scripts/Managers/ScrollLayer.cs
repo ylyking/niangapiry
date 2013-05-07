@@ -215,7 +215,7 @@ public class ScrollLayer : MonoBehaviour
                 float xx = -(x / xSize);
                 float yy = -(cam.orthographicSize / ySize);
 
-                if (pixelPerfect && texture)          ///////// <----------- OPTIMIZABLE !             
+                if (pixelPerfect && texture)          /////////         
                 {
                     if (tileX && tileY)
                     {

@@ -48,24 +48,35 @@
  </layer>
  <layer name="plano 2" width="200" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3UAQuCQAyGYb2oNDD9yfvpfmMJIYVDEEvfBz68g3k4cFdVAAAAAAAAALKuyk25K03sbdcPWmneh9a21Mv7O//a99EUpX6lzJ7T+pI4RzVWot7q5DufdMpT6ZUh9rbyqK9a5aFzPe1G/+HUh/fQx9qWeumi1oZE7S/xudYdYJpry9wDwJn4XPtM+2xn7gEAxzACKke+A0AfAAA=
+   H4sIAAAAAAAAC+3U0QqDMAyFYa246cDpI+fRPSETRAYGd6GT/4ODLbTFUNKqAgAAAAAAAJDVKg/lqXQxt1N/6KBtHRrbXi3rPf9a990Upf6kbL7LuEmcozVWYr3VyT3fDMpbGZUp5nbwqFMtdXgNY4xtr5Yh1tqUWHsl3td6A0x9bZl3ANfWKy/doafnLn/mfe097b2deQcA3MMMpH9VRUAfAAA=
   </data>
  </layer>
  <layer name="plano 1" width="200" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2W0QrCMAxF48aQTRT843y6ZV2xxpZl4qiTc+CSNe3am4eGigAAAAAAAAAAAPwuY9AkoklhrK09/TND0DlGbWwF4IWlF8z9oJWHa9AtxmYewM9pUWe+87HJq82vSGt72XUm5vniHiU5z3LPr9Vb+VcLdbzV5q1pqxyei/PJTy/fIe9HR32X3BEyukikf97z1J+0ok/v8eY1e/WU2rkPt/eDtkAfAAA=
+   H4sIAAAAAAAAC+2Wiw7CIAxFq4sxajTxj/vpMhmRVDpEo8zlnOSmoxBoGS8RAAAAAAAAAACA5XIIOopoUihr75jWzC5oH612DgVgcZyDLtFq51DgBTaTtuY7Lxu/Wn9F6vVl2xmb+4t9jBoacp3uyvt92TJHEscp5u3EpYU8nnLzcvpUtX/k1ad4WuZ0jny+//Vdcl2Bamuutg7n6tNa6p3jL3WSyPDY5+l8Ukfv7uPmNt86U7xxb/SN6kNAHwAA
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="200" height="10">
-  <object name="start" type="Warp" x="0" y="384" width="64" height="64"/>
+  <object name="Start" type="Door" x="192" y="256" width="64" height="64"/>
+  <object name="Clavel" x="320" y="384" width="64" height="64">
+   <properties>
+    <property name="nameid" value="Comienzo"/>
+   </properties>
+  </object>
+  <object name="Moñai" type="Moñai" x="11776" y="384" width="64" height="64"/>
+  <object name="D" type="Door" x="640" y="448" width="64" height="64">
+   <properties>
+    <property name="target" value="/Levels/AoAoField.tmx"/>
+   </properties>
+  </object>
   <object type="Door" x="9408" y="512" width="64" height="64">
    <properties>
     <property name="target" value="exit"/>
    </properties>
   </object>
-  <object name="Clavel" x="960" y="448" width="64" height="64">
+  <object name="C" type="Door" x="1088" y="448" width="64" height="64">
    <properties>
-    <property name="nameid" value="Comienzo"/>
+    <property name="target" value="/Levels/parallax.tmx"/>
    </properties>
   </object>
  </objectgroup>

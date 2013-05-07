@@ -31,6 +31,7 @@ void  Start ()
 		 Debug.Log ( "Conversation XML not assigned"); 
 		 return;
 	}
+    enabled = false;
 
 }
 
@@ -56,20 +57,20 @@ void Update()
 
 }
 
+
 void  OnTriggerEnter (  Collider other   )
 {
     if (other.CompareTag("Player"))
     {
-        enabled = true;
+        //enabled = true;
 
         if (OneShot && !Managers.Dialog.IsInConversation())
         {
 
-            //if (NameId != null)
             if (oneShotId != null)
             {
                 soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 1f, 2.0f);
-                Managers.Dialog.StartConversation(NameId);
+                Managers.Dialog.StartConversation(oneShotId);
             }
             else Debug.Log("Conversation ID not assigned");
 
@@ -95,6 +96,8 @@ void  OnTriggerExit (  Collider other   )
     if (other.CompareTag("Player") )
 	{
         Managers.Dialog.StopConversation();
+        //Managers.Dialog.DeInit();
+
 	
 		if (PlayerCamera)
 		{
@@ -108,12 +111,38 @@ void  OnTriggerExit (  Collider other   )
                 Destroy(soundSource);
             }
 		}
-        enabled = false;
+        //enabled = false;
 	}
 }
 
 
+void OnBecameVisible()
+{
+    enabled = true;
+}
 
+void OnBecameInvisible()
+{
+    enabled = false;
+}
+
+//void OnDestroy()
+//{
+//        Managers.Dialog.StopConversation();
+
+//        if (PlayerCamera)
+//        {
+//            PlayerCamera.Offset.y = 0.0f;
+//            PlayerCamera.Offset.x = 0.0f;
+//            PlayerCamera.distanceModifier = 2.5f;
+
+//            if (soundSource && soundSource.isPlaying)
+//            {
+//                soundSource.Stop();
+//                Destroy(soundSource);
+//            }
+//        }
+//}
 
 
 static bool ToggleUp = true;

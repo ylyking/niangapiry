@@ -64,7 +64,7 @@ public class CreatePlane : MonoBehaviour {
 
 static void  CreateQuad (){
 	float size	= 0.5f;
-	GameObject plane = new GameObject( "MapIndex");
+	GameObject plane = new GameObject( "Quad");
 	plane.transform.position = Vector3.zero;
 	 
 	MeshFilter meshFilter 	= plane.AddComponent<MeshFilter>();

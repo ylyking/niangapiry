@@ -222,7 +222,7 @@ void  OnTriggerEnter (  Collider other   ){
 
 	
 	if ( other.CompareTag( "killbox") )	
-		InstaKill(true , 1);
+		StartCoroutine( InstaKill(true , 1) );
 
 
 }
@@ -270,7 +270,8 @@ void OnTriggerExit(  Collider hit  )  					// void  OnControllerColliderHit ( Co
 IEnumerator  HitDead (){
 	if ( thisTransform.position.y < DownSideLimit  ) 
 		{ 
-			InstaKill( true, 1); 
+            //InstaKill( true, 1); 
+            StartCoroutine( InstaKill(true, 1)); 
 			yield break;
 		}
 
@@ -298,7 +299,7 @@ IEnumerator  HitDead (){
 			AddPlayerState( PlayerState.Flickering );
 		}
 		else																// else lose a Life and start dying mode
-			InstaKill( false, pushDirection );
+			StartCoroutine( InstaKill( false, pushDirection ));
 	}
 }
 

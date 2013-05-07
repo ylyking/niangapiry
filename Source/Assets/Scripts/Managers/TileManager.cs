@@ -7,10 +7,9 @@ using System;
 using System.Text;
 using Ionic.Zlib;
 
-/* TILEMANAGER -
- * RULES OF CONSIDERATIONS:
+/* TILEMANAGER - RULES OF CONSIDERATIONS:
  * 
- * - Load Files From Assets Datafolder as: "/SomeFolder/SomeFile.SomeExtension"
+ * - Load Files From Assets Datafolder as: "/SomeFolder/SomeFile.SomeExtension" ( Don't use 'Ñ' letter)
  * 
  * - Use Tiled Editor and rename file extensions from '.TMX' to '.XML' (And save in Gzip + Base64 Compression)
  * 
@@ -39,7 +38,7 @@ public class TileManager : MonoBehaviour {
     private int LastUsedMat = 0;
 
     public float ScrollBaseSpeed = 1;
-    private Transform PlayerTransform;
+    public  Transform PlayerTransform;
     private Vector3 oldPos;
     private Vector3 scrollValue;
     //----------------------------------------------------------------------------------------//
@@ -72,8 +71,14 @@ public class TileManager : MonoBehaviour {
         if (Doc.DocumentElement.Name == "map")												// Access root Map		
         {
             
+            Managers.Register.currentLevelFile = filePath ;
+
             if (Managers.Game.PlayerPrefab)
+            {
                 PlayerTransform = Managers.Game.PlayerPrefab.transform;
+                //PlayerTransform.gameObject.SetActive(true);
+            }
+
 
             GameObject map = new GameObject(fileName);										// inside the editor hierarchy.
             MapTransform = map.transform;													// take map transform cached
@@ -89,6 +94,7 @@ public class TileManager : MonoBehaviour {
                 var TileSetRef = new cTileSet(TileSetInfo, filePath);
                 TileSets.Add(TileSetRef);
             }
+
             for (XmlNode Layer = Doc.DocumentElement.LastChild; Layer.Name != "tileset"; Layer = Layer.PreviousSibling)
             {
                 switch(Layer.Name)
@@ -101,12 +107,14 @@ public class TileManager : MonoBehaviour {
                         break;
                     case "objectgroup":                                                     // TagName: Object Group Layer
                         StartCoroutine(BuildPrefabs(Layer));
+                        //BuildPrefabs(Layer) ;
                         break;
                 }
             }
 
             //if ( ScrollLayers != null)
-                SetupScroll();
+            SetupScroll();
+            //Managers.Register.currentLevelFile = filePath ;
 
         }
         else
@@ -115,7 +123,6 @@ public class TileManager : MonoBehaviour {
             return false;
         }
 
-        Managers.Register.currentLevelFile = filePath ;
 
         if ( Doc.DocumentElement.FirstChild.Name == "properties" )
             foreach(XmlNode MapProperty in Doc.DocumentElement.FirstChild )
@@ -143,6 +150,12 @@ public class TileManager : MonoBehaviour {
         if ( MapTransform == null ) 
             return;
 
+                
+        if ( PlayerTransform != null )
+        {
+            //PlayerTransform.gameObject.SetActive(false);
+            PlayerTransform = null;
+        }
         Managers.Display.cameraScroll.ResetBounds();
 
         if ( MapTransform != null )
@@ -175,6 +188,8 @@ public class TileManager : MonoBehaviour {
         // "DeInit()"
         Unload();
     }
+
+    //----------------------------------------------------------------------------------------//
 
     IEnumerator BuildLayer(XmlNode LayerInfo)
     {
@@ -397,16 +412,16 @@ public class TileManager : MonoBehaviour {
             }
     return null;
     }                                                                                                       // End of BuidTile Function
-
     //----------------------------------------------------------------------------------------//
 
     IEnumerator BuildPrefabs(XmlNode ObjectsGroup)
+    //void BuildPrefabs(XmlNode ObjectsGroup)
     {
         int height = int.Parse(ObjectsGroup.ParentNode.Attributes["height"].Value);
         int tilewidth = int.Parse(ObjectsGroup.ParentNode.Attributes["tilewidth"].Value);
         int tileheight = int.Parse(ObjectsGroup.ParentNode.Attributes["tileheight"].Value);
         GameObject ObjGroup = new GameObject(ObjectsGroup.Attributes["name"].Value);
-        var GrpTransform = ObjGroup.transform;
+        Transform GrpTransform = ObjGroup.transform;
         GrpTransform.parent = MapTransform;
 
         //if (ObjectsGroup.Attributes["type"] != null)
@@ -450,7 +465,7 @@ public class TileManager : MonoBehaviour {
 
 #region OBJS PROPS
 
-                if ( ObjName.ToLower() == "door" || ObjName.ToLower() == "warp" || ObjName.ToLower() == "start")                
+                if ( ObjName.ToLower() == "door" || ObjName.ToLower() == "warp" || ObjName.ToLower() == "start" )                
                 {
                     Portal portal = (Portal)ObjPrefab.GetComponent<Portal>();
                     portal.SetType( (Portal.type)Enum.Parse( typeof(Portal.type), ObjName));
@@ -459,6 +474,13 @@ public class TileManager : MonoBehaviour {
                         portal.SetTarget( ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0).Attributes["value"].Value);
                     
                     portal.SetId( ( ObjInfo.Attributes["name"] != null ? ObjInfo.Attributes["name"].Value : ObjName ) );
+
+                    if ( portal.Id == "start" )
+                    {
+                        Debug.Log("setting up position in TileManager");
+                        Managers.Register.SetPlayerPos();
+                    }
+
                 }
 
 
@@ -478,9 +500,10 @@ public class TileManager : MonoBehaviour {
 
                     }
                         Debug.Log("Deploying Flying platform");
+                    
                 }
 
-                if ( ObjName.ToLower() == "clavel" )                
+                if ( ObjName.ToLower() == "chat" )   //  == "clavel" )             
                 {
                     Conversation chat = (Conversation)ObjPrefab.GetComponent<Conversation>();
                     
@@ -492,7 +515,8 @@ public class TileManager : MonoBehaviour {
                         if (ObjProp.Attributes["name"].Value.ToLower() == "file" )
                            chat.ConversationFile = (TextAsset)Resources.Load( ObjProp.Attributes["value"].Value, typeof(TextAsset));
                        
-                        if (ObjProp.Attributes["name"].Value.ToLower() == "oneshot" ) chat.OneShot = true;
+                        if (ObjProp.Attributes["name"].Value.ToLower() == "oneshot" ) 
+                            chat.OneShot = true;
 
                         if ( ObjProp.Attributes["name"].Value.ToLower() == "oneshotid" ) 
                             chat.oneShotId = ObjProp.Attributes["value"].Value;
@@ -511,6 +535,8 @@ public class TileManager : MonoBehaviour {
 
     //----------------------------------------------------------------------------------------//
 
+    #region ScrollManager 
+
     IEnumerator BuildScrollLayers(XmlNode LayerInfo, string FilePath)
     {
         if (!Camera.main)
@@ -518,8 +544,13 @@ public class TileManager : MonoBehaviour {
 
         var cam = Camera.main;
         //float Depth = (TileOutputSize.z - cam.transform.position.z);
+
+
         float Depth = TileOutputSize.z ;
         TileOutputSize.z += 0.5f;
+
+        if ( Depth == 0)
+            Depth = 1;
 
         GameObject scrollLayer = new GameObject(LayerInfo.Attributes["name"].Value);   // Build new scrollLayer inside layer
 
@@ -581,7 +612,9 @@ public class TileManager : MonoBehaviour {
             }
         		        
         // Config Layer position from Tiled file 'Depth' property or else by Layer order by Default
+        //scrollLayer.transform.position =  new Vector3( cam.transform.position.x, cam.transform.position.y, Depth - cam.transform.position.z);
         scrollLayer.transform.position =  new Vector3( cam.transform.position.x, cam.transform.position.y, Depth);
+
 
 #if TEXTURE_RESOURCE
         string AuxPath = LayerInfo.FirstChild.Attributes["source"].Value;
@@ -611,7 +644,7 @@ public class TileManager : MonoBehaviour {
     void SetupScroll()
     {
         //if (Managers.Game.PlayerPrefab)
-        //    PlayerTransform = Managers.Game.PlayerPrefab.transform;
+            //PlayerTransform = Managers.Game.PlayerPrefab.transform;
 
         List<ScrollLayer> scrollList = new List<ScrollLayer>(FindObjectsOfType(typeof(ScrollLayer)) as ScrollLayer[]);
 
@@ -694,6 +727,11 @@ public class TileManager : MonoBehaviour {
     {
         return new Vector2(input.x - (int)input.x, input.y - (int)input.y);
     }
+
+    #endregion
+
+    //----------------------------------------------------------------------------------------//
+
 }
 
 class cTileSet
@@ -763,7 +801,7 @@ class cTileSet
 
             if (tex == null)
             {
-                Debug.LogError(SrcImgPath + " texture file not found, put it in the same Tiled map folder: " + FilePath);
+                Debug.LogError( SrcImgPath + " texture file not found, put it in the same Tiled map folder: " + FilePath);
                 return;   //	 this.close; 
             }
             tex.filterMode = FilterMode.Point;

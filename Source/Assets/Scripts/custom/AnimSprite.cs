@@ -49,8 +49,6 @@ public class AnimSprite : MonoBehaviour
     }
 
 
-
-
     public void PlayFrames(int rowFrameStart, int colFrameStart, int totalframes, int flipped, int FPS)
     {
         int index = (int)(Time.time * FPS);										// time control fps
@@ -72,7 +70,6 @@ public class AnimSprite : MonoBehaviour
         renderer.material.mainTextureOffset = offset;							// texture offset
         renderer.material.mainTextureScale = size;							// texture scale
     }
-
 
     //function PlayFrames(  int rowFrameStart ,   int colFrameStart ,   int totalframes ,   int flipped ,   float HeightFactor  )
     public void PlayFramesFixed(int rowFrameStart, int colFrameStart, int totalframes, int flipped)

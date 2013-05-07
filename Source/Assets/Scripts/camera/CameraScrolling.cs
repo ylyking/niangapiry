@@ -9,22 +9,31 @@ private Transform thisTransform;	                    // The object in our scene 
 
 private float distance	        = 1.0f;	                // How far back should camera be from the target?
 private float springiness	    = 4.0f;	                // How strict should camera follow the target?  Lower input make the camera more lazy.
+private float zoomFactor	    = 2.5f;	                // How strict should camera follow the target?  Lower input make the camera more lazy.
 
-//public Rect bounds              = new Rect( 0, 0, 100, 50);
 public bool  ShowMapLimits      = true;
 public float fallOutBuffer      = 5.0f;
 public float colliderThickness  = 10.0f;
 public float MinScreenLimit     = 0.0f;
 
-private Rect levelBounds            = new Rect( 0, 0, 100, 50); 	// We set up these references in the Awake () function.
-private Color sceneViewDisplayColor = Color.green;
+private Rect cameraBounds            = new Rect( 0, 0, 1, 2); 	// We set up these references in the Awake () function.
+public Rect levelBounds            = new Rect( 0, 0, 100, 50); 	// We set up these references in the Awake () function.
+//private Color sceneViewDisplayColor = Color.green;
 private GameObject createdBoundaries;
 
 void  OnDrawGizmos ()
 {
+        //Gizmos.color        = sceneViewDisplayColor;
+        //Gizmos.DrawLine(new Vector2(cameraBounds.xMin, cameraBounds.yMin), new Vector2(cameraBounds.xMax, cameraBounds.yMin));
+        //Gizmos.DrawLine(new Vector2(cameraBounds.xMin, cameraBounds.yMax), new Vector2(cameraBounds.xMax, cameraBounds.yMax) );
+        //Gizmos.DrawLine(new Vector2(cameraBounds.xMin, cameraBounds.yMin), new Vector2(cameraBounds.xMin, cameraBounds.yMax) );
+        //Gizmos.DrawLine(new Vector2(cameraBounds.xMax, cameraBounds.yMin), new Vector2(cameraBounds.xMax, cameraBounds.yMax));
+    
+
+
      if (ShowMapLimits)
      {
-	    Gizmos.color        = sceneViewDisplayColor;
+	    Gizmos.color        = Color.blue;
 	    Vector3 lowerLeft   = new Vector3 (levelBounds.xMin, levelBounds.yMax, 0);
 	    Vector3 upperLeft   = new Vector3 (levelBounds.xMin, levelBounds.yMin, 0);
 	    Vector3 lowerRight  = new Vector3 (levelBounds.xMax, levelBounds.yMax, 0);
@@ -44,7 +53,8 @@ private RigidbodyInterpolation savedInterpolationSetting = RigidbodyInterpolatio
 
 void  Awake (){
  	thisTransform = transform;
-
+    cameraBounds = new Rect( thisTransform.position.x - (cameraBounds.width *.5f),
+                             thisTransform.position.y - (cameraBounds.height *.5f), cameraBounds.width, cameraBounds.height); 
     //if (Managers.Register.GetComponent<LevelAttributes>())
     //    levelBounds = Managers.Register.GetComponent<LevelAttributes>().bounds;
     //else 														// else use some defaults input..
@@ -53,19 +63,16 @@ void  Awake (){
 }
 
 
-void Update()
+void LateUpdate()
 {
     //if ( this.target == null )
     //    SetTarget(Managers.Display.transform, false);
 
-
 	Vector3 goalPosition = GetGoalPosition ();	// Where should our camera be looking right now?
 
     // Set Zoom Level accord the target needs
-    camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, -goalPosition.z, Time.deltaTime * springiness);
-
-    // I need to refactor all this thing, It sucks hard!
-    //goalPosition.z = -50;
+    //camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, -goalPosition.z, Time.deltaTime * springiness);
+        camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, -zoomFactor, Time.deltaTime * springiness);
 	
 	// Interpolate between the current camera position and the goal position.
 	thisTransform.position =   Vector3.Lerp ( thisTransform.position, goalPosition, Time.deltaTime * springiness) ;	
@@ -86,11 +93,11 @@ Vector3 GetGoalPosition ()	// find out where the camera should move to, Based on
 	// If there are no attributes attached, we have the following defaults.
 	
 	bool  FixedHeight 	    = false;	// this it's used for set fixed the camera's vertical move 
-	float heightOffset 	    = 0.0f;		// How high in world space should the camera look above the target?
-	float widthOffset		= 0.0f;
-	float distanceModifier 	= 2.0f;		// How much should we zoom the camera based on this target?
-	float velocityLookAhead = 0.0f;		// By default, we won't account for any target velocity in calculations;
-	Vector2 maxLookAhead 	= new Vector2 (0.0f, 0.0f);
+	float heightOffset 	    = 0;		// How high in world space should the camera look above the target?
+	float widthOffset		= 0;
+	float distanceModifier 	= 2.5f;		// How much should we zoom the camera based on this target?
+	float velocityLookAhead = 0;		// By default, we won't account for any target velocity in calculations;
+	Vector2 maxLookAhead 	= new Vector2 (0, 0);
 	
 	// Look for CameraTargetAttributes in our target.
 	CameraTargetAttributes cameraTargetAttributes = target.GetComponent<CameraTargetAttributes>();
@@ -105,9 +112,8 @@ Vector3 GetGoalPosition ()	// find out where the camera should move to, Based on
 	}
 	
 	// First do a rough goalPosition that simply follows the target at a certain relative height and distance.
-	//	var goalPosition= target.position + Vector3 (0, heightOffset,  -distance * distanceModifier );
-	Vector3 goalPosition= target.position + new Vector3 ( widthOffset, heightOffset, 0);
-	goalPosition.z = -distance * distanceModifier; 							// some provisory fixes for ortogonal camera
+	Vector3 goalPosition= target.position + new Vector3 ( widthOffset, heightOffset, -50);
+	zoomFactor = -distance * distanceModifier; 							// some provisory fixes for ortogonal camera
 	
 	
 	// Next, we refine our goalPosition by taking into account our target's current velocity.
@@ -131,7 +137,7 @@ Vector3 GetGoalPosition ()	// find out where the camera should move to, Based on
 	
 	lookAhead.x = Mathf.Clamp(lookAhead.x, -maxLookAhead.x, maxLookAhead.x); // clamp the vector to some input 
 	lookAhead.y = Mathf.Clamp(lookAhead.y, -maxLookAhead.y, maxLookAhead.y); // so the target doesn't go offscreen.
-	lookAhead.z = 0.0f;					// We never want to take z velocity into account as this is 2D.  Just keep it in zero.
+	lookAhead.z = 0;					// We never want to take z velocity into account as this is 2D.  Just keep it in zero.
 	
 	
 	goalPosition += lookAhead;			// Now add in our lookAhead calculation.  Our camera following is now a bit better!
