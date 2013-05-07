@@ -58,6 +58,12 @@ public class BulletShot : MonoBehaviour
         }
     }
 
+   void Start()
+    {
+       if ( totalFrames > 1 )
+           FireAnimated(Vector3.zero, rowFrameStart, colFrameStart, totalFrames);
+    }
+
 
 
 

@@ -3,7 +3,8 @@
 	<Characters>
 	        <Character speakerId = "0" >Till</Character>
 	        <Character speakerId = "1" >Pombero</Character>
-	        <Character speakerId = "2" >Primo</Character>
+          <Character speakerId = "2" >Primo</Character>
+          <Character speakerId = "3" >Moñai</Character>
 	</Characters>
 	
 	<Conversation nameId = "Comienzo" >
@@ -101,6 +102,58 @@
         <Talk speakerId = "2" time = "5.0" >Por cierto, Haz logrado superar todos los obstaculos de esta Demo</Talk>     
         <Talk speakerId = "2" time = "5.0" > -¡FELICITACIONES!- </Talk>     
         <Talk speakerId = "2" time = "5.0" >Ah y una cosa más, si luego tienes tiempo cuentanos que te pareció todo esto</Talk>     
-	</Conversation>	
-	
+	</Conversation>
+
+  <Conversation nameId = "Moñai" >
+    <Talk speakerId = "3" time = "5.0" >Vaya, vaya! Estate quietecito o te vas a lastimar, eh</Talk>
+    <Talk speakerId = "3" time = "5.0" >Caramba ¿Adonde vas tan apurado Duendecillo? </Talk>
+    <Talk speakerId = "1" time = "5.0" >No soy un Duende, Soy EL PUMBE </Talk>
+    <Talk speakerId = "3" time = "5.0" >Ah si, creo que oído algo de tí ¿Vienes a entregarte en scarificio? </Talk>
+    <ChooseTalk>
+
+      <Option>
+        <Talk speakerId = "1" time = "5.0" >Te daré una buena Paliza Como ofrenda</Talk>
+        <Talk speakerId = "3" time = "5.0" >que irrespetuoso eres, soy uno de los poderosos hijos de Taú y Kerana </Talk>
+        <Talk speakerId = "3" time = "5.0" >y Tu solo eres un mito menor, insignificante en el Gran Chacú</Talk>
+        <Talk speakerId = "1" time = "5.0" >No te tengo miedo, así que por mi cuando quieras Comenzamos tu castigo </Talk>
+        <Talk speakerId = "3" time = "5.0" >Ya verás, voy a Comerte de un solo bocado! </Talk>
+      </Option>
+      
+      <Option>
+        <Talk speakerId = "1" time = "5.0" >Espera ¿Que son esos misteriosos simbolos en el Monte?</Talk>
+        <Talk speakerId = "3" time = "5.0" >JeJe Acercate un poco más y te explico que fué lo que pasó... </Talk>
+        <Talk speakerId = "1" time = "5.0" >mmmh nah, prefiero mantener la distancia  </Talk>
+        <Talk speakerId = "3" time = "5.0" >Tu existencia aqui es probablemente un error del Sarambí, Por suerte tengo Hambre y ganas de probar nuevos sabores</Talk>
+
+        
+        <ChooseTalk>
+          
+          <Option>
+            <Talk speakerId = "1" time = "5.0" >Basta de Girar ¡me estás Mareando! </Talk>
+            <Talk speakerId = "3" time = "5.0" >Ah, Entonces estás listo y a punto para mi merienda </Talk>
+            <Talk speakerId = "1" time = "5.0" >Creo que estás obsesionado con la comida </Talk>
+          </Option>
+          
+          <Option>
+           <Talk speakerId = "1" time = "5.0" >¿Que es eso del Sarambí? una Cumbia o que? </Talk>
+           <Talk speakerId = "3" time = "10.0" > Podría explicartelo pero ahora tengo mucha Hambre, relajate así me ayudas con la digestión</Talk>
+           <Talk speakerId = "1" time = "5.0" > No me gusta como suena eso..  </Talk>
+          </Option>
+
+        </ChooseTalk>
+        
+      </Option>
+
+
+      <Option>
+        <Talk speakerId = "1" time = "5.0" >&#10;Basta de Hablar, Te reto a Duelo!</Talk>
+        <Talk speakerId = "3" time = "5.0" >Ah, Directo al Grano, ahora te voy a aplastar</Talk>
+      </Option>
+
+
+    </ChooseTalk>
+    
+
+  </Conversation>
+
 </Conversations>

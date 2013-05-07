@@ -10,9 +10,9 @@
 
  * Edit Items and projectiles TileSets...
  * Enemy BIG BOSSES IA!:
-			- Teju Yagua
-			- Yasi Yatere
-			- SNAKES
+			- Teju Yagua 
+			- Yasi Yatere			    = DONE
+			- SNAKES 			    = DONE
   			- AO AO
  * PLAYER SUPER POWERS: 
 	- Caña X1, X2 Increment
@@ -21,7 +21,7 @@
 
  * Aditional Extras:
  + Whistler Fiuuu
- + Teju Yagua Headless
+ + Teju Yagua Headless					    = DONE
  + Arrange Power-Ups + Shots.png
  + Test Register Save & ReLoad Feature
  + Clean-Up RainBow

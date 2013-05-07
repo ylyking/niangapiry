@@ -12,7 +12,6 @@ public class DataManager : MonoBehaviour
 /// Here We have the most important ingame properties
 /// </summary>
 
-    //[SerializeField]
     public uint Score               = 0;
     public uint Fruits              = 0;
     public uint TopScore            = 100;
@@ -101,8 +100,11 @@ public class DataManager : MonoBehaviour
     // Player setup inside level position
     public void SetPlayerPos()
     {
-        if ( !MapCheckPoints.ContainsKey(currentLevelFile))                         // If our current file isn't registered yet
-             MapCheckPoints.Add(currentLevelFile, Vector3.zero);
+        if (!MapCheckPoints.ContainsKey(currentLevelFile))                         // If our current file isn't registered yet
+        {
+            //Debug.Log("First Time Here!: " + currentLevelFile);
+            MapCheckPoints.Add(currentLevelFile, Vector3.zero);
+        }
 
         //1) If there's a previous saved position use it
         if (MapCheckPoints[currentLevelFile] != Vector3.zero)
@@ -112,11 +114,14 @@ public class DataManager : MonoBehaviour
         else if (GameObject.FindGameObjectWithTag("Respawn"))
         {
             Portal[] portals = (Portal[])GameObject.FindSceneObjectsOfType(typeof(Portal));
-            for (int portalIndex = portals.Length - 1; portalIndex >= 0; portalIndex--)
+            //for (int portalIndex = portals.Length - 1; portalIndex >= 0; portalIndex--)
+
+            for (int portalIndex = 0; portalIndex < portals.Length ; portalIndex++)
             {
                 //2.a)  if there is a "start" Id, go there
-                if (portals[portalIndex].Id.ToLower() == "start")
+                if ((portals[portalIndex]).Id.ToLower() == "start")
                 {
+                    //Debug.Log("Found Start moving to: " + portals[portalIndex].gameObject.transform.position);
                     Managers.Display.ShowFlash(0.5f);
                     MapCheckPoints[currentLevelFile] = portals[portalIndex].gameObject.transform.position;
                     break;
@@ -135,15 +140,17 @@ public class DataManager : MonoBehaviour
     }                                           
 
 
-    void SoftReset()
+    public void SoftReset()
     {
+        Debug.Log("Doing Soft Reset");
+
         Fruits = 0;
         Key = 0;
         Health = 3;
         Lifes = 3;
     }
 
-    void HardReset()
+    public void HardReset()
     {
         Score = 0;
         Fruits = 0;

@@ -48,12 +48,12 @@
  </layer>
  <layer name="plano 2" width="200" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3UAQuCQAyGYb2oNDD9yfvpfmMJIYVDEEvfBz68g3k4cFdVAAAAAAAAALKuyk25K03sbdcPWmneh9a21Mv7O//a99EUpX6lzJ7T+pI4RzVWot7q5DufdMpT6ZUh9rbyqK9a5aFzPe1G/+HUh/fQx9qWeumi1oZE7S/xudYdYJpry9wDwJn4XPtM+2xn7gEAxzACKke+A0AfAAA=
+   H4sIAAAAAAAAC+3U2QqEMAyFYUdxXMDlkfPonhAE8cYwWGb7PzjYQtVGTKsKAAAAAAAAQFarPJVO6WNub93Qi851aGxXtRzv+da6UdakzMqirDG3u98xKKOe6xkK/Yd7HV7DEmO7qmWKtbYm1n4S72udAaa+tsw58K8afZdaV8UeMU/dU3ZXKM372nvaeztzDgD4DRs+PM1jQB8AAA==
   </data>
  </layer>
  <layer name="plano 1" width="200" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2W0QrCMAxF48aQTRT843y6ZV2xxpZl4qiTc+CSNe3am4eGigAAAAAAAAAAAPwuY9AkoklhrK09/TND0DlGbWwF4IWlF8z9oJWHa9AtxmYewM9pUWe+87HJq82vSGt72XUm5vniHiU5z3LPr9Vb+VcLdbzV5q1pqxyei/PJTy/fIe9HR32X3BEyukikf97z1J+0ok/v8eY1e/WU2rkPt/eDtkAfAAA=
+   H4sIAAAAAAAAC+3UgQqEIBBFUTMiatmF/ng+PWGQahvTgrDgHngIajSm6RwAAAAAAAAAqC6k11YqlwJsDCGjRmrV8A35aVutBrxLo5G/dt0vftuXjDUv9+zRuN/XU/KsGOvYra10TWdTULM5HutpSzcuY30fDS+9D6y98i59znLf3joTuTM7kUfl41S7/OdxDyWRq//x6Tl33Smp986GqN7rQB8AAA==
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="200" height="10">
@@ -63,10 +63,11 @@
     <property name="target" value="exit"/>
    </properties>
   </object>
-  <object name="Clavel" x="960" y="448" width="64" height="64">
+  <object name="Clavel" x="2496" y="448" width="64" height="64">
    <properties>
     <property name="nameid" value="Comienzo"/>
    </properties>
   </object>
+  <object name="YasiYatere" type="YasiYatere" x="3904" y="448" width="64" height="64"/>
  </objectgroup>
 </map>

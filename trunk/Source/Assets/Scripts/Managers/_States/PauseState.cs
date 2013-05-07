@@ -56,13 +56,23 @@ public class PauseState : GameState
         if (Managers.Game.IsPaused && Input.GetKeyDown("q"))
         {
             Managers.Game.IsPaused = false;
+            Managers.Dialog.StopConversation();
             ReturnMap();
         }
     }
 
     public override void OnRender()
     {
-
+        if (Managers.Game.IsPaused)
+        {
+            GUI.color = new Color(1, 0.36f, 0.22f, 1);
+            GUI.Box(new Rect((Screen.width * .5f) - (Screen.width * .15f),
+                                 (Screen.height * .5f) - (Screen.height * .15f),
+                                 (Screen.width * .35f), (Screen.height * .35f)),
+                                    "\n\n - PAUSE - \n\n press 'Q' to Quit Game \n and return Main Menu ");
+            GUI.color = Color.clear;
+            return;
+        }
     }
 
     public override void Pause() { ;}

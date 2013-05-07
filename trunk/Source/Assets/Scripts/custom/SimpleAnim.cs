@@ -15,15 +15,19 @@ public class SimpleAnim : MonoBehaviour
 
         simpleAnim = gameObject.GetComponent<AnimSprite>()as AnimSprite;
 
-        StartCoroutine(CoUpdate());
+        //StartCoroutine(CoUpdate());                                 // Changed Because it can't hold re-activation
 }
-
-    IEnumerator CoUpdate()
+    void Update()
     {
-        while (true)
-        {
             simpleAnim.PlayFrames(RowStart, ColumnStart, TotalFrames, Orientation);
-            yield return 0;
-        }
     }
+
+    //IEnumerator CoUpdate()
+    //{
+    //    while (true)
+    //    {
+    //        simpleAnim.PlayFrames(RowStart, ColumnStart, TotalFrames, Orientation);
+    //        yield return 0;
+    //    }
+    //}
 }

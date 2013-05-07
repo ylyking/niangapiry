@@ -42,12 +42,21 @@
    <property name="Speed" value="0.1, 0.15"/>
   </properties>
  </imagelayer>
+ <imagelayer name="Foreground" width="20" height="12">
+  <image source="nube2.png"/>
+  <properties>
+   <property name="Scroll" value="Relative"/>
+   <property name="Speed" value="0.2, 0.2"/>
+   <property name="depth" value="-1"/>
+   <property name="scale" value="2"/>
+  </properties>
+ </imagelayer>
  <layer name="TileLayer2" width="20" height="12">
   <properties>
    <property name="depth" value="0.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGHmAn4GhgQNI8zEwPKDULKAZDQJQzE4F8/DYkwB1M1UA0KwEoJsZQJgf064GdDFKAMwearl9FCAAAJsrxzPAAwAA
+   H4sIAAAAAAAAC2NgGHmAn4GhgQNI8zEwPKDULKAZDQJQzE4F8+gFgO5OgIYBNrkGfhLNA5qVAAwDBhBG1wsTx2bXKKAMAAAOHaSVwAMAAA==
   </data>
  </layer>
  <layer name="TileLayer1" width="20" height="12">
@@ -55,44 +64,32 @@
    <property name="depth" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWUACY0TClgYWBoYIZgEJtmAJe7gewGcszD5W4uoBg3kGZkoE748ADNYwXSnBCzqQKEGBgOsDEwLOChknn0BADnkUd+wAMAAA==
+   H4sIAAAAAAAAC2NgoC5gYWBoYKGymYMZMKFhSgEo/JghmGEgwhHohwYy9WENBy6gedxAmpGBtPDBFQ48QDFWIM0JMZsqQIiB4QAbA8MCHtzuYBio+CAEAAqfBLTAAwAA
   </data>
  </layer>
- <imagelayer name="Foreground" width="20" height="12">
-  <image source="nube2.png"/>
-  <properties>
-   <property name="Scroll" value="Relative"/>
-   <property name="Speed" value="0.2, 0.2"/>
-   <property name="depth" value="-1"/>
-  </properties>
- </imagelayer>
  <layer name="Frente" width="20" height="12">
   <properties>
    <property name="depth" value="-.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWDHfAxMDTwU9c8BXYGhgNAzEANc4FmNHAAaQGI2QsoNQ9oxgGgeQeoYdZwBwDU5ja0wAMAAA==
+   H4sIAAAAAAAAC2NgGAWDHfAxMDTwU9c8BXYGhgNAzEANc4FmNHAAaQGI2QuwqWEmzX0HgOYdwGXWKEAAALipw33AAwAA
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="20" height="12">
-  <object name="dimension" type="Warp" x="960" y="448" width="64" height="64">
-   <properties>
-    <property name="warp" value="exit"/>
-   </properties>
-  </object>
+  <object name="start" type="Warp" x="0" y="0" width="64" height="64"/>
   <object name="Exit" type="Warp" x="0" y="704" width="1216" height="64">
    <properties>
     <property name="target" value="/Levels/home.tmx"/>
    </properties>
   </object>
-  <object type="Warp" x="1216" y="0" width="64" height="768">
+  <object name="SalidaMapa" type="Warp" x="1216" y="0" width="64" height="768">
    <properties>
     <property name="target" value="exit"/>
    </properties>
   </object>
-  <object type="Warp" x="608" y="0" width="448" height="128">
+  <object name="dimension" type="Warp" x="960" y="448" width="64" height="64">
    <properties>
-    <property name="target" value="/Levels/home.tmx"/>
+    <property name="target" value="/Levels/parallax2.tmx"/>
    </properties>
   </object>
  </objectgroup>
