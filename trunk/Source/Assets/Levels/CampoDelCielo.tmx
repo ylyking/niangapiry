@@ -57,7 +57,7 @@
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="200" height="10">
-  <object name="start" type="Warp" x="0" y="384" width="64" height="64"/>
+  <object name="start" type="Warp" x="576" y="384" width="64" height="64"/>
   <object type="Door" x="9408" y="512" width="64" height="64">
    <properties>
     <property name="target" value="exit"/>
@@ -68,6 +68,11 @@
     <property name="nameid" value="Comienzo"/>
    </properties>
   </object>
-  <object name="YasiYatere" type="YasiYatere" x="3904" y="448" width="64" height="64"/>
+  <object name="YasiYatere" type="Bosses/YasiYatere" x="3904" y="448" width="64" height="64"/>
+  <object name="D" type="Door" x="576" y="512" width="64" height="64">
+   <properties>
+    <property name="target" value="/Levels/AoAoField.tmx"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

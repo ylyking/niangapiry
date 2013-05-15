@@ -198,11 +198,10 @@ public class TileManager : MonoBehaviour {
         var LayerTransform = Layer.transform;
         LayerTransform.position = new Vector3(Layer.transform.position.x, Layer.transform.position.y, TileOutputSize.z);
         LayerTransform.parent = MapTransform;
-        TileOutputSize.z += 0.5f;
+        //TileOutputSize.z += 0.5f;
 
         int ColIndex = 0;
         int RowIndex = int.Parse(LayerInfo.Attributes["height"].Value) - 1;
-        //bool CollisionLayer = false;
         uint CollisionLayer = 0;
 
         XmlElement Data = (XmlElement)LayerInfo.FirstChild;
@@ -222,13 +221,13 @@ public class TileManager : MonoBehaviour {
                                                         LayerTransform.position.y,
                                                         float.Parse(LayerProp.GetAttribute("value")));
                 //Debug.Log(float.Parse(LayerProp.GetAttribute("value")));
-                //TileOutputSize.z = LayerTransform.position.z + 0.5f;  // uncomment This for an "auto-arrangement" of layer's depth
-                //TileOutputSize.z -= 0.5f;
             }
 
             Data = (XmlElement)Data.NextSibling;
         }
 
+        if ( LayerTransform.position.z == TileOutputSize.z)
+            TileOutputSize.z += 0.5f;
 
 
         // & CHECK IF DATA IS GZIP COMPRESSED OR DEFAULT XML AND CREATE OR BUILD ALL TILES INSIDE EACH LAYER			
@@ -546,11 +545,15 @@ public class TileManager : MonoBehaviour {
         //float Depth = (TileOutputSize.z - cam.transform.position.z);
 
 
-        float Depth = TileOutputSize.z ;
-        TileOutputSize.z += 0.5f;
+        //float Depth = TileOutputSize.z ;
+        //TileOutputSize.z += 0.5f;
 
-        if ( Depth == 0)
-            Depth = 1;
+        //if ( Depth == 0)
+        //    Depth = 1;
+
+
+        float Depth = -120;               //bool AutoDepth = true;
+       
 
         GameObject scrollLayer = new GameObject(LayerInfo.Attributes["name"].Value);   // Build new scrollLayer inside layer
 
@@ -570,6 +573,7 @@ public class TileManager : MonoBehaviour {
                 {
                     case "depth":
                         Depth = float.Parse(LayerProp.Attributes["value"].Value);               // Set scroll Layer depth
+                    //  AutoDepth = false;
                         break;
 
                     case "scroll":
@@ -613,7 +617,14 @@ public class TileManager : MonoBehaviour {
         		        
         // Config Layer position from Tiled file 'Depth' property or else by Layer order by Default
         //scrollLayer.transform.position =  new Vector3( cam.transform.position.x, cam.transform.position.y, Depth - cam.transform.position.z);
-        scrollLayer.transform.position =  new Vector3( cam.transform.position.x, cam.transform.position.y, Depth);
+        
+        if (Depth == -120 )       //if ( AutoDepth)         
+        {
+            Depth = TileOutputSize.z -( System.Convert.ToSingle(TileOutputSize.z == 0) );
+            TileOutputSize.z += 0.5f * System.Convert.ToSingle(TileOutputSize.z != 0);
+        }
+
+        scrollLayer.transform.position =  new Vector3( cam.transform.position.x, cam.transform.position.y, Depth );
 
 
 #if TEXTURE_RESOURCE

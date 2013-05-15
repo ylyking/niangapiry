@@ -2,10 +2,10 @@
 
 
  + Enemy BIG BOSSES IA!:
-			- Teju Yagua IA + SimpleAnim    D
-			- Yasi Yatere IA + Dialogs	DON 
+			- Teju Yagua IA + SimpleAnim    DONE
+			- Yasi Yatere IA + Dialogs	DONE
 			- SNAKES IA			DONE
-  			- AO AO IA + Dialogs           
+  			- AO AO IA + Dialogs            DON
 
  + PLAYER SUPER POWERS: 
 	- Caña X1, X2 Increment Power 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="Door" color="#aa5500"/>
+ <objecttype name="Warp" color="#ff0000"/>
+ <objecttype name="Mono" color="#a0a0a4"/>
+ <objecttype name="Dengue" color="#a0a0a4"/>
+ <objecttype name="Bosses/Moñai" color="#ff0000"/>
+ <objecttype name="Bosses/YasiYatere" color="#ffff00"/>
+ <objecttype name="Bosses/MboiTui" color="#55ff00"/>
+ <objecttype name="Bosses/TejuYagua" color="#00aa00"/>
+</objecttypes>

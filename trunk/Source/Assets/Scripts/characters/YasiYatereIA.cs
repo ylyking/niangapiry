@@ -30,6 +30,7 @@ public class YasiYatereIA : MonoBehaviour {
 
     float timeLapse     = 0;
     float timeState     = 0;
+    float hurtTime = 0;
     float StaffSpeed    = 4;
 
     Vector3 NewPosition = Vector3.zero;
@@ -38,7 +39,7 @@ public class YasiYatereIA : MonoBehaviour {
 
     public bool DisplayArea = false;
     public Rect BossArea = new Rect(0, 0, 15, 5);
-    private Rect PrevArea;
+    private Rect LevelArea;
 
     public enum BossState { Standby = 0, Quiet, Running, Hurting, Crying }
     public BossState YasiState = BossState.Standby;
@@ -87,6 +88,7 @@ public class YasiYatereIA : MonoBehaviour {
         //YasiState = BossState.Hurting;
         //Attack = AttackState.NoAttack;
         timeState = Time.time + 5;
+        LevelArea = Managers.Display.cameraScroll.levelBounds;
     }
 
 
@@ -104,7 +106,6 @@ public class YasiYatereIA : MonoBehaviour {
                 if ( ((thisTransform.position.x - Managers.Game.PlayerPrefab.transform.position.x) < 5) )
                     
                     {
-                        PrevArea = Managers.Display.cameraScroll.levelBounds;
                         Rect BossBounds = new Rect(BossArea.xMin, BossArea.yMin - 1, BossArea.width, BossArea.height + 3);
                         Managers.Display.cameraScroll.ResetBounds(BossBounds);
 
@@ -237,7 +238,7 @@ public class YasiYatereIA : MonoBehaviour {
         if (timeLapse == 0)
         {
             Orientation = (int)Mathf.Sign(PlayerTransform.position.x - thisTransform.position.x);
-            Managers.Audio.Play(Laser, lightHead.transform );
+            Managers.Audio.Play(Laser, thisTransform);
         }
 
         timeLapse += Time.deltaTime;
@@ -318,11 +319,9 @@ public class YasiYatereIA : MonoBehaviour {
 
     void NoAttack()
     {
-        // No Attack, does nothig, maybe we are running or stand, maybe crying or whatever..
-        ;
+        ;// No Attack, does nothig, maybe we are running or stand, maybe crying or whatever..
     }
 
-    float hurtTime = 0;
 
     void Hurt()
     {
@@ -370,7 +369,7 @@ public class YasiYatereIA : MonoBehaviour {
         if (Talking && !Managers.Dialog.IsInConversation())
             StartTalk();
 
-        if( !Talking && Managers.Dialog.IsInConversation())
+        if( !Talking && Managers.Dialog.IsInConversation() )
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x =
                 (transform.position.x - Managers.Game.PlayerPrefab.transform.position.x) * .5f;
 
@@ -405,7 +404,7 @@ public class YasiYatereIA : MonoBehaviour {
         (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0;
         (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2.5f;
 
-        Managers.Display.cameraScroll.ResetBounds(PrevArea);
+        Managers.Display.cameraScroll.ResetBounds(LevelArea);
 
     }
 
@@ -427,6 +426,13 @@ public class YasiYatereIA : MonoBehaviour {
 
         }
 
+        if (hit.tag == "p_shot" && (HoldStaff != 0)  )
+        {
+            YasiState = BossState.Hurting;
+            //Managers.Audio.Play(SnakeHit, thisTransform, 1, 1);
+            Destroy(Instantiate(particle, thisTransform.position, thisTransform.rotation), 5);
+        }
+
         if (hit.name == "FireStaff" && (HoldStaff != 0) )
         {
             hit.transform.position = thisTransform.position;
@@ -443,6 +449,23 @@ public class YasiYatereIA : MonoBehaviour {
         {
             StartTalk();
         }
+    }
+
+    void OnDestroy()
+    {
+        if ( Staff )
+            Destroy(Staff);
+
+        Destroy(Shield);
+        Destroy(lightStart);
+        Destroy(lightTrace);
+        Destroy(lightHead);
+
+        Shield = null;
+        Staff = null;
+        lightStart = null;
+        lightTrace = null;
+        lightHead = null;
     }
 
     bool ToggleUp = true;

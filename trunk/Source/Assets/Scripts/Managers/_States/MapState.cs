@@ -8,6 +8,9 @@ public class MapState : GameState
     uint TotalOptions = 0;
     Dictionary<int, MapNode> OptionsList = new Dictionary<int, MapNode>();
 
+    float timeLapse = 0;
+    bool MapSelected = false;
+
     GameObject Target;
     AnimSprite MiniAnim;
     GUISkin gSkin;
@@ -45,7 +48,9 @@ public class MapState : GameState
         //TotalOptions = (uint)Managers.Register.UnlockedStages;
 
         Managers.Display.cameraScroll.SetTarget(Target.transform);
-        //Managers.Display.cameraScroll.ResetBounds();
+
+        timeLapse = Time.time + 0.75f;    
+        Target.GetComponent<CameraTargetAttributes>().distanceModifier = 0.05f;
 
 	}
 	
@@ -66,76 +71,92 @@ public class MapState : GameState
 	
     public override void OnUpdate()
 	{
+        if (timeLapse > Time.time)
+            Target.GetComponent<CameraTargetAttributes>().distanceModifier = 0.05f;
+        else
+            Target.GetComponent<CameraTargetAttributes>().distanceModifier = 2;
 
-        if ( Input.GetKeyDown("escape") )
-            Managers.Game.ChangeState(typeof(MainMenuState));
-
-        if (Input.GetKeyDown("up"))
-            if (ChooseOption == TotalOptions - 1)
-                ChooseOption = 0;
-            else if (OptionsList[(int)ChooseOption].Up > TotalOptions - 1)
-                ChooseOption = TotalOptions - 1;
-            else 
-                ChooseOption = OptionsList[(int)ChooseOption].Up;
-
-            if (Input.GetKeyDown("down"))
-                if (ChooseOption == 0 || (OptionsList[(int)ChooseOption].Down > TotalOptions - 1))
-                    ChooseOption = TotalOptions - 1;
-                else
-                    ChooseOption = OptionsList[(int)ChooseOption].Down;
-
-            if (Input.GetKeyDown("left"))
-                if (OptionsList[(int)ChooseOption].Left > TotalOptions - 1)
-                    ChooseOption = 0;
-                else
-                    ChooseOption = OptionsList[(int)ChooseOption].Left;
-
-            if (Input.GetKeyDown("right"))
-                if (OptionsList[(int)ChooseOption].Right > TotalOptions - 1)
-                    ChooseOption = 1;
-                else
-                    ChooseOption = OptionsList[(int)ChooseOption].Right;
-
-            if (Target != null)
+            if (Target != null)                                                                 // Pombe Animation
             {
                 Target.transform.position = Vector3.Lerp(Target.transform.position, OptionsList[(int)ChooseOption].Position, Time.deltaTime * 5);
                 
-                //if ( Mathf.Approximately(Target.transform.position.x, OptionsList[(int)ChooseOption].Position.x))
                 if ( Mathf.Abs(Target.transform.position.x - OptionsList[(int)ChooseOption].Position.x) < 0.01f )
                     MiniAnim.PlayFrames(4, 4, 1, (int)Mathf.Sign(OptionsList[(int)ChooseOption].Position.x - Target.transform.position.x));
                 else
                     MiniAnim.PlayFrames(4, 4, 3, (int)Mathf.Sign(OptionsList[(int)ChooseOption].Position.x - Target.transform.position.x));
-
             }
 
         //if (Input.GetButtonDown("Fire1") || Input.GetKeyDown("return"))
-        if (Input.GetKeyDown("return"))
-            switch (ChooseOption)
+            if (Input.GetKeyDown("return"))
             {
-                case 0:
-                    Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState0));                   // Pampero World
-                    break;
-                case 1:
-                    Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState1));                   // Monte World
-                    break;
-                case 2:
-                    Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState2));                   // Home World
-                    break;
-                case 3:
-                    Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState3));                   // Iguazu World
-                    break;
-                case 4:
-                    Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState4));                   // SkyField World       
-                    break;
-                case 5:
-                    Managers.Display.ShowFlash(1);
-                    Managers.Game.PushState(typeof(WorldState5));                   // Impenetrable World
-                    break;
+                timeLapse = Time.time + 0.75f;
+                MapSelected = true;
+            }
+
+            if (MapSelected)
+            {
+                if (timeLapse > Time.time)
+                    return;
+
+                MapSelected = false;
+                switch (ChooseOption)
+                {
+                    case 0:
+                        Managers.Game.PushState(typeof(WorldState0));                   // Pampero World
+                        break;
+                    case 1:
+                        Managers.Game.PushState(typeof(WorldState1));                   // Monte World
+                        break;
+                    case 2:
+                        Managers.Game.PushState(typeof(WorldState2));                   // Home World
+                        break;
+                    case 3:
+                        Managers.Game.PushState(typeof(WorldState3));                   // Iguazu World
+                        break;
+                    case 4:
+                        Managers.Game.PushState(typeof(WorldState4));                   // SkyField World       
+                        break;
+                    case 5:
+                        Managers.Game.PushState(typeof(WorldState5));                   // Impenetrable World
+                        break;
+                }
+            }
+            else
+            {
+
+                #region Player Input Navigation
+
+                if (Input.GetKeyDown("escape"))
+                    Managers.Game.ChangeState(typeof(MainMenuState));
+
+                if (Input.GetKeyDown("up"))
+                    if (ChooseOption == TotalOptions - 1)
+                        ChooseOption = 0;
+                    else if (OptionsList[(int)ChooseOption].Up > TotalOptions - 1)
+                        ChooseOption = TotalOptions - 1;
+                    else
+                        ChooseOption = OptionsList[(int)ChooseOption].Up;
+
+                if (Input.GetKeyDown("down"))
+                    if (ChooseOption == 0 || (OptionsList[(int)ChooseOption].Down > TotalOptions - 1))
+                        ChooseOption = TotalOptions - 1;
+                    else
+                        ChooseOption = OptionsList[(int)ChooseOption].Down;
+
+                if (Input.GetKeyDown("left"))
+                    if (OptionsList[(int)ChooseOption].Left > TotalOptions - 1)
+                        ChooseOption = 0;
+                    else
+                        ChooseOption = OptionsList[(int)ChooseOption].Left;
+
+                if (Input.GetKeyDown("right"))
+                    if (OptionsList[(int)ChooseOption].Right > TotalOptions - 1)
+                        ChooseOption = 1;
+                    else
+                        ChooseOption = OptionsList[(int)ChooseOption].Right;
+
+                #endregion
+
             }
 	}
 
@@ -160,9 +181,9 @@ public class MapState : GameState
 	
 	public override void Pause()
 	{
+        Managers.Display.ShowFlash(1);
         Managers.Tiled.Unload();
         Managers.Display.cameraScroll.SetTarget(Managers.Display.transform, false);
-        //Managers.Display.cameraScroll.SetTarget(Managers.Display.transform, false);
         Target = null;
         MiniAnim = null;
 	}
@@ -177,7 +198,10 @@ public class MapState : GameState
         Managers.Display.cameraScroll.ResetBounds( Managers.Display.cameraScroll.levelBounds);
         //Managers.Display.cameraScroll.ResetBounds();
 
+        timeLapse = Time.time + 1;
+        Target.GetComponent<CameraTargetAttributes>().distanceModifier = 0.05f;
 	}
+
 	
     //public override void CheckScore()
     //{

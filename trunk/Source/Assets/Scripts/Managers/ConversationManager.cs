@@ -70,7 +70,8 @@ public class ConversationManager : MonoBehaviour {
    	}       
         //////////////////////////////////////////////////////////////
 
-    public void DeInit() { StopConversation(); mSpeakers.Clear(); mConversations.Clear(); mpCurrentConversationNode = null; }
+    public void DeInit()
+    { StopConversation(); mSpeakers.Clear(); mConversations.Clear(); mpCurrentConversationNode = null; }
         //////////////////////////////////////////////////////////////
         
   	public void  ParseCharacter (  XmlNode lpElem   ){
@@ -209,15 +210,68 @@ public class ConversationManager : MonoBehaviour {
     }
         //////////////////////////////////////////////////////////////       
 
-    public IEnumerator CoUpdate(  float lfTimestep   ) //: IEnumerator
+//    public IEnumerator CoUpdate(  float lfTimestep   ) //: IEnumerator
+//    {
+////    	if(Input.GetButton("Fire1") )Debug.Log( "\n PRESSING ENTER KEY ");  
+
+
+//        while (this.IsInConversation())
+//        {
+
+//            if (!mbConversationState ) yield return 0;
+
+//            if (CamTarget.Offset.x > 0)                                                     // Check Player Position and Id
+//                miChatDirection = System.Convert.ToByte(miChatDirection != 0);              // the Player is on left side
+//            else
+//                miChatDirection = System.Convert.ToByte(miChatDirection == 0);              // else the Player is on right 
+
+
+//            ComicCoord = new Rect(.5f * miChatDirection, 0, (miChatDirection > 0 ? -.5f : .5f), .25f);
+
+
+//          if (!Managers.Game.IsPaused)
+//            if (mpCurrentConversationNode != null )
+//            {
+//                switch (mpCurrentConversationNode.meType)
+//                {
+//                    case eConversationNodeType.eNormalTalk:									// Enum 0; Nodo activo de tipo eNormalTalk
+
+//                        mfMessageTime -= lfTimestep * .1f;	                					// Decrease the message time
+
+//                        if ((mfMessageTime <= 0.0f) || Input.GetButtonDown("Fire1") || Input.GetKeyDown("return"))
+//                            NextMessage(0);               								//Need to continue with the next message or node
+//                        break;
+
+//                    case eConversationNodeType.eChooseTalk:									// Enum 1; Nodo activo de tipo eChooseTalk
+
+//                        if (Input.GetKeyDown("up") && (muiChooseOption > 0))
+//                            muiChooseOption--;
+//                        if (Input.GetKeyDown("down") && (muiChooseOption < (mpCurrentConversationNode.mChildren.Count - 1)))
+//                            muiChooseOption++;
+//                        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump") || Input.GetKeyDown("return"))
+//                            NextMessage(muiChooseOption);
+//                        break;
+
+//                    default:																// Enum 2; Nodo activo de tipo eEndConversation
+//                        mpCurrentConversationNode = null;
+//                        break;
+//                }
+//            }
+//            else mbConversationState = false; // If we have a null mpCurrentConversationNode then it´s the end
+
+//            yield return 0;
+//        }
+	    
+//    }
+        //////////////////////////////////////////////////////////////     
+
+    public void Update() //: IEnumerator
     {
-//    	if(Input.GetButton("Fire1") )Debug.Log( "\n PRESSING ENTER KEY ");  
+        //    	if(Input.GetButton("Fire1") )Debug.Log( "\n PRESSING ENTER KEY ");  
 
-
-        while (this.IsInConversation())
+        if (IsInConversation())
         {
-
-            if (!mbConversationState ) yield return 0;
+            //if (!mbConversationState) return;
 
             if (CamTarget.Offset.x > 0)                                                     // Check Player Position and Id
                 miChatDirection = System.Convert.ToByte(miChatDirection != 0);              // the Player is on left side
@@ -228,42 +282,41 @@ public class ConversationManager : MonoBehaviour {
             ComicCoord = new Rect(.5f * miChatDirection, 0, (miChatDirection > 0 ? -.5f : .5f), .25f);
 
 
-          if (!Managers.Game.IsPaused)
-            if (mpCurrentConversationNode != null )
-            {
-                switch (mpCurrentConversationNode.meType)
+            if (!Managers.Game.IsPaused)
+                if (mpCurrentConversationNode != null)
                 {
-                    case eConversationNodeType.eNormalTalk:									// Enum 0; Nodo activo de tipo eNormalTalk
+                    switch (mpCurrentConversationNode.meType)
+                    {
+                        case eConversationNodeType.eNormalTalk:									// Enum 0; Nodo activo de tipo eNormalTalk
 
-                        mfMessageTime -= lfTimestep * .1f;	                					// Decrease the message time
+                            mfMessageTime -= Time.deltaTime * .1f;	                					// Decrease the message time
 
-                        if ((mfMessageTime <= 0.0f) || Input.GetButtonDown("Fire1") || Input.GetKeyDown("return"))
-                            NextMessage(0);               								//Need to continue with the next message or node
-                        break;
+                            if ((mfMessageTime <= 0.0f) || Input.GetButtonDown("Fire1") || Input.GetKeyDown("return"))
+                                NextMessage(0);               								//Need to continue with the next message or node
+                            break;
 
-                    case eConversationNodeType.eChooseTalk:									// Enum 1; Nodo activo de tipo eChooseTalk
+                        case eConversationNodeType.eChooseTalk:									// Enum 1; Nodo activo de tipo eChooseTalk
 
-                        if (Input.GetKeyDown("up") && (muiChooseOption > 0))
-                            muiChooseOption--;
-                        if (Input.GetKeyDown("down") && (muiChooseOption < (mpCurrentConversationNode.mChildren.Count - 1)))
-                            muiChooseOption++;
-                        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump") || Input.GetKeyDown("return"))
-                            NextMessage(muiChooseOption);
-                        break;
+                            if (Input.GetKeyDown("up") && (muiChooseOption > 0))
+                                muiChooseOption--;
+                            if (Input.GetKeyDown("down") && (muiChooseOption < (mpCurrentConversationNode.mChildren.Count - 1)))
+                                muiChooseOption++;
+                            if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump") || Input.GetKeyDown("return"))
+                                NextMessage(muiChooseOption);
+                            break;
 
-                    default:																// Enum 2; Nodo activo de tipo eEndConversation
-                        mpCurrentConversationNode = null;
-                        break;
+                        default:																// Enum 2; Nodo activo de tipo eEndConversation
+                            mpCurrentConversationNode = null;
+                            break;
+                    }
                 }
-            }
-            else mbConversationState = false; // If we have a null mpCurrentConversationNode then it´s the end
+                else mbConversationState = false; // If we have a null mpCurrentConversationNode then it´s the end
 
-            yield return 0;
+
         }
-	    
     }
-        //////////////////////////////////////////////////////////////     
-        
+    //////////////////////////////////////////////////////////////
+   
     public void  StartConversation ( string lacConversationId   ){
         mbConversationState = true; 									// stops Player moves during Conversation
     
@@ -279,7 +332,7 @@ public class ConversationManager : MonoBehaviour {
             }
 	    }
 
-        StartCoroutine(CoUpdate(Time.deltaTime));
+        //StartCoroutine(CoUpdate(Time.deltaTime));
 	    
     } // con esto llamamos al Conversation Manager desde Statement.cpp
         //////////////////////////////////////////////////////////////
@@ -371,10 +424,12 @@ public class ConversationManager : MonoBehaviour {
 
     public void StopConversation()
     {
+        
         mpCurrentConversationNode = null;
+        mfMessageTime = 0;
         muiChooseOption = 0;
         mbConversationState = false;
-        StopCoroutine("CoUpdate");
+        //StopCoroutine("CoUpdate");
     }
         //////////////////////////////////////////////////////////////
       

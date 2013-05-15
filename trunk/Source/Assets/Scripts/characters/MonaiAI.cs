@@ -23,7 +23,7 @@ public class MonaiAI : MonoBehaviour {
 
     public Rect BossArea = new Rect(0, 0, 15, 5);
     //public Rect PrevArea = Managers.Display.cameraScroll.levelBounds;
-    public Rect PrevArea ;
+    public Rect LevelArea ;
 
     public bool DisplayArea = false;
     public enum BossState { Standby = 0, Talking , Roaming, WildCircle, AttakingTree, Sliding, Hurting, Dying }
@@ -36,6 +36,7 @@ public class MonaiAI : MonoBehaviour {
     public TextAsset file;
     bool Talking = false;
     public ParticleSystem particle;
+    public ParticleSystem Slash;
 
     public AudioClip SnakeHit;
     public AudioClip SnakeRattle;
@@ -48,7 +49,9 @@ public class MonaiAI : MonoBehaviour {
         thisTransform = this.transform;
         Chain = GetComponent<SpriteChain>();
         Head = GetComponent<AnimSprite>();
-        thisTransform.position = new Vector3(thisTransform.position.x, thisTransform.position.y, -1); ;
+        thisTransform.position = new Vector3(thisTransform.position.x, thisTransform.position.y, -1);
+
+        LevelArea = Managers.Display.cameraScroll.levelBounds;
         
         BossArea.center = new Vector2(thisTransform.position.x, thisTransform.position.y);
         PlayerTransform = Managers.Game.PlayerPrefab.transform;
@@ -62,16 +65,10 @@ public class MonaiAI : MonoBehaviour {
 
         NewPosition = thisTransform.position;
 
-
         switch (MonaiState)
         {
             case BossState.Standby:
-                Roaming();
-                if ( (thisTransform.position.x - Managers.Game.PlayerPrefab.transform.position.x ) < 2)
-                {
-                    MonaiState = BossState.Talking;
-                    Talking = true;
-                }
+                StandBy();
                 break;
             case BossState.Talking:
                 TalkingState();
@@ -101,13 +98,13 @@ public class MonaiAI : MonoBehaviour {
         thisTransform.position = NewPosition;
 
 
-        if (DisplayArea)
-        {
-            Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMin), new Vector2(BossArea.xMax, BossArea.yMin), Color.red);
-            Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMax), new Vector2(BossArea.xMax, BossArea.yMax), Color.red);
-            Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMin), new Vector2(BossArea.xMin, BossArea.yMax), Color.red);
-            Debug.DrawLine(new Vector2(BossArea.xMax, BossArea.yMin), new Vector2(BossArea.xMax, BossArea.yMax), Color.red);
-        }
+        //if (DisplayArea)
+        //{
+        //    Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMin), new Vector2(BossArea.xMax, BossArea.yMin), Color.red);
+        //    Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMax), new Vector2(BossArea.xMax, BossArea.yMax), Color.red);
+        //    Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMin), new Vector2(BossArea.xMin, BossArea.yMax), Color.red);
+        //    Debug.DrawLine(new Vector2(BossArea.xMax, BossArea.yMin), new Vector2(BossArea.xMax, BossArea.yMax), Color.red);
+        //}
 	}
 
 
@@ -140,6 +137,34 @@ public class MonaiAI : MonoBehaviour {
     //    }
     //}
 
+    void StandBy()
+    {
+        Chain.MoveStyle = SpriteChain.TranslationMode.Smooth;
+
+        Head.PlayFrames(0, 1, 1, Orientation);
+
+        NewPosition = new Vector3(NewPosition.x + (Time.deltaTime * 3 * Orientation),
+                                   horizon + (Mathf.Sin(Time.time * 2) * (BossArea.height * .5f)), -1);   // Max Height taken
+
+        if (NewPosition.x > BossArea.xMax - 4 && Orientation == +1)
+        {
+            AttackRange++;
+            Orientation = -1;
+        }
+
+        if (NewPosition.x < BossArea.xMin + 4 && Orientation == -1)
+        {
+            AttackRange++;
+            Orientation = +1;
+        }
+
+        if ((thisTransform.position.x - Managers.Game.PlayerPrefab.transform.position.x) < 2)
+        {
+            MonaiState = BossState.Talking;
+            Talking = true;
+        }
+    }
+
     void WildCircle()
     {
         if (CenterPosition == Vector3.zero)
@@ -160,6 +185,13 @@ public class MonaiAI : MonoBehaviour {
                                               NewPosition.z);
 
         angle += 200 * Time.deltaTime;
+
+
+        if ( (int)angle % 180 == 0)
+            if ( Orientation == 1 )
+                Destroy(Instantiate(Slash, newRotation, thisTransform.rotation), 5);
+            else    
+                Destroy(Instantiate(Slash, newRotation, thisTransform.rotation), 5);
 
         if (angle > 360)
         {
@@ -308,7 +340,6 @@ public class MonaiAI : MonoBehaviour {
         (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0.01f;
         (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2;
 
-        PrevArea = Managers.Display.cameraScroll.levelBounds;
         Rect BossBounds = new Rect(BossArea.xMin, BossArea.yMin - 1, BossArea.width, BossArea.height + 2);
         Managers.Display.cameraScroll.ResetBounds(BossBounds);
     }
@@ -332,8 +363,10 @@ public class MonaiAI : MonoBehaviour {
 
         if (Health <= 1)
         {
-            Managers.Display.cameraScroll.ResetBounds(PrevArea);
+            Managers.Display.cameraScroll.ResetBounds(LevelArea);
             MonaiState = BossState.Dying;
+            return;
+
         }
 
         AttackRange = 0;

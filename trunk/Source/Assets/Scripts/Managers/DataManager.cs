@@ -66,7 +66,7 @@ public class DataManager : MonoBehaviour
     #region WORLD 4: SkyField
 
     public string SkyFieldFile = "/Levels/CampoDelCielo.tmx";
-
+    public bool AoAoDefeated = false;
 
     #endregion
     ////////////////////////////////////////////////////
