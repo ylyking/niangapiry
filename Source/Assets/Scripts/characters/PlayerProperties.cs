@@ -23,6 +23,7 @@ public Items Inventory	= Items.Empty;					// Inventory system activation
 
 public GameObject projectileHat;
 public GameObject projectileFire;
+public GameObject Sunrise;
 
 bool  changeState 	    = true;						    // flag to switch state
 
@@ -227,7 +228,6 @@ void  OnTriggerEnter (  Collider other   ){
 
 }
 
-
 void OnTriggerStay(  Collider hit  )  					// void  OnControllerColliderHit ( ControllerColliderHit hit  ){
 {
     if ( hit.CompareTag( "Platform" ) )
@@ -265,6 +265,30 @@ void OnTriggerExit(  Collider hit  )  					// void  OnControllerColliderHit ( Co
 {
     if ( hit.CompareTag( "Platform" ) )
 		thisTransform.parent = null;
+}
+
+
+void  OnControllerColliderHit ( ControllerColliderHit hit  )
+{
+    if (HoldingKey && hit.transform.tag == "pickup" )// ||  hit.CompareTag( "p_shot") )
+
+        if ((int)playerState < 8 && !_pickedObject)
+        {
+            _pickedObject = hit.transform; 									// caches the picked object
+
+            ThrowForce = _pickedObject.rigidbody.mass * 5;
+
+            wasKinematic = _pickedObject.rigidbody.isKinematic;
+            _pickedObject.rigidbody.isKinematic = true;
+
+            Physics.IgnoreCollision(_pickedObject.collider, gameObject.collider, true);
+
+            _pickedObject.collider.enabled = false;
+
+            _pickedObject.position = thisTransform.position + GrabPosition; 	// Could be changed with every object properties
+
+            _pickedObject.parent = thisTransform;
+        }
 }
 
 IEnumerator  HitDead (){
@@ -478,12 +502,16 @@ IEnumerator Invisible (){
 
 IEnumerator Burning (){
 	renderer.material.color = Color.white;
-	
-    //AudioSource Clip = null;
-	
+
+
+    //GameObject clone = (GameObject)Instantiate(Sunrise, thisTransform.position, thisTransform.rotation);
+    //clone.GetComponent<BulletShot>().Fire( Vector3.one, 32); 	// shot with a short animation
+
+
 //	if ( SoundDelirium )
 //		AudioSource = Managers.Audio.PlayLoop( SoundDelirium, thisTransform, .65f, 1.0f);
 //	renderer.enabled = true;
+
 	BurnOut = true;
 	
 	float timertrigger= Time.time + 30;
@@ -495,6 +523,7 @@ IEnumerator Burning (){
             renderer.material.SetFloat("_KeyY", 0.7f);
          //renderer.material.SetFloat("_KeyY",  Mathf.PingPong(Time.time, 0.2f) + 0.7f );   
 
+        //clone.transform.position = thisTransform.position + Vector3.forward ;
 
         if (playerState == PlayerState.Asleep)
         {
@@ -502,6 +531,8 @@ IEnumerator Burning (){
             renderer.material.SetFloat("_KeyY", 0.25f);
             //		    if ( SoundDelirium )
             //		        Managers.Audio.PlayLoop( SoundDelirium, thisTransform, .65f, 1.0f);
+
+            //Destroy(clone);
             yield break;
         } 
 
@@ -509,6 +540,7 @@ IEnumerator Burning (){
 	}
 	
 	Managers.Audio.Play( soundFlaming, thisTransform);
+    //Destroy(clone);
 
 	BurnOut = false;
 	renderer.material.SetFloat("_KeyY", 0.25f);

@@ -57,18 +57,13 @@
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="200" height="10">
-  <object name="Start" type="Door" x="192" y="256" width="64" height="64"/>
-  <object name="Clavel" x="320" y="384" width="64" height="64">
+  <object name="Start" type="Door" x="256" y="320" width="64" height="64"/>
+  <object name="Clavel" x="576" y="320" width="64" height="64">
    <properties>
     <property name="nameid" value="Comienzo"/>
    </properties>
   </object>
-  <object name="Moñai" type="Moñai" x="11776" y="384" width="64" height="64"/>
-  <object name="D" type="Door" x="640" y="448" width="64" height="64">
-   <properties>
-    <property name="target" value="/Levels/AoAoField.tmx"/>
-   </properties>
-  </object>
+  <object name="Moñai" type="Bosses/Moñai" x="11776" y="384" width="64" height="64"/>
   <object type="Door" x="9408" y="512" width="64" height="64">
    <properties>
     <property name="target" value="exit"/>
@@ -79,5 +74,8 @@
     <property name="target" value="/Levels/parallax.tmx"/>
    </properties>
   </object>
+  <object name="Yagua" type="TejuYagua" x="2176" y="448" width="64" height="64"/>
+  <object name="Hat" x="1728" y="448" width="64" height="64"/>
+  <object name="Maracuya" x="1536" y="448" width="64" height="64"/>
  </objectgroup>
 </map>

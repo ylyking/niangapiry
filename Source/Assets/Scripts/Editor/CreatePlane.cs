@@ -99,11 +99,18 @@ static void  CreateQuad (){
 
 //    	m.vertices = [Vector3(size *2, size*2, -size), Vector3(0, 0, -size), Vector3(0, 0,  size ), Vector3(size * 2, size*2,  size ) ];
 
-        m.uv =  new Vector2[4]	{
+        //m.uv =  new Vector2[4]	{
+        //                            new Vector2(.75f, 0.5f), 
+        //                            new Vector2(0.5f, 0.5f),
+        //                            new  Vector2 (0.5f, .75f),
+        //                            new  Vector2 (.75f, .75f) };  // 1-'    2'-_   3¡-     4¬ // Maracuya Example
+
+        m.uv = new Vector2[4]	{
                                     new Vector2(1, 0), 
                                     new Vector2(0, 0),
                                     new  Vector2 (0, 1),
                                     new  Vector2 (1, 1) };  // 1-'    2'-_   3¡-     4¬
+
     	m.triangles = new int[6] {0, 1, 2, 0, 2, 3};
     	m.RecalculateNormals();
      

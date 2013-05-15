@@ -112,7 +112,7 @@ Vector3 GetGoalPosition ()	// find out where the camera should move to, Based on
 	}
 	
 	// First do a rough goalPosition that simply follows the target at a certain relative height and distance.
-	Vector3 goalPosition= target.position + new Vector3 ( widthOffset, heightOffset, -50);
+	Vector3 goalPosition= target.position + new Vector3 ( widthOffset, heightOffset, -2.5f);
 	zoomFactor = -distance * distanceModifier; 							// some provisory fixes for ortogonal camera
 	
 	

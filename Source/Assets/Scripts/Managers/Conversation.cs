@@ -43,9 +43,9 @@ void Update()
 
         if (PlayerCamera)
         {
-            PlayerCamera.Offset.y = 1.0f;
+            PlayerCamera.Offset.y = 1;
             PlayerCamera.Offset.x = (transform.position.x - Managers.Game.PlayerPrefab.transform.position.x) * .5f;
-            PlayerCamera.distanceModifier = 2.0f;
+            PlayerCamera.distanceModifier = 2;
         }
 
     }
@@ -69,7 +69,7 @@ void  OnTriggerEnter (  Collider other   )
 
             if (oneShotId != null)
             {
-                soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 1f, 2.0f);
+                soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 1f, 2);
                 Managers.Dialog.StartConversation(oneShotId);
             }
             else Debug.Log("Conversation ID not assigned");
@@ -101,8 +101,8 @@ void  OnTriggerExit (  Collider other   )
 	
 		if (PlayerCamera)
 		{
-            PlayerCamera.Offset.y = 0.0f;
-			PlayerCamera.Offset.x = 0.0f;
+            PlayerCamera.Offset.y = 0;
+			PlayerCamera.Offset.x = 0;
 			PlayerCamera.distanceModifier = 2.5f;
 
             if (soundSource && soundSource.isPlaying)
@@ -124,6 +124,11 @@ void OnBecameVisible()
 void OnBecameInvisible()
 {
     enabled = false;
+}
+
+void OnDestroy()
+{
+    Managers.Dialog.DeInit();
 }
 
 //void OnDestroy()

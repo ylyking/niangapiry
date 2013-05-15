@@ -150,26 +150,30 @@ public class GameManager : MonoBehaviour
     public GameState State
     {
         get { return states[states.Count - 1]; }
+
+        //if (Managers.Game.State ==  Managers.Game.GetComponentInChildren< ExampleState >()  ) // Metodo para chequear 
+        //    Debug.Log("Si, Soy el estado que estás buscando!");
+        //    Debug.Log(" y aqui accedes a un dato del Estato:" + (( ExampleState )Managers.Game.State).PublicData);
     }
 
     //Changes the current game state after a specific time
-    public void SetState(System.Type newStateType, float Delay = 0)
-    {
-        StartCoroutine(CloseLastState(newStateType, Delay));
-    }
+    //public void SetState(System.Type newStateType, float Delay = 0)
+    //{
+    //    StartCoroutine(CloseLastState(newStateType, Delay));
+    //}
 
-    private IEnumerator CloseLastState(System.Type newStateType, float Delay)
-    {
-        yield return new WaitForSeconds(Delay);								// We must check the end of Button animation
+    //private IEnumerator CloseLastState(System.Type newStateType, float Delay)
+    //{
+    //    yield return new WaitForSeconds(Delay);								// We must check the end of Button animation
 
-        if (states.Count > 0)
-            states[states.Count - 1].DeInit();
+    //    if (states.Count > 0)
+    //        states[states.Count - 1].DeInit();
 
-        states[states.Count - 1] = GetComponentInChildren(newStateType) as GameState;
+    //    states[states.Count - 1] = GetComponentInChildren(newStateType) as GameState;
 
-        if (states.Count > 0)
-            states[states.Count - 1].Init();
-    }
+    //    if (states.Count > 0)
+    //        states[states.Count - 1].Init();
+    //}
     //////////////////////////////////////////////////////////////
 
     public void GameOver()

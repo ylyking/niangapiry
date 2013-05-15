@@ -10,10 +10,10 @@
 
  * Edit Items and projectiles TileSets...
  * Enemy BIG BOSSES IA!:
-			- Teju Yagua 
+			- Teju Yagua 			    = DONE	
 			- Yasi Yatere			    = DONE
 			- SNAKES 			    = DONE
-  			- AO AO
+  			- AO AO				    = DONE
  * PLAYER SUPER POWERS: 
 	- Caña X1, X2 Increment
 	- Whistler + Fiuuu Shot

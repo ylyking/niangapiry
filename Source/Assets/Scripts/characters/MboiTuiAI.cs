@@ -25,7 +25,7 @@ public class MboiTuiAI : MonoBehaviour {
 
     public Rect BossArea = new Rect(0, 0, 15, 5);
     //public Rect PrevArea = Managers.Display.cameraScroll.levelBounds;
-    public Rect PrevArea ;
+    public Rect LevelArea ;
 
     public bool DisplayArea = false;
     public enum BossState { Standby = 0, Talking , Roaming, WildCircle, AttakingTree, Rising, Sliding, Hurting, Dying }
@@ -38,6 +38,7 @@ public class MboiTuiAI : MonoBehaviour {
     public TextAsset file;
     bool Talking = false;
     public ParticleSystem particle;
+    public ParticleSystem Slash;
 
     public AudioClip SnakeHit;
     public AudioClip SnakeRattle;
@@ -51,13 +52,16 @@ public class MboiTuiAI : MonoBehaviour {
         thisTransform = this.transform;
         Chain = GetComponent<SpriteChain>();
         Head = GetComponent<AnimSprite>();
-        thisTransform.position = new Vector3(thisTransform.position.x, thisTransform.position.y, -1); ;
+        thisTransform.position = new Vector3(thisTransform.position.x, thisTransform.position.y, -1);
+
+        LevelArea = Managers.Display.cameraScroll.levelBounds;
         
         BossArea.center = new Vector2(thisTransform.position.x, thisTransform.position.y);
         PlayerTransform = Managers.Game.PlayerPrefab.transform;
         PlayerHeight = PlayerTransform.position.y;
         PlayerWidth = PlayerTransform.position.x;
         horizon = BossArea.center.y;
+
 
 	}
 	
@@ -69,12 +73,7 @@ public class MboiTuiAI : MonoBehaviour {
         switch (MboiTuiState)
         {
             case BossState.Standby:
-                Roaming();
-                if ( (thisTransform.position.x - Managers.Game.PlayerPrefab.transform.position.x ) < 2)
-                {
-                    MboiTuiState = BossState.Talking;
-                    Talking = true;
-                }
+                StandBy();
                 break;
             case BossState.Talking:
                 TalkingState();
@@ -106,15 +105,42 @@ public class MboiTuiAI : MonoBehaviour {
 
         thisTransform.position = NewPosition;
 
-
-        if (DisplayArea)
-        {
-            Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMin), new Vector2(BossArea.xMax, BossArea.yMin), Color.green);
-            Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMax), new Vector2(BossArea.xMax, BossArea.yMax), Color.green);
-            Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMin), new Vector2(BossArea.xMin, BossArea.yMax), Color.green);
-            Debug.DrawLine(new Vector2(BossArea.xMax, BossArea.yMin), new Vector2(BossArea.xMax, BossArea.yMax), Color.green);
-        }
+        //if (DisplayArea)
+        //{
+        //    Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMin), new Vector2(BossArea.xMax, BossArea.yMin), Color.green);
+        //    Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMax), new Vector2(BossArea.xMax, BossArea.yMax), Color.green);
+        //    Debug.DrawLine(new Vector2(BossArea.xMin, BossArea.yMin), new Vector2(BossArea.xMin, BossArea.yMax), Color.green);
+        //    Debug.DrawLine(new Vector2(BossArea.xMax, BossArea.yMin), new Vector2(BossArea.xMax, BossArea.yMax), Color.green);
+        //}
 	}
+
+    void StandBy()
+    {
+        Chain.MoveStyle = SpriteChain.TranslationMode.Smooth;
+
+        Head.PlayFrames(1, 1, 1, Orientation);
+
+        NewPosition = new Vector3(NewPosition.x + (Time.deltaTime * 3 * Orientation),
+                                   horizon + (Mathf.Sin(Time.time * 2) * (BossArea.height * .5f)), -1);   // Max Height taken
+
+        if (NewPosition.x > BossArea.xMax - 4 && Orientation == +1)
+        {
+            AttackRange++;
+            Orientation = -1;
+        }
+
+        if (NewPosition.x < BossArea.xMin + 4 && Orientation == -1)
+        {
+            AttackRange++;
+            Orientation = +1;
+        }
+
+        if ((thisTransform.position.x - Managers.Game.PlayerPrefab.transform.position.x) < 2)
+        {
+            MboiTuiState = BossState.Talking;
+            Talking = true;
+        }
+    }
 
 
     void WildCircle()
@@ -137,6 +163,12 @@ public class MboiTuiAI : MonoBehaviour {
                                               NewPosition.z);
 
         angle += 200 * Time.deltaTime;
+
+        if ( (int)angle % 180 == 0)
+            if (Orientation == 1)
+                Destroy(Instantiate(Slash, newRotation, thisTransform.rotation), 5);
+            else
+                Destroy(Instantiate(Slash, newRotation, thisTransform.rotation), 5);
 
         if (angle > 360)
         {
@@ -217,7 +249,7 @@ public class MboiTuiAI : MonoBehaviour {
             //else
             //    PlayerWidth = Random.Range(BossArea.xMin, BossArea.xMax);
 
-            PlayerWidth = PlayerTransform.position.x + Random.Range(-6, +6);
+            PlayerWidth = PlayerTransform.position.x + Random.Range(-5, +5);
 
             NewPosition.x = Mathf.Clamp(NewPosition.x, BossArea.xMin, BossArea.xMax);
             NewPosition.y = Mathf.Clamp(NewPosition.y, BossArea.yMin - 2, BossArea.yMax + 1);
@@ -322,7 +354,6 @@ public class MboiTuiAI : MonoBehaviour {
         (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0.01f;
         (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2;
 
-        PrevArea = Managers.Display.cameraScroll.levelBounds;
         Rect BossBounds = new Rect(BossArea.xMin, BossArea.yMin - 1, BossArea.width, BossArea.height + 2);
         Managers.Display.cameraScroll.ResetBounds(BossBounds);
     }
@@ -347,7 +378,8 @@ public class MboiTuiAI : MonoBehaviour {
         if (Health <= 1)
         {
             MboiTuiState = BossState.Dying;
-            Managers.Display.cameraScroll.ResetBounds(PrevArea);
+            Managers.Display.cameraScroll.ResetBounds(LevelArea);
+            return;
         }
 
         AttackRange = 0;
@@ -420,7 +452,6 @@ public class MboiTuiAI : MonoBehaviour {
 
     void OnTriggerEnter(Collider hit )
     {
-
         if (hit.tag == "Player" && ( MboiTuiState == BossState.Roaming ) && 
             (hit.transform.position.y > thisTransform.position.y + .1f))
         {
@@ -431,7 +462,6 @@ public class MboiTuiAI : MonoBehaviour {
             MboiTuiState = BossState.Hurting;
             Managers.Audio.Play(SnakeHit, thisTransform, 1, 1);
             Destroy(Instantiate(particle, thisTransform.position, thisTransform.rotation), 5);
-
         }
     }
 

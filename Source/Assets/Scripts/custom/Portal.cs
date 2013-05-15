@@ -30,6 +30,8 @@ public class Portal : MonoBehaviour
     {
         if ( this.myType == type.warp && hit.tag == "Player")										      // check tag savepoint
         {
+
+
             if (Target.ToLower() == "exit")
             {
                 Managers.Game.PopState();                                 // if it's an exit Return Map and stop inmediately
@@ -38,6 +40,9 @@ public class Portal : MonoBehaviour
 
             if (Target.ToLower().Contains(".tmx"))                        // if it had .tmx extension it's a map
             {
+                if (Managers.Dialog.IsInConversation())
+                    Managers.Dialog.DeInit();
+
                 Managers.Display.ShowFlash(0.5f);
                 Managers.Tiled.Unload();
 
@@ -48,15 +53,16 @@ public class Portal : MonoBehaviour
                 }
             }
 
-            foreach(Portal portal in GameObject.FindSceneObjectsOfType(typeof(Portal) ) )// else look in scene all Ids match
-            {
-                if ( portal.Id == Target ) 
+            if (Target != "")
+                foreach(Portal portal in GameObject.FindSceneObjectsOfType(typeof(Portal) ) )// else look in scene all Ids match
                 {
-                    Managers.Display.ShowFlash(0.5f);
-                    hit.transform.position = portal.gameObject.transform.position;
-                    return;
+                    if ( portal.Id == Target ) 
+                    {
+                        Managers.Display.ShowFlash(0.5f);
+                        hit.transform.position = portal.gameObject.transform.position;
+                        return;
+                    }
                 }
-            }
 
             //  else current player position is saved as a checkpoint
             Managers.Register.MapCheckPoints[Managers.Register.currentLevelFile] = transform.position; 

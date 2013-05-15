@@ -1,108 +1,115 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-	<ProductVersion>9.0.21022</ProductVersion>
-	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{9A11237F-ED63-616E-DBDE-C39399B84FC5}</ProjectGuid>
-	<OutputType>Library</OutputType>
-	<AppDesignerFolder>Properties</AppDesignerFolder>
-	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
-	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-	<FileAlignment>512</FileAlignment>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9A11237F-ED63-616E-DBDE-C39399B84FC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	<DebugSymbols>true</DebugSymbols>
-	<DebugType>full</DebugType>
-	<Optimize>false</Optimize>
-	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;UNITY_STANDALONE_WIN;ENABLE_PROFILER;UNITY_EDITOR;UNITY_TEAM_LICENSE</DefineConstants>
-	<ErrorReport>prompt</ErrorReport>
-	<WarningLevel>4</WarningLevel>
-	<NoWarn>0169</NoWarn>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;UNITY_STANDALONE_WIN;ENABLE_PROFILER;UNITY_EDITOR;UNITY_TEAM_LICENSE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	<DebugType>pdbonly</DebugType>
-	<Optimize>true</Optimize>
-	<OutputPath>Temp\bin\Release\</OutputPath>
-	<DefineConstants>TRACE</DefineConstants>
-	<ErrorReport>prompt</ErrorReport>
-	<WarningLevel>4</WarningLevel>
-	<NoWarn>0169</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-	<Reference Include="System" />
+    <Reference Include="System" />
     <Reference Include="System.XML" />
-	<Reference Include="System.Core" />
-	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
-	</Reference>
-	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
-	</Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="UnityEngine">
+      <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\Conversation.cs" />
-     <Compile Include="Assets\Scripts\Managers\ConversationManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\LevelAttributes.cs" />
-     <Compile Include="Assets\Scripts\Managers\Managers.cs" />
-     <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\ScrollLayer.cs" />
-     <Compile Include="Assets\Scripts\Managers\TileManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\CompletedState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\ConfigMenuState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\GameOverState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\GameState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\InGameState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\InfoMenuState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\IntroState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\MainMenuState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\MapState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\PauseState.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\WorldState0.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\WorldState1.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\WorldState2.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\WorldState3.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\WorldState4.cs" />
-     <Compile Include="Assets\Scripts\Managers\_States\WorldState5.cs" />
-     <Compile Include="Assets\Scripts\camera\CameraScrolling.cs" />
-     <Compile Include="Assets\Scripts\camera\CameraTargetAttributes.cs" />
-     <Compile Include="Assets\Scripts\characters\AoAoAI.cs" />
-     <Compile Include="Assets\Scripts\characters\DengueFly.cs" />
-     <Compile Include="Assets\Scripts\characters\GauchoShooter.cs" />
-     <Compile Include="Assets\Scripts\characters\MboiTuiAI.cs" />
-     <Compile Include="Assets\Scripts\characters\MonaiAI.cs" />
-     <Compile Include="Assets\Scripts\characters\MonoShooter.cs" />
-     <Compile Include="Assets\Scripts\characters\PlayerControls.cs" />
-     <Compile Include="Assets\Scripts\characters\PlayerProperties.cs" />
-     <Compile Include="Assets\Scripts\characters\SpriteChain.cs" />
-     <Compile Include="Assets\Scripts\characters\YasiYatereIA.cs" />
-     <Compile Include="Assets\Scripts\custom\AnimSprite.cs" />
-     <Compile Include="Assets\Scripts\custom\BulletShot.cs" />
-     <Compile Include="Assets\Scripts\custom\CombineMeshes.cs" />
-     <Compile Include="Assets\Scripts\custom\ParticleCleaning.cs" />
-     <Compile Include="Assets\Scripts\custom\PlatformMove.cs" />
-     <Compile Include="Assets\Scripts\custom\Portal.cs" />
-     <Compile Include="Assets\Scripts\custom\SimpleAnim.cs" />
-     <None Include="Assets\Resources\W1-1\W1-1.xml" />
-     <None Include="Assets\Scripts\Shaders\IntroScroll.shader" />
-     <None Include="Assets\Scripts\Shaders\Color Keys.shader" />
-     <None Include="Assets\Scripts\Shaders\Tinted alpha.shader" />
-     <None Include="Assets\Scripts\Editor\TiledReader.txt" />
-     <None Include="Assets\Scripts\Shaders\Color Key diffuse.shader" />
-     <None Include="Assets\Scripts\Shaders\Triple Scroll.shader" />
-     <None Include="Assets\Resources\GUI\Conversations\Conversation.xml" />
-     <None Include="Assets\Scripts\Shaders\ScrollingLayer.shader" />
-     <None Include="Assets\Scripts\Shaders\Color Key CG.shader" />
-     <None Include="Assets\Scripts\Shaders\Masked Tint.shader" />
- <Reference Include="Ionic.Zip">
- <HintPath>Assets\Scripts\Managers\Ionic.Zip.dll</HintPath>
- </Reference>
+    <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Conversation.cs" />
+    <Compile Include="Assets\Scripts\Managers\ConversationManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\LevelAttributes.cs" />
+    <Compile Include="Assets\Scripts\Managers\Managers.cs" />
+    <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\ScrollLayer.cs" />
+    <Compile Include="Assets\Scripts\Managers\TileManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\CompletedState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\ConfigMenuState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\GameOverState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\GameState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\InGameState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\InfoMenuState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\IntroState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\MainMenuState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\MapState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\PauseState.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\WorldState0.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\WorldState1.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\WorldState2.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\WorldState3.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\WorldState4.cs" />
+    <Compile Include="Assets\Scripts\Managers\_States\WorldState5.cs" />
+    <Compile Include="Assets\Scripts\camera\CameraScrolling.cs" />
+    <Compile Include="Assets\Scripts\camera\CameraTargetAttributes.cs" />
+    <Compile Include="Assets\Scripts\characters\AoAoAI.cs" />
+    <Compile Include="Assets\Scripts\characters\AoAoBeat.cs" />
+    <Compile Include="Assets\Scripts\characters\DengueFly.cs" />
+    <Compile Include="Assets\Scripts\characters\GauchoShooter.cs" />
+    <Compile Include="Assets\Scripts\characters\MboiTuiAI.cs" />
+    <Compile Include="Assets\Scripts\characters\MonaiAI.cs" />
+    <Compile Include="Assets\Scripts\characters\MonoShooter.cs" />
+    <Compile Include="Assets\Scripts\characters\PlayerControls.cs" />
+    <Compile Include="Assets\Scripts\characters\PlayerProperties.cs" />
+    <Compile Include="Assets\Scripts\characters\SpriteChain.cs" />
+    <Compile Include="Assets\Scripts\characters\TejuYaguaAnim.cs" />
+    <Compile Include="Assets\Scripts\characters\TejuYaguaIA.cs" />
+    <Compile Include="Assets\Scripts\characters\YasiYatereIA.cs" />
+    <Compile Include="Assets\Scripts\custom\AnimSprite.cs" />
+    <Compile Include="Assets\Scripts\custom\AoAoThing.cs" />
+    <Compile Include="Assets\Scripts\custom\BulletShot.cs" />
+    <Compile Include="Assets\Scripts\custom\CombineMeshes.cs" />
+    <Compile Include="Assets\Scripts\custom\ParticleCleaning.cs" />
+    <Compile Include="Assets\Scripts\custom\PlatformMove.cs" />
+    <Compile Include="Assets\Scripts\custom\Portal.cs" />
+    <Compile Include="Assets\Scripts\custom\SimpleAnim.cs" />
+    <Compile Include="Assets\Scripts\custom\pickupThing.cs" />
+    <None Include="Assets\Resources\W1-1\W1-1.xml" />
+    <None Include="Assets\Scripts\Shaders\IntroScroll.shader" />
+    <None Include="Assets\Scripts\Shaders\Color Keys.shader" />
+    <None Include="Assets\Levels\objecttypes.xml" />
+    <None Include="Assets\Scripts\Shaders\Tinted alpha.shader" />
+    <None Include="Assets\Scripts\Editor\TiledReader.txt" />
+    <None Include="Assets\Scripts\Shaders\Color Key diffuse.shader" />
+    <None Include="Assets\Scripts\Shaders\Triple Scroll.shader" />
+    <None Include="Assets\Resources\GUI\Conversations\Conversation.xml" />
+    <None Include="Assets\Scripts\Shaders\ScrollingLayer.shader" />
+    <None Include="Assets\Scripts\Shaders\Color Key CG.shader" />
+    <None Include="Assets\Scripts\Shaders\Masked Tint.shader" />
+    <Reference Include="Ionic.Zip">
+      <HintPath>Assets\Scripts\Managers\Ionic.Zip.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -112,5 +119,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>
