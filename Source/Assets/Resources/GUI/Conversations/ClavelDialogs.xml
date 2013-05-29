@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<Conversations>
+	<Characters>
+	        <Character speakerId = "0" >Till</Character>
+	        <Character speakerId = "1" >Pombero</Character>
+	</Characters>
+
+
+  <Conversation nameId = "Hola" >
+    <Talk speakerId = "0" time = "5.0" >Eh Pumbe, Hola Ñeri! ¿como estás? <br />
+    </Talk>
+    <Talk speakerId = "1" time = "5.0" >Hola, y la verdad que cero la caracha, jaja<br /> 
+    </Talk>
+    <Talk speakerId = "0" time = "5.0" >Bueno, vení fijate esto, Hay unos dibujitos raros en los arboles.. ¿no sabés que significan?<br />
+    </Talk>
+    <Talk speakerId = "1" time = "5.0" >Mmmh, que simbolo más raro.. <br /> ¿Quien estuvo rayando esto?
+    </Talk>
+    <Talk speakerId = "0" time = "5.0" >ni remota idea, pero tienen mala pinta para mí <br />
+    </Talk>
+    <Talk speakerId = "1" time = "5.0" >Sin duda, ¿y no viste nada? ni Cuando, ni Como lo hicieron ? <br /> 
+    </Talk>
+    <Talk speakerId = "0" time = "5.0" >Es que fué muy rapido, apenas vi una sombra, pero se fué hacía el sur <br />
+    </Talk>
+    <Talk speakerId = "1" time = "5.0" >Ok, Voy hacia alla para Investigar entonces<br /> ¿Por donde empiezo?
+    </Talk>
+    <Talk speakerId = "0" time = "5.0" >Y podrías comenzar por el Monte, así te evitas a los Hombres que viven en Pampero<br />
+    </Talk>
+    <Talk speakerId = "1" time = "5.0" >Uff, esos Sucios y Asquerosos Hombres ! 
+    </Talk>
+    <Talk speakerId = "0" time = "5.0" > Ja ja
+    </Talk>
+  </Conversation >
+
+</Conversations>

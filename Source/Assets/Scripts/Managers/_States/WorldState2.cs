@@ -6,7 +6,8 @@ public class WorldState2 : InGameState
     public override void Init()
     {
         //Debug.Log("Enter World 2 State: Pombero's House");
-        Managers.Tiled.Load(Managers.Register.HomeFile);
+        //Managers.Tiled.Load(Managers.Register.HomeFile);
+        Managers.Tiled.Load("/Levels/Home1.tmx");
         base.Init();
 
     }

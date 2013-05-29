@@ -5,10 +5,15 @@ using System.Collections;
 public class ScreenManager : MonoBehaviour
 {
     public Camera MainCamera        ;
+    public Transform camTransform;
     public CameraScrolling  cameraScroll ;   
 
     GUISkin   gSkin                 = null;
     GUISkin   gSkinB                = null;
+
+        
+    public string DebugText = "DebugText Ready!";
+    bool EnableDebug = false;
 
 #region Show Flash Transition
 
@@ -34,11 +39,16 @@ public class ScreenManager : MonoBehaviour
 
     Texture2D HealthTex             = null;
     Rect HealthPos                  = new Rect();
-    Rect HealthCoord                = new Rect(0, 0, .25f, .25f);               // player's Health HUD system
+    //Rect HealthCoord                = new Rect(0, 0, .25f, .25f);               // player's Health HUD system
+    Rect HealthCoord                = new Rect(0, 0, .125f, .125f);               // player's Health HUD system
 
     Texture2D LifesTex              = null;
     Rect LifesPos                   = new Rect();
-    Rect LifesCoord                 = new Rect(0, 0, 0.5f, 0.5f);               // player's Lifes HUD system
+    //Rect LifesCoord                 = new Rect(0, 0, 0.5f, 0.5f);               // player's Lifes HUD system
+    Rect LifesCoord                 = new Rect(.5f, .125f, .125f, .125f);               // player's Lifes HUD system
+
+        //HealthCoord = new Rect( Managers.Game.Health * .125f, 0.125f, .125f, .125f);
+
 
 #endregion
 
@@ -71,7 +81,10 @@ public class ScreenManager : MonoBehaviour
         if (MainCamera == null)
             Debug.Log("Warning, Main Camera not setup");
         else
+        {
+            camTransform = MainCamera.transform;
             cameraScroll = MainCamera.gameObject.GetComponent<CameraScrolling>();
+        }
 
         //Camera.main.transparencySortMode = TransparencySortMode.Orthographic;
         FlashTex = Resources.Load("GUI/Rainbow") as Texture2D;
@@ -80,11 +93,17 @@ public class ScreenManager : MonoBehaviour
         gSkinB = Resources.Load("GUI/GUISkin B") as GUISkin;
         gSkinB.label.fontSize 	= Mathf.RoundToInt( Screen.width * 0.035f );
 		
-		HealthTex = Resources.Load("GUI/Items") as Texture2D;
- 		HealthPos = new Rect((Screen.width *.025f), (Screen.height *.75f), HealthTex.width *.65f, HealthTex.height *.65f);
- 		
-		LifesTex = Resources.Load("GUI/Lifes") as Texture2D;
-		LifesPos = new Rect((Screen.width * .85f), (Screen.height * .85f), LifesTex.width, LifesTex.height);
+        //HealthTex = Resources.Load("GUI/Items") as Texture2D;
+        //HealthPos = new Rect((Screen.width *.025f), (Screen.height *.75f), HealthTex.width *.65f, HealthTex.height *.65f);
+    	HealthTex = Resources.Load("GUI/Items") as Texture2D;
+ 		HealthPos = new Rect((Screen.width *.025f), (Screen.height *.75f), HealthTex.width *.3f, HealthTex.height *.3f);
+ 
+
+        //LifesTex = Resources.Load("GUI/Lifes") as Texture2D;
+        //LifesPos = new Rect((Screen.width * .85f), (Screen.height * .85f), LifesTex.width, LifesTex.height);
+
+		LifesTex = Resources.Load("GUI/Items") as Texture2D;
+		LifesPos = new Rect((Screen.width * .85f), (Screen.height * .85f), LifesTex.width *.15f, LifesTex.height *.15f);
 	}
 
     public void ShowStatus()
@@ -133,6 +152,7 @@ public class ScreenManager : MonoBehaviour
 
     void Update()
     {
+
     	if ( FlashBang )                                                        // FLASHBANG 
     	{
 			if( (Time.time - lastUpdate) >= 0.021f ) // secs to update increment: 1/12 (12 frames) my speed: 48 frames / 1 sec
@@ -152,7 +172,8 @@ public class ScreenManager : MonoBehaviour
             TimeLapse -= Time.deltaTime;	                					 // Decrease the message time
             ShowState = (TimeLapse > 0);
         }
-        HealthCoord = new Rect( Managers.Game.Health * .25f, 0, .25f, .25f);
+        //HealthCoord = new Rect( Managers.Game.Health * .25f, 0, .25f, .25f);
+        HealthCoord = new Rect( Managers.Register.Health * .125f, 0.125f, .125f, .125f);
 
         if ( ImageDisplay )                                                     // Display some Image while lapse is bigger
             ImageDisplay = (Time.time < ImageLapse);
@@ -164,6 +185,11 @@ public class ScreenManager : MonoBehaviour
             alphaColor.a = currentAlpha;
             Fading = !(currentAlpha == 1 || currentAlpha == 0); // "If the the alpha transition ended Then stop Fading"
         }
+
+        if ( Input.GetKeyDown("f") )
+            EnableDebug = !EnableDebug;
+
+
     }
     //////////////////////////////////////////////////////////////   
   
@@ -173,6 +199,12 @@ public class ScreenManager : MonoBehaviour
     	
 	    if( Event.current.type == EventType.Repaint) 
 	    {
+             if ( EnableDebug )
+            {
+                GUI.color = Color.black;
+                GUI.Label(new Rect((Screen.width * .25f), (Screen.height * .9f), 600, 200), DebugText);
+            }
+
             if( Managers.Dialog.IsInConversation() )
                 Managers.Dialog.Render();
 
@@ -181,6 +213,7 @@ public class ScreenManager : MonoBehaviour
             Managers.Game.Render();
 	    }
     }
+
 
     public void Render()
     {
@@ -222,19 +255,19 @@ public class ScreenManager : MonoBehaviour
 
         if (Managers.Game.IsPlaying)
         {
-            GUI.DrawTextureWithTexCoords(HealthPos, HealthTex, HealthCoord);
+            GUI.DrawTextureWithTexCoords(HealthPos, HealthTex, HealthCoord);                    // Health Bar HUD
 
             if (!ShowState) return;
 
-            GUI.DrawTextureWithTexCoords(LifesPos, LifesTex, LifesCoord);
+            GUI.DrawTextureWithTexCoords(LifesPos, LifesTex, LifesCoord);                       // Life remaining HUD
 
             GUI.color = Color.magenta;
             GUI.Label( new Rect((Screen.width * .05f), (Screen.height * .02f), 100, 50),
-                 "Score: " + Managers.Game.Score + "\n" + "Fruits: " + Managers.Game.Fruits);
-            GUI.Label(new Rect((Screen.width * .92f), (Screen.height * .9f), 200, 50), "x" + Managers.Game.Lifes);
+                 "Score: " + Managers.Register.Score + "\n" + "Fruits: " + Managers.Register.Fruits);
+            GUI.Label(new Rect((Screen.width * .92f), (Screen.height * .9f), 200, 50), "x" + Managers.Register.Lifes); // Score
         }
 
-        if (Managers.Game.Lifes <= 0)
+        if (Managers.Register.Lifes <= 0)
         {
             // GUI.skin.label.fontSize = 64;
             // GUI.skin.label.fontStyle = FontStyle.Bold;

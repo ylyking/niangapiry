@@ -31,7 +31,7 @@ void  Start ()
 		 Debug.Log ( "Conversation XML not assigned"); 
 		 return;
 	}
-    enabled = false;
+    //enabled = false;
 
 }
 
@@ -43,6 +43,7 @@ void Update()
 
         if (PlayerCamera)
         {
+
             PlayerCamera.Offset.y = 1;
             PlayerCamera.Offset.x = (transform.position.x - Managers.Game.PlayerPrefab.transform.position.x) * .5f;
             PlayerCamera.distanceModifier = 2;
@@ -62,10 +63,14 @@ void  OnTriggerEnter (  Collider other   )
 {
     if (other.CompareTag("Player"))
     {
-        //enabled = true;
+        if (!PlayerRef && Managers.Game.PlayerPrefab)
+            PlayerRef = Managers.Game.PlayerPrefab;
+        if (PlayerRef != null)
+            PlayerCamera = PlayerRef.GetComponent<CameraTargetAttributes>();
 
         if (OneShot && !Managers.Dialog.IsInConversation())
         {
+            OneShot = false;
 
             if (oneShotId != null)
             {
@@ -80,7 +85,7 @@ void  OnTriggerEnter (  Collider other   )
 
 void OnTriggerStay(Collider hit)
 {
-    if (hit.tag == "Player" && InputUp && !Managers.Dialog.IsInConversation())
+    if (hit.tag == "Player" && Managers.Game.InputUp && !Managers.Dialog.IsInConversation())
     {
         if (NameId != null)
         {
@@ -148,24 +153,6 @@ void OnDestroy()
 //            }
 //        }
 //}
-
-
-static bool ToggleUp = true;
-static bool InputUp                             // This it's a little oneShot Up Axis check for doors & like   
-{
-    get
-    {
-        if (Input.GetAxis("Vertical") == 0)                      // It's like an "Input.GetAxisDown" 
-            ToggleUp = true;
-
-        if (ToggleUp == true && Input.GetAxis("Vertical") > 0)
-        {
-            ToggleUp = false;
-            return true;
-        }
-        return false;
-    }
-}
 
 
 }

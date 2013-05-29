@@ -8,4 +8,9 @@
  <objecttype name="Bosses/YasiYatere" color="#ffff00"/>
  <objecttype name="Bosses/MboiTui" color="#55ff00"/>
  <objecttype name="Bosses/TejuYagua" color="#00aa00"/>
+ <objecttype name="CameraBound" color="#0055ff"/>
+ <objecttype name="CollisionBound" color="#55ff00"/>
+ <objecttype name="caña" color="#ff557f"/>
+ <objecttype name="whistle" color="#00aaff"/>
+ <objecttype name="hat" color="#ff0000"/>
 </objecttypes>

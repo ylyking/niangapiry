@@ -36,7 +36,7 @@
   <object name="Particles/MapFlame" x="295" y="87" width="33" height="34"/>
   <object name="Particles/MapWater" x="478" y="211" width="28" height="15"/>
  </objectgroup>
- <imagelayer name="Capa de Imagen 1" width="10" height="8" visible="0">
+ <imagelayer name="Capa de Imagen 1" width="10" height="8">
   <image source="CloudsMap.png"/>
   <properties>
    <property name="Scroll" value="Auto"/>

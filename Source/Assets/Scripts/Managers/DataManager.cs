@@ -12,41 +12,51 @@ public class DataManager : MonoBehaviour
 /// Here We have the most important ingame properties
 /// </summary>
 
-    public uint Score               = 0;
-    public uint Fruits              = 0;
-    public uint TopScore            = 100;
+    public int Score        = 0;
+    public int Fruits       = 0;
+    public int TopScore     = 100;
 
-    public uint FireGauge           = 0;
-    public int  Key                 = 0;
-    public uint Health              = 3;
-    public uint Lifes               = 3;
+    public int  FireGauge   = 0;
+    public int  Key         = 0;
+    public int Health       = 3;
+    public int Lifes        = 3;
+
+    public enum Items { Empty = 0, Hat = 1, Whistler = 2, Invisibility = 4, Smallibility = 8, Fire = 16 };
+    public Items Inventory = Items.Empty;					// Inventory system activation
 
     private GameState currentStage;
-    public int UnlockedStages       = 2;
+    //[HideInInspector]
+    public int UnlockedStages = 3;
 
     public string currentLevelFile = "";
+    public string previousLevelFile = "";
     public Dictionary<string, Vector3> MapCheckPoints = new Dictionary<string, Vector3>();
 
+    public bool PlayerAutoRunning = true;
+
+    // each World Last File Loaded
 
     #region WORLD 0: PAMPERO
 
     public string PamperoFile = "/Levels/Pampero.tmx";                                          
 
-
     #endregion
     ////////////////////////////////////////////////////
     
-                                                                                            // each World Last File Loaded
+
     #region WORLD 1: MONTE
-
     public string MonteFile = "/Levels/Monte.tmx";                                           
-
 
     #endregion
     ////////////////////////////////////////////////////
 
 
     #region WORLD 2: HOME
+    public bool Souvenir1 = false;
+    public bool Souvenir2 = false;
+    public bool Souvenir3 = false;
+    public bool Souvenir4 = false;
+    public bool Souvenir5 = false;
 
     public string HomeFile = "/Levels/Home.tmx";
 
@@ -64,7 +74,6 @@ public class DataManager : MonoBehaviour
 
 
     #region WORLD 4: SkyField
-
     public string SkyFieldFile = "/Levels/CampoDelCielo.tmx";
     public bool AoAoDefeated = false;
 
@@ -86,57 +95,26 @@ public class DataManager : MonoBehaviour
     // Use this for initialization
 	void Start ()
     {
-        MapCheckPoints.Add("/Levels/Pampero.tmx"        , Vector3.zero);
-        MapCheckPoints.Add("/Levels/Monte.tmx"          , Vector3.zero);
-        MapCheckPoints.Add("/Levels/Iguazu.tmx"         , Vector3.zero);
-        MapCheckPoints.Add("/Levels/CampoDelCielo.tmx"  , Vector3.zero);
-        MapCheckPoints.Add("/Levels/Impenetrable.tmx"   , Vector3.zero);
-
-
-
+        MapCheckPoints.Add(PamperoFile          , Vector3.zero);
+        MapCheckPoints.Add(MonteFile            , Vector3.zero);
+        MapCheckPoints.Add(IguazuFile           , Vector3.zero);
+        MapCheckPoints.Add(SkyFieldFile         , Vector3.zero);
+        MapCheckPoints.Add(ImpenetrableFile     , Vector3.zero);
 	}
 
 
     // Player setup inside level position
     public void SetPlayerPos()
     {
-        if (!MapCheckPoints.ContainsKey(currentLevelFile))                         // If our current file isn't registered yet
-        {
-            //Debug.Log("First Time Here!: " + currentLevelFile);
+        if (!MapCheckPoints.ContainsKey(currentLevelFile))                      // If our current file isn't registered yet
             MapCheckPoints.Add(currentLevelFile, Vector3.zero);
-        }
 
-        //1) If there's a previous saved position use it
+                                                                                // If there's a previous saved position use it
         if (MapCheckPoints[currentLevelFile] != Vector3.zero)
             Managers.Game.PlayerPrefab.transform.position = MapCheckPoints[currentLevelFile];
-
-        //2) else search a new one with a special spot in scene
-        else if (GameObject.FindGameObjectWithTag("Respawn"))
-        {
-            Portal[] portals = (Portal[])GameObject.FindSceneObjectsOfType(typeof(Portal));
-            //for (int portalIndex = portals.Length - 1; portalIndex >= 0; portalIndex--)
-
-            for (int portalIndex = 0; portalIndex < portals.Length ; portalIndex++)
-            {
-                //2.a)  if there is a "start" Id, go there
-                if ((portals[portalIndex]).Id.ToLower() == "start")
-                {
-                    //Debug.Log("Found Start moving to: " + portals[portalIndex].gameObject.transform.position);
-                    Managers.Display.ShowFlash(0.5f);
-                    MapCheckPoints[currentLevelFile] = portals[portalIndex].gameObject.transform.position;
-                    break;
-                }
-            }
-        }
-
-        //3) else if still Vector3.zero, auto-setup one position by default
-        if (MapCheckPoints[currentLevelFile] == Vector3.zero)
-            MapCheckPoints[currentLevelFile] = new Vector3(Managers.Display.cameraScroll.GetBounds().xMin + 1,
-                                                        Managers.Display.cameraScroll.GetBounds().yMax - 1, 0);
-
-        //4) Finally Go There !
-        Managers.Game.PlayerPrefab.transform.position = MapCheckPoints[currentLevelFile];
-   
+        else
+            MapCheckPoints[currentLevelFile] = Managers.Game.PlayerPrefab.transform.position;
+  
     }                                           
 
 
@@ -148,6 +126,9 @@ public class DataManager : MonoBehaviour
         Key = 0;
         Health = 3;
         Lifes = 3;
+
+        //FireGauge = 0;
+        //Inventory = Items.Empty;
     }
 
     public void HardReset()
@@ -160,9 +141,17 @@ public class DataManager : MonoBehaviour
         Key = 0;
         Health = 3;
         Lifes = 3;
+        Inventory = Items.Empty;
+
+        Souvenir1 = false;
+        Souvenir2 = false;
+        Souvenir3 = false;
+        Souvenir4 = false;
+        Souvenir5 = false;
+
 
         //currentStage;
-        UnlockedStages  = 2;
+        UnlockedStages = 3;
 
         HomeFile        = "/Levels/Home.tmx";
         MonteFile       = "/Levels/Monte.tmx";
@@ -205,12 +194,15 @@ public class DataManager : MonoBehaviour
         Managers.Register.Lifes = instance.Lifes;
         Managers.Register.Health = instance.Health;
 
+        Managers.Register.Inventory = instance.Inventory;
+
         Managers.Register.MapCheckPoints    = instance.MapCheckPoints;
         Managers.Register.MonteFile         = instance.MonteFile;
         Managers.Register.PamperoFile       = instance.PamperoFile;
         Managers.Register.IguazuFile        = instance.IguazuFile;
         Managers.Register.SkyFieldFile      = instance.SkyFieldFile;
         Managers.Register.ImpenetrableFile  = instance.ImpenetrableFile;
+
     }
 }
 

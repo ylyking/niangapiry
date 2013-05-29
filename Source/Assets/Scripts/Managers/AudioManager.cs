@@ -4,7 +4,8 @@ using System.Collections;
  
 public class AudioManager : MonoBehaviour
 {
-	public bool SoundEnable = true;
+    public bool SoundEnable = true;
+    public bool MusicEnable = true;
 	public AudioSource Music = null;
 	
 	void Awake()
@@ -40,6 +41,9 @@ public class AudioManager : MonoBehaviour
     /// <returns></returns>
     public AudioSource Play(AudioClip clip, Transform emitter, float volume, float pitch)
     {
+        if (!SoundEnable)
+            return null;
+
         //Create an empty game object
         GameObject go = new GameObject ("Audio: " +  clip.name);
         go.transform.position = emitter.position;
@@ -76,6 +80,9 @@ public class AudioManager : MonoBehaviour
     /// <returns></returns>
     public AudioSource Play(AudioClip clip, Vector3 point, float volume, float pitch)
     {
+        if (!SoundEnable)
+            return null;
+
         //Create an empty game object
         GameObject go = new GameObject("Audio: " + clip.name);
         go.transform.position = point;
@@ -92,6 +99,9 @@ public class AudioManager : MonoBehaviour
 	
 	public AudioSource PlayMusic(AudioClip clip, float volume, float pitch)
     {
+        if (!MusicEnable)
+            return null;
+
 		if ( Music.isPlaying )
 			Music.Stop();
 		
@@ -123,4 +133,25 @@ public class AudioManager : MonoBehaviour
 		
         return Music;
     }
+
+    public void CheckAllSound( bool active)
+    {
+        if (!active)
+        foreach (AudioSource sonidos in GameObject.FindSceneObjectsOfType(typeof(AudioSource)))
+            if (sonidos != Music)
+                Destroy(sonidos);
+    }
+
+    //public void CheckAllSound(bool FxActive, bool MusicActive)
+    //{
+    //    if (!MusicActive)
+    //        PauseMusic();
+    //    else
+    //        ResumeMusic();
+
+    //    if (!FxActive)
+    //        foreach (AudioSource sonidos in GameObject.FindObjectsOfTypeAll(typeof(AudioSource)))
+    //            if (sonidos != Music)
+    //                Destroy(sonidos);
+    //}
 }

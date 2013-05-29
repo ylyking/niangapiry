@@ -12,12 +12,10 @@ public abstract class GameState : MonoBehaviour
     public abstract void OnUpdate();
     public virtual void OnRender() { ;}                 // A Render Helper
     public virtual uint Score {  get; set; }
-    //public virtual void ShowHelp(){ Debug.Log("Que Dios te ayude"); }
-    //public virtual void CheckScore() {  Debug.Log("No Score to check here");  }
 	
-	public void ChangeState(System.Type newStateType) 
-	{
-		Managers.Game.ChangeState(newStateType);
-	}
+    //public void ChangeState(System.Type newStateType) 
+    //{
+    //    Managers.Game.ChangeState(newStateType);
+    //}
 	
 }

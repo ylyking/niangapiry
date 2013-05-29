@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="10" tilewidth="64" tileheight="64" backgroundcolor="#55aaff">
+<map version="1.0" orientation="orthogonal" width="200" height="50" tilewidth="64" tileheight="64" backgroundcolor="#55aaff">
  <tileset firstgid="1" name="monte_ts" tilewidth="64" tileheight="64">
   <image source="monte_ts.png" width="512" height="512"/>
-  <tile id="0">
+  <tile id="14">
    <properties>
-    <property name="collision" value=""/>
-   </properties>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="collision" value=""/>
-   </properties>
-  </tile>
-  <tile id="16">
-   <properties>
-    <property name="collision" value=""/>
+    <property name="collision" value="plane"/>
    </properties>
   </tile>
   <tile id="17">
@@ -27,36 +17,160 @@
     <property name="collision" value="plane"/>
    </properties>
   </tile>
+  <tile id="27">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="collision" value="plane"/>
+   </properties>
+  </tile>
  </tileset>
- <imagelayer name="Sky" width="100" height="10">
-  <image source="cielo.png"/>
+ <imagelayer name="Sky" width="200" height="50">
+  <image source="monte_fondo.png"/>
   <properties>
-   <property name="Depth" value="10"/>
+   <property name="Depth" value="20"/>
    <property name="Size" value="Fullscreen"/>
   </properties>
  </imagelayer>
- <imagelayer name="ArbolFondo" width="100" height="10">
+ <imagelayer name="ArbolFondo" width="200" height="50">
   <image source="monte_arbol2.png"/>
   <properties>
+   <property name="Depth" value="10"/>
    <property name="Scroll" value="Relative"/>
-   <property name="Speed" value="0.1, 0.15"/>
+   <property name="Size" value="Fullscreen"/>
+   <property name="Speed" value="0.05"/>
   </properties>
  </imagelayer>
- <imagelayer name="ArbolMedio" width="100" height="10">
+ <imagelayer name="Luz" width="200" height="50">
+  <image source="monte_luz.png"/>
+  <properties>
+   <property name="depth" value="8.5"/>
+   <property name="scroll" value="relative"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="ArbolMedio" width="200" height="50">
   <image source="monte_arbol1.png" trans="550000"/>
   <properties>
+   <property name="Depth" value="5"/>
    <property name="Scroll" value="Relative"/>
-   <property name="size" value="fullscreen"/>
+   <property name="Size" value="Fullscreen"/>
+   <property name="Speed" value="0.10"/>
   </properties>
  </imagelayer>
- <layer name="Tile1" width="100" height="10">
+ <imagelayer name="Arbustos frente" width="200" height="50">
+  <image source="Scroll trees 1.png"/>
+  <properties>
+   <property name="Depth" value="-1"/>
+   <property name="Scale" value="1, 1.5"/>
+   <property name="Scroll" value="Relative"/>
+   <property name="heightRange" value="8.5 , 13"/>
+   <property name="offset" value="0, -.8"/>
+   <property name="padding" value="0,  0.475"/>
+   <property name="speed" value="0.25, 0.05"/>
+  </properties>
+ </imagelayer>
+ <layer name="Collisiones" width="200" height="50">
+  <properties>
+   <property name="Depth" value="0"/>
+  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3UOQoAIAwAwVjaeZD/+nRTKFhYqSjIDixpA0FFAAAAcFMSKdlmLz3eB3PB7uRs9sLjfX7hFlPLD8Xbi3/KH0rbe+E/21MB+1GpB6APAAA=
+   H4sIAAAAAAAAC+3ZSwqAIBRAURfi/tfZKKhQ0uz/zoHGIXixlykBAAAAAAAAAAAAAAAAAAAAAAAAAAAAQGx58QBrOWkEZtsedAF1WoEyPQAwwrcVlGkC1szj0E4rsddOu8itRFzzmZ7cO1ffU9y1tje09/T7oUftTt+cBPHonRF/PzOci7BPJ7QamTe+ts/MWVDnfwRHRd4vUdcNPXQC7zMB8mxhHUCcAAA=
   </data>
  </layer>
- <objectgroup name="Capa de Objetos 1" width="100" height="10">
-  <object name="Start" type="Warp" x="64" y="128" width="64" height="64"/>
-  <object name="TejuYaguaAnim" x="832" y="384" width="64" height="64"/>
-  <object name="Caña" x="512" y="320" width="64" height="64"/>
+ <layer name="Fondo" width="200" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3aQXaDIBCAYdYgWdYuu2pzjBzFo3gUj+JRcpQycWgJT9O01UCS/3vPp2mRUOsgDBoDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPfPG9M5Y8bS7QBqFGKja5LPtlhLgPrsdAsxMso+xMtQtkVAeSEO3mQf4uIQjo9y7IkN4CR5bvRm2svYaijYJKA6ISa6GCvpWItYAU6x0Mm4ale6IUCF3JTfNfkzBKiFL/jdmrM6yD6OqYgP1CLck+MWOVWv6xrOXBd/ljVCrED72VX4qa5ui7mw5G+lXrdR/cAcXW8e1qprqzWHZE1jvPWaeGPKjhnvXfh/9ff4HoO+qzQ0U5/8b5o7+rOXK8rYDWNwicTkpT7Eak5A11yQcZpzT6+Nv2HMtLomtvA785r9LN6HXscrc/PXWCae32bfk9cb6uljrmip3PsPf0f0Ec7fhy2W3+u5MZ7zevYzdej39peuzW+4hT4kvg+5dg4gv/61kvs8bMc4P/TTdnatGr3H3NTPnMrMxQzwqNJcuswPrY6D7XccDFJO5pFxzBL7FcaueBbhWTe2mjvUue1ZDNjpGfI1XpXPvCeHZ6NzskGOm+Q4ztVCTBzKtQ6og8w30vGV1ecJ8w7gnMzl43vVuo5MnAAL1lx7Ax5Jlu8CMENiwyVrJwBu6xP2o+x1QJwAAA==
+  </data>
+ </layer>
+ <layer name="4 Plano" width="200" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3YXXKCMBSGYZyOWjvT2l6ovWpvinUZLoWlsBSXwtJ6GJJOxCRNFCqE95k5g4YfCeYjaJYBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJCuh3ufAAAAAOCwlHpsluWdTwUYHFc+1k2Vll2sYrcHxsCVj6WlzWcRuT2ut+35+Dup956O/SpjZNYse1Nfn6760FU+6u0XN+Rjrc4jpTnoW/oilR3U+0Orb3X73njf1djRY+NgfLbJli/92bpiz2FvLPeW9+bxN1JvAcf03Qekf+UucqxckxtXPuZNXXz+p9RHswzafq6Ob1sXup2+FtuEsoP/9RVQqdD3ANfSyNPZ65S0v1u5H59CxsAUxodPLmNB9Vdfr8rX/7H9f9We/2X8VzL+K9dScnHUr+931t0zx7V85yddtra/1k0wH5VRvxmxGVs+Njc+J6dCjfML0lZJHW37uNblnvGRkqcsK16ysznj7B5hM8R8+Ob8laqp54R8xKmzoZ6pCj13mNcvdzxfDCUfoc/GdTZmnppKTshHnGfpo5o7CmNc1XNHkas2myHkI+b3YnvemGpOjN8ShVmudnO9a5+UyfxRqnxYudpD/3/tW+h3tHKUKzep5oT/qmDjysdUcwKMxQ9Pqlm8QJwAAA==
+  </data>
+ </layer>
+ <layer name="3 Plano" width="200" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3Yf07CMBTA8fqTyBARE/Qf0T8wXoOj7Cg7yo7C0XyPrkmpHZsmW8f2/STN7DrS4l77WowBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKBbt1LupcyMKVL0n7JvoI2ZSRejKfsG2pD43GuMSi7Za5lK30AbuobLPqe4lnLT81re1Df5BX2bB3W3hqcYS1Pf1fw49DYgTJ7Mj8OjV08Zg019kz+G5cmWIvU4upYZk7s5MuTzOfljWNrEyns/Q+mM5I98ITEnpdT6nS2F/8x3cO1KrO+/tF+qlXynq9SD+Ie69/EhZWuvxbbvQWES1hJbL3I9VzBOS6/E7td9ps1zYyJ73kNmz4dl2Da3bcVzpA2XS/dz8l5L2c/l8+DdVu+8rPnc8XcEuRYaL1qfwhxxXD5Ze/fkf/CZaDjogMazxraui+HccKq2X9w5KbaWjt3XCM9coc0EvmMTnR+x2Pe5/BDcy/28UtVHv8cKzyDrhudx2TSeM7s3yuvmSZg/XN7w883Czo9J7K+mkDtguf2Vxrf+vbD1E94+6qiaC8adPTJ7r+xt0Inp/HC//4ZllXRk6MLOnP5+tazu7by28Boru74Hjk69yRrwGsmVmwRjAYbkIfUAzvgBS4SpTECcAAA=
+  </data>
+ </layer>
+ <layer name="2 Plano" width="200" height="50">
+  <properties>
+   <property name="depth" value="0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3YwW3CQBAF0E0IQT5yj1ILpVCKS3EpLo1d4ZWMYSOFg8eC96Qvy7e5fM3YKQEAAAAAAAAAAAAAAPAKfqIHAAAAAAAAAACAjThc00fPAVukH9BW+vGtH/CQfkBb7ob7ChrsD2izP6DN/ytoy904lfvqM7mzYMn+gLb6/fGV90hJ9DywJfX/Vb6v+p09AjfcV/zXb/QAK9pf00fPATzvYwoAAAD3jimNXX520YPARpRO5JxLci+GqR9DTfR8sLbSgVkn0rIT0/uoH7yj7jZD7cLsWXOOnRTWN+vFcm/cJXjUP10ANzUpnUCcAAA=
+  </data>
+ </layer>
+ <layer name="1 Plano" width="200" height="50">
+  <properties>
+   <property name="depth" value="0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3ZQVLCMBiG4SKKsBIWVRcqO/UYHMWj5CgchaN4FP8YqjFtpIG0adr3mfmnTEpjmvK1AYsCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgHZdFDtdqccBDIGdBXIBGAupudSV1Sb5UNXzg6wAdZIXpTMj2VGpxwIAQCy3plTsPpeynozdL8Yjl+8bHeYjer8Yj3nqAbREPgA/8gH4XZqPO1PKXk+Sj3TWMufr1IMYkZB8PHuOX8jx9u/Xvu/nVZZ8/Z/an6tXp5rat4WZ3+0F56+zUcp2EzCuN6l3Z1w+Te9rc9ypMUi/KmQcbd03tM2K73lqrW0+9PV7MVv1INvHY/uNqT/H67alp91tC9kf+r6hmPVUpSnV19/LsULuH1qVj1nm8zrkNcWq55Lrv49VfY+9y6ruHWX4JfyZ06Z9qc+r5Wdi8rqYB+nvsIrcZ5/4rBhTPGcX+aiznxvnrK/GYorn7CIfdb71Ru6erEI75KOO9ZVRZvR7VlfIR527vjr3+3nupnhPcFn3x49Ylft65L/nxzrj32xDMz6UfDTNOdKxcqGO20P1Wdn8tunt3np9yKFC5mEo/xcrzRx/Hud5p+sLe1LkP0CcAAA=
+  </data>
+ </layer>
+ <layer name="Follajes" width="200" height="50">
+  <properties>
+   <property name="depth" value="-.05"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3abY7CIBCAYaJ7idJf6C+TPcQepUfZo3AUjrZQZtzatH60RTS+T0LUuAKuTIGhxgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOCdNLG0sbj83NftDfBaYkx0xxgXJ9PHiK/dH+CVpPkjxcYhxklLfAB9TKT1VJtLaHLpLPGBDyf7jXAw59jw+t4ulr0xv5W6BpwNr+H2ue120q7XtdUz2weu0XxR3BOHdP0+5ecXuaNh7OjjlrklXUulx4P0Y+s2gCWsjMdhrkjWOv1rvaZrOcpj2iOU6o8btEOcoCadPzQe2pw3Cjr+G3k9jJGSeSWZq37SfKJ9mWqvMcQNthfHXddMzA1p/pD3wtTnXF77FJs7NE7t5bquczPtSX8C54jYkpVckculv0brWuZaPrUZzStbayX+xmN9d6M/qe/kgTGWrrdLx4WOLZvnjHArNtawd55jpD59x7+bi4eZzxTbB+E9Ta1D1rh3/C7xleenUCpfa0fnJRPvp+vAb+xHV6gLeDF2Zr+6sK6n3MOxL1i3y99hcg/iOIP/SG3+3Vdz/3sKv0F1VbR5D+/H/xOZZ32lbqEiN7OXfUQaP8dcl1lbVw2DM0svZyYX86rj/saPlX77qXPuRzRSh5xnhNOKumrQfJcb5Kq5Hx5bspLDSs+5XxYAAAAAAAAAHvMHMkX4CkCcAAA=
+  </data>
+ </layer>
+ <layer name="0 Plano" width="200" height="50">
+  <properties>
+   <property name="depth" value="-.1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3ZbW7aMAAGYKvdh/aTH1v3cYBOmEP0KD0KR+EoOcqOsmSJtxB5tKgxDuF5JMvQEuIgv7EdhwAAAAAAAAAAAAAAAAAAAAAAAAAAALAeuxCea7cBlmobZASm2kw0u9qNgAVJmYh9fTBuwD8pE2nciFVbA3nboR766qFWO4wjLNmPTL+crgm6OVGp86dsdHndVswp5Pyv71/qfj5eo6e2GEuooet/cdT3XvP8qPDYcXT+biyJJ9pUcx7IeqV5y7jfxX5eU1XMrDteWq/Hgnnles25V1Cyj53Tzm/9eFbku7kdc/aL0n0shnLrh9c85yo5H2SZ5uxvl7j/llwnDBlpcr+JbNyGn0NJ5upvuxn2Gr6c8dl0DY/9633uex5PHP+1PeZhclzKRu43Sdk/p42swxwZiZP6Gu3C3zHEc2COvDUjw3236V6vYS9uPFfs9jm/F76mj33Zp/eb9nw1S8lrhXNN87EUbVaaT209Ks9DvZ/8vSuHag1l1U7l410IT11939b3F35OkMnHrzTGZPLRbC7ZOG7GC/kIH9r/3YU/Gcl+ppSUj9Hc68g4N139eYFjINdvyfMrYwK1ve/LvnY7pjb2fQC4cb8Bl9lYq0CcAAA=
+  </data>
+ </layer>
+ <objectgroup name="Capa de Objetos 1" width="200" height="50">
+  <object type="Caña" x="704" y="2432" width="64" height="64"/>
+  <object type="CameraBound" x="0" y="2368" width="7168" height="320"/>
+  <object type="CameraBound" x="10240" y="1856" width="1152" height="1344">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object name="Anim" type="Bosses/TejuYaguaAnim" x="4190" y="2524" width="128" height="128"/>
+  <object type="CameraBound" x="8576" y="2176" width="1600" height="512">
+   <properties>
+    <property name="zoom" value="3.5"/>
+   </properties>
+  </object>
+  <object name="YaguaFight" type="Warp" x="12672" y="2944" width="128" height="128">
+   <properties>
+    <property name="file" value="YaguaBoss.tmx"/>
+   </properties>
+  </object>
+  <object name="ColisionInicio" type="CollisionBound" x="0" y="2624" width="6336" height="128"/>
+  <object name="CollisionBonus" type="CollisionBound" x="1664" y="3072" width="1472" height="64"/>
+  <object name="CollisionCorte" type="CollisionBound" x="7168" y="2624" width="3200" height="128"/>
+  <object name="Collision Subterranea" type="CollisionBound" x="6528" y="3072" width="3840" height="128"/>
+  <object type="CollisionBound" x="1664" y="2560" width="128" height="512"/>
+  <object type="CollisionBound" x="3008" y="2752" width="128" height="320"/>
+  <object name="Pared Underworld" type="CollisionBound" x="6336" y="2560" width="128" height="640"/>
+  <object name="Collision Final" type="CollisionBound" x="10368" y="3136" width="2112" height="64"/>
+  <object type="CollisionBound" x="9600" y="3008" width="768" height="64"/>
+  <object type="CollisionBound" x="9792" y="2944" width="576" height="64"/>
+  <object type="CollisionBound" x="9984" y="2880" width="192" height="64"/>
+  <object type="CollisionBound" x="10304" y="2752" width="64" height="128"/>
+  <object name="Final" type="CollisionBound" x="12480" y="3072" width="384" height="128"/>
+  <object type="CollisionBound" x="9728" y="2496" width="64" height="128"/>
+  <object type="CollisionBound" x="9600" y="2560" width="64" height="64"/>
+  <object type="CollisionBound" x="8880" y="2499" width="29" height="123"/>
+  <object type="CollisionBound" x="1728" y="2496" width="128" height="64"/>
+  <object name="BonusHall" type="Door" x="1792" y="3008" width="64" height="64"/>
+  <object x="421" y="2416" width="1"/>
+  <object type="CollisionBound" x="640" y="2560" width="64" height="64"/>
+  <object type="Secrets/Bonus1" x="448" y="2560" width="64" height="64"/>
+  <object type="Caña" x="320" y="2432" width="64" height="64"/>
+  <object type="Caña" x="448" y="2432" width="64" height="64"/>
+  <object type="Gaucho" x="1024" y="2496" width="64" height="64"/>
+  <object type="Caña" x="576" y="2432" width="64" height="64"/>
+  <object type="Pombero" x="128" y="2560" width="64" height="64"/>
  </objectgroup>
 </map>

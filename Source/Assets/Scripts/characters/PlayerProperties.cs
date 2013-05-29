@@ -17,11 +17,9 @@ public enum PlayerState			// main character states builded as bitfields to had s
 }
 public PlayerState playerState 	= PlayerState.Normal;		// set display state of mario in Inspector 
 
-public enum Items		{ Empty = 0, Hat = 1, Whistler = 2, Invisibility = 4, Smallibility = 8, Fire = 16 }
-
-public Items Inventory	= Items.Empty;					// Inventory system activation
 
 public GameObject projectileHat;
+public GameObject projectileFlame;
 public GameObject projectileFire;
 public GameObject Sunrise;
 
@@ -37,7 +35,7 @@ private bool  wasKinematic 	= false;					// flag to remeber if the taken thing w
 private bool  hitLeft 	    = false;					// flag to detect player collision with dangerous things
 private bool  hitRight 	    = false;
 
-float hitDistance 	        = 3.0f;						// Distance to push the player on being hitted
+float hitDistance 	        = 3;						// Distance to push the player on being hitted
 
 public  AudioClip soundHurt;
 public  AudioClip soundDie;
@@ -49,7 +47,7 @@ public  AudioClip soundPowerUp2;
 public  AudioClip soundFruits;
 public  AudioClip soundExplosion;
 public  AudioClip soundFlaming;
-public  AudioClip SoundTrack;
+//public  AudioClip SoundTrack;
 public  AudioClip SoundDelirium;
 
 private PlayerControls playerControls;
@@ -57,7 +55,7 @@ private AnimSprite animPlay; 							// : Component
 private CharacterController charController;
 
 public Vector3 GrabPosition = new Vector3( 0f, 0.5f, 0f);	// Grab & Throw Funcionality assuming obj has a rigidbody attached				
-public float ThrowForce		= 400f;						// How strong the throw is. 
+public float ThrowForce		= 400;						// How strong the throw is. 
 public float DownSideLimit	= 0f;						// How strong the throw is. 
 
 [HideInInspector] public Transform _pickedObject;					    // is HoldingObj ? 
@@ -74,14 +72,7 @@ void  Start (){
     charController  = GetComponent<CharacterController>();
 	animPlay 	    = GetComponent<AnimSprite>();
 	dead = false;
-	
-	if ( SoundTrack && Managers.Audio.SoundEnable )
-        Managers.Audio.PlayMusic(SoundTrack, 1.0f, 1.0f);
-        //Managers.Audio.PlayLoop( SoundTrack, thisTransform, .5f, 1.0f);
-	
-	
-//	Inventory |= Items.Hat ;
-//	SetPlayerState( PlayerState.Asleep);
+		
 
     Managers.Display.ShowFlash(1.0f);
 
@@ -89,16 +80,13 @@ void  Start (){
         DownSideLimit = Managers.Register.GetComponent<LevelAttributes>().MinScreenLimit;
 
     StartCoroutine(CoUpdate());
-
-        //yield return new 
 }
+
 
 IEnumerator CoUpdate()
 {
-
     while (true)
     {
-        //Managers.Game.Update(Time.deltaTime);
         StartCoroutine(HitDead());
         UpdatePlayerState();
         if (Input.GetButtonDown("Fire1")) HoldingKey = true;
@@ -129,7 +117,7 @@ void  UpdatePlayerState (){
                     StartCoroutine(Sleeping());
                 }
 
-                if ((Input.GetButtonUp("Fire1") || Input.GetButtonUp("Jump")) && (Managers.Game.Lifes > 0))
+                if ((Input.GetButtonUp("Fire1") || Input.GetButtonUp("Jump")) && (Managers.Register.Lifes > 0))
                 {
                     playerControls.enabled = true;
                     SetPlayerState(PlayerState.Flickering);
@@ -161,7 +149,6 @@ void  UpdatePlayerState (){
                     if (!_pickedObject && Input.GetButtonDown("Fire2")) UseInventory();
                 break;
             }
-//		if (  !_pickedObject && HatShoot && Input.GetButtonDown("Fire2")) ThrowHat(); // ThrowHat();
 	}
 	
 }
@@ -195,10 +182,10 @@ void  OnTriggerEnter (  Collider other   ){
 		if (ParticleStars)
 		Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
 		
-		Destroy( other.gameObject );		
-		Managers.Game.Fruits++;
-        Managers.Game.Score += 50;
-		Managers.Audio.Play( soundFruits, thisTransform);
+		Destroy( other.gameObject );
+        Managers.Register.Fruits++;
+        Managers.Register.Score += 50;
+        Managers.Audio.Play(soundFruits, thisTransform);
 	}
 
     if (other.name.ToLower() == "hat")//other.CompareTag( "p_shot") && !HatShoot   )
@@ -209,16 +196,28 @@ void  OnTriggerEnter (  Collider other   ){
 		
 		Destroy( other.gameObject );
 		renderer.material.SetFloat("_KeyY", 0.05f);
-		Inventory |= Items.Hat ;
+		Managers.Register.Inventory |= DataManager.Items.Hat ;
 	}
+
+    if (other.name.ToLower() == "whistle")//other.CompareTag( "p_shot") && !HatShoot   )
+    {
+        Managers.Audio.Play(soundPowerUp2, thisTransform);
+        Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+
+
+        Destroy(other.gameObject);
+        Managers.Register.Inventory |= DataManager.Items.Whistler;
+    }
 
     if (other.name.ToLower() == "ca" + (char)0x00F1 + "a")// Should say 'Caña' //other.CompareTag( "p_shot") && !HatShoot   )
 	{
 		Managers.Audio.Play( soundPowerUp, thisTransform);
 		Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+        Managers.Register.FireGauge++;
+        Managers.Register.FireGauge = Mathf.Clamp(Managers.Register.FireGauge, 0, 3);
 		
 		Destroy( other.gameObject );
-		Inventory = Items.Fire ;
+		Managers.Register.Inventory |= DataManager.Items.Fire ;
 	}
 
 	
@@ -307,11 +306,11 @@ IEnumerator  HitDead (){
 
 		int orientation= playerControls.orientation;							
 		Managers.Display.ShowStatus();
-        Managers.Game.Health--;
-		Managers.Audio.Play( soundHurt, thisTransform); 
-		
-		
-		if ( Managers.Game.Health > 0 )										// If health still available do damage and continue 
+        Managers.Register.Health--;
+		Managers.Audio.Play( soundHurt, thisTransform);
+
+
+        if (Managers.Register.Health > 0)										// If health still available do damage and continue 
 		{
 			float hurtTimer= Time.time + 0.2f;
 			while( hurtTimer > Time.time )
@@ -327,7 +326,7 @@ IEnumerator  HitDead (){
 	}
 }
 
-IEnumerator  InstaKill (  bool ReSpawn ,    int pushDirection   ){
+IEnumerator  InstaKill (  bool ReSpawn , int pushDirection ){
 	if ( dead ) yield break;
 
 		ReSpawn = ( ReSpawn || ( thisTransform.position.y <= DownSideLimit  ));	// Little Re-Check for falling bugs
@@ -335,7 +334,7 @@ IEnumerator  InstaKill (  bool ReSpawn ,    int pushDirection   ){
 		dead = true;
  
 		Managers.Display.ShowStatus();
-		Managers.Game.Lifes -= 1;
+        Managers.Register.Lifes -= 1;
 		renderer.material.color = Color.white;
 		renderer.enabled = true;
 //		Managers.Audio.Play( soundDie, thisTransform); 
@@ -372,7 +371,7 @@ IEnumerator  InstaKill (  bool ReSpawn ,    int pushDirection   ){
 		
 		Managers.Display.ShowStatus();
 
-        if (Managers.Game.Lifes > 0)
+        if (Managers.Register.Lifes > 0)
         {
 			if ( ReSpawn )
 			{
@@ -382,7 +381,7 @@ IEnumerator  InstaKill (  bool ReSpawn ,    int pushDirection   ){
 				playerControls.velocity = Vector3.zero;
 			}
 			SetPlayerState( PlayerState.Asleep );						// if there are life change state to Asleep
-            Managers.Game.Health = 3;
+            Managers.Register.Health = 3;
         }				
 		else
 		{ 	
@@ -403,41 +402,52 @@ IEnumerator  InstaKill (  bool ReSpawn ,    int pushDirection   ){
 
 
 void  UseInventory (){
-	switch ( Inventory )
+	switch ( Managers.Register.Inventory )
 	{
-		case Items.Empty: 
+		case DataManager.Items.Empty: 
 			break;
 			
-		case Items.Hat: 								// Throw Hat..
-		if( (Inventory  & Items.Hat) == Items.Hat )
+		case DataManager.Items.Hat: 								// Throw Hat..
+		if( (Managers.Register.Inventory  & DataManager.Items.Hat) == DataManager.Items.Hat )
 			Managers.Audio.Play( soundHat, thisTransform); 
 			StartCoroutine(ThrowHat());
-			Inventory &= (~Items.Hat);
+			Managers.Register.Inventory &= (~DataManager.Items.Hat);
 			break;
 						
-		case Items.Whistler:							// Wisp Whistler
-			Inventory &= (~Items.Whistler);
+		case DataManager.Items.Whistler:							// Wisp Whistler
+            StartCoroutine(ThrowFiuu());
+			Managers.Register.Inventory &= (~DataManager.Items.Whistler);
 			break;
 			
-		case Items.Invisibility:						// Turn Invisible 
+		case DataManager.Items.Invisibility:						// Turn Invisible 
 			AddPlayerState( PlayerState.Invisible );
-			Inventory &= (~Items.Invisibility);
+			Managers.Register.Inventory &= (~DataManager.Items.Invisibility);
 			break;
 			
-		case Items.Smallibility: 						// Get Smaller
-			Inventory &= (~Items.Smallibility);
+		case DataManager.Items.Smallibility: 						// Get Smaller
+			Managers.Register.Inventory &= (~DataManager.Items.Smallibility);
 			break;			
 			
-		case Items.Fire: 								// Do Fire things..
-//				if ( (Managers.Display.FireGauge) == 1 ) ;// instantiate flame
-//			else 
-//				if ( (Managers.Display.FireGauge)  < 3 ) ;// instantiate fireball
-//			else
-			Managers.Audio.Play( soundExplosion, thisTransform); 
-			SetPlayerState( PlayerState.WildFire );
-							  
-//			Managers.Display.FireGauge = 0;
-			Inventory &= (~Items.Fire);
+		case DataManager.Items.Fire: 								// Do Fire things..
+            if ((Managers.Register.FireGauge) == 1)
+            {
+                Managers.Audio.Play(soundFlaming, thisTransform);
+
+                StartCoroutine( ThrowFlame());           // instantiate flame         
+            }
+            else if ((Managers.Register.FireGauge) == 2)
+            {
+                Managers.Audio.Play(soundFlaming, thisTransform);
+                StartCoroutine(ThrowFire());            // instantiate fireball              
+            }
+            else
+            {
+                Managers.Audio.Play(soundExplosion, thisTransform);
+                SetPlayerState(PlayerState.WildFire);
+            }
+
+            Managers.Register.FireGauge = 0;
+			Managers.Register.Inventory &= (~DataManager.Items.Fire);
 			break;
 	}
 }
@@ -548,7 +558,8 @@ IEnumerator Burning (){
 	playerState &= (~PlayerState.WildFire);
 }
 
-IEnumerator  ThrowHat (){
+IEnumerator  ThrowHat ()
+{
 	// Instantiate the projectile
     GameObject clone = (GameObject)Instantiate(projectileHat, thisTransform.position, thisTransform.rotation);
     
@@ -557,8 +568,8 @@ IEnumerator  ThrowHat (){
     clone.name = "Hat";
 
 	clone.GetComponent<BulletShot>().FireBoomerang( new Vector3( playerControls.orientation * 8, 0, 0) , 1, 0, 4);
-	// shot with a short animation
-  
+	
+    // shot with a short animation
 	renderer.material.SetFloat("_KeyY", 0.25f);
      
     float timertrigger= Time.time + 0.25f;
@@ -570,33 +581,86 @@ IEnumerator  ThrowHat (){
 	Physics.IgnoreCollision(clone.collider, this.gameObject.collider, false);
 }
 
-IEnumerator  ThrowFire (){
+IEnumerator  ThrowFlame(){
     int orientation= playerControls.orientation;  	 							// Instantiate the projectile
-//	Managers.Audio.Play( soundFlaming, thisTransform);
-     	 	    
-	
-    GameObject clone = (GameObject)Instantiate(projectileFire,
-    									  thisTransform.position + new Vector3(orientation * .25f,0,0),
-    									   thisTransform.rotation);
+    Managers.Audio.Play(soundFlaming, thisTransform);
+
+    GameObject clone = (GameObject)Instantiate(projectileFlame,
+                                          thisTransform.position + new Vector3(orientation * .25f, 0, 0),
+                                          ( orientation == 1 ? 
+                                          Quaternion.AngleAxis(90, Vector3.up) : 
+                                          Quaternion.AngleAxis(-90, Vector3.up) ) );
     Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 			// it works but the distance it s lame
- // clone.thisTransform.Translate( Vector3( 0, 1, 0) ); 					// avoid hits between shot & shooter own colliders  
-
     clone.name = "Fire";
+    clone.transform.parent = thisTransform;
+    Destroy( clone, 2);
 
-	playerControls.enabled = false;
-	
-	// Add speed to the target
-	clone.GetComponent<BulletShot>().Fire(  new Vector3( orientation * 4, 0, 0), 10);  // shot with a short animation
+    //playerControls.velocity.y *= 0.5f;
     
-    float timertrigger= Time.time + 0.75f;
+    float timertrigger= Time.time + 2;
 	while( timertrigger > Time.time )
 	{
+        playerControls.velocity.y *= 0.5f;
+        playerControls.velocity.x *= 0.5f;
+
+        playerControls.orientation = orientation;
 		animPlay.PlayFrames( 3, 6, 2, orientation); 
      	yield return 0;
 	}
-   	playerControls.enabled = true;
-	
 }
+
+IEnumerator ThrowFire()
+{
+    int orientation = playerControls.orientation;  	 							// Instantiate the projectile
+    Managers.Audio.Play(soundFlaming, thisTransform);
+
+
+    GameObject clone = (GameObject)Instantiate(projectileFire,
+                                          thisTransform.position + new Vector3(orientation * .25f, 0, 0),
+                                           thisTransform.rotation);
+    Physics.IgnoreCollision(clone.collider, this.gameObject.collider); 			// it works but the distance it s lame
+    // clone.thisTransform.Translate( Vector3( 0, 1, 0) ); 					// avoid hits between shot & shooter own colliders  
+
+    clone.name = "Fire";
+
+    //playerControls.enabled = false;
+    playerControls.velocity.y *= 0.5f;
+
+    // Add speed to the target
+    clone.GetComponent<BulletShot>().FireAnimated(new Vector3(orientation * 4, 0, 0), 2, 0, 6);  // shot with a short animation
+
+    float timertrigger = Time.time + 0.75f;
+    while (timertrigger > Time.time)
+    {
+        playerControls.orientation = orientation;
+        animPlay.PlayFrames(3, 6, 2, orientation);
+        yield return 0;
+    }
+    //playerControls.enabled = true;
+
+
+}
+
+IEnumerator ThrowFiuu()
+{
+    int orientation = playerControls.orientation;  	 							// Instantiate the projectile
+    //	Managers.Audio.Play( soundFlaming, thisTransform);
+    Managers.Tiled.MapTransform.BroadcastMessage("Paralize");
+
+
+    playerControls.velocity.y *= 0.5f;
+
+    float timertrigger = Time.time + 0.75f;
+    while (timertrigger > Time.time)
+    {
+        playerControls.orientation = orientation;
+        animPlay.PlayFrames(3, 6, 2, orientation);
+        yield return 0;
+    }
+
+}
+
+
 
 IEnumerator PlayerThrows()												// Object Throwing without physics engine
 {
@@ -637,8 +701,6 @@ IEnumerator PlayerThrows()												// Object Throwing without physics engine
 			
     	 	yield return 0;
 		 }
-		 
-		 
 	}
 }
 

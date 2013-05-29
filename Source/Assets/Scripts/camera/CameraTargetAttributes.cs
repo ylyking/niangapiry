@@ -8,7 +8,7 @@ public class CameraTargetAttributes : MonoBehaviour {
 
 
 // See the GetGoalPosition () function in CameraScrolling.js for an explanation of these variables.
-public bool FixedHeight				= false;
+//public bool FixedHeight				= false;
 public Vector3 Offset               = Vector2.zero;
 public float distanceModifier 		= 2;
 public float velocityLookAhead 		= 0.15f;

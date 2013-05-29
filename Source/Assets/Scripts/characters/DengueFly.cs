@@ -50,7 +50,8 @@ public class DengueFly : MonoBehaviour
 	
 	if ( target) 
 	{
-			linkToPlayerControls = target.GetComponent<PlayerControls>() as PlayerControls;
+
+        linkToPlayerControls = target.GetComponent<PlayerControls>() as PlayerControls;
 	}else 	print(" Beware Dengue target empty: player link not found!");
 			
 	animPlay = GetComponent<AnimSprite>();
@@ -74,6 +75,15 @@ public class DengueFly : MonoBehaviour
     {
         while (thisTransform)
         {
+            if (!target)
+                if (Managers.Game.PlayerPrefab)
+                {
+                    target = Managers.Game.PlayerPrefab.transform;			
+                    linkToPlayerControls = (PlayerControls)target.GetComponent<PlayerControls>();
+                }
+                else
+                    yield return 0;
+
             if (target)
             if (thisTransform.IsChildOf(target)) 							// check if the player has taken us... 
             {
@@ -173,7 +183,7 @@ public class DengueFly : MonoBehaviour
         }
         else if (other.CompareTag("p_shot"))
         {
-            Managers.Game.Score += 75;
+            Managers.Register.Score += 75;
             BeatDown();
         }
         else if (gameObject.CompareTag("p_shot") && !other.CompareTag("Item"))
@@ -187,7 +197,7 @@ public class DengueFly : MonoBehaviour
 
     void BeatDown()
     {
-        Managers.Game.Score += 50;
+        Managers.Register.Score += 50;
         Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
         Managers.Audio.Play(soundCrash, thisTransform, 6.0f, 1.0f);
         gameObject.tag = "pickup";
@@ -195,6 +205,14 @@ public class DengueFly : MonoBehaviour
         velocity.y = 4.5f;
         animPlay.PlayFramesFixed(0, 3, 1, orientation);
         enemyState = ShooterState.Dead;
+    }
+
+    public void Paralize()
+    {
+        Debug.Log("Oh my GOD, el pombero está silvando");
+        velocity = Vector3.zero;
+        enemyState = ShooterState.Dead;
+        //StartCoroutine(Freeze());
     }
 
 }
