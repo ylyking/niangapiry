@@ -41,6 +41,9 @@
    </properties>
   </tile>
  </tileset>
+ <imagelayer name="fondo" width="200" height="10">
+  <image source="Pampero_fondo.png"/>
+ </imagelayer>
  <layer name="fondo" width="200" height="10">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3UIQ4AMAgDwNnx6j19mDkcgmS5S2pQrWEtAAAAAADo2ZmYLtH0NmTOcBVgWPXTorgB/7lFl8X1QB8AAA==
@@ -48,34 +51,42 @@
  </layer>
  <layer name="plano 2" width="200" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3U0QqDMAyFYa246cDpI+fRPSETRAYGd6GT/4ODLbTFUNKqAgAAAAAAAJDVKg/lqXQxt1N/6KBtHRrbXi3rPf9a990Upf6kbL7LuEmcozVWYr3VyT3fDMpbGZUp5nbwqFMtdXgNY4xtr5Yh1tqUWHsl3td6A0x9bZl3ANfWKy/doafnLn/mfe097b2deQcA3MMMpH9VRUAfAAA=
+   H4sIAAAAAAAAC+3U7QrCMAyF4a3ix4S5OW84l+4JtTCGuqA/quN94LAWWmhW0qYBAAAAAAAAELVXDspROeW5VT3Qh5Z1aGxrtcz3/GvdW5OU9pG0+Jbx7sm+SbnN5lpjKa+39sWea+A8vXJRBmXMcwsVUsnyPxSlDq9hyGNbq6XPa20MrP0l3td6A0x9bZF3APW968VOOesOPR13+TXva+9p7+3IOwBgG+4rxCIOQB8AAA==
   </data>
  </layer>
  <layer name="plano 1" width="200" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2Wiw7CIAxFq4sxajTxj/vpMhmRVDpEo8zlnOSmoxBoGS8RAAAAAAAAAACA5XIIOopoUihr75jWzC5oH612DgVgcZyDLtFq51DgBTaTtuY7Lxu/Wn9F6vVl2xmb+4t9jBoacp3uyvt92TJHEscp5u3EpYU8nnLzcvpUtX/k1ad4WuZ0jny+//Vdcl2Bamuutg7n6tNa6p3jL3WSyPDY5+l8Ukfv7uPmNt86U7xxb/SN6kNAHwAA
+   H4sIAAAAAAAAC+2WCQ7CIBBFR6sxrmeeo4tSIhmZIhqlNe8lP5QlzFI2EQAAAAAAAAAAgPmyDzqIaFKoa2+f/plt0C6W2tkVgNlxDrrEUju7Ai+wGrU233ndtKttr0i9uew4U+btxTluGhpiHe/K+33ZkiOJdopxO35pIY6n2LyYPlXtH3n9yZ+WnE6R53up75LNwnWS+nqtrcOp/rSWgh3tHeuvdJTI8Njn6XxSR+/u4+Yx3zpTPLtXsExmQkAfAAA=
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="200" height="10">
-  <object name="Start" type="Door" x="256" y="320" width="64" height="64"/>
-  <object name="Clavel" x="576" y="320" width="64" height="64">
+  <object type="Pombero" x="192" y="384" width="64" height="64"/>
+  <object name="Clavel" x="320" y="384" width="64" height="64">
    <properties>
     <property name="nameid" value="Comienzo"/>
    </properties>
   </object>
-  <object name="Moñai" type="Bosses/Moñai" x="11776" y="384" width="64" height="64"/>
+  <object name="Moñai" type="Moñai" x="11776" y="384" width="64" height="64"/>
+  <object name="D" type="Door" x="640" y="448" width="64" height="64">
+   <properties>
+    <property name="target" value="/Levels/parallax.tmx"/>
+   </properties>
+  </object>
   <object type="Door" x="9408" y="512" width="64" height="64">
    <properties>
     <property name="target" value="exit"/>
    </properties>
   </object>
-  <object name="C" type="Door" x="1088" y="448" width="64" height="64">
+  <object type="CameraBound" x="576" y="192" width="2432" height="352">
    <properties>
-    <property name="target" value="/Levels/parallax.tmx"/>
+    <property name="zoom" value="3"/>
    </properties>
   </object>
-  <object name="Yagua" type="TejuYagua" x="2176" y="448" width="64" height="64"/>
-  <object name="Hat" x="1728" y="448" width="64" height="64"/>
-  <object name="Maracuya" x="1536" y="448" width="64" height="64"/>
+  <object type="CameraBound" x="3072" y="256" width="2207" height="368">
+   <properties>
+    <property name="zoom" value="3.5"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="5312" y="192" width="2048" height="384"/>
  </objectgroup>
 </map>

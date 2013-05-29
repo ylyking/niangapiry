@@ -31,7 +31,6 @@ public class Portal : MonoBehaviour
         if ( this.myType == type.warp && hit.tag == "Player")										      // check tag savepoint
         {
 
-
             if (Target.ToLower() == "exit")
             {
                 Managers.Game.PopState();                                 // if it's an exit Return Map and stop inmediately
@@ -40,10 +39,11 @@ public class Portal : MonoBehaviour
 
             if (Target.ToLower().Contains(".tmx"))                        // if it had .tmx extension it's a map
             {
+                Managers.Display.ShowFlash(0.75f);
+
                 if (Managers.Dialog.IsInConversation())
                     Managers.Dialog.DeInit();
 
-                Managers.Display.ShowFlash(0.5f);
                 Managers.Tiled.Unload();
 
                 if (Managers.Tiled.Load(Target))
@@ -77,8 +77,10 @@ public class Portal : MonoBehaviour
                                                                             // current player position is saved      
             Managers.Register.MapCheckPoints[Managers.Register.currentLevelFile] = transform.position; 
 
-            if (InputUp)
+            if ( Managers.Game.InputUp)
             {
+                Managers.Display.ShowFlash(0.75f);
+
                 if (Target.ToLower() == "exit")
                 {
                     Managers.Game.PopState();                                 // if it's an exit Return Map
@@ -87,7 +89,7 @@ public class Portal : MonoBehaviour
 
                 if (Target.ToLower().Contains(".tmx"))
                 {
-                    Managers.Display.ShowFlash(0.5f);
+                    //Managers.Display.ShowFlash(0.75f);
                     Managers.Tiled.Unload();
 
                     if (Managers.Tiled.Load(Target))
@@ -102,30 +104,15 @@ public class Portal : MonoBehaviour
                 {
                     if (portal.Id == Target)
                     {
-                        Managers.Display.ShowFlash(0.5f);
+                        Managers.Display.ShowFlash(0.75f);
                         hit.transform.position = portal.gameObject.transform.position;
                         return;
+
                     }
                 }
             }
         }
     }
 
-    static bool ToggleUp = true;
-    static bool InputUp                             // This it's a little oneShot Up Axis check for doors & like   
-    {
-        get
-        {
-            if (Input.GetAxis("Vertical") == 0)                      // It's like an "Input.GetAxisDown" 
-                ToggleUp = true;
-
-            if (ToggleUp == true && Input.GetAxis("Vertical") > 0)
-            {
-                ToggleUp = false;
-                return true;
-            }
-            return false;
-        }
-    }
 
 }

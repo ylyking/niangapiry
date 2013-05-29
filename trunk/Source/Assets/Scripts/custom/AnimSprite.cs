@@ -43,7 +43,7 @@ public class AnimSprite : MonoBehaviour
         renderer.material.mainTextureOffset = offset;		// texture offset
         renderer.material.mainTextureScale = size;		// texture scale
 
-        if (Input.GetKey(KeyCode.Z)) print(((1.0f - size.y) - (v + rowFrameStart) * size.y));
+        //if (Input.GetKey(KeyCode.Z)) print(((1.0f - size.y) - (v + rowFrameStart) * size.y));
         // renderer.material.SetTextureOffset( "_BumpMap", offset);
         // renderer.material.SetTextureScale( "_BumpMap", size );
     }

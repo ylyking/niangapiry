@@ -6,25 +6,26 @@ public abstract class InGameState : GameState {
     public override void Init()
     {
         //Managers.Game.PlayerPrefab = null;
-        Managers.Game.PlayerPrefab = (GameObject)Instantiate(Resources.Load("Prefabs/Pombero", typeof(GameObject)));
-        Managers.Game.PlayerPrefab.name = "Pombero";
-        Managers.Display.cameraScroll.SetTarget(Managers.Game.PlayerPrefab.transform, false);
-        Managers.Tiled.PlayerTransform = Managers.Game.PlayerPrefab.transform;
 
-        Debug.Log("setting up position in TileManager");
-        Managers.Register.SetPlayerPos();
+        //Managers.Game.PlayerPrefab = (GameObject)Instantiate(Resources.Load("Prefabs/Pombero", typeof(GameObject)));
+        //Managers.Game.PlayerPrefab.name = "Pombero";
+        //Managers.Display.cameraScroll.SetTarget(Managers.Game.PlayerPrefab.transform, false);
+        //Managers.Tiled.PlayerTransform = Managers.Game.PlayerPrefab.transform;
+
+        //Debug.Log("setting up position in TileManager");
+        //Managers.Register.SetPlayerPos();
 
         Managers.Game.IsPlaying = true;
     }
 
     public override void DeInit()
     {
-        var Player = Managers.Game.PlayerPrefab;
-        if (Player == null) 
-            return;
+        //var Player = Managers.Game.PlayerPrefab;
+        //if (Player == null) 
+        //    return;
 
-        if (Player)
-            Destroy(Player);
+        //if (Player)
+        //    Destroy(Player);
 
         Managers.Game.IsPlaying = false;
 
@@ -32,7 +33,7 @@ public abstract class InGameState : GameState {
 
     public override void OnUpdate()
     {
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown("escape") || Input.GetButtonDown("Start"))
             Managers.Game.PushState(typeof(PauseState));
     }
 

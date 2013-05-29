@@ -16,10 +16,10 @@ public ShooterState enemyState = ShooterState.Sleeping ;	// set default starting
 public float aimDamping 		= 4.0f;			// speed & time taken for aiming
 public float fireRate		 	= 2.0f;			// delay between shots, more lower, more harder to avoid
 public float shootPower 		= 10;			// the power or speed of the projectile.
-public float deathForce 		= 12.0f;			// when the player jumps on me force him off 'x' amount
+public float deathForce 		= 12.0f;		// when the player jumps on me force him off 'x' amount
 
 public bool  gizmoToggle		= true;			// toggle the debug display radius
-public AudioClip bounceHit;					// hot sound for the enemy splat
+public AudioClip bounceHit;					    // hot sound for the enemy splat
 
 private int orientation 		= -1;			// orientation of the enemy
 private float nextFire 		    = 3.0f;			// delay between attacks
@@ -35,19 +35,19 @@ private float AttackRangeX2			= 0;
 
 //private bool  Holded 		= false;
 private bool  AnimFlag 		= true;
-private bool  grounded		= false;
+private bool grounded = false;
 //private bool  KnockOut		= false;
 
 public 	Vector3 HoldedPosition = new Vector3( 0,.3f,-.1f);	// change own enemy position when grabed
-public Vector3 moveDirection = new Vector3(5, 3, 0);	// Force * direction of throwing the enemy 
-private Vector3 velocity = Vector3.zero;		// store the enemy movement in velocity (x, y, z)
+public Vector3 moveDirection = new Vector3(5, 3, 0);	    // Force * direction of throwing the enemy 
+private Vector3 velocity = Vector3.zero;		            // store the enemy movement in velocity (x, y, z)
 
-public Transform target;					// target to search ( the player )
-public Transform aimCompass;					// it's a simple child transform inside this gameObject
-private Transform thisTransform;					// own enemy's tranform cached
+public Transform target;					                // target to search ( the player )
+public Transform aimCompass;					            // it's a simple child transform inside this gameObject
+private Transform thisTransform;					        // own enemy's tranform cached
 
-public GameObject projectile;					// Prefab to be shooted ( set previously it's input )
-private AnimSprite animPlay; 					// : Component
+public GameObject projectile;					            // Prefab to be shooted ( set previously it's input )
+private AnimSprite animPlay; 					            // : Component
 private PlayerControls linkToPlayerControls;
 
 public AudioClip soundCrash;
@@ -69,31 +69,30 @@ void  Start (){
     	rigidbody.freezeRotation = true;
     	rigidbody.useGravity = false;
     }
-    	
-	if (!target) 
-		target =  GameObject.Find("Pombero").transform;			//	We can Use this system to get the player's Id & position
-	
+
 	if (!aimCompass)
 		aimCompass = thisTransform.FindChild("AimCompass");
-	
-	if ( target) 
-	{
-			linkToPlayerControls = target.GetComponent< PlayerControls >() as PlayerControls;
-//			if (! linkToPlayerControls  ) print("big fucking error!");
-	}else Debug.Log(" Beware target empty: player link not found!");
-			
+ 			
 	animPlay = (AnimSprite)GetComponent<AnimSprite>();
-	
-    //while( true)
-    //    yield return new CoUpdate();
+
     StartCoroutine(CoUpdate());
-	
 }
 
 IEnumerator CoUpdate ()	 											// void  Update ()
 {
     while (thisTransform)
     {
+        if (!target)
+        {
+            if (Managers.Game.PlayerPrefab)
+            {
+                target = Managers.Game.PlayerPrefab.transform;			//	We can Use this system to get the player's Id & position
+                linkToPlayerControls = (PlayerControls)target.GetComponent<PlayerControls>() ;
+            }
+            else
+                yield return 0;
+        }
+
         if (target)
         if (thisTransform.IsChildOf(target)) 									// check if the player has taken us... 
         {
@@ -147,7 +146,8 @@ IEnumerator CoUpdate ()	 											// void  Update ()
 	
 }
 
-void OnTriggerStay(Collider other){										// void  OnCollisionStay (){
+void OnTriggerStay(Collider other)
+{										// void  OnCollisionStay (){
 //	if ( other.CompareTag( "Untagged" ) )
     	grounded = ((int)enemyState < 3 );    
 }
@@ -257,6 +257,34 @@ void  Shoot (){
 // 	}
 }
 
+
+public void Paralize()
+{
+    Debug.Log("Oh my GOD, el pombero está silvando");
+    velocity = Vector3.zero;
+    enemyState = ShooterState.Stunned;
+    //StartCoroutine(Freeze());
+}
+
+//IEnumerator Freeze()
+//{
+//    float TimeLapse = Time.time + 10;
+//    enabled = false;
+//    float OriginalPos = thisTransform.position.x;
+
+//    while (TimeLapse > Time.time)
+//    {
+//        thisTransform.position = new Vector3(OriginalPos + Mathf.Sin(TimeLapse * 5) * .15f,
+//                                     thisTransform.position.y,
+//                                     thisTransform.position.z);
+//        yield return 0;
+//    }
+
+//    thisTransform.position = new Vector3(OriginalPos, thisTransform.position.y, thisTransform.position.z);
+//    enabled = true;
+//    yield return 0;
+//}
+
 IEnumerator Stunned()																	// "Boleado"
 {
 	if ( this.CompareTag("pickup") ) 
@@ -358,7 +386,7 @@ IEnumerator OnTriggerEnter(  Collider other  )											// other.transform.posi
 	}
 	else if ( other.CompareTag("p_shot")  )
 	{
-		Managers.Game.Score += 100;
+        Managers.Register.Score += 100;
 		BeatDown();
 	}
 	else if ( gameObject.CompareTag("p_shot") && !other.CompareTag("Item") )
@@ -369,7 +397,7 @@ IEnumerator OnTriggerEnter(  Collider other  )											// other.transform.posi
 }
 
 void  BeatDown (){
-    Managers.Game.Score += 100;
+    Managers.Register.Score += 100;
     Managers.Audio.Play(soundCrash, thisTransform, 6.0f, 1.0f);		
 	gameObject.tag = "pickup";
 	velocity.x *= -.25f;

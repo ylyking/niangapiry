@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 4d7b8ca206f005846b6b13f153c0e6c5
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - BoxPrefab: {instanceID: 0}
+  - WinMessage: {instanceID: 0}
+  - LoseMessage: {instanceID: 0}
+  - BonusTexture: {fileID: 2800000, guid: 31e1f5c27c563a2479e77c15f60f12d2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

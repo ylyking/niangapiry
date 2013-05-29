@@ -41,11 +41,7 @@ public class ConversationManager : MonoBehaviour {
 
         ComicWord = new Rect((Screen.width * .27f), (Screen.height * .1f),
                                 (Screen.width * .46f), (Screen.height * .45f) ); 
-
-        if ( CamTarget == null && Managers.Game.PlayerPrefab )
-        CamTarget = Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>() as CameraTargetAttributes;
- 
-    
+   
     	XmlDocument Doc = new XmlDocument();
    		Doc.LoadXml(lacConversationFile.text);
    		
@@ -208,66 +204,13 @@ public class ConversationManager : MonoBehaviour {
             Debug.Log( "NextMessage: setting mbConversation in false" );*/
 	    }
     }
-        //////////////////////////////////////////////////////////////       
 
-//    public IEnumerator CoUpdate(  float lfTimestep   ) //: IEnumerator
-//    {
-////    	if(Input.GetButton("Fire1") )Debug.Log( "\n PRESSING ENTER KEY ");  
-
-
-//        while (this.IsInConversation())
-//        {
-
-//            if (!mbConversationState ) yield return 0;
-
-//            if (CamTarget.Offset.x > 0)                                                     // Check Player Position and Id
-//                miChatDirection = System.Convert.ToByte(miChatDirection != 0);              // the Player is on left side
-//            else
-//                miChatDirection = System.Convert.ToByte(miChatDirection == 0);              // else the Player is on right 
-
-
-//            ComicCoord = new Rect(.5f * miChatDirection, 0, (miChatDirection > 0 ? -.5f : .5f), .25f);
-
-
-//          if (!Managers.Game.IsPaused)
-//            if (mpCurrentConversationNode != null )
-//            {
-//                switch (mpCurrentConversationNode.meType)
-//                {
-//                    case eConversationNodeType.eNormalTalk:									// Enum 0; Nodo activo de tipo eNormalTalk
-
-//                        mfMessageTime -= lfTimestep * .1f;	                					// Decrease the message time
-
-//                        if ((mfMessageTime <= 0.0f) || Input.GetButtonDown("Fire1") || Input.GetKeyDown("return"))
-//                            NextMessage(0);               								//Need to continue with the next message or node
-//                        break;
-
-//                    case eConversationNodeType.eChooseTalk:									// Enum 1; Nodo activo de tipo eChooseTalk
-
-//                        if (Input.GetKeyDown("up") && (muiChooseOption > 0))
-//                            muiChooseOption--;
-//                        if (Input.GetKeyDown("down") && (muiChooseOption < (mpCurrentConversationNode.mChildren.Count - 1)))
-//                            muiChooseOption++;
-//                        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump") || Input.GetKeyDown("return"))
-//                            NextMessage(muiChooseOption);
-//                        break;
-
-//                    default:																// Enum 2; Nodo activo de tipo eEndConversation
-//                        mpCurrentConversationNode = null;
-//                        break;
-//                }
-//            }
-//            else mbConversationState = false; // If we have a null mpCurrentConversationNode then it´s the end
-
-//            yield return 0;
-//        }
-	    
-//    }
         //////////////////////////////////////////////////////////////     
 
     public void Update() //: IEnumerator
     {
-        //    	if(Input.GetButton("Fire1") )Debug.Log( "\n PRESSING ENTER KEY ");  
+        if (CamTarget == null && Managers.Game.PlayerPrefab)
+            CamTarget = Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>() as CameraTargetAttributes; 
 
         if (IsInConversation())
         {

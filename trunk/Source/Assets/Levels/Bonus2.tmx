@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="16" height="7" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="Bonus" tilewidth="64" tileheight="64">
+  <image source="bonus.png" width="512" height="512"/>
+  <tile id="12">
+   <properties>
+    <property name="Collision" value=""/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="Collision" value=""/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="Collision" value=""/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="Collision" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <imagelayer name="Night" width="16" height="7" visible="0">
+  <image source="CampoDelCielo_fondo.png"/>
+  <properties>
+   <property name="depth" value="3"/>
+   <property name="offset" value="0, 0.27"/>
+   <property name="padding" value="0, 0.1"/>
+   <property name="size" value="original"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="Stars2" width="16" height="7" visible="0">
+  <image source="CampoDelCielo_stars2.png"/>
+  <properties>
+   <property name="depth" value="2"/>
+   <property name="scroll" value="auto"/>
+   <property name="speed" value="0, -0.01"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="Stars1" width="16" height="7" visible="0">
+  <image source="CampoDelCielo_stars1.png"/>
+  <properties>
+   <property name="depth" value="1"/>
+   <property name="scroll" value="auto"/>
+   <property name="speed" value="0, -0.05"/>
+  </properties>
+ </imagelayer>
+ <layer name="capa2" width="16" height="7">
+  <properties>
+   <property name="depth" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC43QRwpCURBFwd6A+s05gznn5bl0ayLiR/A11OTCmXQW8cxySlQjokaBIrbIfvtqy7YK775OgyathL5t69ClR58BQ0YJ/dg2YRqfmzFnkdAvbSvWbNiyY88hoT/aTpy5cOXGnUdCn//3v/+/APb7sMfAAQAA
+  </data>
+ </layer>
+ <layer name="capa1" width="16" height="7">
+  <properties>
+   <property name="depth" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC43L2QqBYRSG0X1K4TfPQxRlzOzwuzSXbh2QSPl3rdq99WQR9+xLhXpENChRxhbZbx9t1Vbj1Tdp0aaTo+/aevQZMGTEmEmO3hRTZvG+OYvn/68v2JasWLNhy45ijn5vO3DkxJkLV275+qRP+qRP+qRP+qRP3/0D0VQ51MABAAA=
+  </data>
+ </layer>
+ <imagelayer name="telefunken2" width="16" height="7" visible="0">
+  <image source="bonus.png"/>
+  <properties>
+   <property name="depth" value="0"/>
+   <property name="offset" value="0, 3.5"/>
+   <property name="padding" value="0, 0.05"/>
+   <property name="scale" value="2, 2"/>
+   <property name="scroll" value="auto"/>
+   <property name="speed" value="0.025"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="telefunken1" width="16" height="7" visible="0">
+  <image source="bonus.png"/>
+  <properties>
+   <property name="depth" value="-1"/>
+   <property name="offset" value="0, -3.1"/>
+   <property name="padding" value="0, 0.05"/>
+   <property name="scale" value="3, 3"/>
+   <property name="scroll" value="auto"/>
+   <property name="speed" value="0.05"/>
+  </properties>
+ </imagelayer>
+ <objectgroup name="Objetos" width="16" height="7">
+  <object type="Pombero" x="448" y="256" width="62" height="65"/>
+  <object type="CollisionBound" x="192" y="358" width="642" height="88"/>
+  <object type="CollisionBound" x="640" y="320" width="64" height="64"/>
+  <object type="CollisionBound" x="320" y="320" width="64" height="64"/>
+  <object type="CameraBound" x="256" y="64" width="512" height="320"/>
+  <object name="BonusDeal2" type="Secrets/BonusDeal1" x="479" y="34" width="62" height="61"/>
+ </objectgroup>
+</map>

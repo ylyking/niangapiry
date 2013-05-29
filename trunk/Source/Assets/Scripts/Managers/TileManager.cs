@@ -73,13 +73,6 @@ public class TileManager : MonoBehaviour {
             
             Managers.Register.currentLevelFile = filePath ;
 
-            if (Managers.Game.PlayerPrefab)
-            {
-                PlayerTransform = Managers.Game.PlayerPrefab.transform;
-                //PlayerTransform.gameObject.SetActive(true);
-            }
-
-
             GameObject map = new GameObject(fileName);										// inside the editor hierarchy.
             MapTransform = map.transform;													// take map transform cached
 
@@ -107,15 +100,11 @@ public class TileManager : MonoBehaviour {
                         break;
                     case "objectgroup":                                                     // TagName: Object Group Layer
                         StartCoroutine(BuildPrefabs(Layer));
-                        //BuildPrefabs(Layer) ;
                         break;
                 }
             }
 
-            //if ( ScrollLayers != null)
             SetupScroll();
-            //Managers.Register.currentLevelFile = filePath ;
-
         }
         else
         {
@@ -130,13 +119,9 @@ public class TileManager : MonoBehaviour {
                 if (MapProperty.Attributes["name"].Value.ToLower() == "music")
                     Managers.Audio.PlayMusic( (AudioClip)Resources.Load("Sound/" + MapProperty.Attributes["value"].Value, typeof(AudioClip)), 1, 1);
                  
-                if (MapProperty.Attributes["name"].Value.ToLower() == "camerafixedheight")
-                    Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>().FixedHeight = true;
-
-                if (MapProperty.Attributes["name"].Value.ToLower() == "cameraoffset")
-                    Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>().Offset = ReadVector( MapProperty.Attributes["value"].Value, 1);
+                //if (MapProperty.Attributes["name"].Value.ToLower() == "camerafixedheight")
+                //    Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>().FixedHeight = true;
             }
-
 
         Debug.Log("Tiled Level Build Finished: "+ fileName);
         return true;
@@ -144,7 +129,6 @@ public class TileManager : MonoBehaviour {
 
     public void Unload()
     {
-        //StopCoroutine("BuildPrefabs");
         StopAllCoroutines();
 
         if ( MapTransform == null ) 
@@ -153,9 +137,20 @@ public class TileManager : MonoBehaviour {
                 
         if ( PlayerTransform != null )
         {
-            //PlayerTransform.gameObject.SetActive(false);
+            if (Managers.Game.PlayerPrefab)
+                Destroy(Managers.Game.PlayerPrefab);
+
             PlayerTransform = null;
         }
+
+        TileSets.Clear();
+        LastUsedMat = 0;
+        ScrollBaseSpeed = 1;
+        TileOutputSize = new Vector3(1, 1, 0);			         
+        oldPos = Vector3.zero;
+        scrollValue = Vector3.zero;
+        CombineMesh = true;
+
         Managers.Display.cameraScroll.ResetBounds();
 
         if ( MapTransform != null )
@@ -172,15 +167,8 @@ public class TileManager : MonoBehaviour {
             }
         ScrollLayers = null;
 
-        //Managers.Register.StartPoint = Vector3.zero;
         Managers.Register.currentLevelFile = "" ;
-
-        TileSets.Clear();
-        LastUsedMat = 0;
-        ScrollBaseSpeed = 1;
-        TileOutputSize.z = 0;
-        oldPos = Vector3.zero;
-        scrollValue = Vector3.zero;
+  
     }
 
     void OnApplicationQuit() 	
@@ -414,7 +402,6 @@ public class TileManager : MonoBehaviour {
     //----------------------------------------------------------------------------------------//
 
     IEnumerator BuildPrefabs(XmlNode ObjectsGroup)
-    //void BuildPrefabs(XmlNode ObjectsGroup)
     {
         int height = int.Parse(ObjectsGroup.ParentNode.Attributes["height"].Value);
         int tilewidth = int.Parse(ObjectsGroup.ParentNode.Attributes["tilewidth"].Value);
@@ -433,13 +420,12 @@ public class TileManager : MonoBehaviour {
              if ( ObjInfo.Attributes["type"] != null)
                  ObjName = ObjInfo.Attributes["type"].Value.ToLower();                      // Check type match
             else if ( ObjInfo.Attributes["name"] != null )
-                 ObjName = ObjInfo.Attributes["name"].Value.ToLower();                      // else take it's name
+                 ObjName = ObjInfo.Attributes["name"].Value.ToLower();                      // else take it's name as type
             else 
                 continue;                                                                   // else discard object
 
             if ( Resources.Load( "Prefabs/" + ObjName, typeof(GameObject) ) )                
             {
-
                 GameObject ObjPrefab =(GameObject)Instantiate( Resources.Load( "Prefabs/" + ObjName , typeof(GameObject)));
 
                 Transform ObjTransform = ObjPrefab.transform;
@@ -464,65 +450,104 @@ public class TileManager : MonoBehaviour {
 
 #region OBJS PROPS
 
-                if ( ObjName.ToLower() == "door" || ObjName.ToLower() == "warp" || ObjName.ToLower() == "start" )                
+                switch (ObjName.ToLower())
                 {
-                    Portal portal = (Portal)ObjPrefab.GetComponent<Portal>();
-                    portal.SetType( (Portal.type)Enum.Parse( typeof(Portal.type), ObjName));
-
-                    if ( ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0) != null )
-                        portal.SetTarget( ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0).Attributes["value"].Value);
-                    
-                    portal.SetId( ( ObjInfo.Attributes["name"] != null ? ObjInfo.Attributes["name"].Value : ObjName ) );
-
-                    if ( portal.Id == "start" )
-                    {
-                        Debug.Log("setting up position in TileManager");
-                        Managers.Register.SetPlayerPos();
-                    }
-
-                }
-
-
-                if ( ObjName.ToLower() == "flyplatforma" )                
-                {
-                    PlatformMove platform = (PlatformMove)ObjPrefab.GetComponent<PlatformMove>();
-                    
-                    foreach (XmlNode ObjProp in ((XmlElement)ObjInfo).GetElementsByTagName("property") )
-                    {
-                        if (ObjProp.Attributes["name"].Value.ToLower() == "target" )
+                    case "pombero":
                         {
-                            var target = ReadVector(ObjProp.Attributes["value"].Value, 0);
-                            platform.EndPosition = target;
+                            Managers.Game.PlayerPrefab = ObjPrefab;
+                            Managers.Display.cameraScroll.SetTarget( Managers.Game.PlayerPrefab.transform, false );
+                            PlayerTransform = Managers.Game.PlayerPrefab.transform;
+                            //Debug.Log("setting up position in TileManager");
+                            Managers.Register.SetPlayerPos();
+
+                            foreach (XmlNode ObjProp in ((XmlElement)ObjInfo).GetElementsByTagName("property") )
+                            {
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "zoom" )
+                                    ((CameraTargetAttributes)ObjPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 
+                                           float.Parse(ObjProp.Attributes["value"].Value.ToLower());
+
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "offset" )
+                                    ((CameraTargetAttributes)ObjPrefab.GetComponent<CameraTargetAttributes>()).Offset = 
+                                           ReadVector( ObjProp.Attributes["value"].Value.ToLower(), 0);
+                            }
                         }
-                        if (ObjProp.Attributes["name"].Value.ToLower() == "speed" )
-                            platform.Speed = float.Parse( ObjProp.Attributes["value"].Value );
+                        break;
+                    case "door":
+                        goto case "warp";
+                    case "warp":
+                        {
+                            Portal portal = (Portal)ObjPrefab.GetComponent<Portal>();
+                            portal.SetType( (Portal.type)Enum.Parse( typeof(Portal.type), ObjName));
 
-                    }
-                        Debug.Log("Deploying Flying platform");
+                            if ( ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0) != null )
+                                portal.SetTarget( ((XmlElement)ObjInfo).GetElementsByTagName("property").Item(0).Attributes["value"].Value);
+                            
+                            portal.SetId( ( ObjInfo.Attributes["name"] != null ? ObjInfo.Attributes["name"].Value : ObjName ) );
+                        }
+                        break;
+
+                    case "flyPlatform2":
+                        goto case "flyPlatform";
+                    case "flyPlatform3":
+                        goto case "flyPlatform";
+                    case "flyPlatform":
+                        {
+                        PlatformMove platform = (PlatformMove)ObjPrefab.GetComponent<PlatformMove>();
                     
+                            foreach (XmlNode ObjProp in ((XmlElement)ObjInfo).GetElementsByTagName("property") )
+                            {
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "target" )
+                                {
+                                    var target = ReadVector(ObjProp.Attributes["value"].Value, 0);
+                                    platform.EndPosition = target;
+                                }
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "speed" )
+                                    platform.Speed = float.Parse( ObjProp.Attributes["value"].Value );
+                            }
+                        }
+                        break;
+
+                    case "chat":
+                        {
+                            Conversation chat = (Conversation)ObjPrefab.GetComponent<Conversation>();
+                            
+                            foreach (XmlNode ObjProp in ((XmlElement)ObjInfo).GetElementsByTagName("property") )
+                            {
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "file" )
+                                   chat.ConversationFile = (TextAsset)Resources.Load( ObjProp.Attributes["value"].Value, typeof(TextAsset));
+                               
+                                if ( ObjProp.Attributes["name"].Value.ToLower() == "oneshotid" ) 
+                                {
+                                    chat.OneShot = true;
+                                    chat.oneShotId = ObjProp.Attributes["value"].Value;
+                                    chat.NameId = chat.oneShotId ;
+                                }
+
+                                if ( ObjProp.Attributes["name"].Value.ToLower() == "nameid" ) 
+                                    chat.NameId = ObjProp.Attributes["value"].Value;
+
+                                //Managers.Dialog.Init(chat.ConversationFile);
+                            }
+                                Debug.Log("Deploying Conversation");
+                        }
+                        break;
+
+                    case "camerabound":
+                        {
+                            foreach (XmlNode ObjProp in ((XmlElement)ObjInfo).GetElementsByTagName("property") )
+                            {
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "zoom" )
+                                       ((CameraBounds)ObjPrefab.GetComponent<CameraBounds>()).ZoomFactor = 
+                                           float.Parse(ObjProp.Attributes["value"].Value.ToLower());
+
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "offset" )
+                                    ((CameraBounds)ObjPrefab.GetComponent<CameraBounds>()).Offset = 
+                                           ReadVector( ObjProp.Attributes["value"].Value.ToLower(), 0);
+                            }
+                        }
+                        break;
                 }
 
-                if ( ObjName.ToLower() == "chat" )   //  == "clavel" )             
-                {
-                    Conversation chat = (Conversation)ObjPrefab.GetComponent<Conversation>();
-                    
-                    foreach (XmlNode ObjProp in ((XmlElement)ObjInfo).GetElementsByTagName("property") )
-                    {
-                        if ( ObjProp.Attributes["name"].Value.ToLower() == "nameid" ) 
-                            chat.NameId = ObjProp.Attributes["value"].Value;
-
-                        if (ObjProp.Attributes["name"].Value.ToLower() == "file" )
-                           chat.ConversationFile = (TextAsset)Resources.Load( ObjProp.Attributes["value"].Value, typeof(TextAsset));
-                       
-                        if (ObjProp.Attributes["name"].Value.ToLower() == "oneshot" ) 
-                            chat.OneShot = true;
-
-                        if ( ObjProp.Attributes["name"].Value.ToLower() == "oneshotid" ) 
-                            chat.oneShotId = ObjProp.Attributes["value"].Value;
-
-                    }
-                        Debug.Log("Deploying Conversation");
-                }
 #endregion
 
             }
@@ -591,7 +616,7 @@ public class TileManager : MonoBehaviour {
                              scroll.pixelPerfect = !(scroll.tileX = scroll.streched = false);   // Set pixelperfect tiling Y
                          else if (LayerProp.Attributes["value"].Value.ToLower() == "norepeat")
                              scroll.pixelPerfect = !(scroll.tileX = scroll.tileY = scroll.streched = false);//Set without tile
-                        break;
+                         break;
 
                     case "speed":
                         scroll.speed = ReadVector(LayerProp.Attributes["value"].Value, 0);
@@ -610,6 +635,10 @@ public class TileManager : MonoBehaviour {
 
                     case "padding":
                         scroll.padding = ReadVector(LayerProp.Attributes["value"].Value);
+                        //Debug.Log("padding: " + scroll.padding);
+                        break;
+                    case "heightrange":
+                        scroll.range = ReadVector(LayerProp.Attributes["value"].Value);
                         //Debug.Log("padding: " + scroll.padding);
                         break;
                 }
@@ -649,8 +678,11 @@ public class TileManager : MonoBehaviour {
 
         ///////////////////////////////////////////////////////////////////////
 
+        //if ( HackSize )
+
         yield return 0;
     }
+
 
     void SetupScroll()
     {
@@ -663,7 +695,7 @@ public class TileManager : MonoBehaviour {
 
         foreach (ScrollLayer scroll in scrollList)
         {
-            scroll.SetWeight(Vector3.Distance(Camera.main.transform.position, scroll.transform.position));
+            scroll.SetWeight(Vector3.Distance( Managers.Display.camTransform.position, scroll.transform.position));
         }
     #if UNITY_FLASH
             scrollList.sort(ScrollLayer.Comparision);
@@ -691,12 +723,20 @@ public class TileManager : MonoBehaviour {
 
         UpdateScroll();
         if ( PlayerTransform )
+        {
             scrollValue = PlayerTransform.position - oldPos;
+            oldPos = PlayerTransform.position;
+        }
 
         foreach (ScrollLayer scrollLayer in ScrollLayers)
         {
             if (!scrollLayer)
                 continue;
+
+            if (PlayerTransform)
+                scrollLayer.gameObject.SetActive( ( scrollLayer.range.y > PlayerTransform.position.y &&
+                    scrollLayer.range.x < PlayerTransform.position.y ) );
+
 
             if (scrollLayer.GetMaterial())
             {
@@ -719,8 +759,8 @@ public class TileManager : MonoBehaviour {
                 }
             }
         }
-        if ( PlayerTransform )
-            oldPos = PlayerTransform.position;
+        //if ( PlayerTransform )
+        //    oldPos = PlayerTransform.position;
     }
 
     private Vector2 ReadVector(string input, float AxisY = 1) // AxisY sets value for both axis in case of found only 1 value                                                     

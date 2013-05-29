@@ -59,25 +59,14 @@ void  Start (){
     	rigidbody.freezeRotation = true;
     	rigidbody.useGravity = false;
     }
-    
-	if (!target && Managers.Game.PlayerPrefab)
-        target = Managers.Game.PlayerPrefab.transform;
-    //if (!target) 
-    //    target =  GameObject.Find("Pombero").transform;			//	We can Use this system to get the player's Id & position
-	
+ 	
 	if (!aimCompass)
 		aimCompass = thisTransform.FindChild("AimCompass");
 	
-	if ( target) 
-	{
-			linkToPlayerControls = target.GetComponent< PlayerControls >() as PlayerControls;
-//			if (! linkToPlayerControls  ) print("big fucking error!");
-	}else print(" Beware target empty: player link not found!");
-			
+		
 	animPlay = GetComponent<AnimSprite>();
 	
-    //while( true)
-    //    yield return new CoUpdate();
+ 
     StartCoroutine(CoUpdate());
 }
 
@@ -94,6 +83,15 @@ IEnumerator CoUpdate()	                                                        /
 {
     while (thisTransform )
     {
+        if (!target)
+            if (Managers.Game.PlayerPrefab)
+            {
+                target = Managers.Game.PlayerPrefab.transform;
+                linkToPlayerControls = (PlayerControls)target.GetComponent<PlayerControls>();
+            }
+            else
+                yield return 0;
+
         if (target)
         if ( thisTransform.IsChildOf(target)) 									// check if the player has taken us... 
         {
@@ -317,7 +315,7 @@ IEnumerator OnTriggerEnter(  Collider other  )											// other.transform.posi
 	}
 	else if ( other.CompareTag("p_shot") )
 	{
-		Managers.Game.Score += 100;
+        Managers.Register.Score += 100;
 		BeatDown();
 	}
 	else if ( gameObject.CompareTag("p_shot") && !other.CompareTag("Item") )
@@ -329,7 +327,7 @@ IEnumerator OnTriggerEnter(  Collider other  )											// other.transform.posi
 
 void  BeatDown ()
 {
-	Managers.Game.Score += 100;
+    Managers.Register.Score += 100;
     Managers.Audio.Play(soundCrash, thisTransform, 6.0f, 1.0f);
 	gameObject.tag = "pickup";
 	velocity.x *= -.25f;
@@ -338,6 +336,14 @@ void  BeatDown ()
 	enemyState = ShooterState.Dead;
 	Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
 	
+}
+
+public void Paralize()
+{
+    Debug.Log("Oh my GOD, el pombero está silvando");
+    velocity = Vector3.zero;
+    enemyState = ShooterState.Dead;
+    //StartCoroutine(Freeze());
 }
 
 }

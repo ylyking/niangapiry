@@ -34,6 +34,7 @@ public class ScrollLayer : MonoBehaviour
     public Vector2 scale        = Vector2.one;
     public Vector2 offset       = Vector2.zero;
     public Vector2 padding      = Vector2.zero;
+    public Vector2 range        = new Vector2(-500, 500);
 
     //----------------------------------------------------------------------------------------//
 

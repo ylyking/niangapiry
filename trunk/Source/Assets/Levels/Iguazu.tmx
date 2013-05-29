@@ -152,6 +152,5 @@
    </properties>
   </object>
   <object name="checkpoint" type="Warp" x="1152" y="2624" width="64" height="64"/>
-  <object name="Bosses/AoAoBig" x="384" y="2112" width="64" height="64"/>
  </objectgroup>
 </map>

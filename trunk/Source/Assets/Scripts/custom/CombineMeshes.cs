@@ -49,8 +49,8 @@ void  Start (){
     
     if ( FixOptimized ) GetComponent<MeshFilter>().mesh.Optimize();
     
-    renderer.material = meshFilters[1].renderer.sharedMaterial;
-
+    renderer.material = meshFilters[1].renderer.sharedMaterial;     // Si en algún momento Unity te manda por aqui 
+                                                                //es xq Tienes alguna capa de Tiles VACIA  en Tiled 
 }
 
 void  OnApplicationQuit (){
