@@ -30,7 +30,7 @@ public class ScrollLayer : MonoBehaviour
     private float ySize         = 10;
     public float weight         = 0;
 
-    public Vector2 speed        = Vector2.zero;
+    public Vector2 speed        = new Vector2(1000, 0);
     public Vector2 scale        = Vector2.one;
     public Vector2 offset       = Vector2.zero;
     public Vector2 padding      = Vector2.zero;
@@ -51,8 +51,13 @@ public class ScrollLayer : MonoBehaviour
     {
         this.weight = weight;
 		
-        if ( speed == Vector2.zero )
+        if ( speed.x == 1000 )
           this.speed = new Vector2(1f / (weight + 0.00001f), speed.y);
+        //else
+        //  this.speed = speed;
+
+        //if ( speed == Vector2.zero )
+        //  this.speed = new Vector2(1f / (weight + 0.00001f), speed.y);
         //else
         //  this.speed = speed;
     }

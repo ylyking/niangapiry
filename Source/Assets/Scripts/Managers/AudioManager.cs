@@ -5,7 +5,29 @@ using System.Collections;
 public class AudioManager : MonoBehaviour
 {
     public bool SoundEnable = true;
-    public bool MusicEnable = true;
+    
+    public bool _MusicEnable = true;
+    public bool MusicEnable
+    {
+        get
+        {
+            return _MusicEnable;
+        }
+
+        set
+        {
+            if (value != _MusicEnable)
+            {
+                _MusicEnable = value;
+
+                if (_MusicEnable)
+                    Managers.Audio.ResumeMusic();
+                else
+                    Managers.Audio.PauseMusic();
+            }
+        }
+    }
+
 	public AudioSource Music = null;
 	
 	void Awake()

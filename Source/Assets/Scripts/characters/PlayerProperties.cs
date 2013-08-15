@@ -46,7 +46,8 @@ public  AudioClip soundPowerUp;
 public  AudioClip soundPowerUp2;
 public  AudioClip soundFruits;
 public  AudioClip soundExplosion;
-public  AudioClip soundFlaming;
+public AudioClip soundFlaming;
+public AudioClip soundWhistle;
 //public  AudioClip SoundTrack;
 public  AudioClip SoundDelirium;
 
@@ -61,7 +62,9 @@ public float DownSideLimit	= 0f;						// How strong the throw is.
 [HideInInspector] public Transform _pickedObject;					    // is HoldingObj ? 
 private Transform thisTransform;					    // own player tranform cached
 public GameObject ParticleStars ;
-public GameObject ParticleFlame ;
+public GameObject ParticleFlame;
+public GameObject RightWhistle;
+public GameObject LeftWhistle;
 
 
 void  Start (){
@@ -73,6 +76,8 @@ void  Start (){
 	animPlay 	    = GetComponent<AnimSprite>();
 	dead = false;
 		
+    if (Managers.Register.Inventory == DataManager.Items.Hat)
+        renderer.material.SetFloat("_KeyY", 0.05f);
 
     Managers.Display.ShowFlash(1.0f);
 
@@ -114,6 +119,7 @@ void  UpdatePlayerState (){
                     renderer.material.color = Color.white;
                     playerControls.enabled = false;
                     changeState = false;
+                    animPlay.PlayFrames(4, 3, 1, playerControls.orientation);
                     StartCoroutine(Sleeping());
                 }
 
@@ -141,8 +147,8 @@ void  UpdatePlayerState (){
                     if (changeState) { changeState = false; StartCoroutine(Flickering()); }
 
 
-                if ((playerState & PlayerState.Invisible) == PlayerState.Invisible)
-                    if (changeState) { changeState = false; StartCoroutine(Invisible()); }
+                //if ((playerState & PlayerState.Invisible) == PlayerState.Invisible)
+                //    if (changeState) { changeState = false; StartCoroutine(Invisible()); }
 
                 if (Input.GetButton("Fire1") && !HoldingKey) StartCoroutine(PlayerThrows());
                 else
@@ -150,6 +156,9 @@ void  UpdatePlayerState (){
                 break;
             }
 	}
+
+    if ((playerState & PlayerState.Flickering) != PlayerState.Flickering || Managers.Register.Health == 0)
+        renderer.enabled = true;
 	
 }
 
@@ -162,13 +171,13 @@ void  OnTriggerEnter (  Collider other   ){
 	{																			// if collide with one side box...
         if ( !inmune)
 		{
-			 hitLeft =( thisTransform.position.x  < other.transform.position.x );	// check left toggle true  
-			 
-			 hitRight =( thisTransform.position.x  > other.transform.position.x );	// check right toggle true  
-			 
+            hitLeft = (thisTransform.position.x < other.transform.position.x);	// check left toggle true  
+
+            hitRight = (thisTransform.position.x > other.transform.position.x);	// check right toggle true  
+
 			 Managers.Audio.Play( soundHurt, thisTransform);
 		}
-		if ( BurnOut )
+		if ( BurnOut && other.gameObject.layer != 8)
 		{
 			Managers.Audio.Play( soundFlaming, thisTransform);
 		    Destroy( Instantiate ( ParticleFlame, thisTransform.position, thisTransform.rotation), 5);
@@ -184,7 +193,7 @@ void  OnTriggerEnter (  Collider other   ){
 		
 		Destroy( other.gameObject );
         Managers.Register.Fruits++;
-        Managers.Register.Score += 50;
+        Managers.Register.Score += 50 + Random.Range(1, 99) ;
         Managers.Audio.Play(soundFruits, thisTransform);
 	}
 
@@ -196,7 +205,7 @@ void  OnTriggerEnter (  Collider other   ){
 		
 		Destroy( other.gameObject );
 		renderer.material.SetFloat("_KeyY", 0.05f);
-		Managers.Register.Inventory |= DataManager.Items.Hat ;
+		Managers.Register.Inventory = DataManager.Items.Hat ;
 	}
 
     if (other.name.ToLower() == "whistle")//other.CompareTag( "p_shot") && !HatShoot   )
@@ -206,7 +215,8 @@ void  OnTriggerEnter (  Collider other   ){
 
 
         Destroy(other.gameObject);
-        Managers.Register.Inventory |= DataManager.Items.Whistler;
+        renderer.material.SetFloat("_KeyY", 0.25f);
+        Managers.Register.Inventory = DataManager.Items.Whistler;
     }
 
     if (other.name.ToLower() == "ca" + (char)0x00F1 + "a")// Should say 'Caña' //other.CompareTag( "p_shot") && !HatShoot   )
@@ -217,13 +227,81 @@ void  OnTriggerEnter (  Collider other   ){
         Managers.Register.FireGauge = Mathf.Clamp(Managers.Register.FireGauge, 0, 3);
 		
 		Destroy( other.gameObject );
-		Managers.Register.Inventory |= DataManager.Items.Fire ;
+        renderer.material.SetFloat("_KeyY", 0.25f);
+		Managers.Register.Inventory = DataManager.Items.Fire ;
 	}
 
+    if (other.name.ToLower() == "fruitpack")//other.CompareTag( "p_shot") && !HatShoot   )
+    {
+        Managers.Display.ShowStatus();
+        if (ParticleStars)
+            Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+
+        Destroy(other.gameObject);
+        Managers.Register.Fruits += 32;
+        Managers.Register.Score += 50 + Random.Range(1, 99);
+        Managers.Audio.Play(soundFruits, thisTransform);
+        Managers.Audio.Play(soundFruits, thisTransform);
+        Managers.Audio.Play(soundFruits, thisTransform);
+        Managers.Audio.Play(soundFruits, thisTransform);
+        Managers.Audio.Play(soundFruits, thisTransform);
+    }
+
+    if (other.name.ToLower() == "extralife")//other.CompareTag( "p_shot") && !HatShoot   )
+    {
+        Managers.Display.ShowStatus();
+        if (ParticleStars)
+            Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+
+        Destroy(other.gameObject);
+        Managers.Register.Lifes += 1;
+        Managers.Register.Score += 50 + Random.Range(1, 99);
+        Managers.Audio.Play(soundPowerUp, thisTransform);
+    }
 	
 	if ( other.CompareTag( "killbox") )	
 		StartCoroutine( InstaKill(true , 1) );
 
+    if (other.name.ToLower() == "treasure1")//other.CompareTag( "p_shot") && !HatShoot   )
+    {
+        Managers.Register.Treasure1 = true;
+        Managers.Display.ShowStatus();
+        if (ParticleStars)
+            Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+
+        Destroy(other.gameObject);
+        Managers.Audio.Play(soundPowerUp2, thisTransform);
+    }
+    if (other.name.ToLower() == "treasure2")//other.CompareTag( "p_shot") && !HatShoot   )
+    {
+        Managers.Register.Treasure2 = true;
+        Managers.Display.ShowStatus();
+        if (ParticleStars)
+            Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+
+        Destroy(other.gameObject);
+        Managers.Audio.Play(soundPowerUp2, thisTransform);
+    }
+    if (other.name.ToLower() == "treasure4")//other.CompareTag( "p_shot") && !HatShoot   )
+    {
+        Managers.Register.Treasure4 = true;
+        Managers.Display.ShowStatus();
+        if (ParticleStars)
+            Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+
+        Destroy(other.gameObject);
+        Managers.Audio.Play(soundPowerUp2, thisTransform);
+    }
+    if (other.name.ToLower() == "treasure5")//other.CompareTag( "p_shot") && !HatShoot   )
+    {
+        Managers.Register.Treasure5 = true;
+        Managers.Display.ShowStatus();
+        if (ParticleStars)
+            Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+
+        Destroy(other.gameObject);
+        Managers.Audio.Play(soundPowerUp2, thisTransform);
+    }
 
 }
 
@@ -231,6 +309,17 @@ void OnTriggerStay(  Collider hit  )  					// void  OnControllerColliderHit ( Co
 {
     if ( hit.CompareTag( "Platform" ) )
 		thisTransform.parent = hit.transform;
+
+    if (hit.CompareTag("Enemy"))
+        if (!inmune)
+        {
+            if (playerControls.orientation == 1)
+                hitRight = true;
+            else
+                hitLeft = true;	// check left toggle true  
+
+            Managers.Audio.Play(soundHurt, thisTransform);
+        }
 		
  	if ( HoldingKey &&  hit.CompareTag( "pickup") )// ||  hit.CompareTag( "p_shot") )
 // 	if ( Input.GetButtonDown( "Fire1") && hit.CompareTag( "pickup") ||  hit.CompareTag( "p_shot") )
@@ -267,9 +356,9 @@ void OnTriggerExit(  Collider hit  )  					// void  OnControllerColliderHit ( Co
 }
 
 
-void  OnControllerColliderHit ( ControllerColliderHit hit  )
+void OnControllerColliderHit(ControllerColliderHit hit)
 {
-    if (HoldingKey && hit.transform.tag == "pickup" )// ||  hit.CompareTag( "p_shot") )
+    if (HoldingKey && hit.transform.tag != "Enemy" && hit.transform.tag == "pickup")// ||  hit.CompareTag( "p_shot") )
 
         if ((int)playerState < 8 && !_pickedObject)
         {
@@ -288,9 +377,29 @@ void  OnControllerColliderHit ( ControllerColliderHit hit  )
 
             _pickedObject.parent = thisTransform;
         }
+
+     if(hit.gameObject.layer == 12) 
+     {
+        Rigidbody body = hit.collider.attachedRigidbody;
+        // no rigidbody
+        if (body == null || body.isKinematic)
+           return;
+     
+        // We dont want to push objects below us
+        if (hit.moveDirection.y < -0.3) 
+           return;
+     
+        // Calculate push direction from move direction, we only push objects to the sides
+        // never up and down
+        Vector3 pushDir = Vector3.right * hit.moveDirection.x;
+        //body.AddForce(pushDir * .1f, ForceMode.Impulse);
+
+        body.velocity = pushDir ;
+    }
 }
 
-IEnumerator  HitDead (){
+IEnumerator  HitDead ()
+{
 	if ( thisTransform.position.y < DownSideLimit  ) 
 		{ 
             //InstaKill( true, 1); 
@@ -298,17 +407,21 @@ IEnumerator  HitDead (){
 			yield break;
 		}
 
+    if ((playerState & PlayerState.Flickering) == PlayerState.Flickering)
+        yield break;
+
 	if ((hitRight || hitLeft ))												// If we were hitten get pushdirection 
 	{
 		int pushDirection= System.Convert.ToByte(hitLeft) - System.Convert.ToByte(hitRight) ; // hitLeft == 1, hitRight == -1
 		hitLeft = false;
 		hitRight = false;
+        AddPlayerState(PlayerState.Flickering);
 
 		int orientation= playerControls.orientation;							
 		Managers.Display.ShowStatus();
         Managers.Register.Health--;
 		Managers.Audio.Play( soundHurt, thisTransform);
-
+        renderer.enabled = true;
 
         if (Managers.Register.Health > 0)										// If health still available do damage and continue 
 		{
@@ -319,7 +432,9 @@ IEnumerator  HitDead (){
 				animPlay.PlayFrames( 2, 3, 1, orientation); 
     	 		yield return 0;
 		 	}
-			AddPlayerState( PlayerState.Flickering );
+            //StopCoroutine("Flickering");
+            renderer.enabled = true;
+            //AddPlayerState( PlayerState.Flickering );
 		}
 		else																// else lose a Life and start dying mode
 			StartCoroutine( InstaKill( false, pushDirection ));
@@ -330,7 +445,6 @@ IEnumerator  InstaKill (  bool ReSpawn , int pushDirection ){
 	if ( dead ) yield break;
 
 		ReSpawn = ( ReSpawn || ( thisTransform.position.y <= DownSideLimit  ));	// Little Re-Check for falling bugs
-	
 		dead = true;
  
 		Managers.Display.ShowStatus();
@@ -385,9 +499,10 @@ IEnumerator  InstaKill (  bool ReSpawn , int pushDirection ){
         }				
 		else
 		{ 	
-			yield return new WaitForSeconds(5.0f);
-            Managers.Game.GameOver();								// else GameOver
+            //yield return new WaitForSeconds(5.0f);
+            //Managers.Game.GameOver();								// else GameOver
 			yield return new WaitForSeconds(1.0f);
+            Managers.Game.PushState(typeof(GameOverState));
 		}
 		
 		if ( Managers.Game.IsPlaying )	
@@ -402,6 +517,9 @@ IEnumerator  InstaKill (  bool ReSpawn , int pushDirection ){
 
 
 void  UseInventory (){
+    if (Managers.Game.IsPaused)
+        return;
+
 	switch ( Managers.Register.Inventory )
 	{
 		case DataManager.Items.Empty: 
@@ -455,7 +573,10 @@ void  UseInventory (){
 
 
 
-IEnumerator Sleeping (){
+IEnumerator Sleeping ()
+{
+    animPlay.PlayFrames(4, 3, 1, playerControls.orientation);
+
 	while ( !charController.isGrounded )
 	{
 		charController.Move( new Vector3( 0, -1.0f, 0 ) * Time.deltaTime );
@@ -510,12 +631,14 @@ IEnumerator Invisible (){
 
 }
 
-IEnumerator Burning (){
+IEnumerator Burning ()
+{
+    renderer.enabled = true;
 	renderer.material.color = Color.white;
 
 
     //GameObject clone = (GameObject)Instantiate(Sunrise, thisTransform.position, thisTransform.rotation);
-    //clone.GetComponent<BulletShot>().Fire( Vector3.one, 32); 	// shot with a short animation
+    //clone.GetComponent<BulletShot>().Fire(Vector3.one, 32); 	// shot with a short animation
 
 
 //	if ( SoundDelirium )
@@ -531,9 +654,9 @@ IEnumerator Burning (){
             renderer.material.SetFloat("_KeyY", 0.9f);
         else
             renderer.material.SetFloat("_KeyY", 0.7f);
-         //renderer.material.SetFloat("_KeyY",  Mathf.PingPong(Time.time, 0.2f) + 0.7f );   
+         //renderer.material.SetFloat("_KeyY",  Mathf.PingPong(TimeLapse.time, 0.2f) + 0.7f );   
 
-        //clone.transform.position = thisTransform.position + Vector3.forward ;
+        //clone.transform.position = thisTransform.position + Vector3.forward;
 
         if (playerState == PlayerState.Asleep)
         {
@@ -627,7 +750,7 @@ IEnumerator ThrowFire()
     playerControls.velocity.y *= 0.5f;
 
     // Add speed to the target
-    clone.GetComponent<BulletShot>().FireAnimated(new Vector3(orientation * 4, 0, 0), 2, 0, 6);  // shot with a short animation
+    clone.GetComponent<BulletShot>().FireBall(new Vector3(orientation * 3.5f, 0, 0), 2, 0, 6);  // shot with a short animation
 
     float timertrigger = Time.time + 0.75f;
     while (timertrigger > Time.time)
@@ -643,26 +766,50 @@ IEnumerator ThrowFire()
 
 IEnumerator ThrowFiuu()
 {
+    //thisTransform.SendMessage("Paralize", SendMessageOptions.DontRequireReceiver);
+    Managers.Tiled.MapTransform.BroadcastMessage("Paralize", SendMessageOptions.DontRequireReceiver);
+
+    for (int i = 0; i != thisTransform.GetChildCount(); i++)
+    {
+        thisTransform.GetChild(i).SendMessage("Paralize", SendMessageOptions.DontRequireReceiver);
+    }
+
     int orientation = playerControls.orientation;  	 							// Instantiate the projectile
-    //	Managers.Audio.Play( soundFlaming, thisTransform);
-    Managers.Tiled.MapTransform.BroadcastMessage("Paralize");
+    Managers.Audio.Play(soundWhistle, thisTransform);
 
+    if (orientation > 0)
+    {
+        GameObject clone = (GameObject)Instantiate(RightWhistle,
+                                              thisTransform.position + new Vector3(-1, 0, 0), thisTransform.rotation);
+        clone.name = "FIU!";
+        clone.GetComponent<FIU>().orientation = 1;
+    }
+    
+    if (orientation < 0)
+    {
+        GameObject clone = (GameObject)Instantiate(LeftWhistle,
+                                          thisTransform.position + new Vector3(+1, 0, 0), thisTransform.rotation);
+        clone.GetComponent<FIU>().orientation = -1;
+    }
 
-    playerControls.velocity.y *= 0.5f;
+    playerControls.enabled = false;
+    //playerControls.velocity.y *= 0.5f;
 
-    float timertrigger = Time.time + 0.75f;
+    float timertrigger = Time.time + 2;
     while (timertrigger > Time.time)
     {
+
         playerControls.orientation = orientation;
         animPlay.PlayFrames(3, 6, 2, orientation);
         yield return 0;
     }
+    playerControls.enabled = true;
 
 }
 
 
 
-IEnumerator PlayerThrows()												// Object Throwing without physics engine
+public IEnumerator PlayerThrows()												// Object Throwing without physics engine
 {
     if ( _pickedObject )
     {    	
@@ -707,12 +854,14 @@ IEnumerator PlayerThrows()												// Object Throwing without physics engine
 
 
 
-void  SetPlayerState (  PlayerState newState   ){
+public void SetPlayerState(PlayerState newState)
+{
 	playerState = newState;									// change to a new playerState & delete all previous 
 	changeState = true;
 }
 
-void  AddPlayerState (  PlayerState newState   ){
+public void AddPlayerState(PlayerState newState)
+{
 	playerState |= newState;								// add a new playerState & keep all previous 
 	changeState = true;
 }

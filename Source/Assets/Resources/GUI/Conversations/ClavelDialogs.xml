@@ -7,28 +7,154 @@
 
 
   <Conversation nameId = "Hola" >
-    <Talk speakerId = "0" time = "5.0" >Eh Pumbe, Hola Ñeri! ¿como estás? <br />
+    <Talk speakerId = "0" time = "5.0" >Eh! Hola Ñeri! ¿Que andás haciendo? <br />
     </Talk>
-    <Talk speakerId = "1" time = "5.0" >Hola, y la verdad que cero la caracha, jaja<br /> 
+    <Talk speakerId = "1" time = "5.0" >Hola, Tuve un sueño extraño durante la siesta, habían muchos Ñangapirys..  </Talk>
+	<Talk speakerId = "1" time = "5.0" >y me puse a contarlos mientras comía, en total eran ochenta y seis, re-loco </Talk>
+    <Talk speakerId = "0" time = "5.0" >bravo, te felicito pero vení fijate esto, Hay unos dibujitos raros en los arboles.. <br />¿no sabés que significan?
     </Talk>
-    <Talk speakerId = "0" time = "5.0" >Bueno, vení fijate esto, Hay unos dibujitos raros en los arboles.. ¿no sabés que significan?<br />
-    </Talk>
-    <Talk speakerId = "1" time = "5.0" >Mmmh, que simbolo más raro.. <br /> ¿Quien estuvo rayando esto?
-    </Talk>
-    <Talk speakerId = "0" time = "5.0" >ni remota idea, pero tienen mala pinta para mí <br />
-    </Talk>
-    <Talk speakerId = "1" time = "5.0" >Sin duda, ¿y no viste nada? ni Cuando, ni Como lo hicieron ? <br /> 
-    </Talk>
-    <Talk speakerId = "0" time = "5.0" >Es que fué muy rapido, apenas vi una sombra, pero se fué hacía el sur <br />
-    </Talk>
-    <Talk speakerId = "1" time = "5.0" >Ok, Voy hacia alla para Investigar entonces<br /> ¿Por donde empiezo?
-    </Talk>
-    <Talk speakerId = "0" time = "5.0" >Y podrías comenzar por el Monte, así te evitas a los Hombres que viven en Pampero<br />
-    </Talk>
-    <Talk speakerId = "1" time = "5.0" >Uff, esos Sucios y Asquerosos Hombres ! 
-    </Talk>
-    <Talk speakerId = "0" time = "5.0" > Ja ja
-    </Talk>
+    <Talk speakerId = "1" time = "5.0" >Mmmh, que simbolo más raro.. <br />¿Quien estuvo rayando esto? </Talk>
+    <Talk speakerId = "0" time = "5.0" >ni remota idea, pero tienen mala pinta para mí </Talk>
+    <Talk speakerId = "1" time = "5.0" >Sin duda, ¿y no viste nada? ni Cuando, ni Como lo hicieron ?  </Talk>
+    <Talk speakerId = "0" time = "5.0" >No, Aparecieron de Golpe, pero los arboles rumorean que el culpable se fué hacia el sur..  </Talk>
+	<Talk speakerId = "1" time = "5.0" >Bien, Fenomeno, andá a mirar y después contame que pasa, <br />me voy a dormír un ratito más... </Talk>
+    <Talk speakerId = "0" time = "5.0" >Pero Pumbe eso me resulta imposible, el Monte es tu especialidad <br /> creo que esto es una tarea perfecta para vos! </Talk>
+	
+	<ChooseTalk> 
+		<Option>
+			<Talk speakerId = "1" time = "6.0" >Bueno, está bien, voy a hacer un esfuerzo ¿Por donde empiezo? </Talk> 
+			<Talk speakerId = "0" time = "6.0" >Genial, Existen un par de sitios al Sur: Monte y Pampero, Ambos lugares son muy diferentes <br /> alli tengo un par de contactos que podrían ayudarte</Talk> 
+			
+			<ChooseTalk> 
+				<Option>
+					<Talk speakerId = "1" time = "6.0" >Cuentame sobre el Monte</Talk> 
+					<Talk speakerId = "0" time = "6.0" >El Monte, lugar eterno y sagrado de vegetación abundante, consiste en el hogar natural del reino animal</Talk> 
+					<Talk speakerId = "0" time = "6.0" >Allí podrías consultar a tus amigos los pajaros si saben algo al respecto</Talk> 
+					<Talk speakerId = "0" time = "6.0" >Aunque ultimamente los animales están muy nerviosos, así que andá con cautela</Talk> 
+					
+				</Option>
+				<Option>
+					<Talk speakerId = "1" time = "6.0" >Cuentame sobre Pampero</Talk> 
+					<Talk speakerId = "0" time = "6.0" >Zona de grandes llanuras pampeanas, puedes caminar horas y horas sin ver nada a la redonda</Talk> 
+					<Talk speakerId = "0" time = "6.0" >es el lugar que eligieron los humanos para instalarse, ojo, recuerda que tienen tanto miedo como ignorancia</Talk> 
+					<Talk speakerId = "0" time = "6.0" >Allí tengo un contacto infiltrado que puede ayudarte, Fernando es un gran amigo de confianza, seguro que sabe algo</Talk> 
+				
+				</Option>
+				<Option>
+					<Talk speakerId = "1" time = "6.0" >Cual es tu recomendación</Talk> 
+					<Talk speakerId = "0" time = "5.0" >Y podrías comenzar por el Monte, tu dominio, así te evitas a los Hombres que viven en Pampero</Talk>
+					<Talk speakerId = "1" time = "5.0" >Uff, esos Sucios y Asquerosos Hombres ! </Talk>
+					<Talk speakerId = "0" time = "5.0" > Ja ja</Talk>
+				</Option>
+			</ChooseTalk>
+			
+		</Option>
+		
+		<Option>
+			<Talk speakerId = "1" time = "5.0" >Uff, es que tengo fiaca ¿no podría ir otro, vos por ejemplo? </Talk>
+			<Talk speakerId = "0" time = "7.0" >¿Yo? ojalá pudiera, Como Verás, solo soy una pequeña plantita con limitaciones para desplazarse </Talk>
+			<Talk speakerId = "1" time = "5.0" > Mmmh, si pero para hablár ningún drama vos, bah..  <br /> voy a hacerlo pero solo para que no digan nada después.. </Talk>
+			<Talk speakerId = "0" time = "7.0" >Si señor!, Que grande, yo sabía que sos de confianza, seguro que lo arreglas todo en cinco minutos </Talk>
+			<Talk speakerId = "1" time = "2.0" >Eso es Casi una eternidad.. </Talk>
+			<Talk speakerId = "0" time = "5.0" >Bueno, con más razón, en marcha entonces!</Talk>
+			<Talk speakerId = "1" time = "7.0" >see, ya voy..</Talk>
+		</Option>
+		
+		<Option>
+			<Talk speakerId = "1" time = "5.0" >Perdón, lo ultimo que escuché fué Ñangapiry ¿podés explicarme todo de vuelta?</Talk>
+			<Talk speakerId = "0" time = "7.0" >emmh, bien, vamos de nuevo, Aparecieron estos Simbolos Siniestros y creo que en tu papel de Guardian del Monte deberías Investigar de que se trata</Talk>
+			<Talk speakerId = "0" time = "5.0" >hay un par de sitios al sur que puedes investigar: Pampero y Monte, empieza por cualquiera dá lo mismo, elige un lugar en el mapa y dale comienzo</Talk>
+			<Talk speakerId = "1" time = "7.0" >¿y que se supone que debo hacer en esos lugares?</Talk>
+			<Talk speakerId = "0" time = "9.0" >Bueno, además de lo que harías en cualquier juego de plataformas: Saltar, explorar, usar items y seguír saltanto, etc, hay un par de conocidos que debes contactar en ambos sitios, ellos te darán más Información</Talk>
+			<Talk speakerId = "1" time = "3.0" >Aaahh, por cierto ¿Que pasa con los Ñangapirys?</Talk>
+			<Talk speakerId = "0" time = "7.0" >y Que se yo, vos empezaste con eso..</Talk>
+		</Option>
+	</ChooseTalk>
+
+  </Conversation >
+  
+  
+  <Conversation nameId = "Adonde" >
+	<Talk speakerId = "1" time = "5.0" >A ver, tengo un par de consultas más que hacerte</Talk>
+    <Talk speakerId = "0" time = "5.0" >Lo que quieras Compañero, para eso estoy ¿cual es tu duda?</Talk>
+	
+	<ChooseTalk> 
+		<Option>
+			<Talk speakerId = "1" time = "6.0" >¿Cuales son los lugares que podría visitar?</Talk> 
+			<Talk speakerId = "0" time = "6.0" >Hay un par de sitios al Sur, Monte y Pampero, Ambos lugares son muy diferentes <br /> allí tengo un par de contactos que podrían ayudarte</Talk> 
+			
+			<ChooseTalk> 
+				<Option>
+					<Talk speakerId = "1" time = "6.0" >Cuentame sobre el Monte</Talk> 
+					<Talk speakerId = "0" time = "6.0" >El Monte, lugar eterno y sagrado de vegetación abundante, consiste en el hogar natural del reino animal</Talk> 
+					<Talk speakerId = "0" time = "6.0" >Allí podrías consultar a tus amigos los pajaros si saben algo al respecto</Talk> 
+					<Talk speakerId = "0" time = "6.0" >Aunque ultimamente los animales están muy nerviosos, así que andá con cautela</Talk> 
+					
+				</Option>
+				<Option>
+					<Talk speakerId = "1" time = "6.0" >Cuentame sobre Pampero</Talk> 
+					<Talk speakerId = "0" time = "6.0" >Zona de grandes llanuras pampeanas, puedes caminar horas y horas sin ver nada a la redonda</Talk> 
+					<Talk speakerId = "0" time = "6.0" >es el lugar que eligieron los humanos para instalarse, ojo, recuerda que tienen tanto miedo como ignorancia</Talk> 
+					<Talk speakerId = "1" time = "6.0" >Bah los hombres no son un problema, con solo verme empiezan a temblar del julepe..</Talk> 
+					<Talk speakerId = "0" time = "6.0" >Si, pero vos sabes que son muy brutos, temen todo aquello que no entienden, andá con cuidado</Talk> 
+					<Talk speakerId = "0" time = "6.0" >Allí tengo un contacto infiltrado que puede ayudarte, Fernando es un gran amigo de confianza, seguro que sabe algo</Talk> 	
+				</Option>
+				<Option>
+					<Talk speakerId = "1" time = "6.0" >Cual es tu recomendación</Talk> 
+					<Talk speakerId = "0" time = "5.0" >Y podrías comenzar por el Monte, tu dominio, así te evitas a los Hombres que viven en Pampero</Talk>
+					<Talk speakerId = "1" time = "5.0" >Uff, esos Sucios y Asquerosos Hombres ! </Talk>
+					<Talk speakerId = "0" time = "5.0" > Ja ja</Talk>
+				</Option>
+			</ChooseTalk>
+			
+		</Option>
+		
+		<Option>
+			<Talk speakerId = "1" time = "5.0" >¿no podría ir otro, vos por ejemplo? </Talk>
+			<Talk speakerId = "0" time = "7.0" >¿Yo? ojalá pudiera, Como Verás, solo soy una pequeña plantita con limitaciones para desplazarse</Talk>
+			<Talk speakerId = "1" time = "5.0" > Mmmh, si pero para hablár ningún drama vos, bah..  <br /> voy a hacerlo pero solo para que no digan nada después.. </Talk>
+			<Talk speakerId = "0" time = "7.0" >Si señor!, Que grande, yo sabía que sos de confianza, seguro que lo arreglas todo en un plis plas </Talk>
+			<Talk speakerId = "1" time = "2.0" >Eso es Casi una eternidad.. </Talk>
+			<Talk speakerId = "1" time = "5.0" >Bueno, con más razón, en marcha entonces!</Talk>
+			<Talk speakerId = "0" time = "7.0" >see, ya voy..</Talk>
+		</Option>
+		
+		<Option>
+			<Talk speakerId = "1" time = "5.0" >Perdón, lo ultimo que escuché fué lo de Ñangapiry ¿Podés explicarme todo de vuelta?</Talk>
+			<Talk speakerId = "0" time = "7.0" >emmh, bien, vamos de nuevo, Aparecieron estos Simbolos Siniestros y creo que en tu papel de Guardian del Monte deberías Investigar de que se trata</Talk>
+			<Talk speakerId = "0" time = "5.0" >hay un par de sitios al sur que puedes visitar: Pampero y Monte, empezá por cualquiera, dá lo mismo, elegí un lugar en el mapa y dale comienzo</Talk>
+			<Talk speakerId = "1" time = "7.0" >¿y que se supone que debo hacer en esos lugares?</Talk>
+			<Talk speakerId = "0" time = "9.0" >Bueno, además de lo que harías en cualquier juego de plataformas: Saltar, explorar, usar items especiales, etc, hay un par de conocidos que debes contactar en ambos sitios, ellos te proveeran de más Información</Talk>
+			<Talk speakerId = "1" time = "3.0" >Ahh, por cierto ¿Que pasa con los Ñangapirys?</Talk>
+			<Talk speakerId = "0" time = "7.0" >y Que se yo, vos empezaste con eso..</Talk>
+		</Option>
+	</ChooseTalk>
+
   </Conversation >
 
+  
+  <Conversation nameId = "AdiosArbol" >
+    <Talk speakerId = "1" time = "5.0" >Epa, peroo.....<br />     </Talk>
+    <Talk speakerId = "1" time = "5.0" >Weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee </Talk>
+	<Talk speakerId = "1" time = "5.0" >¿Que Joraca pasó acá!?</Talk>
+    <Talk speakerId = "1" time = "5.0" >¡ CORTARON MI ARBOL ! ¿Como es posible? no puedo creerlo!</Talk>
+    <Talk speakerId = "1" time = "5.0" >He visto crecer a este arbol desde que era una semilla, Me protegió con su sombra y me alimentó con sus frutos</Talk>
+    <Talk speakerId = "1" time = "5.0" >Todos esos momentos se perderan en la eternidad como lagrimas en la lluvia, Adios mi Gran Amigo.</Talk>
+	<Talk speakerId = "1" time = "5.0" >...<br />     </Talk>
+    <Talk speakerId = "1" time = "5.0" >Basta ¡Se Acabó! tengo principios de Paz, Armonía y Tolerancia pero esto es el limite y lo Rompieron!</Talk>
+    <Talk speakerId = "1" time = "5.0" >ya le viá agarrar a toda esa Manga de Zanganos Miserables..</Talk>
+	<Talk speakerId = "1" time = "5.0" >¡Familia de Engendros Guachos!<br /> Y les voy a dar el castigo que se merecen</Talk>
+    <Talk speakerId = "1" time = "5.0" >a ver, Ya Encontré a dos en el Monte y Pampero: Yagúa y Moñai, ¿Adonde Podran estár los demás?</Talk>
+	<Talk speakerId = "1" time = "5.0" >¡Ya sé! hay un solo lugar donde podría encontrarlos: IGUAZÚ<br /> Hace mucho que no lo visito, eso es al Oeste de acá</Talk>
+
+  </Conversation >
+  
+    <Conversation nameId = "HaciaIguazu" >
+	<Talk speakerId = "1" time = "5.0" >¡Bastardos!<br /> Tengo que Buscar a los responsables de este horror</Talk>
+    <Talk speakerId = "1" time = "5.0" >a ver, Ya reventé a dos en el Monte y Pampero: Yagúa y Moñai, ¿Adonde Podran estár los demás?</Talk>
+	<Talk speakerId = "1" time = "5.0" >¡Ya sé! hay un solo lugar donde podría encontrarlos: IGUAZÚ<br /> está al Oeste de aquí</Talk>
+	<Talk speakerId = "1" time = "5.0" >En el Mapa Sería a la derecha de mi Casa creo..</Talk>
+
+  </Conversation >
+  
 </Conversations>

@@ -7,6 +7,7 @@ public class WorldState0 : InGameState
     {
        //Debug.Log("Enter World 0 State: Pampero");
         Managers.Tiled.Load(Managers.Register.PamperoFile);
+        //Managers.Tiled.Load("/Levels/DemoLevel.tmx");
         base.Init();
 
     }
@@ -32,6 +33,18 @@ public class WorldState0 : InGameState
 
     public override void Resume()
     {
+        //Debug.Log("Called Pampero Resume!");
+
+        if (Managers.Game.PlayerPrefab && !Managers.Game.IsPlaying)
+        {
+            Managers.Tiled.Load(Managers.Register.PamperoFile);
+
+            //Debug.Log("Reloaded Pampero Level!");
+
+            Managers.Game.IsPlaying = true;
+            Managers.Game.IsPaused = false;
+        }
+
 
     }
 }

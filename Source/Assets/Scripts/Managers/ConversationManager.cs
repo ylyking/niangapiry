@@ -240,9 +240,11 @@ public class ConversationManager : MonoBehaviour {
 
                         case eConversationNodeType.eChooseTalk:									// Enum 1; Nodo activo de tipo eChooseTalk
 
-                            if (Input.GetKeyDown("up") && (muiChooseOption > 0))
+                            //if (Input.GetKeyDown("up") && (muiChooseOption > 0))
+                            if (Managers.Game.InputUp && (muiChooseOption > 0))
                                 muiChooseOption--;
-                            if (Input.GetKeyDown("down") && (muiChooseOption < (mpCurrentConversationNode.mChildren.Count - 1)))
+                            //if (Input.GetKeyDown("down") && (muiChooseOption < (mpCurrentConversationNode.mChildren.Count - 1)))
+                            if (Managers.Game.InputDown && (muiChooseOption < (mpCurrentConversationNode.mChildren.Count - 1)))
                                 muiChooseOption++;
                             if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump") || Input.GetKeyDown("return"))
                                 NextMessage(muiChooseOption);
@@ -275,7 +277,7 @@ public class ConversationManager : MonoBehaviour {
             }
 	    }
 
-        //StartCoroutine(CoUpdate(Time.deltaTime));
+        //StartCoroutine(CoUpdate(TimeLapse.deltaTime));
 	    
     } // con esto llamamos al Conversation Manager desde Statement.cpp
         //////////////////////////////////////////////////////////////

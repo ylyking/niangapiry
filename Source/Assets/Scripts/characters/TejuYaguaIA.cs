@@ -6,8 +6,6 @@ namespace Bosses
 
     public class TejuYaguaIA : MonoBehaviour
     {
-
-
         AnimSprite Anime = null;
         Transform thisTransform = null;
         Transform PlayerTransform = null;
@@ -28,7 +26,7 @@ namespace Bosses
         Vector3 NewPosition = Vector3.zero;
 
         public bool DisplayArea = true;
-        public Rect BossArea = new Rect(0, 0, 15, 5);
+        public Rect BossArea = new Rect(0, 0, 15, 6);
         private Rect LevelArea;
 
         public enum BossState { Standby = 0, Talking, Standing, Running, Firing, Hurting, HeadLess, FriendShip, Escaping }
@@ -39,6 +37,8 @@ namespace Bosses
         bool AttackType = true;
         public ParticleSystem particle;
 
+        bool HoldingButton = false;
+
         //public AudioClip Hit;
         //public AudioClip Fire;
         //public AudioClip Woof;
@@ -46,6 +46,15 @@ namespace Bosses
 
         void Start()
         {
+            if (Managers.Register.YaguaDefeated)
+            {
+                Debug.Log("Yagua Already Beated!");
+
+                DestroyImmediate(gameObject);
+                //this.enabled = false;
+                return;
+            }
+
             Anime = GetComponent<AnimSprite>();
             thisTransform = transform;
             NewPosition = new Vector3(thisTransform.position.x, thisTransform.position.y, .25f);
@@ -61,7 +70,7 @@ namespace Bosses
             if (Managers.Game.PlayerPrefab)
                 PlayerTransform = Managers.Game.PlayerPrefab.transform;
 
-            LevelArea = Managers.Display.cameraScroll.levelBounds;
+            LevelArea = Managers.Display.cameraScroll.originalBounds;
             BossArea = new Rect(BossArea.xMin, BossArea.yMin - 1, BossArea.width, BossArea.height + 2);
 
             DashFire.SetActive(false);
@@ -70,11 +79,18 @@ namespace Bosses
         void Update()
         {
             NewPosition = thisTransform.position;
+            HoldingButton = Input.GetButtonDown("Fire1");
 
             switch (YaguaState)
             {
                 case BossState.Standby:
                     Anime.PlayFrames(1, 0, 3, Orientation);
+                    if (!PlayerTransform)
+                        if (Managers.Game.PlayerPrefab)
+                            PlayerTransform = Managers.Game.PlayerPrefab.transform;
+                        else
+                            return;
+
                     if (Mathf.Abs(PlayerTransform.position.x - thisTransform.position.x) < 4)
                     {
                         Talking = true;
@@ -101,6 +117,7 @@ namespace Bosses
                     break;
                 case BossState.FriendShip:
                     FriendShip();
+                    GiveThanks();
                     break;
                 case BossState.Escaping:
                     Escape();
@@ -254,10 +271,10 @@ namespace Bosses
             Talking = false;
 
             Managers.Dialog.Init(file);
-            Managers.Dialog.StartConversation("Moñai");
+            Managers.Dialog.StartConversation("Fight");
 
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 1;
-            (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0.01f;
+            (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 1;
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2;
 
             //PrevArea = Managers.Display.cameraScroll.levelBounds;
@@ -273,7 +290,7 @@ namespace Bosses
 
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 0;
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0;
-            (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 3;
+            (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 3.5f;
 
             timeLapse = 0;
             AttackRange = 0;
@@ -306,8 +323,27 @@ namespace Bosses
                 gameObject.tag = "Enemy";
                 timeLapse = 0;
                 renderer.enabled = true;
-                YaguaState = BossState.Running;
-                DashFire.SetActive(true);
+
+                float randomizer = Random.Range(0, 100);
+
+                if (Health > 3)
+                {
+                    YaguaState = BossState.Running;
+                    DashFire.SetActive(true);
+                }
+                else
+                {
+                    if (randomizer < 50)
+                    {
+                        YaguaState = BossState.Running;
+                        DashFire.SetActive(true);
+                    }
+                    else
+                    {
+                        YaguaState = BossState.Firing;
+                        DashFire.SetActive(true);
+                    }
+                }
 
             }
         }
@@ -353,9 +389,27 @@ namespace Bosses
         }
 
 
+
         void FriendShip()
         {
             Orientation = (int)Mathf.Sign(Maracuya.position.x - thisTransform.position.x);
+
+            if (Maracuya != null && Maracuya.position.x < 188)
+            {
+                if (Maracuya.parent == Managers.Game.PlayerPrefab.transform)
+                {
+                    Maracuya.parent = null;        		//resets the pickup's parent to null so it won't keep following the player	
+                    Maracuya.collider.enabled = true;
+                    Maracuya.rigidbody.isKinematic = false;
+
+                    Managers.Game.PlayerPrefab.GetComponent<PlayerProperties>()._pickedObject = null;	    			
+                }
+                   //StartCoroutine( Managers.Game.PlayerPrefab.GetComponent<PlayerProperties>().PlayerThrows());
+
+                Maracuya.position = new Vector3(188, Maracuya.position.y, Maracuya.position.z);
+                Maracuya.rigidbody.AddForce( new Vector3( 1, 0, 0) * 6, ForceMode.VelocityChange);
+		
+            }
 
             if (Mathf.Abs(Maracuya.position.x - thisTransform.position.x) > 0.5f)
             {
@@ -373,35 +427,47 @@ namespace Bosses
                 Maracuya.rigidbody.useGravity = true;
             }
 
-            if (Talking && !Managers.Dialog.IsInConversation())
-            {
-                Talking = false;
-                Managers.Dialog.StartConversation("Moñai");
 
-                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 1;
-                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2;
-            }
+            //if (Managers.Dialog.IsInConversation())
+            //GiveThanks();
 
-            if (Managers.Dialog.IsInConversation())
-                GiveThanks();
+            //if (Talking && !Managers.Dialog.IsInConversation())
+            //{
+            //    Talking = false;
+            //    Managers.Dialog.StartConversation("Friendship");
+
+            //    (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 1;
+            //    (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2;
+            //}
+
         }
 
         void GiveThanks()
         {
-            if (!Talking && Managers.Dialog.IsInConversation())
-                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x =
-                    (transform.position.x - Managers.Game.PlayerPrefab.transform.position.x) * .5f;
+            if (Talking && Managers.Dialog.IsInConversation())
+            {
+                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 1;
+                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 
+                            (transform.position.x - Managers.Game.PlayerPrefab.transform.position.x) * .5f;
+                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2.5f;
 
+            }
+            //else if (soundSource && soundSource.isPlaying)
+            //{
+            //    soundSource.Stop();
+            //    Destroy(soundSource);
+            //}
 
-            if (!Talking && (!Managers.Dialog.IsInConversation() ||
+            if (Talking && (!Managers.Dialog.IsInConversation() ||
                 (Mathf.Abs(transform.position.x - Managers.Game.PlayerPrefab.transform.position.x) > 4)))
             {
                 Managers.Dialog.StopConversation();
+                Talking = false;
                 //Managers.Dialog.DeInit();
 
                 (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 0;
                 (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0;
-                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2.5f;
+                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = oldZoom;
             }
         }
 
@@ -427,6 +493,7 @@ namespace Bosses
                     (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2.5f;
                     Destroy(thisTransform.gameObject);
                 }
+                Managers.Register.YaguaDefeated = true;
             }
         }
 
@@ -448,13 +515,26 @@ namespace Bosses
                 Destroy(Instantiate(Powers[2], thisTransform.position, thisTransform.rotation), 5);
             }
 
-            if (hit.tag == "p_shot" && (YaguaState == BossState.Standing) &&
+
+            if (hit.tag == "p_shot" && hit.name != "Maracuya" && (YaguaState == BossState.Standing) &&
                 (hit.transform.position.y > thisTransform.position.y - 1))
             {
-                timeLapse = 0;
-                AttackRange = 0;
-                YaguaState = BossState.HeadLess;
-                //Managers.Audio.Play(SnakeHit, thisTransform, 1, 1);
+                if (hit.name == "Hat")
+                {
+                    timeLapse = 0;
+                    AttackRange = 0;
+                    YaguaState = BossState.HeadLess;
+                    //Managers.Audio.Play(SnakeHit, thisTransform, 1, 1);
+                }
+                else
+                {
+                    YaguaState = BossState.Hurting;
+                    timeLapse = 0;
+                    AttackRange = 0;
+
+                    //Managers.Audio.Play(SnakeHit, thisTransform, 1, 1);
+                    Destroy(Instantiate(Powers[2], thisTransform.position, thisTransform.rotation), 5);
+                }
             }
 
 
@@ -472,7 +552,7 @@ namespace Bosses
                 DashFire.SetActive(false);
                 //hit.rigidbody.velocity = Vector3.zero;
                 gameObject.tag = "Untagged";
-                hit.tag = "Untagged";
+                hit.tag = "pickup";
 
                 if (Maracuya == null)
                     Maracuya = hit.transform;
@@ -481,6 +561,8 @@ namespace Bosses
                 AttackRange = 0;
                 YaguaState = BossState.FriendShip;
 
+                Managers.Register.YaguaDefeated = true;
+
                 //Managers.Audio.Play(SnakeHit, thisTransform, 1, 1);
             }
 
@@ -488,29 +570,23 @@ namespace Bosses
 
         void OnTriggerStay(Collider hit)
         {
-            if (hit.tag == "Player" && (YaguaState == BossState.FriendShip) && (this.InputUp))
+            if (hit.tag == "Player" && (YaguaState == BossState.FriendShip)
+                && !Talking && !Managers.Dialog.IsInConversation() && (Managers.Game.InputUp ||
+                (HoldingButton && Managers.Game.PlayerPrefab.GetComponent<PlayerProperties>()._pickedObject == null)))
             {
+                oldZoom = (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier;
+
                 Talking = true;
+                //soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 1f, 2.0f);
+
+                Managers.Dialog.StartConversation("Friendship");
+                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 1;
+                (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2;
             }
         }
 
-        bool ToggleUp = true;
-        bool InputUp                             // This it's a little oneShot Up Axis check for doors & like   
-        {
-            get
-            {
-                if (Input.GetAxis("Vertical") == 0)                      // It's like an "Input.GetAxisDown" 
-                    ToggleUp = true;
 
-                if (ToggleUp == true && Input.GetAxis("Vertical") > 0)
-                {
-                    ToggleUp = false;
-                    return true;
-                }
-                return false;
-            }
-        }
-
+        float oldZoom = 3;
 
     }
 

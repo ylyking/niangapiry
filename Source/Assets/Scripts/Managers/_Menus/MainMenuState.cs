@@ -7,12 +7,14 @@ public class MainMenuState : GameState
     public bool isLoading = false;
     public bool DisplayMenu = false;
     public bool DisplayInfo = false;
+    public bool MusicIntro = true;
+
+    public float timeTrailer = 30;
 
     uint ChooseOption = 0;
     uint TotalOptions = 0;
     Dictionary<int, string>  OptionsList = new Dictionary<int, string>();
 
-    //public string StartLevel = "JumpGameSinglePlayer";
     string FullText = "";
 
     public AudioClip PreOpening;
@@ -30,6 +32,8 @@ public class MainMenuState : GameState
 
     public override void Init()
     {
+        timeTrailer = 30;
+
         Managers.Audio.Play(PreOpening, Managers.Display.MainCamera.transform, 1, 1);
 
         gSkin = (GUISkin)Resources.Load("GUI/GUISkin B", typeof(GUISkin));
@@ -59,6 +63,10 @@ public class MainMenuState : GameState
         OptionsList.Add(0, "Comenzar");
         OptionsList.Add(1, "Opciones");
         OptionsList.Add(2, "Salir");
+        //OptionsList.Add(0, "Comenzar");
+        //OptionsList.Add(1, "Records");
+        //OptionsList.Add(2, "Opciones");
+        //OptionsList.Add(3, "Salir");
         TotalOptions = (uint)OptionsList.Count;
 
         foreach (int Option in OptionsList.Keys)
@@ -90,6 +98,17 @@ public class MainMenuState : GameState
 
     public override void OnUpdate()
     {
+        //if (Input.anyKeyDown)
+        //    timeTrailer = 10;
+
+        //timeTrailer -= Time.deltaTime;
+
+        //if (timeTrailer <= 0)
+        //{
+        //    Managers.Game.ChangeState(typeof(TrailerState));
+        //    return;
+        //}
+
         CamTransform.position = new Vector3((float)System.Math.Round((Mathf.Sin(Time.time) * 0.05f), 4),
                                             CamTransform.position.y, CamTransform.position.z); // OJo aca
 
@@ -139,6 +158,22 @@ public class MainMenuState : GameState
                     Managers.Display.ShowFlash(1);
                     Application.Quit();
                     break;
+                //case 0:
+                //    Managers.Display.ShowFlash(1);
+                //    Managers.Game.ChangeState(typeof(MapState));
+                //    break;
+                //case 1:
+                //    Managers.Display.ShowFlash(.25f);
+                //    Managers.Game.PushState(typeof(TopScores));
+                //    break;
+                //case 2:
+                //    Managers.Display.ShowFlash(.25f);
+                //    Managers.Game.PushState(typeof(ConfigMenuState));
+                //    break;
+                //case 3:
+                //    Managers.Display.ShowFlash(1);
+                //    Application.Quit();
+                //    break;
             }
     }
 
@@ -147,7 +182,7 @@ public class MainMenuState : GameState
         if (!DisplayMenu)
             return;
 
-        if (Opening && !Managers.Audio.Music.isPlaying && Managers.Audio.SoundEnable)
+        if (Opening && !Managers.Audio.Music.isPlaying && Managers.Audio.SoundEnable && MusicIntro)
             Managers.Audio.PlayMusic(Opening, 1, 1);
 
         if (gSkin)
@@ -166,7 +201,8 @@ public class MainMenuState : GameState
 
 
         GUI.color = new Color(1, 0.36f, 0.22f, 1);
-        GUI.Label(new Rect((Screen.width * .65f), (Screen.height * .8f), 400, 200), FullText);
+        GUI.Label(new Rect((Screen.width * .01f), (Screen.height * .01f), 400, 200), "Mejor Puntaje\n" + Managers.Register.TopScore);
+        GUI.Label(new Rect((Screen.width * .65f), (Screen.height * .75f), 400, 200), FullText);
         string jump = "";
 
         foreach (int Option in OptionsList.Keys)
@@ -175,7 +211,8 @@ public class MainMenuState : GameState
             if (Option == ChooseOption)
             {
                 GUI.color = Color.white;
-                GUI.Label(new Rect((Screen.width * .65f), (Screen.height * .8f), 400, 200), jump + OptionsList[Option]);
+                //GUI.Label(new Rect((Screen.width * .65f), (Screen.height * .8f), 400, 200), jump + OptionsList[Option]);
+                GUI.Label(new Rect((Screen.width * .65f), (Screen.height * .75f), 400, 200), jump + OptionsList[Option]);
             }
 
             jump += System.Environment.NewLine;

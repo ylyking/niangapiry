@@ -59,10 +59,7 @@ public class SoundMenuState : GameState
                     break;
                 case 1:
                     Managers.Audio.MusicEnable = !Managers.Audio.MusicEnable;
-                    if (Managers.Audio.MusicEnable)
-                        Managers.Audio.ResumeMusic();
-                    else
-                        Managers.Audio.PauseMusic();
+            
                     break;
                 case 2:
                     Managers.Game.PopState();

@@ -53,6 +53,7 @@ namespace Bosses
 
         public TextAsset file;
         bool Talking = false;
+        bool HoldingButton = false;
         public ParticleSystem particle;
 
         public AudioClip Hit;
@@ -62,6 +63,13 @@ namespace Bosses
 
         void Start()
         {
+            if (Managers.Register.YasiYatereDefeated )
+            {
+                Debug.Log("Yasi Already Beated!");
+                DestroyImmediate(gameObject);
+                return;
+            }
+
             thisTransform = this.transform;
             Anime = GetComponent<AnimSprite>();
             thisTransform.position = new Vector3(thisTransform.position.x, thisTransform.position.y, .25f); ;
@@ -91,11 +99,13 @@ namespace Bosses
             //YasiState = BossState.Quiet;
             //YasiState = BossState.Hurting;
             //Attack = AttackState.NoAttack;
-            //timeState = Time.s + 5;
+            //timeState = TimeLapse.s + 5;
             timeState = Time.timeSinceLevelLoad % 20;
-            Debug.Log("Starting Yasi with timeState: " + timeState);
+            //Debug.Log("Starting Yasi with timeState: " + timeState);
 
-            LevelArea = Managers.Display.cameraScroll.levelBounds;
+            //LevelArea = Managers.Display.cameraScroll.levelBounds;
+            LevelArea = Managers.Display.cameraScroll.originalBounds;
+
         }
 
 
@@ -129,6 +139,7 @@ namespace Bosses
                     Hurt();
                     break;
                 case BossState.Crying:
+                    HoldingButton = Input.GetButtonDown("Fire1");
                     Cry();
                     break;
             }
@@ -165,9 +176,9 @@ namespace Bosses
         {
             timeState -= Time.deltaTime;
 
-            //Debug.Log("current Time " + timeState);
+            //Debug.Log("current TimeLapse " + timeState);
 
-            //if (timeState < Time.time)
+            //if (timeState < TimeLapse.time)
             if (timeState <= 0)
             {
                 timeState = Random.Range(1, 10);
@@ -347,6 +358,7 @@ namespace Bosses
 
                 if (Health <= 0)
                 {
+                    Managers.Register.YasiYatereDefeated = true;
                     YasiState = BossState.Crying;
                     Talking = true;
                     return;
@@ -398,7 +410,7 @@ namespace Bosses
             Talking = false;
 
             Managers.Dialog.Init(file);
-            Managers.Dialog.StartConversation("Moñai");
+            Managers.Dialog.StartConversation("Yasi");
 
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 1;
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0.01f;
@@ -459,9 +471,10 @@ namespace Bosses
 
         void OnTriggerStay(Collider hit)
         {
-            if (hit.tag == "Player" && (YasiState == BossState.Crying) && (this.InputUp))
+            if (hit.tag == "Player" && (YasiState == BossState.Crying) && (this.InputUp || HoldingButton))
             {
                 StartTalk();
+ 
             }
         }
 

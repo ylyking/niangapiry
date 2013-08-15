@@ -68,8 +68,8 @@
   <image source="bonus.png"/>
   <properties>
    <property name="depth" value="0"/>
-   <property name="offset" value="0, 3.5"/>
-   <property name="padding" value="0, 0.05"/>
+   <property name="offset" value="0, 3.6"/>
+   <property name="padding" value="0, 0.065"/>
    <property name="scale" value="2, 2"/>
    <property name="scroll" value="auto"/>
    <property name="speed" value="0.025"/>
@@ -87,11 +87,11 @@
   </properties>
  </imagelayer>
  <objectgroup name="Objetos" width="16" height="7">
-  <object type="Pombero" x="512" y="256" width="62" height="65"/>
   <object type="CollisionBound" x="192" y="358" width="642" height="88"/>
   <object type="CollisionBound" x="640" y="320" width="64" height="64"/>
   <object type="CollisionBound" x="320" y="320" width="64" height="64"/>
   <object type="CameraBound" x="256" y="64" width="512" height="320"/>
-  <object name="BonusDeal3" type="Secrets/BonusDeal1" x="479" y="34" width="62" height="61"/>
+  <object type="Pombero" x="482" y="201" width="62" height="65"/>
+  <object name="BonusDeal3" type="Secrets/BonusDeal3" x="448" y="0" width="62" height="61"/>
  </objectgroup>
 </map>

@@ -20,7 +20,7 @@ public float MinScreenLimit     = 0.0f;
 
 //private Rect cameraBounds          = new Rect( 0, 0, 1, 3); 	// We set up these references in the Awake () function.
 public Rect levelBounds            = new Rect( 0, 0, 100, 50); 	// We set up these references in the Awake () function.
-private Rect originalBounds            = new Rect( 0, 0, 100, 50); 	// This it's for save old Boundaries.
+public Rect originalBounds            = new Rect( 0, 0, 100, 50); 	// This it's for save old Boundaries.
 private GameObject createdBoundaries;
 
 void  OnDrawGizmos ()

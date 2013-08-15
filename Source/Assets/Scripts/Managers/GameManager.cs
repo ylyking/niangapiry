@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         Managers.Register.Health = Mathf.Clamp(Managers.Register.Health, 0, 3);
 
-        if (((Managers.Register.Fruits % 100) == 0) && System.Convert.ToBoolean(Managers.Register.Fruits))
+        if (((Managers.Register.Fruits % 85) == 0) && System.Convert.ToBoolean(Managers.Register.Fruits))
         { 
             ShowState = true;
             Managers.Register.Lifes++;
@@ -47,13 +47,26 @@ public class GameManager : MonoBehaviour
 
         if (states.Count > 0)
             states[states.Count - 1].OnUpdate();
+
+
+        //if (Input.GetKeyDown("t"))
+        //    Managers.Game.PushState(typeof(ScoreInput));
+
+
+        //if (IsPlaying)
+        //{
+        //    Managers.Register.TimeDemo -= Time.deltaTime;
+
+
+        //    if (Managers.Register.TimeDemo <= 0)
+        //        Managers.Game.GameOver();
+        //}
     }
 
     public void Render()
     {
         if (states.Count > 0)
             states[states.Count - 1].OnRender();
-
     }
 
     public void ChangeState(System.Type newStateType)		// Swap two states
@@ -108,55 +121,7 @@ public class GameManager : MonoBehaviour
         //    Debug.Log("Si, Soy el estado que estás buscando!");
         //    Debug.Log(" y aqui accedes a un dato del Estato:" + (( ExampleState )Managers.Game.State).PublicData);
     }
-
-    //Changes the current game state after a specific time
-    //public void SetState(System.Type newStateType, float Delay = 0)
-    //{
-    //    StartCoroutine(CloseLastState(newStateType, Delay));
-    //}
-
-    //private IEnumerator CloseLastState(System.Type newStateType, float Delay)
-    //{
-    //    yield return new WaitForSeconds(Delay);								// We must check the end of Button animation
-
-    //    if (states.Count > 0)
-    //        states[states.Count - 1].DeInit();
-
-    //    states[states.Count - 1] = GetComponentInChildren(newStateType) as GameState;
-
-    //    if (states.Count > 0)
-    //        states[states.Count - 1].Init();
-    //}
-    //////////////////////////////////////////////////////////////
-
-    public void GameOver()
-    {
-        IsPlaying = false;
-        ResetStats();
-        //ShowFlash(2.0f);
-
-        //Application.LoadLevel("Intro");
-        Managers.Game.PopState();
-        Managers.Register.SoftReset();
-    }
-    //////////////////////////////////////////////////////////////
-
-    public void ResetStats()
-    {
-        if (Managers.Register.Score > Managers.Register.TopScore)
-            Managers.Register.TopScore = Managers.Register.Score;
-        //PlayerPrefs.SetInt("TopScore", Managers.Register.TopScore);
-
-        Managers.Register.Score = 0;
-        Managers.Register.Fruits = 0;
-
-        Managers.Register.FireGauge = 0;
-        //Key = 0;
-
-        ShowState = false;
-        Managers.Register.Health = 3;
-        Managers.Register.Lifes = 3;
-    }
+    
     //////////////////////////////////////////////////////////////
 
     public void DeInit() { ;}

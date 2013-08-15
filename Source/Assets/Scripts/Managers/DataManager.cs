@@ -16,6 +16,8 @@ public class DataManager : MonoBehaviour
     public int Fruits       = 0;
     public int TopScore     = 100;
 
+    //public float TimeDemo = 300;
+
     public int  FireGauge   = 0;
     public int  Key         = 0;
     public int Health       = 3;
@@ -32,6 +34,11 @@ public class DataManager : MonoBehaviour
     public string previousLevelFile = "";
     public Dictionary<string, Vector3> MapCheckPoints = new Dictionary<string, Vector3>();
 
+
+    //public List<int> TopScore = new List<int>();
+    //public Dictionary<int, string> TopScorePlayers = new Dictionary<int, string>();
+
+    public bool FirstTimePlay       = true;
     public bool PlayerAutoRunning = true;
 
     // each World Last File Loaded
@@ -39,24 +46,26 @@ public class DataManager : MonoBehaviour
     #region WORLD 0: PAMPERO
 
     public string PamperoFile = "/Levels/Pampero.tmx";                                          
+    public bool MonaiDefeated = false;
 
     #endregion
     ////////////////////////////////////////////////////
     
 
     #region WORLD 1: MONTE
-    public string MonteFile = "/Levels/Monte.tmx";                                           
+    public string MonteFile = "/Levels/Monte.tmx";
+    public bool YaguaDefeated = false;
 
     #endregion
     ////////////////////////////////////////////////////
 
 
     #region WORLD 2: HOME
-    public bool Souvenir1 = false;
-    public bool Souvenir2 = false;
-    public bool Souvenir3 = false;
-    public bool Souvenir4 = false;
-    public bool Souvenir5 = false;
+    public bool Treasure1 = false;  // Mate
+    public bool Treasure2 = false;  // Music
+    public bool Treasure3 = false;  // Concepts Arts
+    public bool Treasure4 = false;  // Inter-Dimensional Devices
+    public bool Treasure5 = false;  // Comics
 
     public string HomeFile = "/Levels/Home.tmx";
 
@@ -67,7 +76,9 @@ public class DataManager : MonoBehaviour
     #region WORLD 3: IGUAZU
 
     public string IguazuFile = "/Levels/Iguazu.tmx";
-
+    public bool MboiTuiDefeated = false;
+    public bool YasiYatereDefeated = false;
+    public bool MagicBlockEnabled = true;
 
     #endregion
     ////////////////////////////////////////////////////
@@ -90,8 +101,6 @@ public class DataManager : MonoBehaviour
     ////////////////////////////////////////////////////    
 
 
-
-
     // Use this for initialization
 	void Start ()
     {
@@ -100,6 +109,46 @@ public class DataManager : MonoBehaviour
         MapCheckPoints.Add(IguazuFile           , Vector3.zero);
         MapCheckPoints.Add(SkyFieldFile         , Vector3.zero);
         MapCheckPoints.Add(ImpenetrableFile     , Vector3.zero);
+
+        //for (int i = 1; i < 10; i++)
+        //{
+        //    TopScore.Add( i * 100);
+            
+        //    string name = "";
+        //    switch (i)
+        //    {
+        //        case 9:
+        //            name = "Horacio Guarani     ";
+        //            break;
+        //        case 8:
+        //            name = "Oscar Aleman        ";
+        //            break;
+        //        case 7:
+        //            name = "Roman Riquelme      ";
+        //            break;
+        //        case 6:
+        //            name = "Diego Maradona      ";
+        //            break;
+        //        case 5:
+        //            name = "Florencia De la V   ";
+        //            break;
+        //        case 4:
+        //            name = "Jorge Coscia        ";
+        //            break;
+        //        case 3:
+        //            name = "Alejandro Fantino   ";
+        //            break;
+        //        case 2:
+        //            name = "Yasi Yatere         ";
+        //            break;
+        //        case 1:
+        //            name = "Carlos Bianchi      ";
+        //            break;
+        //    }
+        //    TopScorePlayers.Add(i * 100, name);
+        //}
+        //Managers.Register.TopScore.Sort();
+        //Managers.Register.TopScore.Reverse();
 	}
 
 
@@ -122,10 +171,15 @@ public class DataManager : MonoBehaviour
     {
         Debug.Log("Doing Soft Reset");
 
+        //ShowState = false;
+
+        FireGauge = 0;
+        Score = 0;
         Fruits = 0;
         Key = 0;
         Health = 3;
         Lifes = 3;
+
 
         //FireGauge = 0;
         //Inventory = Items.Empty;
@@ -135,7 +189,7 @@ public class DataManager : MonoBehaviour
     {
         Score = 0;
         Fruits = 0;
-        TopScore = 100;
+        //TopScore = 100;
 
         FireGauge = 0;
         Key = 0;
@@ -143,12 +197,12 @@ public class DataManager : MonoBehaviour
         Lifes = 3;
         Inventory = Items.Empty;
 
-        Souvenir1 = false;
-        Souvenir2 = false;
-        Souvenir3 = false;
-        Souvenir4 = false;
-        Souvenir5 = false;
-
+        Treasure1 = false;
+        Treasure2 = false;
+        Treasure3 = false;
+        Treasure4 = false;
+        Treasure5 = false;
+        MagicBlockEnabled = true;
 
         //currentStage;
         UnlockedStages = 3;
@@ -161,6 +215,12 @@ public class DataManager : MonoBehaviour
         ImpenetrableFile = "/Levels/Impenetrable.tmx";
 
         MapCheckPoints.Clear();
+
+        YaguaDefeated = false;
+        MonaiDefeated = false;
+        MboiTuiDefeated = false;
+        YasiYatereDefeated = false;
+        AoAoDefeated = false;
 
     }
 
@@ -202,6 +262,20 @@ public class DataManager : MonoBehaviour
         Managers.Register.IguazuFile        = instance.IguazuFile;
         Managers.Register.SkyFieldFile      = instance.SkyFieldFile;
         Managers.Register.ImpenetrableFile  = instance.ImpenetrableFile;
+
+        Managers.Register.Treasure1 = instance.Treasure1;
+        Managers.Register.Treasure2 = instance.Treasure2;
+        Managers.Register.Treasure3 = instance.Treasure3;
+        Managers.Register.Treasure4 = instance.Treasure4;
+        Managers.Register.Treasure5 = instance.Treasure5;
+
+        Managers.Register.MagicBlockEnabled = instance.MagicBlockEnabled;
+
+        Managers.Register.YaguaDefeated = instance.YaguaDefeated ;
+        Managers.Register.MonaiDefeated = instance.MonaiDefeated ;
+        Managers.Register.MboiTuiDefeated = instance.MboiTuiDefeated;
+        Managers.Register.YasiYatereDefeated = instance.YasiYatereDefeated;
+        Managers.Register.AoAoDefeated = instance.AoAoDefeated;
 
     }
 }

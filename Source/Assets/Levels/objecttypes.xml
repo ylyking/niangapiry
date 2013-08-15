@@ -13,4 +13,5 @@
  <objecttype name="caña" color="#ff557f"/>
  <objecttype name="whistle" color="#00aaff"/>
  <objecttype name="hat" color="#ff0000"/>
+ <objecttype name="Hurtbox" color="#ffff00"/>
 </objecttypes>

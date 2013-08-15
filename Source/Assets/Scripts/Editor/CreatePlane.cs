@@ -106,10 +106,10 @@ static void  CreateQuad (){
         //                            new  Vector2 (.75f, .75f) };  // 1-'    2'-_   3¡-     4¬ // Maracuya Example
 
         m.uv = new Vector2[4]	{
-                                    new Vector2(1, 0), 
-                                    new Vector2(0, 0),
-                                    new  Vector2 (0, 1),
-                                    new  Vector2 (1, 1) };  // 1-'    2'-_   3¡-     4¬
+                                    new Vector2(.125f, .125f), 
+                                    new Vector2(0, .125f),
+                                    new  Vector2 (0, .25f),
+                                    new  Vector2 (.125f, .25f) };  // 1-'    2'-_   3¡-     4¬
 
     	m.triangles = new int[6] {0, 1, 2, 0, 2, 3};
     	m.RecalculateNormals();

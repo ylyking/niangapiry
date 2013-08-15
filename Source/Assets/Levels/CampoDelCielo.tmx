@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="50" height="10" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="370" height="80" tilewidth="64" tileheight="64" backgroundcolor="#122538">
  <properties>
   <property name="Sandunga" value="Lesbiana"/>
  </properties>
@@ -20,6 +20,11 @@
     <property name="collision" value=""/>
    </properties>
   </tile>
+  <tile id="3">
+   <properties>
+    <property name="collision" value=""/>
+   </properties>
+  </tile>
   <tile id="5">
    <properties>
     <property name="collision" value="plane"/>
@@ -35,44 +40,970 @@
     <property name="collision" value="plane"/>
    </properties>
   </tile>
+  <tile id="10">
+   <properties>
+    <property name="Collision" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="collision" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="Collision" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
  </tileset>
- <imagelayer name="Capa de Imagen 1" width="50" height="10">
+ <tileset firstgid="65" name="arboles_CampoDelCielo" tilewidth="64" tileheight="64">
+  <image source="arboles_CampoDelCielo.png" width="512" height="512"/>
+ </tileset>
+ <imagelayer name="cielo" width="370" height="80" visible="0">
   <image source="CampoDelCielo_fondo.png"/>
   <properties>
    <property name="Depth" value="20"/>
    <property name="Size" value="Fullscreen"/>
   </properties>
  </imagelayer>
- <imagelayer name="stars1" width="50" height="10">
+ <imagelayer name="stars1" width="370" height="80" visible="0">
   <image source="CampoDelCielo_stars1.png"/>
   <properties>
-   <property name="Depth" value="1"/>
+   <property name="Depth" value="6"/>
    <property name="Scroll" value="Relative"/>
    <property name="Speed" value="0.05"/>
   </properties>
  </imagelayer>
- <imagelayer name="stars2" width="50" height="10">
+ <imagelayer name="stars2" width="370" height="80" visible="0">
   <image source="CampoDelCielo_stars2.png"/>
   <properties>
-   <property name="Depth" value="2"/>
+   <property name="Depth" value="5"/>
    <property name="Scroll" value="Relative"/>
    <property name="Speed" value="0.07"/>
   </properties>
  </imagelayer>
- <layer name="behind objects" width="50" height="10">
+ <layer name="arboles" width="370" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3UOW7CYBSFUW8NyAQkJEBSAHugY2gALz23oLYSx0MsnSN95fu5BXJRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPwPozROk76HAFDLNM3SvOb9vsEtAPzeMq3SusbtIR3TKZ2bHAXAj23SNu1q3F7SNd1S2eAmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgPaM0TpO+hwCdeUiPA3qXatM0S/M/vLFvaAt06Sk9p5e+h9xlR5k9ZXaVbf/Wa3ob0LtUW6ZVWte8P6RjOqVzU6OgA4v0nj76HnKXHWX2lIsOvuOf6WtA71Jtk7ZpV/P+kq7pVnTw5wMAAAAAAAAAAAAAAAAAAFr3DeRQYeCAzgEA
+  </data>
+ </layer>
+ <layer name="alambrados" width="370" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WOwrAIBAFwLR6m9zQo2fLFCFf4wdm4FWC7JMtXBYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEaRIvmnxN2lXRMAAADuWHsPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0EiK5JPEeek2HAAAcOjqH/8kM/z5a/Rt0XM/5yjvWmtX3vSpuacz7i0AAAAAAAAAAAAAAAAAAPDNBglTaJaAzgEA
+  </data>
+ </layer>
+ <layer name="parches" width="370" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3aQQrCMBAF0BzApVdodGPPmKOrFMFFYwUx0ynvwSeLbGb1SdOUAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABzZpRMAcqrRAwDwEz0OkJseB9iX3v33M7UT8vKfA45vrafrxj453aIHAP5Cj+cz4j2RMzzsV+/u5FPIZV7SoucAxnAeB975Fstnq8enUYMA4XR3Tms9PW3sAwDjnaIHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL5yLaWdH+srAOSlxwEAAACAbOYlLXoOAAAAAAAAAAAAAAAAAAAgzh1omJmBgM4BAA==
+  </data>
+ </layer>
+ <layer name="cactus" width="370" height="80">
   <properties>
-   <property name="Depth" value="0.30"/>
+   <property name="Depth" value="-1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwVAArELMBMTsQc0D4DQPpHiEgFkbicwIxFxLGBXiBmA+I+YFYAMJvAIkLUmg/KYBUuwY7AACNrmmU0AcAAA==
+   H4sIAAAAAAAAC+3QQQrEIBBFwRzWpYfw6LMMBAIx/UGZVG10oa+hjwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4Z21xJzUf4Kv64k5qPgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwHa32dyQ619YOneTc6m6SzXZzfzOvneeYaTx5P9usSuwTVum1vyPRubZ26CTnVneTbPab+5t5/TzHTOPJ+9lmVWKfAAAAAAAAAAAAAAAAAADA/n4NxbrUgM4BAA==
   </data>
  </layer>
- <layer name="plataforma" width="50" height="10">
+ <layer name="behindwall" width="370" height="80">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCmgDmBkYGhiBNBMQM0L4ZOknVR8pANl9jDj4LEB38ABpGGZBkyfGDEJyTATEmfCoBbEBgQb2YNAHAAA=
+   H4sIAAAAAAAAC+3dsQ6CMBRAUdxZ9Q+c/UU/XR1MqgGsUPoonJO8xBgrdblWF7oOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBS+ugNALCIjgO07bvjug7QFh0HaFtux8eePxXcCwD/W9rxI5zfzyOT+7olc01mjffP+VzAtg11fKrNR/wfplY/tzJAW3T8t+iu6ji53r/dgE/RXe0rXw9gb3QcoG3RHa89AHvTyjlaxwGGzW14nzyObrOOA0cW3VUdBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKjrEr0BADbLdwTAuGcj79H3ZJwaDQeYNrfjqblrdRygvBIdv2Wuy7mejgOU8Tq3p5OzZmnHAVhHbscBAAAAAIj3AP8o27OAzgEA
   </data>
  </layer>
- <objectgroup name="Capa de Objetos 1" width="50" height="10">
-  <object name="Start" type="Warp" x="64" y="256" width="64" height="64"/>
+ <layer name="arbustos" width="370" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3cf26CMBQA4F5h8w9/nIPej6N41HVOIpuFgMCK8H3Ji4lB8mzqa0sbQwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4cU5xKp0EAC9J9bu+pNdjuNXza+F0AAAAAAAAgI34KJ0AAAAAwMZ43gIAAAAAAAAAAAAAAAAAAAAAwFQxRVU6CQCy4j326u93b8asPbcJsF5Nfdp77Z6ir/3Uf2AO6sj6xJ4Y6jOEOve+/2+G92IeDfsW7+N57BjXM9e/PHd4J+cUp9JJdNhyu7OcOefoQ++VqxNpDREOmWur8HvfvP25XH/vy6HU72NsnmN916VLimP43/q01Pqu6Qtd5yWmnKNI7VM3bZXa7TrhVk+q8Nxf2/YwRgIAAAAA6+S8DsB2tfdOh+xBzT0mDD1TAsByxp5BsD4AAAAAAACAhy9lqcp5gM4BAA==
+  </data>
+ </layer>
+ <layer name="casas" width="370" height="80">
+  <properties>
+   <property name="Depth" value="0.50"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3d0U7bMBQAUL+09KWQh/0A65hge6r6g/4UPnW2HK9eSBCbxBLDOdKVi5ukRVfcXjtCDQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4qJ5S/JjEz3FMz8X13hkAb3FO8X0Sl3E8q+MAm6eOA/RNHQfYttf2v5fm1PF+zeXbfQ7oW+63H8LLfvthMn+ZeV4d70/O930oeUxj/BrkEXr32r7J0px+fFvmeuylPrt+btfP6FO45nGXYp/iUCLumvOnr6GHh+04l3j+m1DHt6XW5tRbx1O41um5/Iz9eKzH5sf1uGOK2xRDiXhszm9foz0HWN+/9uP2VeBzqGsx/zeyXeo4sKTW8LYW+LvfnlzH8/o63+/KtflbKHX6PlzX56dxrq7ZL+Nx8gkfW70vXuuD/g0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGA9+fu3b0KI+zF2vkcCoBu5hqfa/buO5xr+uPabAuDNjiluU9ylGMrP8agfh1XV/qoN62SAfqQ1cfwSSo81lNE6GTpWe7NDuPZk4z0NfVpHcs4OJWIeb8KfOW3VOt7GY3OdfXOt9vxmn3Tx2sD/V/e+6r5Xnbsb5+2D9SHnbCgR89juZc4dW3M+zXP73DDZB53bJ32nXwcAAAAAAAAAAAAAAAAAAHgnvwA5Kk/MgM4BAA==
+  </data>
+ </layer>
+ <layer name="columnas" width="370" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3cOw6EIBAAUK+jndkLchSPKpuNjR+CCqvG95IpJCAUzkQoaBoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4I0+mW0AAAAcF/dZQ26/KequiLuyJ4dyjuTT3jFyljnfBJSzlU+pPCtVx3PfE/uFnVMCvMbZGrsybsg9N1HHAer5x75XHQdIm/8br0VibIn5k23OSAHqUccBAAAAAAAAAAAAAAAAAAAAAAAAAGBbG6P7RfhG6057gEfpl8/hinUAAAAAAAAAAAAAAAAAAAAAAADACMaiiQiAzgEA
+  </data>
+ </layer>
+ <layer name="plataforma2" width="370" height="80">
+  <properties>
+   <property name="Depth" value="1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3d4WqDMBQG0Mz6zz3UHm2P1kebGU2JmRpdiW3lHAitmxBh7POaXpoQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4Z5cQvj/G17Vxed7lAVAxjDn+Ob6ujeF5lwdARczxPoSvse6+xjG+v9ZqdPU5wOuIOT5Mj6+1Gl19DvA6lnI81ei1+lxtDvAcKZv7hRwfimO1OcBrybN5zPLf2roL91zflONLdToA7VVq7LiuMsn1pfPmfg5Ae7UcL49ra+Ry/DiefYBob47X1sjl+HHyvwUA7yc9Hx2V43G+g6YCOI18HasL0/7O/Pmo5fzdbf5ejgMntaePvvx8oczm0sza1p95W/bul/MDnNGWPvq5unpL7/1aH9AjvfvperrbKO8tc59jq8eBM8t78Odq7LyuzTP0EqY5nH63pfaN5+x5DijXZGrfi6aXFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgFZa74MH7FPudTk3/M+S++8+eEAb9iJjr7T3XrrPA/Be3OMBAAAAAAAAAAAAAOBxP7CkhSOAzgEA
+  </data>
+ </layer>
+ <layer name="plataforma" width="370" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dbXaqOhgGUK3+887gnM6lQ+tQ7lA6tCvL0puTk5cEFATce60sLfJZ5YEEMYcDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACs0+lw+Hy7PQKwQZfD4euf2yMAM3tvLGPIcYBtk+MAz3Xv+bkcB9g2OQ6wLmPPzeX4Y4y9LgFsT2k/r7V7vDeOdw85Po8l3jtgu6ZkQ3R+Lsfnkb5HchxoMTUr9p7j3X1Ox+tjd6/TMSn5vU/9/VBv2Til56ds3qX558tIx43mn47bsh5RcU8XrMfUbB7TRr73HL9u12e3faVyPvyfi9fnn9fycX3+dbw9lsrXdZyv/n91uo07WK7jfKT1nmQZxXFr69xS9vpewtYs1a76KjnekNEffY4OOSV5O3I9/sjq2jJqx4eopMcZllOqb6krbUdaby/V3aO6dG3cUl36rbCc0rBaHTwdfv7Oub3u+5cVbF93PP694PL2+l6uWWsdqqsDtuS9/F/WvXXgtZS97vtL5HjL9zvzHE+P//fuo/ly9/pertncOTA1/4+zbvV+9HXgt6TdM32elmh4Pk5fWsbNp2sdP/97SlvBFqQ53nqPa+t372u/Fdm9fvqetvucXLP8375cstIN+3Ut47fwb3J8eWs+n4OtG3M+PuE3DYrz7s+1uzarezK19XfRnI8/nxyH+STXOf84b265ByvK8+S79z/zTuux52SfnlIPuJccX54ch/mk+1epjTG6TjzmGvFQyZcZXY9uuVadvx4tX44vT47DfE6V7xruqPxc99jrtY41k+MAAAAAAAAAAAAAAAAAAI/xK3gE2Luov5yt9Y/wO3gE2Lpav2b3/qZX/1vu+fO55b8xH+W4ft2AtZua07VyyZaR98vRD/vuB/tnWZeBaR6xrf388t+Yj3Jcv26wbUv0h72kUmZPzekxOV7qlyPKx0swzdB5e+nv0jHgkhwnHp3jU8s9/boNlVJ/v/2jYwe09x+xtLnOrR+Z4+/ZsFqOl87V0zyO/i617awxx59R/I79fqUZ0HLMHtMfGY8zlNVL5vTUHM+H1XI8ei09T8/72Yv6ipLjt5LWAaJ+VR5VJ4iWMTRsaJ2G+oHpX8vrZtH0resVrduUbYimj9Y56ocmmmeeAefCOOnfLXWzvn6bb9tQHz0t2z80PGqHjZZR6y9obF8+0eu1z0Hr/rSmrJ6a42nfeffmeO0YEZ23v3KO771k12a+jn+Xj7WVtI+YJT9zXc7XMuxZmZOu21Zyb29l7vPxtL1laN7Rebsc32/ZcrtR/zl99v9QUboStXPUjvGtOd6yvHSZed7L8f2WywP6P8zbY8ZcG06nHTtdul8AvIoox++5Ry0/fo+5H+KcnUe0Znm+TIBXEeV4VJdq+a5ndL2wdkyo1RVT+XEmXybAq4hyc4k2sTzfS+2F0TGg1g4O8CqemeNzFgAAAGA5/wF15722gM4BAA==
+  </data>
+ </layer>
+ <layer name="extras" width="370" height="80">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3ZsQ3AIAwEQFaAFIRtM3qIsoKRE3QnfWt99Y1LAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIFJ7c2X3AAAAAIAdjZk+c2YXAfi5ml0AgGUiN/75fx+B9wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgS26RwDmugM4BAA==
+  </data>
+ </layer>
+ <objectgroup name="batis" width="370" height="80">
+  <object name="bati" x="4672" y="4608" width="64" height="64"/>
+  <object name="bati" x="5056" y="4608" width="64" height="64"/>
+  <object name="bati" x="6144" y="4608" width="64" height="64"/>
+  <object name="bati" x="6720" y="4608" width="64" height="64"/>
+  <object name="bati" x="6912" y="4608" width="64" height="64"/>
+  <object name="bati" x="5569" y="2775" width="64" height="64"/>
+  <object name="bati" x="5184" y="2556" width="64" height="64"/>
+  <object name="bati" x="5695" y="2299" width="64" height="64"/>
+  <object name="bati" x="11264" y="2976" width="64" height="64"/>
+  <object name="bati" x="11712" y="2975" width="64" height="64"/>
+  <object name="bati" x="12383" y="2979" width="64" height="64"/>
+  <object name="bati" x="13029" y="2914" width="64" height="64"/>
+  <object name="bati" x="13780" y="2914" width="64" height="64"/>
+  <object name="bati" x="14817" y="2973" width="64" height="64"/>
+  <object name="bati" x="14234" y="2984" width="64" height="64"/>
+  <object name="bati" x="5504" y="2560" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup name="dengues" width="370" height="80">
+  <object type="Dengue" x="1536" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="1856" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="2432" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="2176" y="4416" width="64" height="64"/>
+  <object type="Particles/Glow" x="2944" y="4416" width="704" height="64"/>
+  <object type="Dengue" x="4160" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="4416" y="4672" width="64" height="64"/>
+  <object type="Dengue" x="5312" y="4288" width="64" height="64"/>
+  <object type="Dengue" x="5568" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="7040" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="6272" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="8512" y="4352" width="64" height="64"/>
+  <object type="Dengue" x="8256" y="4352" width="64" height="64"/>
+  <object type="Dengue" x="8832" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="9280" y="4480" width="64" height="64"/>
+  <object type="Dengue" x="9216" y="4352" width="64" height="64"/>
+  <object type="Dengue" x="9472" y="4352" width="64" height="64"/>
+  <object type="Dengue" x="9728" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="10240" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="10880" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="11584" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="11904" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="12352" y="4288" width="64" height="64"/>
+  <object type="Dengue" x="12352" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="12992" y="4160" width="64" height="64"/>
+  <object type="Dengue" x="12992" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="13504" y="4288" width="64" height="64"/>
+  <object type="Dengue" x="13952" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="14208" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="14656" y="4416" width="64" height="64"/>
+  <object type="Dengue" x="5699" y="2901" width="64" height="64"/>
+  <object type="Dengue" x="5258" y="2691" width="64" height="64"/>
+  <object type="Dengue" x="5698" y="2449" width="64" height="64"/>
+  <object type="Dengue" x="5372" y="2919" width="64" height="64"/>
+  <object type="Dengue" x="5632" y="2693" width="64" height="64"/>
+  <object type="Dengue" x="7168" y="2560" width="64" height="64"/>
+  <object type="Dengue" x="7040" y="2368" width="64" height="64"/>
+  <object type="Dengue" x="7232" y="2368" width="64" height="64"/>
+  <object type="Dengue" x="7360" y="2240" width="64" height="64"/>
+  <object type="Dengue" x="11520" y="3264" width="64" height="64"/>
+  <object type="Dengue" x="12032" y="3072" width="64" height="64"/>
+  <object type="Dengue" x="11648" y="3136" width="64" height="64"/>
+  <object type="Dengue" x="12800" y="3008" width="64" height="64"/>
+  <object type="Dengue" x="13376" y="3264" width="64" height="64"/>
+  <object type="Dengue" x="14336" y="3264" width="64" height="64"/>
+  <object type="Dengue" x="13952" y="3072" width="64" height="64"/>
+  <object type="Dengue" x="14528" y="3136" width="64" height="64"/>
+  <object type="Dengue" x="14208" y="2688" width="64" height="64"/>
+  <object type="Dengue" x="11584" y="2752" width="64" height="64"/>
+  <object type="Dengue" x="11200" y="2752" width="64" height="64"/>
+  <object type="Dengue" x="6272" y="2880" width="64" height="64"/>
+  <object type="Dengue" x="6144" y="2688" width="64" height="64"/>
+  <object type="Dengue" x="6400" y="2752" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup name="gauchos" width="370" height="80">
+  <object name="Gaucho" x="1152" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="2752" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="3520" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="5184" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="5824" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="6592" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="8064" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="7616" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="10048" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="10688" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="11264" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="12160" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="12672" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="13312" y="4416" width="64" height="64"/>
+  <object name="Gaucho" x="13696" y="4416" width="64" height="64"/>
+  <object name="Gauchofacon" x="6208" y="2944" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gaucho" x="7040" y="2816" width="64" height="64"/>
+  <object name="Gaucho" x="7360" y="2688" width="64" height="64"/>
+  <object name="Gaucho" x="6912" y="2560" width="64" height="64"/>
+  <object name="Gauchofacon" x="6912" y="2816" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="7040" y="2560" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="6208" y="2304" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gaucho" x="6720" y="2432" width="64" height="64"/>
+  <object name="Gaucho" x="6464" y="2304" width="64" height="64"/>
+  <object name="Gaucho" x="6592" y="2944" width="64" height="64"/>
+  <object name="Gauchofacon" x="4736" y="2944" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gaucho" x="14720" y="2752" width="64" height="64"/>
+  <object name="Gauchofacon" x="14400" y="2752" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gaucho" x="13696" y="2752" width="64" height="64"/>
+  <object name="Gauchofacon" x="12736" y="2752" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="11904" y="2752" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="11328" y="2752" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="1728" y="4416" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="3968" y="4416" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="6208" y="4416" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="6912" y="4416" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="8640" y="4416" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="9344" y="4352" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="12416" y="4288" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="13120" y="4288" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="14528" y="4416" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+  <object name="Gauchofacon" x="15232" y="4352" width="64" height="64">
+   <properties>
+    <property name="depth" value="0.20"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="cameras" width="370" height="80" visible="0">
+  <object type="CameraBound" x="704" y="4096" width="3264" height="448">
+   <properties>
+    <property name="zoom" value="4"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="4032" y="3968" width="640" height="576">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="4480" y="4608" width="2880" height="320">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="4736" y="4096" width="3904" height="448">
+   <properties>
+    <property name="zoom" value="4"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="8704" y="4160" width="1792" height="448">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="10560" y="4160" width="1216" height="448">
+   <properties>
+    <property name="zoom" value="4"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="11840" y="4032" width="3008" height="512">
+   <properties>
+    <property name="zoom" value="5"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="0" y="3840" width="640" height="640">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="4992" y="2048" width="960" height="1024">
+   <properties>
+    <property name="zoom" value="4"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="6080" y="1984" width="1472" height="1088">
+   <properties>
+    <property name="zoom" value="6"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="3968" y="2496" width="960" height="640">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="11200" y="2944" width="3776" height="448">
+   <properties>
+    <property name="zoom" value="4.5"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="11840" y="2240" width="3392" height="640">
+   <properties>
+    <property name="zoom" value="4"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="10880" y="2304" width="896" height="640">
+   <properties>
+    <property name="zoom" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="items" width="370" height="80">
+  <object name="fruit" x="1216" y="4352" width="64" height="64"/>
+  <object name="fruit" x="1152" y="4352" width="64" height="64"/>
+  <object name="Particles/Glow" x="832" y="4288" width="320" height="192">
+   <properties>
+    <property name="depth" value="0"/>
+   </properties>
+  </object>
+  <object name="fruit" x="1536" y="4352" width="64" height="64"/>
+  <object name="fruit" x="1600" y="4352" width="64" height="64"/>
+  <object name="fruit" x="1536" y="4288" width="64" height="64"/>
+  <object name="fruit" x="1600" y="4288" width="64" height="64"/>
+  <object name="fruit" x="2240" y="4352" width="64" height="64"/>
+  <object name="fruit" x="2304" y="4352" width="64" height="64"/>
+  <object name="fruit" x="2368" y="4352" width="64" height="64"/>
+  <object name="fruit" x="2240" y="4288" width="64" height="64"/>
+  <object name="fruit" x="2304" y="4288" width="64" height="64"/>
+  <object name="fruit" x="2368" y="4288" width="64" height="64"/>
+  <object name="fruit" x="2688" y="4416" width="64" height="64"/>
+  <object name="fruit" x="2624" y="4416" width="64" height="64"/>
+  <object name="fruit" x="2816" y="4416" width="64" height="64"/>
+  <object name="fruit" x="2880" y="4416" width="64" height="64"/>
+  <object name="fruit" x="3456" y="4352" width="64" height="64"/>
+  <object name="fruit" x="3520" y="4352" width="64" height="64"/>
+  <object name="fruit" x="3456" y="4416" width="64" height="64"/>
+  <object name="fruit" x="3584" y="4416" width="64" height="64"/>
+  <object name="fruit" x="3584" y="4352" width="64" height="64"/>
+  <object name="fruit" x="4352" y="4608" width="64" height="64"/>
+  <object name="fruit" x="4416" y="4608" width="64" height="64"/>
+  <object name="fruit" x="4480" y="4608" width="64" height="64"/>
+  <object name="fruit" x="4928" y="4608" width="64" height="64"/>
+  <object name="fruit" x="5056" y="4672" width="64" height="64"/>
+  <object name="fruit" x="5120" y="4608" width="64" height="64"/>
+  <object name="fruit" x="4992" y="4672" width="64" height="64"/>
+  <object name="fruit" x="4864" y="4672" width="64" height="64"/>
+  <object name="fruit" x="5184" y="4672" width="64" height="64"/>
+  <object name="fruit" x="6016" y="4608" width="64" height="64"/>
+  <object name="fruit" x="6016" y="4672" width="64" height="64"/>
+  <object name="fruit" x="6080" y="4608" width="64" height="64"/>
+  <object name="fruit" x="6080" y="4672" width="64" height="64"/>
+  <object name="fruit" x="5952" y="4608" width="64" height="64"/>
+  <object name="fruit" x="5952" y="4672" width="64" height="64"/>
+  <object name="fruit" x="6656" y="4608" width="64" height="64"/>
+  <object name="fruit" x="6656" y="4672" width="64" height="64"/>
+  <object name="fruit" x="6720" y="4672" width="64" height="64"/>
+  <object name="fruit" x="6784" y="4672" width="64" height="64"/>
+  <object name="fruit" x="6784" y="4608" width="64" height="64"/>
+  <object name="fruit" x="5888" y="4608" width="64" height="64"/>
+  <object name="fruit" x="5888" y="4672" width="64" height="64"/>
+  <object name="fruit" x="4992" y="4288" width="64" height="64"/>
+  <object name="fruit" x="5056" y="4288" width="64" height="64"/>
+  <object name="fruit" x="5312" y="4224" width="64" height="64"/>
+  <object name="fruit" x="5376" y="4224" width="64" height="64"/>
+  <object name="fruit" x="5248" y="4416" width="64" height="64"/>
+  <object name="fruit" x="5120" y="4416" width="64" height="64"/>
+  <object name="fruit" x="5184" y="4352" width="64" height="64"/>
+  <object name="fruit" x="5696" y="4416" width="64" height="64"/>
+  <object name="fruit" x="5632" y="4416" width="64" height="64"/>
+  <object name="fruit" x="6336" y="4416" width="64" height="64"/>
+  <object name="fruit" x="6272" y="4416" width="64" height="64"/>
+  <object name="fruit" x="6592" y="4352" width="64" height="64"/>
+  <object name="fruit" x="6592" y="4288" width="64" height="64"/>
+  <object name="fruit" x="7104" y="4416" width="64" height="64"/>
+  <object name="fruit" x="7232" y="4288" width="64" height="64"/>
+  <object name="fruit" x="7168" y="4352" width="64" height="64"/>
+  <object name="fruit" x="7296" y="4352" width="64" height="64"/>
+  <object name="fruit" x="7360" y="4416" width="64" height="64"/>
+  <object name="fruit" x="7552" y="4288" width="64" height="64"/>
+  <object name="fruit" x="7616" y="4352" width="64" height="64"/>
+  <object name="fruit" x="7616" y="4288" width="64" height="64"/>
+  <object name="fruit" x="7680" y="4288" width="64" height="64"/>
+  <object name="fruit" x="8192" y="4416" width="64" height="64"/>
+  <object name="fruit" x="8128" y="4416" width="64" height="64"/>
+  <object name="fruit" x="8320" y="4352" width="64" height="64"/>
+  <object name="fruit" x="8384" y="4352" width="64" height="64"/>
+  <object name="fruit" x="8448" y="4352" width="64" height="64"/>
+  <object name="fruit" x="8384" y="4288" width="64" height="64"/>
+  <object name="fruit" x="8768" y="4416" width="64" height="64"/>
+  <object name="fruit" x="8832" y="4416" width="64" height="64"/>
+  <object name="fruit" x="8896" y="4416" width="64" height="64"/>
+  <object name="fruit" x="9216" y="4480" width="64" height="64"/>
+  <object name="fruit" x="9280" y="4480" width="64" height="64"/>
+  <object name="fruit" x="9344" y="4480" width="64" height="64"/>
+  <object name="fruit" x="9408" y="4480" width="64" height="64"/>
+  <object name="fruit" x="9216" y="4288" width="64" height="64"/>
+  <object name="fruit" x="9344" y="4288" width="64" height="64"/>
+  <object name="fruit" x="9280" y="4288" width="64" height="64"/>
+  <object name="fruit" x="9408" y="4288" width="64" height="64"/>
+  <object name="fruit" x="9216" y="4224" width="64" height="64"/>
+  <object name="fruit" x="9408" y="4224" width="64" height="64"/>
+  <object name="fruit" x="9920" y="4352" width="64" height="64"/>
+  <object name="fruit" x="9984" y="4352" width="64" height="64"/>
+  <object name="fruit" x="10048" y="4352" width="64" height="64"/>
+  <object name="fruit" x="9984" y="4416" width="64" height="64"/>
+  <object name="fruit" x="10304" y="4416" width="64" height="64"/>
+  <object name="fruit" x="10368" y="4416" width="64" height="64"/>
+  <object name="fruit" x="10624" y="4416" width="64" height="64"/>
+  <object name="fruit" x="10624" y="4352" width="64" height="64"/>
+  <object name="fruit" x="10752" y="4416" width="64" height="64"/>
+  <object name="fruit" x="10752" y="4352" width="64" height="64"/>
+  <object name="fruit" x="10688" y="4288" width="64" height="64"/>
+  <object name="fruit" x="11328" y="4416" width="64" height="64"/>
+  <object name="fruit" x="11392" y="4416" width="64" height="64"/>
+  <object name="fruit" x="11456" y="4416" width="64" height="64"/>
+  <object name="fruit" x="11392" y="4352" width="64" height="64"/>
+  <object name="fruit" x="11328" y="4288" width="64" height="64"/>
+  <object name="fruit" x="11456" y="4288" width="64" height="64"/>
+  <object name="fruit" x="11648" y="4480" width="64" height="64"/>
+  <object name="fruit" x="11584" y="4480" width="64" height="64"/>
+  <object name="fruit" x="12544" y="4288" width="64" height="64"/>
+  <object name="fruit" x="12480" y="4288" width="64" height="64"/>
+  <object name="fruit" x="12416" y="4288" width="64" height="64"/>
+  <object name="fruit" x="12352" y="4288" width="64" height="64"/>
+  <object name="fruit" x="12288" y="4288" width="64" height="64"/>
+  <object name="fruit" x="12416" y="4416" width="64" height="64"/>
+  <object name="fruit" x="12480" y="4416" width="64" height="64"/>
+  <object name="fruit" x="12352" y="4416" width="64" height="64"/>
+  <object name="fruit" x="12160" y="4288" width="64" height="64"/>
+  <object name="fruit" x="12672" y="4160" width="64" height="64"/>
+  <object name="fruit" x="12736" y="4160" width="64" height="64"/>
+  <object name="fruit" x="12800" y="4160" width="64" height="64"/>
+  <object name="fruit" x="12864" y="4160" width="64" height="64"/>
+  <object name="fruit" x="12928" y="4416" width="64" height="64"/>
+  <object name="fruit" x="12992" y="4416" width="64" height="64"/>
+  <object name="fruit" x="13056" y="4416" width="64" height="64"/>
+  <object name="fruit" x="13184" y="4416" width="64" height="64"/>
+  <object name="fruit" x="13248" y="4416" width="64" height="64"/>
+  <object name="fruit" x="13376" y="4416" width="64" height="64"/>
+  <object name="fruit" x="13440" y="4416" width="64" height="64"/>
+  <object name="fruit" x="13504" y="4416" width="64" height="64"/>
+  <object name="fruit" x="13568" y="4416" width="64" height="64"/>
+  <object name="fruit" x="13056" y="4096" width="64" height="64"/>
+  <object name="fruit" x="13120" y="4096" width="64" height="64"/>
+  <object name="fruit" x="13568" y="4288" width="64" height="64"/>
+  <object name="fruit" x="13440" y="4288" width="64" height="64"/>
+  <object name="fruit" x="13952" y="4288" width="64" height="64"/>
+  <object name="fruit" x="13888" y="4288" width="64" height="64"/>
+  <object name="fruit" x="13952" y="4224" width="64" height="64"/>
+  <object name="fruit" x="14016" y="4224" width="64" height="64"/>
+  <object name="fruit" x="13760" y="4416" width="64" height="64"/>
+  <object name="fruit" x="13760" y="4352" width="64" height="64"/>
+  <object name="fruit" x="13696" y="4352" width="64" height="64"/>
+  <object name="fruit" x="14528" y="4352" width="64" height="64"/>
+  <object name="fruit" x="14400" y="4416" width="64" height="64"/>
+  <object name="fruit" x="14336" y="4352" width="64" height="64"/>
+  <object name="fruit" x="14464" y="4416" width="64" height="64"/>
+  <object name="fruit" x="14400" y="4288" width="64" height="64"/>
+  <object name="fruit" x="14464" y="4288" width="64" height="64"/>
+  <object type="Secrets/Rave" x="22017" y="2837" width="198" height="171">
+   <properties>
+    <property name="depth" value="-.5"/>
+   </properties>
+  </object>
+  <object type="Secrets/Rave" x="21947" y="2904" width="70" height="103">
+   <properties>
+    <property name="Depth" value="-.5"/>
+   </properties>
+  </object>
+  <object type="Secrets/RaveGaucho2" x="22144" y="2944" width="64" height="64"/>
+  <object type="Secrets/RaveGaucho3" x="21952" y="2944" width="64" height="64">
+   <properties>
+    <property name="scale" value="-1, 1"/>
+   </properties>
+  </object>
+  <object type="Secrets/RaveGaucho1" x="22080" y="2944" width="64" height="64"/>
+  <object name="fruit" x="5248" y="2880" width="64" height="64"/>
+  <object name="fruit" x="5312" y="2880" width="64" height="64"/>
+  <object name="fruit" x="5376" y="2880" width="64" height="64"/>
+  <object name="fruit" x="5760" y="2816" width="64" height="64"/>
+  <object name="fruit" x="5696" y="2816" width="64" height="64"/>
+  <object name="fruit" x="5696" y="2880" width="64" height="64"/>
+  <object name="fruit" x="5632" y="2880" width="64" height="64"/>
+  <object name="fruit" x="5056" y="2624" width="64" height="64"/>
+  <object name="fruit" x="5120" y="2624" width="64" height="64"/>
+  <object name="fruit" x="5376" y="2624" width="64" height="64"/>
+  <object name="fruit" x="5440" y="2624" width="64" height="64"/>
+  <object name="fruit" x="5312" y="2624" width="64" height="64"/>
+  <object name="fruit" x="5056" y="2688" width="64" height="64"/>
+  <object name="fruit" x="5888" y="2688" width="64" height="64"/>
+  <object name="fruit" x="5824" y="2688" width="64" height="64"/>
+  <object name="fruit" x="5440" y="2688" width="64" height="64"/>
+  <object name="fruit" x="5888" y="2368" width="64" height="64"/>
+  <object name="fruit" x="5888" y="2432" width="64" height="64"/>
+  <object name="fruit" x="5824" y="2368" width="64" height="64"/>
+  <object name="Fruitpack" x="6051" y="2591" width="64" height="64"/>
+  <object name="ruda" type="caña" x="6336" y="2944" width="64" height="64"/>
+  <object name="ruda" type="caña" x="6272" y="2944" width="64" height="64"/>
+  <object name="Hat" type="hat" x="5376" y="4416" width="64" height="64"/>
+  <object name="ruda" type="caña" x="5056" y="2880" width="64" height="64"/>
+  <object name="ruda" type="caña" x="5120" y="2688" width="64" height="64"/>
+  <object name="ruda" type="caña" x="5696" y="2432" width="64" height="64"/>
+  <object name="fruit" x="6784" y="2944" width="64" height="64"/>
+  <object name="fruit" x="6848" y="2944" width="64" height="64"/>
+  <object name="fruit" x="6912" y="2944" width="64" height="64"/>
+  <object name="fruit" x="7232" y="2944" width="64" height="64"/>
+  <object name="fruit" x="6336" y="2816" width="64" height="64"/>
+  <object name="fruit" x="6272" y="2816" width="64" height="64"/>
+  <object name="fruit" x="6336" y="2880" width="64" height="64"/>
+  <object name="fruit" x="6272" y="2880" width="64" height="64"/>
+  <object name="fruit" x="6208" y="2496" width="64" height="64"/>
+  <object name="fruit" x="6272" y="2560" width="64" height="64"/>
+  <object name="fruit" x="6336" y="2560" width="64" height="64"/>
+  <object name="fruit" x="6400" y="2624" width="64" height="64"/>
+  <object name="fruit" x="6464" y="2624" width="64" height="64"/>
+  <object name="fruit" x="6528" y="2688" width="64" height="64"/>
+  <object name="fruit" x="6592" y="2688" width="64" height="64"/>
+  <object name="fruit" x="6144" y="2496" width="64" height="64"/>
+  <object name="fruit" x="6912" y="2688" width="64" height="64"/>
+  <object name="fruit" x="6976" y="2688" width="64" height="64"/>
+  <object name="fruit" x="6848" y="2688" width="64" height="64"/>
+  <object name="fruit" x="6784" y="2688" width="64" height="64"/>
+  <object name="fruit" x="7424" y="2816" width="64" height="64"/>
+  <object name="fruit" x="7360" y="2816" width="64" height="64"/>
+  <object name="fruit" x="7424" y="2880" width="64" height="64"/>
+  <object name="fruit" x="7360" y="2880" width="64" height="64"/>
+  <object name="fruit" x="7360" y="2560" width="64" height="64"/>
+  <object name="fruit" x="7424" y="2496" width="64" height="64"/>
+  <object name="fruit" x="7360" y="2496" width="64" height="64"/>
+  <object name="fruit" x="7424" y="2560" width="64" height="64"/>
+  <object name="fruit" x="7424" y="2624" width="64" height="64"/>
+  <object name="fruit" x="7360" y="2624" width="64" height="64"/>
+  <object name="fruit" x="6720" y="2560" width="64" height="64"/>
+  <object name="fruit" x="6784" y="2560" width="64" height="64"/>
+  <object name="fruit" x="6464" y="2432" width="64" height="64"/>
+  <object name="fruit" x="6528" y="2432" width="64" height="64"/>
+  <object name="fruit" x="6592" y="2432" width="64" height="64"/>
+  <object name="fruit" x="6400" y="2240" width="64" height="64"/>
+  <object name="fruit" x="6400" y="2304" width="64" height="64"/>
+  <object name="fruit" x="6464" y="2176" width="64" height="64"/>
+  <object name="fruit" x="6144" y="2304" width="64" height="64"/>
+  <object name="fruit" x="6080" y="2240" width="64" height="64"/>
+  <object name="fruit" x="6016" y="2176" width="64" height="64"/>
+  <object name="fruit" x="6336" y="2176" width="64" height="64"/>
+  <object name="fruit" x="5952" y="2176" width="64" height="64"/>
+  <object name="fruit" x="5888" y="2240" width="64" height="64"/>
+  <object name="fruit" x="5568" y="2240" width="64" height="64"/>
+  <object name="fruit" x="5504" y="2176" width="64" height="64"/>
+  <object name="fruit" x="5440" y="2176" width="64" height="64"/>
+  <object name="fruit" x="5376" y="2304" width="64" height="64"/>
+  <object name="fruit" x="5376" y="2240" width="64" height="64"/>
+  <object name="fruit" x="5312" y="2368" width="64" height="64"/>
+  <object name="fruit" x="5312" y="2432" width="64" height="64"/>
+  <object name="fruit" x="4864" y="2560" width="64" height="64"/>
+  <object name="fruit" x="4864" y="2624" width="64" height="64"/>
+  <object name="fruit" x="4864" y="2688" width="64" height="64"/>
+  <object name="fruit" x="4864" y="2752" width="64" height="64"/>
+  <object name="fruit" x="4864" y="2816" width="64" height="64"/>
+  <object name="fruit" x="4608" y="2880" width="64" height="64"/>
+  <object name="fruit" x="4544" y="2880" width="64" height="64"/>
+  <object name="fruit" x="4480" y="2880" width="64" height="64"/>
+  <object name="fruit" x="4416" y="2880" width="64" height="64"/>
+  <object name="fruit" x="4288" y="2944" width="64" height="64"/>
+  <object name="fruit" x="4288" y="3008" width="64" height="64"/>
+  <object name="fruit" x="4288" y="3072" width="64" height="64"/>
+  <object name="fruit" x="7104" y="2944" width="64" height="64"/>
+  <object name="fruit" x="7168" y="2944" width="64" height="64"/>
+  <object name="fruit" x="11264" y="3072" width="64" height="64"/>
+  <object name="fruit" x="11264" y="3008" width="64" height="64"/>
+  <object name="fruit" x="11264" y="3200" width="64" height="64"/>
+  <object name="fruit" x="11264" y="3136" width="64" height="64"/>
+  <object name="fruit" x="11328" y="3264" width="64" height="64"/>
+  <object name="fruit" x="11328" y="3200" width="64" height="64"/>
+  <object name="fruit" x="11520" y="3072" width="64" height="64"/>
+  <object name="fruit" x="11584" y="3072" width="64" height="64"/>
+  <object name="fruit" x="11584" y="3008" width="64" height="64"/>
+  <object name="fruit" x="11520" y="3008" width="64" height="64"/>
+  <object name="fruit" x="11776" y="3264" width="64" height="64"/>
+  <object name="fruit" x="11840" y="3264" width="64" height="64"/>
+  <object name="fruit" x="12160" y="3200" width="64" height="64"/>
+  <object name="fruit" x="12096" y="3200" width="64" height="64"/>
+  <object name="fruit" x="12032" y="3008" width="64" height="64"/>
+  <object name="fruit" x="12096" y="3008" width="64" height="64"/>
+  <object name="fruit" x="12096" y="2944" width="64" height="64"/>
+  <object name="fruit" x="12032" y="2944" width="64" height="64"/>
+  <object name="fruit" x="12416" y="3264" width="64" height="64"/>
+  <object name="fruit" x="12480" y="3264" width="64" height="64"/>
+  <object name="fruit" x="12480" y="3200" width="64" height="64"/>
+  <object name="fruit" x="11968" y="2944" width="64" height="64"/>
+  <object name="fruit" x="11968" y="3008" width="64" height="64"/>
+  <object name="fruit" x="12736" y="3136" width="64" height="64"/>
+  <object name="fruit" x="12800" y="3200" width="64" height="64"/>
+  <object name="fruit" x="12800" y="3136" width="64" height="64"/>
+  <object name="fruit" x="12864" y="3200" width="64" height="64"/>
+  <object name="fruit" x="12736" y="2944" width="64" height="64"/>
+  <object name="fruit" x="12800" y="2944" width="64" height="64"/>
+  <object name="fruit" x="12864" y="2944" width="64" height="64"/>
+  <object name="fruit" x="13184" y="3072" width="64" height="64"/>
+  <object name="fruit" x="13184" y="3008" width="64" height="64"/>
+  <object name="fruit" x="13184" y="3264" width="64" height="64"/>
+  <object name="fruit" x="13248" y="3264" width="64" height="64"/>
+  <object name="fruit" x="13312" y="3264" width="64" height="64"/>
+  <object name="fruit" x="12480" y="2944" width="64" height="64"/>
+  <object name="fruit" x="12480" y="2880" width="64" height="64"/>
+  <object name="fruit" x="12480" y="2816" width="64" height="64"/>
+  <object name="fruit" x="12544" y="2752" width="64" height="64"/>
+  <object name="fruit" x="12288" y="2752" width="64" height="64"/>
+  <object name="fruit" x="12416" y="2560" width="64" height="64"/>
+  <object name="fruit" x="12416" y="2624" width="64" height="64"/>
+  <object name="fruit" x="12480" y="2560" width="64" height="64"/>
+  <object name="fruit" x="12352" y="2560" width="64" height="64"/>
+  <object name="fruit" x="12608" y="2560" width="64" height="64"/>
+  <object name="fruit" x="12736" y="2560" width="64" height="64"/>
+  <object name="fruit" x="12864" y="2496" width="64" height="64"/>
+  <object name="fruit" x="12992" y="2496" width="64" height="64"/>
+  <object name="fruit" x="13056" y="2496" width="64" height="64"/>
+  <object name="fruit" x="13120" y="2496" width="64" height="64"/>
+  <object name="fruit" x="13184" y="2496" width="64" height="64"/>
+  <object name="fruit" x="13312" y="2432" width="64" height="64"/>
+  <object name="fruit" x="13376" y="2496" width="64" height="64"/>
+  <object name="fruit" x="13440" y="2560" width="64" height="64"/>
+  <object name="fruit" x="13504" y="2624" width="64" height="64"/>
+  <object name="fruit" x="13312" y="2752" width="64" height="64"/>
+  <object name="fruit" x="13312" y="2688" width="64" height="64"/>
+  <object name="fruit" x="13696" y="2752" width="64" height="64"/>
+  <object name="fruit" x="13760" y="2752" width="64" height="64"/>
+  <object name="fruit" x="13632" y="2560" width="64" height="64"/>
+  <object name="fruit" x="13760" y="2560" width="64" height="64"/>
+  <object name="fruit" x="13888" y="2624" width="64" height="64"/>
+  <object name="fruit" x="13952" y="2624" width="64" height="64"/>
+  <object name="fruit" x="14016" y="2624" width="64" height="64"/>
+  <object name="fruit" x="14144" y="2752" width="64" height="64"/>
+  <object name="fruit" x="14208" y="2752" width="64" height="64"/>
+  <object name="fruit" x="14272" y="2752" width="64" height="64"/>
+  <object name="fruit" x="13312" y="3072" width="64" height="64"/>
+  <object name="fruit" x="13312" y="3008" width="64" height="64"/>
+  <object name="fruit" x="13376" y="3008" width="64" height="64"/>
+  <object name="fruit" x="13376" y="3072" width="64" height="64"/>
+  <object name="fruit" x="13504" y="3200" width="64" height="64"/>
+  <object name="fruit" x="13632" y="3200" width="64" height="64"/>
+  <object name="fruit" x="13568" y="3200" width="64" height="64"/>
+  <object name="fruit" x="13632" y="2944" width="64" height="64"/>
+  <object name="fruit" x="13568" y="2944" width="64" height="64"/>
+  <object name="fruit" x="14016" y="2752" width="64" height="64"/>
+  <object name="fruit" x="13888" y="2816" width="64" height="64"/>
+  <object name="fruit" x="14848" y="3008" width="64" height="64"/>
+  <object name="fruit" x="14784" y="3008" width="64" height="64"/>
+  <object name="fruit" x="14720" y="3008" width="64" height="64"/>
+  <object name="fruit" x="14336" y="3008" width="64" height="64"/>
+  <object name="fruit" x="14400" y="3072" width="64" height="64"/>
+  <object name="fruit" x="14272" y="3008" width="64" height="64"/>
+  <object name="fruit" x="14336" y="3072" width="64" height="64"/>
+  <object name="fruit" x="14400" y="3008" width="64" height="64"/>
+  <object name="fruit" x="14464" y="3008" width="64" height="64"/>
+  <object name="fruit" x="14528" y="3264" width="64" height="64"/>
+  <object name="fruit" x="14400" y="3264" width="64" height="64"/>
+  <object name="fruit" x="14272" y="3264" width="64" height="64"/>
+  <object name="fruit" x="14144" y="3264" width="64" height="64"/>
+  <object name="fruit" x="14848" y="3136" width="64" height="64"/>
+  <object name="fruit" x="14784" y="3136" width="64" height="64"/>
+  <object name="fruit" x="14720" y="3136" width="64" height="64"/>
+  <object name="fruit" x="14528" y="2688" width="64" height="64"/>
+  <object name="fruit" x="14592" y="2688" width="64" height="64"/>
+  <object name="fruit" x="14656" y="2688" width="64" height="64"/>
+  <object name="fruit" x="14720" y="2688" width="64" height="64"/>
+  <object name="fruit" x="14656" y="2624" width="64" height="64"/>
+  <object name="fruit" x="14592" y="2624" width="64" height="64"/>
+  <object name="fruit" x="12160" y="2752" width="64" height="64"/>
+  <object name="fruit" x="12096" y="2752" width="64" height="64"/>
+  <object name="fruit" x="12032" y="2752" width="64" height="64"/>
+  <object name="fruit" x="11648" y="2816" width="64" height="64"/>
+  <object name="fruit" x="11584" y="2816" width="64" height="64"/>
+  <object name="fruit" x="11648" y="2624" width="64" height="64"/>
+  <object name="fruit" x="11584" y="2624" width="64" height="64"/>
+  <object name="fruit" x="10944" y="2688" width="64" height="64"/>
+  <object name="fruit" x="10944" y="2816" width="64" height="64"/>
+  <object name="fruit" x="10944" y="2880" width="64" height="64"/>
+  <object name="fruit" x="10944" y="2944" width="64" height="64"/>
+  <object name="fruit" x="11008" y="3136" width="64" height="64"/>
+  <object name="fruit" x="11008" y="3200" width="64" height="64"/>
+  <object name="fruit" x="11008" y="3264" width="64" height="64"/>
+  <object name="fruit" x="12032" y="3264" width="64" height="64"/>
+  <object name="fruit" x="12096" y="3264" width="64" height="64"/>
+  <object name="fruit" x="5888" y="2624" width="64" height="64"/>
+  <object name="fruit" x="5888" y="2752" width="64" height="64"/>
+  <object name="fruit" x="5888" y="2496" width="64" height="64"/>
+  <object name="fruit" x="5824" y="2432" width="64" height="64"/>
+  <object name="fruit" x="5184" y="2688" width="64" height="64"/>
+  <object name="fruit" x="5504" y="2624" width="64" height="64"/>
+  <object name="fruit" x="5632" y="2560" width="64" height="64"/>
+  <object name="fruit" x="5440" y="2752" width="64" height="64"/>
+  <object name="fruit" x="5440" y="2880" width="64" height="64"/>
+  <object name="fruit" x="1152" y="4416" width="64" height="64"/>
+  <object name="fruit" x="1664" y="4288" width="64" height="64"/>
+  <object name="fruit" x="1664" y="4352" width="64" height="64"/>
+  <object name="fruit" x="2752" y="4352" width="64" height="64"/>
+  <object name="fruit" x="4224" y="4352" width="64" height="64"/>
+  <object name="fruit" x="4288" y="4288" width="64" height="64"/>
+  <object name="fruit" x="4416" y="4352" width="64" height="64"/>
+  <object name="fruit" x="4352" y="4288" width="64" height="64"/>
+  <object name="fruit" x="5376" y="4608" width="64" height="64"/>
+  <object name="fruit" x="5504" y="4608" width="64" height="64"/>
+  <object name="fruit" x="5312" y="4160" width="64" height="64"/>
+  <object name="fruit" x="5376" y="4160" width="64" height="64"/>
+  <object name="fruit" x="5760" y="4416" width="64" height="64"/>
+  <object name="fruit" x="5824" y="4416" width="64" height="64"/>
+  <object name="fruit" x="6208" y="4416" width="64" height="64"/>
+  <object name="fruit" x="6656" y="4352" width="64" height="64"/>
+  <object name="fruit" x="6656" y="4288" width="64" height="64"/>
+  <object name="fruit" x="12352" y="4160" width="64" height="64"/>
+  <object name="fruit" x="12480" y="4160" width="64" height="64"/>
+  <object name="fruit" x="14912" y="4416" width="64" height="64"/>
+  <object name="fruit" x="14976" y="4416" width="64" height="64"/>
+  <object name="fruit" x="12992" y="2624" width="64" height="64"/>
+  <object name="fruit" x="12992" y="2688" width="64" height="64"/>
+  <object name="fruit" x="13120" y="2624" width="64" height="64"/>
+  <object name="fruit" x="12992" y="2752" width="64" height="64"/>
+  <object name="fruit" x="13184" y="2688" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup name="otros" width="370" height="80">
+  <object name="Retorno" type="Door" x="896" y="4416" width="64" height="64">
+   <properties>
+    <property name="target" value="/Levels/Monte.tmx"/>
+   </properties>
+  </object>
+  <object name="EntradaSecreta" type="Door" x="12834" y="2751" width="64" height="64">
+   <properties>
+    <property name="target" value="SalidaSecreta"/>
+   </properties>
+  </object>
+  <object type="Secrets/SpecialDoor" x="12835" y="2750" width="64" height="64">
+   <properties>
+    <property name="depth" value=".3"/>
+   </properties>
+  </object>
+  <object name="RaveAfuera" type="Door" x="22016" y="4160" width="64" height="64">
+   <properties>
+    <property name="target" value="RaveAdentro"/>
+   </properties>
+  </object>
+  <object name="RaveAdentro" type="Door" x="22016" y="2944" width="64" height="64">
+   <properties>
+    <property name="target" value="RaveAfuera"/>
+   </properties>
+  </object>
+  <object type="Secrets/RaveLight" x="22081" y="2921" width="64" height="64"/>
+  <object name="Luis" x="4800" y="4416" width="64" height="64"/>
+  <object type="Comet" x="14848" y="3968" width="64" height="64"/>
+  <object type="Comet" x="1216" y="4032" width="64" height="64"/>
+  <object type="Comet" x="15104" y="3904" width="64" height="64"/>
+  <object type="Comet" x="15552" y="3840" width="64" height="64"/>
+  <object type="Comet" x="16000" y="3776" width="64" height="64"/>
+  <object type="Comet" x="16384" y="3648" width="64" height="64"/>
+  <object type="Comet" x="16960" y="3584" width="64" height="64"/>
+  <object type="Comet" x="17600" y="3584" width="64" height="64"/>
+  <object type="Comet" x="17984" y="3584" width="64" height="64"/>
+  <object type="Comet" x="18101" y="3586" width="64" height="64"/>
+  <object type="Comet" x="18271" y="3586" width="64" height="64"/>
+  <object type="Comet" x="18498" y="3586" width="64" height="64"/>
+  <object type="Comet" x="18771" y="3650" width="64" height="64"/>
+  <object type="Comet" x="19020" y="3598" width="64" height="64"/>
+  <object type="Comet" x="19138" y="3568" width="64" height="64"/>
+  <object type="Comet" x="19395" y="3671" width="64" height="64"/>
+  <object type="Comet" x="19595" y="3583" width="64" height="64"/>
+  <object type="Comet" x="19750" y="3562" width="64" height="64"/>
+  <object type="Comet" x="19950" y="3695" width="64" height="64"/>
+  <object type="Comet" x="20220" y="3580" width="64" height="64"/>
+  <object type="Comet" x="20353" y="3459" width="64" height="64"/>
+  <object type="Comet" x="20529" y="3507" width="64" height="64"/>
+  <object type="Comet" x="20710" y="3559" width="64" height="64"/>
+  <object type="Comet" x="20774" y="3435" width="64" height="64"/>
+  <object type="Comet" x="21083" y="3516" width="64" height="64"/>
+  <object type="Comet" x="21241" y="3565" width="64" height="64"/>
+  <object type="Comet" x="19853" y="3213" width="64" height="64"/>
+  <object type="Comet" x="19956" y="3389" width="64" height="64"/>
+  <object type="Comet" x="20108" y="3326" width="64" height="64"/>
+  <object type="Comet" x="19929" y="3344" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup name="Warps" width="370" height="80">
+  <object name="acentam out" type="Door" x="12480" y="4416" width="64" height="64">
+   <properties>
+    <property name="Target" value="acentam in"/>
+   </properties>
+  </object>
+  <object name="acentam in" type="Door" x="12352" y="2752" width="64" height="64">
+   <properties>
+    <property name="Target" value="acentam out"/>
+   </properties>
+  </object>
+  <object name="acentam1 in" type="Door" x="13184" y="2624" width="64" height="64">
+   <properties>
+    <property name="Target" value="acentam1 out"/>
+   </properties>
+  </object>
+  <object name="acentam1 out" type="Door" x="13952" y="2752" width="64" height="64">
+   <properties>
+    <property name="Target" value="acentam2"/>
+   </properties>
+  </object>
+  <object name="acentam2" type="Door" x="13952" y="4416" width="64" height="64"/>
+  <object name="acentam3 out" type="Door" x="13120" y="4416" width="64" height="64">
+   <properties>
+    <property name="Target" value="acentam3 in"/>
+   </properties>
+  </object>
+  <object name="acentam3 in" type="Door" x="13056" y="2752" width="64" height="64">
+   <properties>
+    <property name="Target" value="acentam3 out"/>
+   </properties>
+  </object>
+  <object name="SalidaSecreta" type="Door" x="12830" y="4416" width="64" height="64">
+   <properties>
+    <property name="target" value="EntradaSecreta"/>
+   </properties>
+  </object>
+  <object name="galpon in" type="Door" x="5312" y="4416" width="64" height="64">
+   <properties>
+    <property name="Target" value="galpon out"/>
+   </properties>
+  </object>
+  <object name="galpon out" type="Door" x="5120" y="2944" width="64" height="64">
+   <properties>
+    <property name="Target" value="galpon in"/>
+   </properties>
+  </object>
+  <object type="Secrets/Bonus4" x="5824" y="4736" width="64" height="64"/>
+  <object type="Secrets/SpecialDoor" x="325" y="4287" width="64" height="64">
+   <properties>
+    <property name="depth" value=".3"/>
+   </properties>
+  </object>
+  <object name="aoao" type="Door" x="320" y="4287" width="64" height="64">
+   <properties>
+    <property name="Target" value="/Levels/AoAoField.tmx"/>
+   </properties>
+  </object>
+  <object name="Foco dengue" type="Door" x="5632" y="2496" width="64" height="64">
+   <properties>
+    <property name="Target" value="/Levels/CampoDelCielo_FocoDengue.tmx"/>
+   </properties>
+  </object>
+  <object name="Final" type="Warp" x="23616" y="4032" width="64" height="320">
+   <properties>
+    <property name="Target" value="Comienzo"/>
+   </properties>
+  </object>
+  <object name="Comienzo2" type="Warp" x="0" y="4032" width="64" height="320">
+   <properties>
+    <property name="Target" value="Final2"/>
+   </properties>
+  </object>
+  <object name="Comienzo" type="Warp" x="64" y="4032" width="64" height="320"/>
+  <object name="Final2" type="Warp" x="23552" y="4032" width="64" height="320"/>
+  <object type="Secrets/SpecialDoor" x="5638" y="2497" width="64" height="64">
+   <properties>
+    <property name="Depth" value="0.40"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="collision bounds" width="370" height="80">
+  <object type="CollisionBound" x="12973" y="2580" width="19" height="236"/>
+  <object type="CollisionBound" x="13249" y="2580" width="19" height="236"/>
+  <object type="CollisionBound" x="12974" y="2561" width="293" height="21"/>
+  <object type="CollisionBound" x="12269" y="2707" width="19" height="111"/>
+  <object type="CollisionBound" x="12269" y="2689" width="359" height="20"/>
+  <object type="CollisionBound" x="12608" y="2709" width="20" height="108"/>
+  <object type="CollisionBound" x="14079" y="2709" width="20" height="108"/>
+  <object type="CollisionBound" x="13869" y="2688" width="231" height="22"/>
+  <object type="CollisionBound" x="13869" y="2706" width="19" height="111"/>
+  <object type="CollisionBound" x="5055" y="2797" width="769" height="18"/>
+  <object type="CollisionBound" x="5038" y="2566" width="785" height="37"/>
+  <object type="CollisionBound" x="5038" y="2604" width="16" height="403"/>
+  <object type="CollisionBound" x="5551" y="2326" width="15" height="239"/>
+  <object type="CollisionBound" x="5955" y="2329" width="14" height="616"/>
+  <object type="CollisionBound" x="5551" y="2310" width="416" height="19"/>
+  <object type="CollisionBound" x="14592" y="3200" width="64" height="128"/>
+  <object type="CollisionBound" x="14912" y="3072" width="64" height="128"/>
+  <object type="CollisionBound" x="22210" y="2822" width="17" height="186"/>
+  <object type="CollisionBound" x="21933" y="2883" width="18" height="126"/>
+  <object type="CollisionBound" x="21934" y="2882" width="72" height="6"/>
+  <object type="CollisionBound" x="21999" y="2817" width="228" height="9"/>
+  <object type="CollisionBound" x="21999" y="2822" width="9" height="64"/>
+ </objectgroup>
+ <objectgroup name="Pombero" width="370" height="80">
+  <object name="Pombero" x="765" y="4296" width="64" height="64"/>
+  <object type="Comet" x="1404" y="4013" width="64" height="64"/>
+  <object type="Comet" x="1535" y="4047" width="64" height="64"/>
+  <object type="Comet" x="1738" y="3971" width="64" height="64"/>
+  <object type="Comet" x="1798" y="3923" width="64" height="64"/>
+  <object type="Comet" x="1880" y="4038" width="64" height="64"/>
+  <object type="Comet" x="2056" y="3923" width="64" height="64"/>
+  <object type="Comet" x="2189" y="3874" width="64" height="64"/>
+  <object type="Comet" x="2292" y="3944" width="64" height="64"/>
+  <object type="Comet" x="2565" y="3965" width="64" height="64"/>
+  <object type="Comet" x="2810" y="4083" width="64" height="64"/>
  </objectgroup>
 </map>

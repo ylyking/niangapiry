@@ -15,6 +15,7 @@ namespace Bosses
 
         int Orientation = 1;
         float Height = 1;
+        float TimeLapse = 0;
 
         float Angle = 0;
 
@@ -63,6 +64,7 @@ namespace Bosses
 
                             NewPosition = new Vector3(-5, Height);
                             Exists = true;
+                            TimeLapse = 0;
                             PlayerStand = false;
                         }
                     }
@@ -85,8 +87,9 @@ namespace Bosses
                     PlayerStand = false;
                 }
 
-
-                Angle = (Mathf.Sin(Time.time * 7) * .05f);
+                TimeLapse += Time.deltaTime;
+                //Angle = (Mathf.Sin(Time.time * 7) * .05f);
+                Angle = (Mathf.Sin(TimeLapse * 7) * .05f);
 
                 //PivotPosition = ThisTransform.position + (Vector3.down * 3);
 

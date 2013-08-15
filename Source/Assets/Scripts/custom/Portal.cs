@@ -33,13 +33,14 @@ public class Portal : MonoBehaviour
 
             if (Target.ToLower() == "exit")
             {
+                Managers.Display.ShowFlash(1);
                 Managers.Game.PopState();                                 // if it's an exit Return Map and stop inmediately
                 return;
             }
 
             if (Target.ToLower().Contains(".tmx"))                        // if it had .tmx extension it's a map
             {
-                Managers.Display.ShowFlash(0.75f);
+                Managers.Display.ShowFlash(1);
 
                 if (Managers.Dialog.IsInConversation())
                     Managers.Dialog.DeInit();
@@ -48,7 +49,8 @@ public class Portal : MonoBehaviour
 
                 if (Managers.Tiled.Load(Target))
                 {
-                    Managers.Register.SetPlayerPos();
+                    //Managers.Register.SetPlayerPos();
+                    Input.ResetInputAxes();
                     return;
                 }
             }
@@ -60,6 +62,7 @@ public class Portal : MonoBehaviour
                     {
                         Managers.Display.ShowFlash(0.5f);
                         hit.transform.position = portal.gameObject.transform.position;
+                        Input.ResetInputAxes();
                         return;
                     }
                 }
@@ -79,23 +82,24 @@ public class Portal : MonoBehaviour
 
             if ( Managers.Game.InputUp)
             {
-                Managers.Display.ShowFlash(0.75f);
 
                 if (Target.ToLower() == "exit")
                 {
+                    Managers.Display.ShowFlash(1);
                     Managers.Game.PopState();                                 // if it's an exit Return Map
                     return;
                 }
 
                 if (Target.ToLower().Contains(".tmx"))
                 {
-                    //Managers.Display.ShowFlash(0.75f);
+                    Managers.Display.ShowFlash(1);
                     Managers.Tiled.Unload();
 
                     if (Managers.Tiled.Load(Target))
                     {
                         //Managers.Register.StartPoint = Vector3.zero;
-                        Managers.Register.SetPlayerPos();
+                        //Managers.Register.SetPlayerPos();
+                        Input.ResetInputAxes();
                         return;
                     }
                 }
@@ -104,8 +108,9 @@ public class Portal : MonoBehaviour
                 {
                     if (portal.Id == Target)
                     {
-                        Managers.Display.ShowFlash(0.75f);
+                        Managers.Display.ShowFlash(1);
                         hit.transform.position = portal.gameObject.transform.position;
+                        Input.ResetInputAxes();
                         return;
 
                     }

@@ -90,7 +90,7 @@ IEnumerator CoUpdate ()	 											// void  Update ()
                 linkToPlayerControls = (PlayerControls)target.GetComponent<PlayerControls>() ;
             }
             else
-                yield return 0;
+                yield break;
         }
 
         if (target)
@@ -110,13 +110,16 @@ IEnumerator CoUpdate ()	 											// void  Update ()
                 break;
 
             case ShooterState.Alert:		// 1# ALERT STATE:
-                velocity = Vector3.zero;
+                //velocity = Vector3.zero;
+                velocity.x = 0;
 
                 StartCoroutine( Search());														// Begin Searching of the player & attack him
                 break;
 
             case ShooterState.Stunned: 		// 2# KNOCK OUT:
-                velocity = Vector3.zero;
+                //velocity = Vector3.zero;
+                velocity.x = 0;
+
                 StartCoroutine( Stunned());
                 break;
 
@@ -136,10 +139,13 @@ IEnumerator CoUpdate ()	 											// void  Update ()
                 break;
         }
 
-        if (!grounded) velocity.y -= gravity * Time.deltaTime;
+        if (!grounded) 
+            velocity.y -= gravity * Time.deltaTime;
+       
         thisTransform.position += velocity * Time.deltaTime;
 
-        if (thisTransform.position.y < 0 && thisTransform != null) Destroy(gameObject, 2);	// If character falls get it up again 
+        if (thisTransform.position.y < 0 && thisTransform != null) 
+            Destroy(gameObject, 2);	// If character falls get it up again 
 
         yield return 0;
     }
@@ -168,7 +174,7 @@ IEnumerator  Sleeping (){
  			
 			while( timertrigger > Time.time )
 			{
-//				thisTransform.Translate( 0, 1.5f * Time.deltaTime, 0);
+//				thisTransform.Translate( 0, 1.5f * TimeLapse.deltaTime, 0);
                 thisTransform.position = new Vector3(thisTransform.position.x,
                                                      groundPosition + Mathf.Sin((timertrigger - Time.time) * 5) * .5f, 
                                                      thisTransform.position.z);
@@ -249,7 +255,7 @@ void  Shoot (){
 //	}	
 //	else 
 //    {
-// 		nextFire = Time.time + fireRate;
+// 		nextFire = TimeLapse.time + fireRate;
 //		GameObject simpleClone = Instantiate ( projectile, thisTransform.position, thisTransform.rotation);
 // 		Physics.IgnoreCollision(simpleClone.collider, this.gameObject.collider); 				 
 //	   	simpleClone.name = "Shot";
@@ -258,32 +264,6 @@ void  Shoot (){
 }
 
 
-public void Paralize()
-{
-    Debug.Log("Oh my GOD, el pombero está silvando");
-    velocity = Vector3.zero;
-    enemyState = ShooterState.Stunned;
-    //StartCoroutine(Freeze());
-}
-
-//IEnumerator Freeze()
-//{
-//    float TimeLapse = Time.time + 10;
-//    enabled = false;
-//    float OriginalPos = thisTransform.position.x;
-
-//    while (TimeLapse > Time.time)
-//    {
-//        thisTransform.position = new Vector3(OriginalPos + Mathf.Sin(TimeLapse * 5) * .15f,
-//                                     thisTransform.position.y,
-//                                     thisTransform.position.z);
-//        yield return 0;
-//    }
-
-//    thisTransform.position = new Vector3(OriginalPos, thisTransform.position.y, thisTransform.position.z);
-//    enabled = true;
-//    yield return 0;
-//}
 
 IEnumerator Stunned()																	// "Boleado"
 {
@@ -345,59 +325,9 @@ void  BeingHolded (){
 
 
 
-IEnumerator OnTriggerEnter(  Collider other  )											// other.transform.position == target.position
-{																		
-	if ( other.CompareTag( "Player") )
-	{
-		if ( gameObject.CompareTag( "Enemy") && (target.position.y > thisTransform.position.y + .1f) )
-		{
-			linkToPlayerControls.velocity.y = deathForce; 
-			Managers.Audio.Play( soundCrash, thisTransform, 6.0f, 1.0f);		
-			enemyState = ShooterState.Stunned;
-			Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
-			
-		}
-		else if ( Input.GetAxis("Vertical")!=0 )
-		{
-			Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
-		
-			Managers.Audio.Play(soundCrash, thisTransform);
-			linkToPlayerControls.velocity.y = deathForce; 
-		}
- 
- 
-//		if (bounceHit)
-//		{
-//		audio.clip = bounceHit;
-//		audio.Play();
-//		}
-//		
-//		float boxCollider= GetComponent< BoxCollider>() as BoxCollider;
-//		if (boxCollider)
-//		{
-//			boxCollider.size = Vector3(0,0,0);
-//			Destroy ( boxCollider);
-//			enemyState = EnemyState.EnemyDie;
-//		}
-//		else
-//		{
-//			Debug.Log("Could not load box Collider");
-//		}		
-	}
-	else if ( other.CompareTag("p_shot")  )
-	{
-        Managers.Register.Score += 100;
-		BeatDown();
-	}
-	else if ( gameObject.CompareTag("p_shot") && !other.CompareTag("Item") )
-	{
-		yield return new WaitForSeconds(0.01f);
-		BeatDown();
-	}
-}
-
-void  BeatDown (){
-    Managers.Register.Score += 100;
+void  BeatDown ()
+{
+    Managers.Register.Score += 10 * Random.Range(1, 15);
     Managers.Audio.Play(soundCrash, thisTransform, 6.0f, 1.0f);		
 	gameObject.tag = "pickup";
 	velocity.x *= -.25f;
@@ -405,8 +335,92 @@ void  BeatDown (){
 	animPlay.PlayFramesFixed( 1, 1, 1, orientation ); 
 	enemyState = ShooterState.Dead;
 	Destroy( Instantiate ( ParticleStars, thisTransform.position, thisTransform.rotation), 5);
-	
 }
+
+
+public void Paralize()
+{
+    velocity = Vector3.zero;
+
+    if ((int)enemyState < 3)
+    {
+        StopAllCoroutines();
+        StartCoroutine(Freeze());
+    }
+}
+
+IEnumerator Freeze()
+{
+    float TimeLapse = Time.time + 20;
+    rigidbody.isKinematic = true;
+    float OriginalPos = thisTransform.position.x;
+
+    while (TimeLapse > Time.time)
+    {
+        thisTransform.position = new Vector3(OriginalPos + (Mathf.Sin(Time.time * 50) * .05f),
+                                                                        thisTransform.position.y,
+                                                                        thisTransform.position.z);
+
+        if ((int)enemyState > 1  )
+        {
+            if (gameObject.tag == "pickup" && enemyState != ShooterState.Dead)
+                gameObject.tag = "Enemy";
+            StartCoroutine(CoUpdate());
+            rigidbody.isKinematic = true;
+
+            yield break;
+        }
+
+        yield return 0;
+    }
+
+    thisTransform.position = new Vector3(OriginalPos, thisTransform.position.y, thisTransform.position.z);
+    rigidbody.isKinematic = false;
+
+    if (gameObject.tag == "pickup" && enemyState != ShooterState.Dead)
+        gameObject.tag = "Enemy";
+    StartCoroutine(CoUpdate());
+
+    rigidbody.velocity = Vector3.zero;
+    velocity = Vector3.zero;
+    yield return 0;
+}
+
+
+IEnumerator OnTriggerEnter(Collider other)											// other.transform.position == target.position
+{
+    if (other.CompareTag("Player"))
+    {
+        if (gameObject.CompareTag("Enemy") && (target.position.y > collider.transform.position.y)) //  thisTransform.position.y + .1f))
+        {
+            linkToPlayerControls.velocity.y = deathForce;
+            Managers.Audio.Play(soundCrash, thisTransform, 6.0f, 1.0f);
+            enemyState = ShooterState.Stunned;
+            animPlay.PlayFramesFixed(3, 0, 2, orientation);							// animate Stunning..
+            Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+
+        }
+        else if (Input.GetAxis("Vertical") != 0)
+        {
+            Destroy(Instantiate(ParticleStars, thisTransform.position, thisTransform.rotation), 5);
+
+            Managers.Audio.Play(soundCrash, thisTransform);
+            linkToPlayerControls.velocity.y = deathForce;
+        }
+    }
+    else if (other.CompareTag("p_shot"))
+    {
+        BeatDown();
+    }
+    else if (gameObject.CompareTag("p_shot") && !other.CompareTag("Item"))
+    {
+        yield return new WaitForSeconds(0.01f);
+        BeatDown();
+    }
+}
+
+
+
 //	else if (  !other.CompareTag("Untagged") && !other.CompareTag("Item")  )
 //	{
 //		if ( other.CompareTag("p_shot")  ||  gameObject.CompareTag("p_shot")  )

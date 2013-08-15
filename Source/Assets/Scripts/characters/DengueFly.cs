@@ -56,8 +56,7 @@ public class DengueFly : MonoBehaviour
 			
 	animPlay = GetComponent<AnimSprite>();
 
-    //while( true)
-    //    yield return new CoUpdate();
+    orientation = (int)Mathf.Sign( Random.Range(-100,+100) );
     StartCoroutine(CoUpdate());
 }
 
@@ -76,13 +75,15 @@ public class DengueFly : MonoBehaviour
         while (thisTransform)
         {
             if (!target)
+            {
                 if (Managers.Game.PlayerPrefab)
                 {
-                    target = Managers.Game.PlayerPrefab.transform;			
+                    target = Managers.Game.PlayerPrefab.transform;
                     linkToPlayerControls = (PlayerControls)target.GetComponent<PlayerControls>();
                 }
                 else
                     yield return 0;
+            }
 
             if (target)
             if (thisTransform.IsChildOf(target)) 							// check if the player has taken us... 
@@ -150,7 +151,49 @@ public class DengueFly : MonoBehaviour
     }
 
 
+    public void Paralize()
+    {
+        velocity = Vector3.zero;
 
+        if ((int)enemyState < 3)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Freeze());
+        }
+    }
+
+    IEnumerator Freeze()
+    {
+        float TimeLapse = Time.time + 20;
+        float OriginalPos = thisTransform.position.x;
+
+        while (TimeLapse > Time.time)
+        {
+            thisTransform.position = new Vector3(OriginalPos + (Mathf.Sin(Time.time * 50) * .05f),
+                                                                            thisTransform.position.y,
+                                                                            thisTransform.position.z);
+            if ((int)enemyState > 1)
+            {
+                if (gameObject.tag == "pickup" && enemyState != ShooterState.Dead)
+                    enemyState = ShooterState.Dead;
+                    
+                StartCoroutine(CoUpdate());
+                yield break;
+            }
+
+            yield return 0;
+        }
+
+        thisTransform.position = new Vector3(OriginalPos, thisTransform.position.y, thisTransform.position.z);
+
+        //if (gameObject.tag == "pickup")
+        //    gameObject.tag = "Enemy";
+        StartCoroutine(CoUpdate());
+
+        //rigidbody.velocity = Vector3.zero;
+        velocity = Vector3.zero;
+        yield return 0;
+    }
 
 
     IEnumerator OnTriggerEnter(Collider other)											// other.transform.position == target.position
@@ -183,7 +226,7 @@ public class DengueFly : MonoBehaviour
         }
         else if (other.CompareTag("p_shot"))
         {
-            Managers.Register.Score += 75;
+            Managers.Register.Score += Random.Range(1, 99);
             BeatDown();
         }
         else if (gameObject.CompareTag("p_shot") && !other.CompareTag("Item"))
@@ -207,12 +250,12 @@ public class DengueFly : MonoBehaviour
         enemyState = ShooterState.Dead;
     }
 
-    public void Paralize()
-    {
-        Debug.Log("Oh my GOD, el pombero está silvando");
-        velocity = Vector3.zero;
-        enemyState = ShooterState.Dead;
-        //StartCoroutine(Freeze());
-    }
+    //public void Paralize()
+    //{
+    //    Debug.Log("Oh my GOD, el pombero está silvando");
+    //    velocity = Vector3.zero;
+    //    enemyState = ShooterState.Dead;
+    //    //StartCoroutine(Freeze());
+    //}
 
 }

@@ -1,0 +1,1218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="210" height="50" tilewidth="64" tileheight="64" backgroundcolor="#55aaff">
+ <properties>
+  <property name="music" value="soundtrack"/>
+ </properties>
+ <tileset firstgid="1" name="plancha1" tilewidth="64" tileheight="64">
+  <image source="plancha1.png" width="512" height="512"/>
+  <tile id="2">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Collision" value="Slope"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="Player" value="Spawn"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="Collision" value="Slope"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="65" name="plancha2" tilewidth="64" tileheight="64">
+  <image source="plancha2.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="129" name="PLANCHA3" tilewidth="64" tileheight="64">
+  <image source="PLANCHA3.png" width="512" height="512"/>
+ </tileset>
+ <imagelayer name="Sky" width="210" height="50">
+  <image source="cielo.png"/>
+ </imagelayer>
+ <imagelayer name="nubes1" width="210" height="50">
+  <image source="nube1.png"/>
+ </imagelayer>
+ <imagelayer name="nuber2" width="210" height="50">
+  <image source="nube2.png"/>
+ </imagelayer>
+ <layer name="Fondo" width="210" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3XQQrCMBQE0FxAEDyL9/Po6kZiaWmKYgb/e9D9LGaStDUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALacZwcAAAAAAF5Og99lVsCFR45bWiZqG91QUmftqKZre+9jiiMbSuqsHdWU2MWjG0rKTj1rfZytP8/TslHLXg+XXU2ytSP4tb13T9/VNGs7+kf+o/KN7ihR8l35TXaUb2RHE2LRsSP4nB0BAE93+pXCUBCkAAA=
+  </data>
+ </layer>
+ <layer name="Arboles 2" width="210" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3bQW6DMBAAQN/CKc4TOfTYR/QpfVqfUixAca1QUlIMJDMSoqlayXJ2bYy9IQAAAAAAADzmHMJH093j1g2BA0l5E7OfL919vOQSrCvlXHd9zf1dl4vtuUJ74IguWzcAAAAAAAAAAAAAAGBGqh84BbU6MCfVCCzNlaFOBx6S11sezVgfOrr0v5v9nyU5p56bJPbx8yNnYlanbEyeVtZz66vXFIs4SONxk33O4yMO465Yuer6qy37quaaa5xDm/467PPD0d1TYzzGB1fjmFLm0Fb95Pv5P93Y1J6C+aKGW/OQWN6/e9f8w3PF58rNeWnlmkgOPR95BMDebLWPOLVGs88C90vPlV2+tPk78iX7LM7tkBvjoYydaHyeVO5r6SOAefmesnETHmMPAX4XJ9Y4UFM8eC2HuYat5e88rR+o5RSu59ebUPcc9hryM31Q061zcEd8LjrvOIfUDT+/W3m0x1gE1lXWyAN/J4dg/962bgA8gffhnp/LMQfCMt7D7Ms3WJtK1xCkAAA=
+  </data>
+ </layer>
+ <layer name="Plataformas 2" width="210" height="50">
+  <properties>
+   <property name="Depth" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3aMQ6AIBAEwNM3qHzXpwsmVDZEY0QykxAaim02FHcRAAAAAAAAAAAAAAAAAAAAAAAAQE/mfKavQ0DH5oY3a8S+vp4E/qt2pPw3LZ0CrlLu0ZbvJc5OAQAAAAAAMIC6t2OOCveVnQRzVHim7iSkr4MAAAAAAAAAAAAAAAzgAKqBmuUQpAAA
+  </data>
+ </layer>
+ <layer name="Arboles 1" width="210" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3cS1PCMBSG4Sz8YyqCV/CCG2ZUFqgsEFaiG7E/3U8uY4y1pdMWkvA+4xlbpnYyLYlN0hNjAAAAAAAAELJ9xYHicNsFAQJ2ojhVnC3370qej3qJXTEwJlltXymuFTeKvuIx5fiG4mjNc7v1EojVyKpH33rL30PFS8rx54qLlM/3dJ495zO7XgL40VXcFji+l38IACByA+eZDUBxbt8HAAAAAAAAAAAAAFAM7y8gVGVzdKrE+wvwVVYuWl/f27QcHQC/ZeWiDVWP0nJ0xvUWCR4i9zdb0Vy0V8VU8aZ4r6tQJQy2XYBIVZ37G2NbXCQX7UMxU3waPzsrI2s7xnu1LXntbV4+/rG+Li1FU+F7WxwC+3rW+b+De1W9rPb2v3z8lUvd746irfC9LfaR+1xtX89Rxt+Vxb3arKL5+CiGNXXCVHaujn5qdb6vJWvqhKnsXF2dzxq7ZnUtWVMHAMKVNWa77pxYkbVBEb57xcNy232fy6f3u6rSVLTMfAw4lTtm6/bZ1u27541FIi5Pimfzd81le78f0fBlW9Ex8zHgVO6YrdtnW7fvzlhkfMY59WBi/q65bO8PI6pHVaDvvlv0XJLo+SSZLt4HqHUOG4hBWr820Y+eT5LZ4n2AWuewgRjQr4Uv1J4njUD7AvRr4Qu158m55/WIPPl4hTzPYJdd7XnS9fx7Sp58nPqB55GHXHbE4788cp/Zc/ihlR3wxWoO3xfM6yBUk20XwMK8DgAAAABg074AKWLOgRCkAAA=
+  </data>
+ </layer>
+ <layer name="Plataformas 1" width="210" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2d7W3bMBCGaScxEFu/MkFHySgexaNklIziUSpWufZ6OH4cRdKU/D4AYbeQZInkw+OHpDgHAAAAAAAAAAAAAAAAAAAAAOjJ8ScdIom2AwDonJ27vc+fsXRy7n4W+x3ZZ8wxchQegj3BY4xnmj2aPflKpUkc57zsd39fvgfhnsa2A2BLvP7U69eVx5kdur3Nn2/L99XbATA6LfpU8Ag8E7XijwQegWfgkN5kFfAI7JlW8UcCj8CeOLr03HML4BHYE73ijwQegT3TKz7BI7BnMD4CoA0t4hM8As8E1o8AKKP12pEHHoE9g/ER2CJH97g1nFxwfx0YGd/2v8yfPF2U7fhzcr3B+AiMANV//txorH3/cO77wra/MNd6r5Vq1Iqbazyi9meE/AB90GJOqvy9S7Tt/P2r7RnawPNHbanRTmljBW3sEHoHwNYoyS/yUuv/yWPz/Mn5La2dT7X9PP/5uxhS5VLTo9A5pv7ftwepfOzJfC5XevZXOy8qx1C++v3pGePUc/6p7fg2o+PLs7Rdf4nEKZ/X8r0J/Jnsmv0i+Tu8fGLPgY8Qj3zc98+8Uz48cp7HO0DXSUm6FCs3bf9aaUtY4/lrwCNySOZFqz7RSfmtmn707Netades8P4Wd4DeZxFySTtOS4e25pG1DHmM52WiOQSP7LRch+D9N5/o+vhY2MfKlEt0HL5/rDyewSNJqgyV/tR/eQqP1tEqNmmxxydtPinmkjwO7Q+P/pFThieWxzkJHpVTax6L1/3ceVjp0iFxHHhkAx71o0ZsurDrsK5lcJdC/UCil0ezzzdKcp69tE9coy9tLatRPIq9B1K++1Gc/2Y84sh6ItdfQnWB8ql0PZDmFmP9QI/m0VpS8+ha4nO10i9tLabVfTMpL60eUb9gFLbqkbauHkqPuN+ihUclMYyXVejd1a3fj9tifDSaSyN7JO8D2BIjehSqq6nyLO0bWpDnNv/7V06K9bV6MlXu/9WCt52njPePj8ZWPZL1n8rB2u6vGR+V1q/a91NpY4O1z4S08Cj0ty56r721YAseae2nrP/8Okr7UDl1js5tTYzx9aZmP09rC0Ljx2m5f+vq0/z9GjpmbY9orVq7fyk01/XsHmmUevTh3GfO8eV1lNTT3PGRVr7T8v/3UOJ1NnQMC6Wxpsf4SJsbit0zBY/yKfGIHPpY2jFqQz9zryPHJWt9nALjitT6gbi+W04d0bzO/ftFIVp7JO/VjcUceGRHyaPgmoef8+cO5eRtqCy4S5oza9f6KA4Z24m/Hln6eEe3fnzWwqPYWCfmCjyyU5I/0qESj372+RPL+D1xsbGBhVQcSnmUG5uojV9bz3L94Ou8oXEgjz2huAOP6mLNH82hUo9qlpEcB5X8ntUjGYd6eBSCzzWelWPBo+79uitPPD5MSp0ZxSPr71g9kv1Mnxeh+8kf4ZF3R4s98GjceYaRPKL63dojy3U17tfdtTZOnjs8WhjUI3Pd2Us8svzeI+YZ4JEOPLLR26Pa16Ac46ql3HOHRwstPPoN/HPd2RCkAAA=
+  </data>
+ </layer>
+ <objectgroup name="Capa de Objetos 1" width="210" height="50">
+  <object name="Clavel" x="640" y="2176" width="64" height="64">
+   <properties>
+    <property name="nameId" value="Comienzo"/>
+   </properties>
+  </object>
+  <object name="Dengue" gid="131" x="1663" y="2497"/>
+  <object name="Fruit" gid="136" x="832" y="2240"/>
+  <object name="Fruit" gid="136" x="768" y="2880"/>
+  <object name="Fruit" gid="136" x="832" y="2880"/>
+  <object name="Fruit" gid="136" x="896" y="2752"/>
+  <object name="Fruit" gid="136" x="896" y="2624"/>
+  <object name="Fruit" gid="136" x="896" y="2496"/>
+  <object name="Fruit" gid="136" x="1152" y="2368"/>
+  <object name="check2" type="Warp" gid="136" x="1280" y="2368"/>
+  <object name="Fruit" gid="136" x="1216" y="2368"/>
+  <object name="Fruit" gid="136" x="1091" y="2287"/>
+  <object name="Fruit" gid="136" x="1344" y="2368"/>
+  <object name="Fruit" gid="136" x="1216" y="2176"/>
+  <object name="Fruit" gid="136" x="1280" y="2176"/>
+  <object name="Fruit" gid="136" x="1344" y="2176"/>
+  <object name="Fruit" gid="136" x="896" y="2240"/>
+  <object name="Fruit" gid="136" x="960" y="2240"/>
+  <object name="Fruit" gid="136" x="1344" y="1984"/>
+  <object name="Pombero" gid="136" x="62" y="2172"/>
+  <object name="Fruit" gid="136" x="1280" y="2048"/>
+  <object name="Fruit" gid="136" x="1408" y="1920"/>
+  <object name="Fruit" gid="136" x="1536" y="1856"/>
+  <object name="Fruit" gid="136" x="1472" y="1856"/>
+  <object name="Fruit" gid="136" x="1728" y="1728"/>
+  <object name="Fruit" gid="136" x="1664" y="1728"/>
+  <object name="Fruit" gid="136" x="1600" y="1792"/>
+  <object name="Fruit" gid="136" x="1792" y="1664"/>
+  <object name="Fruit" gid="136" x="1856" y="1600"/>
+  <object name="Fruit" gid="136" x="1728" y="1920"/>
+  <object name="Fruit" gid="136" x="1664" y="1920"/>
+  <object name="Fruit" gid="136" x="1792" y="1920"/>
+  <object name="Fruit" gid="136" x="1728" y="1984"/>
+  <object name="Fruit" gid="136" x="1664" y="1984"/>
+  <object name="Fruit" gid="136" x="1792" y="1984"/>
+  <object name="Fruit" gid="136" x="1728" y="2048"/>
+  <object name="Fruit" gid="136" x="1664" y="2048"/>
+  <object name="Fruit" gid="136" x="1792" y="2048"/>
+  <object name="Fruit" gid="136" x="1984" y="1536"/>
+  <object name="Fruit" gid="136" x="1920" y="1536"/>
+  <object name="Fruit" gid="136" x="1984" y="1600"/>
+  <object name="Fruit" gid="136" x="1984" y="1664"/>
+  <object name="Fruit" gid="136" x="1984" y="1728"/>
+  <object name="Fruit" gid="136" x="1984" y="1792"/>
+  <object name="Fruit" gid="136" x="1984" y="1984"/>
+  <object name="Fruit" gid="136" x="1984" y="1920"/>
+  <object name="Fruit" gid="136" x="1984" y="1856"/>
+  <object name="Fruit" gid="136" x="1984" y="2048"/>
+  <object name="Fruit" gid="136" x="1984" y="2112"/>
+  <object name="Fruit" gid="136" x="1088" y="2880"/>
+  <object name="Fruit" gid="136" x="1152" y="2816"/>
+  <object name="Fruit" gid="136" x="1216" y="2752"/>
+  <object name="Fruit" gid="136" x="1280" y="2688"/>
+  <object name="Fruit" gid="136" x="1408" y="2688"/>
+  <object name="Fruit" gid="136" x="1536" y="2560"/>
+  <object name="Fruit" gid="136" x="1600" y="2560"/>
+  <object name="Fruit" gid="136" x="1728" y="2432"/>
+  <object name="Fruit" gid="136" x="1792" y="2432"/>
+  <object name="Fruit" gid="136" x="1728" y="2496"/>
+  <object name="Fruit" gid="136" x="1792" y="2496"/>
+  <object name="Fruit" gid="136" x="1856" y="2240"/>
+  <object name="Fruit" gid="136" x="1920" y="2240"/>
+  <object name="Fruit" gid="136" x="1984" y="2304"/>
+  <object name="Fruit" gid="136" x="2048" y="2304"/>
+  <object name="Fruit" gid="136" x="2112" y="2368"/>
+  <object name="Fruit" gid="136" x="2176" y="2368"/>
+  <object name="Fruit" gid="136" x="1984" y="2496"/>
+  <object name="Fruit" gid="136" x="2048" y="2560"/>
+  <object name="Fruit" gid="136" x="2112" y="2624"/>
+  <object name="Fruit" gid="136" x="2240" y="2752"/>
+  <object name="Fruit" gid="136" x="2176" y="2688"/>
+  <object name="Fruit" gid="136" x="2240" y="2432"/>
+  <object name="Fruit" gid="136" x="2304" y="2432"/>
+  <object name="Fruit" gid="136" x="2240" y="2112"/>
+  <object name="Fruit" gid="136" x="2240" y="2176"/>
+  <object name="Fruit" gid="136" x="2240" y="2240"/>
+  <object name="Fruit" gid="136" x="2240" y="2304"/>
+  <object name="Fruit" gid="136" x="2304" y="2048"/>
+  <object name="Fruit" gid="136" x="2368" y="1984"/>
+  <object name="Fruit" gid="136" x="2432" y="1920"/>
+  <object name="Fruit" gid="136" x="2368" y="2368"/>
+  <object name="Fruit" gid="136" x="2432" y="2304"/>
+  <object name="Fruit" gid="136" x="2496" y="2240"/>
+  <object name="Fruit" gid="136" x="2560" y="2176"/>
+  <object name="Fruit" gid="136" x="2496" y="2496"/>
+  <object name="Fruit" gid="136" x="2432" y="2496"/>
+  <object name="Fruit" gid="136" x="2624" y="2432"/>
+  <object name="Fruit" gid="136" x="2560" y="2432"/>
+  <object name="Fruit" gid="136" x="2816" y="2432"/>
+  <object name="Fruit" gid="136" x="2752" y="2432"/>
+  <object name="Fruit" gid="136" x="2240" y="1472"/>
+  <object name="Fruit" gid="136" x="2176" y="1472"/>
+  <object name="Fruit" gid="136" x="2240" y="1536"/>
+  <object name="Fruit" gid="136" x="2176" y="1536"/>
+  <object name="Fruit" gid="136" x="2816" y="2688"/>
+  <object name="Fruit" gid="136" x="2752" y="2688"/>
+  <object name="Fruit" gid="136" x="3008" y="2560"/>
+  <object name="Fruit" gid="136" x="2944" y="2560"/>
+  <object name="Fruit" gid="136" x="2624" y="1792"/>
+  <object name="Fruit" gid="136" x="2560" y="1792"/>
+  <object name="Fruit" gid="136" x="2432" y="1664"/>
+  <object name="Fruit" gid="136" x="2496" y="1600"/>
+  <object name="Fruit" gid="136" x="2560" y="1536"/>
+  <object name="Fruit" gid="136" x="2624" y="1472"/>
+  <object name="Fruit" gid="136" x="2688" y="1408"/>
+  <object name="Fruit" gid="136" x="2752" y="1408"/>
+  <object name="Fruit" gid="136" x="2816" y="1408"/>
+  <object name="Fruit" gid="136" x="2752" y="1472"/>
+  <object name="Fruit" gid="136" x="2816" y="1472"/>
+  <object name="Fruit" gid="136" x="2880" y="1408"/>
+  <object name="Fruit" gid="136" x="2816" y="1856"/>
+  <object name="Fruit" gid="136" x="2752" y="1920"/>
+  <object name="Fruit" gid="136" x="2816" y="1920"/>
+  <object name="Fruit" gid="136" x="2752" y="1856"/>
+  <object name="Fruit" gid="136" x="2816" y="2112"/>
+  <object name="Fruit" gid="136" x="2752" y="2176"/>
+  <object name="Fruit" gid="136" x="2816" y="2176"/>
+  <object name="Fruit" gid="136" x="2752" y="2112"/>
+  <object name="Fruit" gid="136" x="3008" y="1984"/>
+  <object name="Fruit" gid="136" x="2944" y="2048"/>
+  <object name="Fruit" gid="136" x="3008" y="2048"/>
+  <object name="Fruit" gid="136" x="2944" y="1984"/>
+  <object name="Fruit" gid="136" x="3008" y="2240"/>
+  <object name="Fruit" gid="136" x="2944" y="2304"/>
+  <object name="Fruit" gid="136" x="3008" y="2304"/>
+  <object name="Fruit" gid="136" x="2944" y="2240"/>
+  <object name="Fruit" gid="136" x="3264" y="2240"/>
+  <object name="Fruit" gid="136" x="3078" y="2748"/>
+  <object name="Fruit" gid="136" x="3266" y="2112"/>
+  <object name="Fruit" gid="136" x="3328" y="2304"/>
+  <object name="Fruit" gid="136" x="3264" y="2304"/>
+  <object name="Fruit" gid="136" x="3200" y="2304"/>
+  <object name="Fruit" gid="136" x="3266" y="2174"/>
+  <object name="Fruit" gid="136" x="3264" y="2368"/>
+  <object name="Fruit" gid="136" x="3078" y="2486"/>
+  <object name="Fruit" gid="136" x="3264" y="2560"/>
+  <object name="Fruit" gid="136" x="3200" y="2560"/>
+  <object name="Fruit" gid="136" x="3264" y="2624"/>
+  <object name="Fruit" gid="136" x="3264" y="2496"/>
+  <object name="Fruit" gid="136" x="3328" y="2560"/>
+  <object name="Fruit" gid="136" x="3198" y="2046"/>
+  <object name="Fruit" gid="136" x="3264" y="1984"/>
+  <object name="Fruit" gid="136" x="3136" y="2048"/>
+  <object name="Fruit" gid="136" x="3328" y="2048"/>
+  <object name="Fruit" gid="136" x="3456" y="2112"/>
+  <object name="Fruit" gid="136" x="3456" y="2176"/>
+  <object name="Fruit" gid="136" x="3456" y="2368"/>
+  <object name="Fruit" gid="136" x="3456" y="2240"/>
+  <object name="Fruit" gid="136" x="3456" y="2304"/>
+  <object name="Fruit" gid="136" x="3456" y="2624"/>
+  <object name="Fruit" gid="136" x="3456" y="2432"/>
+  <object name="Fruit" gid="136" x="3456" y="2496"/>
+  <object name="Fruit" gid="136" x="3456" y="2560"/>
+  <object name="Fruit" gid="136" x="3392" y="2752"/>
+  <object name="Fruit" gid="136" x="3456" y="2816"/>
+  <object name="Fruit" gid="136" x="3456" y="2688"/>
+  <object name="Fruit" gid="136" x="3584" y="2880"/>
+  <object name="Fruit" gid="136" x="3520" y="2880"/>
+  <object name="Fruit" gid="136" x="3648" y="2880"/>
+  <object name="Fruit" gid="136" x="3712" y="2880"/>
+  <object name="Fruit" gid="136" x="3712" y="2816"/>
+  <object name="Fruit" gid="136" x="3712" y="2752"/>
+  <object name="Fruit" gid="136" x="3840" y="2752"/>
+  <object name="Fruit" gid="136" x="3776" y="2752"/>
+  <object name="Fruit" gid="136" x="3840" y="2688"/>
+  <object name="Fruit" gid="136" x="3840" y="2624"/>
+  <object name="Fruit" gid="136" x="4096" y="2624"/>
+  <object name="Fruit" gid="136" x="4032" y="2624"/>
+  <object name="Fruit" gid="136" x="3904" y="2624"/>
+  <object name="Fruit" gid="136" x="3968" y="2624"/>
+  <object name="Fruit" gid="136" x="4288" y="2624"/>
+  <object name="Fruit" gid="136" x="4160" y="2624"/>
+  <object name="Fruit" gid="136" x="4416" y="2624"/>
+  <object name="Fruit" gid="136" x="4352" y="2624"/>
+  <object name="Fruit" gid="136" x="4224" y="2624"/>
+  <object name="Fruit" gid="136" x="4416" y="1984"/>
+  <object name="Fruit" gid="136" x="4416" y="2048"/>
+  <object name="Fruit" gid="136" x="4416" y="1792"/>
+  <object name="Fruit" gid="136" x="4416" y="2112"/>
+  <object name="Fruit" gid="136" x="4416" y="2304"/>
+  <object name="Fruit" gid="136" x="4416" y="2176"/>
+  <object name="Fruit" gid="136" x="4416" y="1856"/>
+  <object name="Fruit" gid="136" x="4416" y="1920"/>
+  <object name="Fruit" gid="136" x="4416" y="2240"/>
+  <object name="Fruit" gid="136" x="4416" y="2368"/>
+  <object name="Fruit" gid="136" x="3904" y="1792"/>
+  <object name="Fruit" gid="136" x="4032" y="1792"/>
+  <object name="Fruit" gid="136" x="4096" y="1792"/>
+  <object name="Fruit" gid="136" x="4224" y="1792"/>
+  <object name="Fruit" gid="136" x="4352" y="1792"/>
+  <object name="Fruit" gid="136" x="3968" y="1792"/>
+  <object name="Fruit" gid="136" x="4288" y="1792"/>
+  <object name="Fruit" gid="136" x="4160" y="1792"/>
+  <object name="Fruit" gid="136" x="4544" y="1408"/>
+  <object name="Fruit" gid="136" x="4544" y="1088"/>
+  <object name="Fruit" gid="136" x="4544" y="1216"/>
+  <object name="Fruit" gid="136" x="4544" y="1280"/>
+  <object name="Fruit" gid="136" x="4544" y="1152"/>
+  <object name="Fruit" gid="136" x="4544" y="1024"/>
+  <object name="Fruit" gid="136" x="4544" y="1472"/>
+  <object name="Fruit" gid="136" x="4544" y="1344"/>
+  <object name="Fruit" gid="136" x="4544" y="1600"/>
+  <object name="Fruit" gid="136" x="4544" y="1536"/>
+  <object name="Fruit" gid="136" x="4544" y="1728"/>
+  <object name="Fruit" gid="136" x="4544" y="1664"/>
+  <object name="Fruit" gid="136" x="3968" y="1728"/>
+  <object name="Fruit" gid="136" x="3904" y="1728"/>
+  <object name="Fruit" gid="136" x="3968" y="1600"/>
+  <object name="Fruit" gid="136" x="3904" y="1600"/>
+  <object name="Fruit" gid="136" x="3840" y="1664"/>
+  <object name="Fruit" gid="136" x="4096" y="1536"/>
+  <object name="Fruit" gid="136" x="4032" y="1536"/>
+  <object name="Fruit" gid="136" x="3968" y="1536"/>
+  <object name="Fruit" gid="136" x="4096" y="1600"/>
+  <object name="Fruit" gid="136" x="4096" y="1664"/>
+  <object name="Fruit" gid="136" x="4096" y="1472"/>
+  <object name="Fruit" gid="136" x="4032" y="1472"/>
+  <object name="Fruit" gid="136" x="4224" y="1408"/>
+  <object name="Fruit" gid="136" x="4160" y="1408"/>
+  <object name="Fruit" gid="136" x="4096" y="1408"/>
+  <object name="Fruit" gid="136" x="4224" y="1344"/>
+  <object name="Fruit" gid="136" x="4160" y="1344"/>
+  <object name="Fruit" gid="136" x="4288" y="1280"/>
+  <object name="Fruit" gid="136" x="4224" y="1280"/>
+  <object name="Fruit" gid="136" x="4352" y="1216"/>
+  <object name="Fruit" gid="136" x="4288" y="1216"/>
+  <object name="Fruit" gid="136" x="4416" y="1152"/>
+  <object name="Fruit" gid="136" x="4352" y="1152"/>
+  <object name="Fruit" gid="136" x="4416" y="1408"/>
+  <object name="Fruit" gid="136" x="4352" y="1408"/>
+  <object name="Fruit" gid="136" x="4416" y="1472"/>
+  <object name="Fruit" gid="136" x="4352" y="1472"/>
+  <object name="Fruit" gid="136" x="4416" y="1536"/>
+  <object name="Fruit" gid="136" x="4352" y="1536"/>
+  <object name="Fruit" gid="136" x="4224" y="1664"/>
+  <object name="Fruit" gid="136" x="4224" y="1472"/>
+  <object name="Fruit" gid="136" x="4224" y="1600"/>
+  <object name="Fruit" gid="136" x="4224" y="1536"/>
+  <object name="Fruit" gid="136" x="4416" y="1088"/>
+  <object name="Fruit" gid="136" x="4480" y="1024"/>
+  <object name="Fruit" gid="136" x="4672" y="960"/>
+  <object name="Fruit" gid="136" x="4800" y="960"/>
+  <object name="Fruit" gid="136" x="4736" y="960"/>
+  <object name="Fruit" gid="136" x="4672" y="1024"/>
+  <object name="Fruit" gid="136" x="4800" y="1024"/>
+  <object name="Fruit" gid="136" x="4736" y="1024"/>
+  <object name="Fruit" gid="136" x="4736" y="1344"/>
+  <object name="Fruit" gid="136" x="4672" y="1344"/>
+  <object name="Fruit" gid="136" x="4736" y="1408"/>
+  <object name="Fruit" gid="136" x="4672" y="1408"/>
+  <object name="Fruit" gid="136" x="4736" y="1536"/>
+  <object name="Fruit" gid="136" x="4672" y="1536"/>
+  <object name="Fruit" gid="136" x="4736" y="1600"/>
+  <object name="Fruit" gid="136" x="4672" y="1600"/>
+  <object name="Fruit" gid="136" x="4864" y="1408"/>
+  <object name="Fruit" gid="136" x="5056" y="1408"/>
+  <object name="Fruit" gid="136" x="4992" y="1408"/>
+  <object name="Fruit" gid="136" x="4928" y="1408"/>
+  <object name="Fruit" gid="136" x="4992" y="1344"/>
+  <object name="Fruit" gid="136" x="4928" y="1152"/>
+  <object name="Fruit" gid="136" x="4992" y="1088"/>
+  <object name="Fruit" gid="136" x="5056" y="1152"/>
+  <object name="Fruit" gid="136" x="4992" y="1152"/>
+  <object name="Fruit" gid="136" x="4992" y="832"/>
+  <object name="Fruit" gid="136" x="4928" y="896"/>
+  <object name="Fruit" gid="136" x="5056" y="896"/>
+  <object name="Fruit" gid="136" x="4992" y="896"/>
+  <object name="Fruit" gid="136" x="4928" y="832"/>
+  <object name="Fruit" gid="136" x="5056" y="832"/>
+  <object name="Fruit" gid="136" x="5248" y="704"/>
+  <object name="Fruit" gid="136" x="5184" y="768"/>
+  <object name="Fruit" gid="136" x="5312" y="768"/>
+  <object name="Fruit" gid="136" x="5248" y="768"/>
+  <object name="Fruit" gid="136" x="5184" y="704"/>
+  <object name="Fruit" gid="136" x="5312" y="704"/>
+  <object name="Fruit" gid="136" x="5504" y="576"/>
+  <object name="Fruit" gid="136" x="5440" y="640"/>
+  <object name="Fruit" gid="136" x="5568" y="640"/>
+  <object name="Fruit" gid="136" x="5504" y="640"/>
+  <object name="Fruit" gid="136" x="5440" y="576"/>
+  <object name="Fruit" gid="136" x="5568" y="576"/>
+  <object name="Fruit" gid="136" x="5248" y="1280"/>
+  <object name="Fruit" gid="136" x="5184" y="1280"/>
+  <object name="Fruit" gid="136" x="5248" y="1216"/>
+  <object name="Fruit" gid="136" x="5312" y="1280"/>
+  <object name="Fruit" gid="136" x="5120" y="1088"/>
+  <object name="Fruit" gid="136" x="5184" y="1024"/>
+  <object name="Fruit" gid="136" x="5248" y="1088"/>
+  <object name="Fruit" gid="136" x="5248" y="1536"/>
+  <object name="Fruit" gid="136" x="5184" y="1536"/>
+  <object name="Fruit" gid="136" x="5248" y="1472"/>
+  <object name="Fruit" gid="136" x="5312" y="1536"/>
+  <object name="Fruit" gid="136" x="5504" y="1664"/>
+  <object name="Fruit" gid="136" x="5440" y="1664"/>
+  <object name="Fruit" gid="136" x="5504" y="1600"/>
+  <object name="Fruit" gid="136" x="5568" y="1664"/>
+  <object name="Fruit" gid="136" x="4800" y="2112"/>
+  <object name="Fruit" gid="136" x="4736" y="2176"/>
+  <object name="Fruit" gid="136" x="4864" y="2176"/>
+  <object name="Fruit" gid="136" x="4800" y="2176"/>
+  <object name="Fruit" gid="136" x="4736" y="2112"/>
+  <object name="Fruit" gid="136" x="4864" y="2112"/>
+  <object name="Fruit" gid="136" x="4544" y="2240"/>
+  <object name="Fruit" gid="136" x="4608" y="2304"/>
+  <object name="Fruit" gid="136" x="4672" y="2240"/>
+  <object name="Fruit" gid="136" x="4736" y="2304"/>
+  <object name="Fruit" gid="136" x="4608" y="2496"/>
+  <object name="Fruit" gid="136" x="4672" y="2560"/>
+  <object name="Fruit" gid="136" x="4800" y="2496"/>
+  <object name="Fruit" gid="136" x="4864" y="2560"/>
+  <object name="Fruit" gid="136" x="4736" y="2496"/>
+  <object name="Fruit" gid="136" x="4480" y="2560"/>
+  <object name="Fruit" gid="136" x="4544" y="2496"/>
+  <object name="Fruit" gid="136" x="4928" y="2752"/>
+  <object name="Fruit" gid="136" x="4800" y="2752"/>
+  <object name="Fruit" gid="136" x="4864" y="2688"/>
+  <object name="Fruit" gid="136" x="4800" y="2624"/>
+  <object name="Fruit" gid="136" x="4992" y="2688"/>
+  <object name="Fruit" gid="136" x="5056" y="2752"/>
+  <object name="Fruit" gid="136" x="5056" y="2880"/>
+  <object name="Fruit" gid="136" x="5056" y="2816"/>
+  <object name="Fruit" gid="136" x="5120" y="2688"/>
+  <object name="Fruit" gid="136" x="5120" y="2368"/>
+  <object name="Fruit" gid="136" x="5120" y="2496"/>
+  <object name="Fruit" gid="136" x="5120" y="2560"/>
+  <object name="Fruit" gid="136" x="5120" y="2432"/>
+  <object name="Fruit" gid="136" x="5120" y="2304"/>
+  <object name="Fruit" gid="136" x="5120" y="2752"/>
+  <object name="Fruit" gid="136" x="5120" y="2624"/>
+  <object name="Fruit" gid="136" x="5120" y="2880"/>
+  <object name="Fruit" gid="136" x="5120" y="2816"/>
+  <object name="Fruit" gid="136" x="5120" y="2240"/>
+  <object name="Fruit" gid="136" x="5120" y="2176"/>
+  <object name="Fruit" gid="136" x="5056" y="2112"/>
+  <object name="Fruit" gid="136" x="4864" y="1920"/>
+  <object name="Fruit" gid="136" x="4992" y="2048"/>
+  <object name="Fruit" gid="136" x="4928" y="1984"/>
+  <object name="Fruit" gid="136" x="4736" y="1792"/>
+  <object name="Fruit" gid="136" x="4800" y="1856"/>
+  <object name="Fruit" gid="136" x="4673" y="1792"/>
+  <object name="Fruit" gid="136" x="5568" y="1280"/>
+  <object name="Fruit" gid="136" x="5888" y="1600"/>
+  <object name="Fruit" gid="136" x="5696" y="1408"/>
+  <object name="Fruit" gid="136" x="5824" y="1536"/>
+  <object name="Fruit" gid="136" x="5760" y="1472"/>
+  <object name="Fruit" gid="136" x="5632" y="1344"/>
+  <object name="Fruit" gid="136" x="5504" y="1216"/>
+  <object name="Fruit" gid="136" x="5376" y="1216"/>
+  <object name="Fruit" gid="136" x="5312" y="1152"/>
+  <object name="Fruit" gid="136" x="5568" y="1408"/>
+  <object name="Fruit" gid="136" x="5696" y="1536"/>
+  <object name="Fruit" gid="136" x="5440" y="1280"/>
+  <object name="Fruit" gid="136" x="5504" y="1344"/>
+  <object name="Fruit" gid="136" x="5632" y="1472"/>
+  <object name="Fruit" gid="136" x="5760" y="1600"/>
+  <object name="Fruit" gid="136" x="5632" y="960"/>
+  <object name="Fruit" gid="136" x="5632" y="896"/>
+  <object name="Fruit" gid="136" x="5632" y="832"/>
+  <object name="Fruit" gid="136" x="5696" y="1152"/>
+  <object name="Fruit" gid="136" x="5696" y="1088"/>
+  <object name="Fruit" gid="136" x="5696" y="1024"/>
+  <object name="Fruit" gid="136" x="5760" y="1024"/>
+  <object name="Fruit" gid="136" x="5824" y="1088"/>
+  <object name="Fruit" gid="136" x="5888" y="1152"/>
+  <object name="Fruit" gid="136" x="5952" y="1216"/>
+  <object name="Fruit" gid="136" x="5952" y="1728"/>
+  <object name="Fruit" gid="136" x="5888" y="1728"/>
+  <object name="Fruit" gid="136" x="5824" y="1792"/>
+  <object name="Fruit" gid="136" x="5952" y="1792"/>
+  <object name="Fruit" gid="136" x="5888" y="1792"/>
+  <object name="Fruit" gid="136" x="5824" y="1728"/>
+  <object name="Fruit" gid="136" x="6016" y="1728"/>
+  <object name="Fruit" gid="136" x="6016" y="1792"/>
+  <object name="Fruit" gid="136" x="6016" y="1280"/>
+  <object name="Fruit" gid="136" x="6016" y="1536"/>
+  <object name="Fruit" gid="136" x="6016" y="1344"/>
+  <object name="Fruit" gid="136" x="6016" y="1600"/>
+  <object name="Fruit" gid="136" x="6016" y="1472"/>
+  <object name="Fruit" gid="136" x="6016" y="1408"/>
+  <object name="Fruit" gid="136" x="5312" y="2624"/>
+  <object name="Fruit" gid="136" x="5248" y="2624"/>
+  <object name="Fruit" gid="136" x="5248" y="2816"/>
+  <object name="Fruit" gid="136" x="5184" y="2816"/>
+  <object name="Fruit" gid="136" x="5312" y="2816"/>
+  <object name="Fruit" gid="136" x="5440" y="2752"/>
+  <object name="Fruit" gid="136" x="5440" y="2688"/>
+  <object name="Fruit" gid="136" x="5376" y="2560"/>
+  <object name="Fruit" gid="136" x="5440" y="2560"/>
+  <object name="Fruit" gid="136" x="5376" y="2880"/>
+  <object name="Fruit" gid="136" x="5504" y="2624"/>
+  <object name="Fruit" gid="136" x="5952" y="2496"/>
+  <object name="Fruit" gid="136" x="6080" y="2432"/>
+  <object name="Fruit" gid="136" x="5888" y="2432"/>
+  <object name="Fruit" gid="136" x="5952" y="2432"/>
+  <object name="Fruit" gid="136" x="6080" y="2496"/>
+  <object name="Fruit" gid="136" x="5888" y="2496"/>
+  <object name="Fruit" gid="136" x="6208" y="2496"/>
+  <object name="Fruit" gid="136" x="6208" y="2432"/>
+  <object name="Fruit" gid="136" x="6336" y="2496"/>
+  <object name="Fruit" gid="136" x="6400" y="2496"/>
+  <object name="Fruit" gid="136" x="6336" y="2432"/>
+  <object name="Fruit" gid="136" x="6528" y="2496"/>
+  <object name="Fruit" gid="136" x="6464" y="2432"/>
+  <object name="Fruit" gid="136" x="6528" y="2368"/>
+  <object name="Fruit" gid="136" x="6528" y="2304"/>
+  <object name="Fruit" gid="136" x="6464" y="1856"/>
+  <object name="Fruit" gid="136" x="6464" y="1920"/>
+  <object name="Fruit" gid="136" x="6400" y="1856"/>
+  <object name="Fruit" gid="136" x="6400" y="1920"/>
+  <object name="Fruit" gid="136" x="6527" y="2112"/>
+  <object name="Fruit" gid="136" x="6527" y="2175"/>
+  <object name="Fruit" gid="136" x="6463" y="2112"/>
+  <object name="Fruit" gid="136" x="6463" y="2175"/>
+  <object name="Fruit" gid="136" x="6400" y="832"/>
+  <object name="Fruit" gid="136" x="6208" y="1024"/>
+  <object name="Fruit" gid="136" x="6272" y="960"/>
+  <object name="Fruit" gid="136" x="6464" y="768"/>
+  <object name="Fruit" gid="136" x="6336" y="896"/>
+  <object name="Fruit" gid="136" x="6208" y="1088"/>
+  <object name="Fruit" gid="136" x="6080" y="1216"/>
+  <object name="Fruit" gid="136" x="6144" y="1152"/>
+  <object name="Fruit" gid="136" x="6528" y="512"/>
+  <object name="Fruit" gid="136" x="6464" y="512"/>
+  <object name="Fruit" gid="136" x="6464" y="448"/>
+  <object name="Fruit" gid="136" x="6400" y="512"/>
+  <object name="Fruit" gid="136" x="6784" y="576"/>
+  <object name="Fruit" gid="136" x="6720" y="576"/>
+  <object name="Fruit" gid="136" x="6784" y="512"/>
+  <object name="Fruit" gid="136" x="6720" y="512"/>
+  <object name="Fruit" gid="136" x="6720" y="2560"/>
+  <object name="Fruit" gid="136" x="6656" y="2560"/>
+  <object name="Fruit" gid="136" x="6592" y="2560"/>
+  <object name="Fruit" gid="136" x="6784" y="2560"/>
+  <object name="Fruit" gid="136" x="6976" y="704"/>
+  <object name="Fruit" gid="136" x="7040" y="704"/>
+  <object name="Fruit" gid="136" x="7168" y="704"/>
+  <object name="Fruit" gid="136" x="6848" y="704"/>
+  <object name="Fruit" gid="136" x="7168" y="768"/>
+  <object name="Fruit" gid="136" x="7040" y="768"/>
+  <object name="Fruit" gid="136" x="6976" y="768"/>
+  <object name="Fruit" gid="136" x="6848" y="768"/>
+  <object name="Fruit" gid="136" x="7488" y="768"/>
+  <object name="Fruit" gid="136" x="7488" y="832"/>
+  <object name="Fruit" gid="136" x="7040" y="832"/>
+  <object name="Fruit" gid="136" x="6976" y="832"/>
+  <object name="Fruit" gid="136" x="6848" y="832"/>
+  <object name="Fruit" gid="136" x="7168" y="832"/>
+  <object name="Fruit" gid="136" x="7488" y="896"/>
+  <object name="Fruit" gid="136" x="7040" y="960"/>
+  <object name="Fruit" gid="136" x="7040" y="896"/>
+  <object name="Fruit" gid="136" x="6976" y="960"/>
+  <object name="Fruit" gid="136" x="6976" y="896"/>
+  <object name="Fruit" gid="136" x="6848" y="960"/>
+  <object name="Fruit" gid="136" x="6848" y="896"/>
+  <object name="Fruit" gid="136" x="7168" y="960"/>
+  <object name="Fruit" gid="136" x="7488" y="960"/>
+  <object name="Fruit" gid="136" x="7168" y="896"/>
+  <object name="Fruit" gid="136" x="7488" y="1152"/>
+  <object name="Fruit" gid="136" x="6976" y="1216"/>
+  <object name="Fruit" gid="136" x="7488" y="1024"/>
+  <object name="Fruit" gid="136" x="6848" y="1088"/>
+  <object name="Fruit" gid="136" x="6848" y="1152"/>
+  <object name="Fruit" gid="136" x="6848" y="1024"/>
+  <object name="Fruit" gid="136" x="7040" y="1216"/>
+  <object name="Fruit" gid="136" x="7168" y="1152"/>
+  <object name="Fruit" gid="136" x="7040" y="1088"/>
+  <object name="Fruit" gid="136" x="6976" y="1152"/>
+  <object name="Fruit" gid="136" x="7040" y="1024"/>
+  <object name="Fruit" gid="136" x="7168" y="1088"/>
+  <object name="Fruit" gid="136" x="7168" y="1216"/>
+  <object name="Fruit" gid="136" x="7488" y="1088"/>
+  <object name="Fruit" gid="136" x="7040" y="1152"/>
+  <object name="Fruit" gid="136" x="7168" y="1024"/>
+  <object name="Fruit" gid="136" x="6976" y="1088"/>
+  <object name="Fruit" gid="136" x="6848" y="1216"/>
+  <object name="Fruit" gid="136" x="6976" y="1024"/>
+  <object name="Fruit" gid="136" x="7488" y="1216"/>
+  <object name="Fruit" gid="136" x="6976" y="1728"/>
+  <object name="Fruit" gid="136" x="7168" y="1728"/>
+  <object name="Fruit" gid="136" x="6976" y="1280"/>
+  <object name="Fruit" gid="136" x="7488" y="1472"/>
+  <object name="Fruit" gid="136" x="6976" y="1664"/>
+  <object name="Fruit" gid="136" x="7168" y="1280"/>
+  <object name="Fruit" gid="136" x="6848" y="1472"/>
+  <object name="Fruit" gid="136" x="7040" y="1728"/>
+  <object name="Fruit" gid="136" x="7040" y="1408"/>
+  <object name="Fruit" gid="136" x="6848" y="1600"/>
+  <object name="Fruit" gid="136" x="7488" y="1728"/>
+  <object name="Fruit" gid="136" x="7168" y="1344"/>
+  <object name="Fruit" gid="136" x="6976" y="1600"/>
+  <object name="Fruit" gid="136" x="7040" y="1344"/>
+  <object name="Fruit" gid="136" x="7488" y="1600"/>
+  <object name="Fruit" gid="136" x="6848" y="1280"/>
+  <object name="Fruit" gid="136" x="7168" y="1408"/>
+  <object name="Fruit" gid="136" x="7040" y="1536"/>
+  <object name="Fruit" gid="136" x="7488" y="1280"/>
+  <object name="Fruit" gid="136" x="6848" y="1408"/>
+  <object name="Fruit" gid="136" x="7168" y="1664"/>
+  <object name="Fruit" gid="136" x="6976" y="1472"/>
+  <object name="Fruit" gid="136" x="6848" y="1664"/>
+  <object name="Fruit" gid="136" x="7488" y="1664"/>
+  <object name="Fruit" gid="136" x="6848" y="1728"/>
+  <object name="Fruit" gid="136" x="6976" y="1344"/>
+  <object name="Fruit" gid="136" x="7040" y="1664"/>
+  <object name="Fruit" gid="136" x="7488" y="1344"/>
+  <object name="Fruit" gid="136" x="7168" y="1600"/>
+  <object name="Fruit" gid="136" x="7040" y="1280"/>
+  <object name="Fruit" gid="136" x="7168" y="1472"/>
+  <object name="Fruit" gid="136" x="7040" y="1600"/>
+  <object name="Fruit" gid="136" x="6976" y="1408"/>
+  <object name="Fruit" gid="136" x="6848" y="1536"/>
+  <object name="Fruit" gid="136" x="7040" y="1472"/>
+  <object name="Fruit" gid="136" x="7488" y="1536"/>
+  <object name="Fruit" gid="136" x="6976" y="1536"/>
+  <object name="Fruit" gid="136" x="6848" y="1344"/>
+  <object name="Fruit" gid="136" x="7168" y="1536"/>
+  <object name="Fruit" gid="136" x="7488" y="1408"/>
+  <object name="Fruit" gid="136" x="7040" y="2368"/>
+  <object name="Fruit" gid="136" x="7168" y="2432"/>
+  <object name="Fruit" gid="136" x="6848" y="2432"/>
+  <object name="Fruit" gid="136" x="6848" y="2688"/>
+  <object name="Fruit" gid="136" x="6976" y="2368"/>
+  <object name="Fruit" gid="136" x="7168" y="2624"/>
+  <object name="Fruit" gid="136" x="7040" y="2624"/>
+  <object name="Fruit" gid="136" x="7488" y="1792"/>
+  <object name="Fruit" gid="136" x="7040" y="2496"/>
+  <object name="Fruit" gid="136" x="7488" y="2048"/>
+  <object name="Fruit" gid="136" x="6848" y="1792"/>
+  <object name="Fruit" gid="136" x="6848" y="2368"/>
+  <object name="Fruit" gid="136" x="6848" y="2048"/>
+  <object name="Fruit" gid="136" x="7040" y="1856"/>
+  <object name="Fruit" gid="136" x="7040" y="2112"/>
+  <object name="Fruit" gid="136" x="7168" y="1856"/>
+  <object name="Fruit" gid="136" x="7168" y="2112"/>
+  <object name="Fruit" gid="136" x="7040" y="1920"/>
+  <object name="Fruit" gid="136" x="6848" y="1984"/>
+  <object name="Fruit" gid="136" x="7040" y="2176"/>
+  <object name="Fruit" gid="136" x="7488" y="1984"/>
+  <object name="Fruit" gid="136" x="6848" y="2240"/>
+  <object name="Fruit" gid="136" x="6976" y="2240"/>
+  <object name="Fruit" gid="136" x="7488" y="2496"/>
+  <object name="Fruit" gid="136" x="6848" y="2496"/>
+  <object name="Fruit" gid="136" x="6848" y="2624"/>
+  <object name="Fruit" gid="136" x="6976" y="2624"/>
+  <object name="Fruit" gid="136" x="6848" y="2304"/>
+  <object name="Fruit" gid="136" x="7488" y="2304"/>
+  <object name="Fruit" gid="136" x="6976" y="2496"/>
+  <object name="Fruit" gid="136" x="6848" y="2752"/>
+  <object name="Fruit" gid="136" x="7488" y="2368"/>
+  <object name="Fruit" gid="136" x="7168" y="2496"/>
+  <object name="Fruit" gid="136" x="7168" y="1792"/>
+  <object name="Fruit" gid="136" x="6848" y="2560"/>
+  <object name="Fruit" gid="136" x="6976" y="1792"/>
+  <object name="Fruit" gid="136" x="6976" y="2560"/>
+  <object name="Fruit" gid="136" x="6848" y="2176"/>
+  <object name="Fruit" gid="136" x="7488" y="1920"/>
+  <object name="Fruit" gid="136" x="7488" y="2432"/>
+  <object name="Fruit" gid="136" x="7168" y="2176"/>
+  <object name="Fruit" gid="136" x="6848" y="1856"/>
+  <object name="Fruit" gid="136" x="7040" y="2048"/>
+  <object name="Fruit" gid="136" x="7040" y="1984"/>
+  <object name="Fruit" gid="136" x="7488" y="2112"/>
+  <object name="Fruit" gid="136" x="6976" y="1920"/>
+  <object name="Fruit" gid="136" x="6976" y="2112"/>
+  <object name="Fruit" gid="136" x="7168" y="1984"/>
+  <object name="Fruit" gid="136" x="7488" y="2240"/>
+  <object name="Fruit" gid="136" x="6976" y="2752"/>
+  <object name="Fruit" gid="136" x="6976" y="2304"/>
+  <object name="Fruit" gid="136" x="7168" y="2304"/>
+  <object name="Fruit" gid="136" x="7040" y="2432"/>
+  <object name="Fruit" gid="136" x="7168" y="2368"/>
+  <object name="Fruit" gid="136" x="7488" y="2624"/>
+  <object name="Fruit" gid="136" x="7040" y="2560"/>
+  <object name="Fruit" gid="136" x="7168" y="2688"/>
+  <object name="Fruit" gid="136" x="7488" y="2688"/>
+  <object name="Fruit" gid="136" x="7040" y="2688"/>
+  <object name="Fruit" gid="136" x="7040" y="2304"/>
+  <object name="Fruit" gid="136" x="6976" y="2432"/>
+  <object name="Fruit" gid="136" x="7040" y="1792"/>
+  <object name="Fruit" gid="136" x="7488" y="2560"/>
+  <object name="Fruit" gid="136" x="6848" y="2112"/>
+  <object name="Fruit" gid="136" x="7488" y="1856"/>
+  <object name="Fruit" gid="136" x="7168" y="2560"/>
+  <object name="Fruit" gid="136" x="7040" y="2240"/>
+  <object name="Fruit" gid="136" x="6976" y="1856"/>
+  <object name="Fruit" gid="136" x="6976" y="2176"/>
+  <object name="Fruit" gid="136" x="7488" y="2176"/>
+  <object name="Fruit" gid="136" x="7168" y="2240"/>
+  <object name="Fruit" gid="136" x="6976" y="1984"/>
+  <object name="Fruit" gid="136" x="7168" y="2048"/>
+  <object name="Fruit" gid="136" x="6848" y="1920"/>
+  <object name="Fruit" gid="136" x="7168" y="1920"/>
+  <object name="Fruit" gid="136" x="6976" y="2048"/>
+  <object name="Fruit" gid="136" x="7168" y="2752"/>
+  <object name="Fruit" gid="136" x="6976" y="2688"/>
+  <object name="Fruit" gid="136" x="7040" y="2752"/>
+  <object name="Fruit" gid="136" x="7488" y="2752"/>
+  <object name="Fruit" gid="136" x="7040" y="3072"/>
+  <object name="Fruit" gid="136" x="7040" y="2816"/>
+  <object name="Fruit" gid="136" x="7168" y="2880"/>
+  <object name="Fruit" gid="136" x="7040" y="2880"/>
+  <object name="Fruit" gid="136" x="6976" y="2944"/>
+  <object name="Fruit" gid="136" x="6848" y="2880"/>
+  <object name="Fruit" gid="136" x="6848" y="3008"/>
+  <object name="Fruit" gid="136" x="7168" y="3072"/>
+  <object name="Fruit" gid="136" x="6976" y="2816"/>
+  <object name="Fruit" gid="136" x="7040" y="2944"/>
+  <object name="Fruit" gid="136" x="6848" y="2816"/>
+  <object name="Fruit" gid="136" x="7168" y="2816"/>
+  <object name="Fruit" gid="136" x="7040" y="3008"/>
+  <object name="Fruit" gid="136" x="7168" y="3008"/>
+  <object name="Fruit" gid="136" x="6976" y="3008"/>
+  <object name="Fruit" gid="136" x="6848" y="3072"/>
+  <object name="Fruit" gid="136" x="6848" y="2944"/>
+  <object name="Fruit" gid="136" x="6976" y="3072"/>
+  <object name="Fruit" gid="136" x="6976" y="2880"/>
+  <object name="Fruit" gid="136" x="7168" y="2944"/>
+  <object name="Fruit" gid="136" x="7936" y="704"/>
+  <object name="Fruit" gid="136" x="7872" y="640"/>
+  <object name="Fruit" gid="136" x="7808" y="640"/>
+  <object name="Fruit" gid="136" x="7936" y="768"/>
+  <object name="Fruit" gid="136" x="8000" y="768"/>
+  <object name="Fruit" gid="136" x="7872" y="704"/>
+  <object name="Fruit" gid="136" x="7616" y="512"/>
+  <object name="Fruit" gid="136" x="7680" y="512"/>
+  <object name="Fruit" gid="136" x="7680" y="576"/>
+  <object name="Fruit" gid="136" x="7744" y="576"/>
+  <object name="Fruit" gid="136" x="8064" y="832"/>
+  <object name="Fruit" gid="136" x="8192" y="960"/>
+  <object name="Fruit" gid="136" x="8256" y="960"/>
+  <object name="Fruit" gid="136" x="8128" y="896"/>
+  <object name="Fruit" gid="136" x="8192" y="896"/>
+  <object name="Fruit" gid="136" x="8128" y="832"/>
+  <object name="Fruit" gid="136" x="8320" y="1024"/>
+  <object name="Fruit" gid="136" x="8448" y="1152"/>
+  <object name="Fruit" gid="136" x="8512" y="1152"/>
+  <object name="Fruit" gid="136" x="8384" y="1088"/>
+  <object name="Fruit" gid="136" x="8448" y="1088"/>
+  <object name="Fruit" gid="136" x="8384" y="1024"/>
+  <object name="Fruit" gid="136" x="8768" y="1343"/>
+  <object name="Fruit" gid="136" x="8896" y="1471"/>
+  <object name="Fruit" gid="136" x="8960" y="1471"/>
+  <object name="Fruit" gid="136" x="8832" y="1407"/>
+  <object name="Fruit" gid="136" x="8896" y="1407"/>
+  <object name="Fruit" gid="136" x="8832" y="1343"/>
+  <object name="Fruit" gid="136" x="8703" y="1280"/>
+  <object name="Fruit" gid="136" x="8639" y="1216"/>
+  <object name="Fruit" gid="136" x="8575" y="1216"/>
+  <object name="Fruit" gid="136" x="8639" y="1280"/>
+  <object name="Fruit" gid="136" x="7936" y="896"/>
+  <object name="Fruit" gid="136" x="7936" y="1280"/>
+  <object name="Fruit" gid="136" x="7936" y="960"/>
+  <object name="Fruit" gid="136" x="7936" y="1600"/>
+  <object name="Fruit" gid="136" x="7936" y="1472"/>
+  <object name="Fruit" gid="136" x="7936" y="1408"/>
+  <object name="Fruit" gid="136" x="7936" y="1344"/>
+  <object name="Fruit" gid="136" x="7936" y="1088"/>
+  <object name="Fruit" gid="136" x="7936" y="1216"/>
+  <object name="Fruit" gid="136" x="7936" y="1024"/>
+  <object name="Fruit" gid="136" x="7935" y="1152"/>
+  <object name="Fruit" gid="136" x="7936" y="1536"/>
+  <object name="Fruit" gid="136" x="7808" y="1216"/>
+  <object name="Fruit" gid="136" x="7808" y="1152"/>
+  <object name="Fruit" gid="136" x="7744" y="1216"/>
+  <object name="Fruit" gid="136" x="7744" y="1152"/>
+  <object name="Fruit" gid="136" x="7808" y="1344"/>
+  <object name="Fruit" gid="136" x="7808" y="1280"/>
+  <object name="Fruit" gid="136" x="7744" y="1280"/>
+  <object name="Fruit" gid="136" x="7744" y="1344"/>
+  <object name="Fruit" gid="136" x="7808" y="1408"/>
+  <object name="Fruit" gid="136" x="7744" y="1408"/>
+  <object name="Fruit" gid="136" x="8192" y="1408"/>
+  <object name="Fruit" gid="136" x="8192" y="1216"/>
+  <object name="Fruit" gid="136" x="8192" y="1152"/>
+  <object name="Fruit" gid="136" x="8128" y="1408"/>
+  <object name="Fruit" gid="136" x="8128" y="1152"/>
+  <object name="Fruit" gid="136" x="8128" y="1216"/>
+  <object name="Fruit" gid="136" x="8192" y="1344"/>
+  <object name="Fruit" gid="136" x="8128" y="1280"/>
+  <object name="Fruit" gid="136" x="8192" y="1280"/>
+  <object name="Fruit" gid="136" x="8128" y="1344"/>
+  <object name="Fruit" gid="136" x="8576" y="1600"/>
+  <object name="Fruit" gid="136" x="8576" y="1408"/>
+  <object name="Fruit" gid="136" x="8576" y="1344"/>
+  <object name="Fruit" gid="136" x="8512" y="1600"/>
+  <object name="Fruit" gid="136" x="8512" y="1344"/>
+  <object name="Fruit" gid="136" x="8512" y="1408"/>
+  <object name="Fruit" gid="136" x="8575" y="1537"/>
+  <object name="Fruit" gid="136" x="8512" y="1472"/>
+  <object name="Fruit" gid="136" x="8576" y="1472"/>
+  <object name="Fruit" gid="136" x="8511" y="1537"/>
+  <object name="Fruit" gid="136" x="7936" y="1728"/>
+  <object name="Fruit" gid="136" x="7808" y="1728"/>
+  <object name="Fruit" gid="136" x="8064" y="1728"/>
+  <object name="Fruit" gid="136" x="8128" y="1728"/>
+  <object name="Fruit" gid="136" x="8256" y="1728"/>
+  <object name="Fruit" gid="136" x="8384" y="1728"/>
+  <object name="Fruit" gid="136" x="8000" y="1728"/>
+  <object name="Fruit" gid="136" x="8320" y="1728"/>
+  <object name="Fruit" gid="136" x="7872" y="1728"/>
+  <object name="Fruit" gid="136" x="8192" y="1728"/>
+  <object name="Fruit" gid="136" x="8448" y="1728"/>
+  <object name="Fruit" gid="136" x="8768" y="1728"/>
+  <object name="Fruit" gid="136" x="8512" y="1728"/>
+  <object name="Fruit" gid="136" x="8576" y="1728"/>
+  <object name="Fruit" gid="136" x="8640" y="1728"/>
+  <object name="Fruit" gid="136" x="8704" y="1728"/>
+  <object name="Fruit" gid="136" x="8832" y="1728"/>
+  <object name="Fruit" gid="136" x="8000" y="1792"/>
+  <object name="Fruit" gid="136" x="8512" y="1792"/>
+  <object name="Fruit" gid="136" x="7808" y="1792"/>
+  <object name="Fruit" gid="136" x="8320" y="1792"/>
+  <object name="Fruit" gid="136" x="8576" y="1792"/>
+  <object name="Fruit" gid="136" x="8064" y="1792"/>
+  <object name="Fruit" gid="136" x="7872" y="1792"/>
+  <object name="Fruit" gid="136" x="7936" y="1792"/>
+  <object name="Fruit" gid="136" x="8640" y="1792"/>
+  <object name="Fruit" gid="136" x="8128" y="1792"/>
+  <object name="Fruit" gid="136" x="8192" y="1792"/>
+  <object name="Fruit" gid="136" x="8703" y="1792"/>
+  <object name="Fruit" gid="136" x="8256" y="1792"/>
+  <object name="Fruit" gid="136" x="8767" y="1792"/>
+  <object name="Fruit" gid="136" x="8831" y="1792"/>
+  <object name="Fruit" gid="136" x="8384" y="1792"/>
+  <object name="Fruit" gid="136" x="8448" y="1792"/>
+  <object name="Fruit" gid="136" x="8384" y="1344"/>
+  <object name="Fruit" gid="136" x="8384" y="1216"/>
+  <object name="Fruit" gid="136" x="8384" y="1408"/>
+  <object name="Fruit" gid="136" x="8384" y="1536"/>
+  <object name="Fruit" gid="136" x="8384" y="1472"/>
+  <object name="Fruit" gid="136" x="8384" y="1280"/>
+  <object name="Fruit" gid="136" x="8384" y="1600"/>
+  <object name="Fruit" gid="136" x="8704" y="1536"/>
+  <object name="Fruit" gid="136" x="8704" y="1472"/>
+  <object name="Fruit" gid="136" x="8704" y="1408"/>
+  <object name="Fruit" gid="136" x="8704" y="1600"/>
+  <object name="Fruit" gid="136" x="7680" y="2496"/>
+  <object name="Fruit" gid="136" x="7680" y="2560"/>
+  <object name="Fruit" gid="136" x="7680" y="2048"/>
+  <object name="Fruit" gid="136" x="7616" y="2432"/>
+  <object name="Fruit" gid="136" x="7616" y="2304"/>
+  <object name="Fruit" gid="136" x="7616" y="2176"/>
+  <object name="Fruit" gid="136" x="7616" y="2496"/>
+  <object name="Fruit" gid="136" x="7680" y="2240"/>
+  <object name="Fruit" gid="136" x="7680" y="2176"/>
+  <object name="Fruit" gid="136" x="7616" y="2368"/>
+  <object name="Fruit" gid="136" x="7680" y="2112"/>
+  <object name="Fruit" gid="136" x="7616" y="2240"/>
+  <object name="Fruit" gid="136" x="7680" y="2368"/>
+  <object name="Fruit" gid="136" x="7616" y="2112"/>
+  <object name="Fruit" gid="136" x="7680" y="2304"/>
+  <object name="Fruit" gid="136" x="7616" y="2048"/>
+  <object name="Fruit" gid="136" x="7616" y="2560"/>
+  <object name="Fruit" gid="136" x="7680" y="2432"/>
+  <object name="Fruit" gid="136" x="7744" y="2176"/>
+  <object name="Fruit" gid="136" x="7744" y="2368"/>
+  <object name="Fruit" gid="136" x="7744" y="2496"/>
+  <object name="Fruit" gid="136" x="7744" y="2432"/>
+  <object name="Fruit" gid="136" x="7744" y="2560"/>
+  <object name="Fruit" gid="136" x="7744" y="2240"/>
+  <object name="Fruit" gid="136" x="7744" y="2304"/>
+  <object name="Fruit" gid="136" x="7744" y="2112"/>
+  <object name="Fruit" gid="136" x="7744" y="2048"/>
+  <object name="Fruit" gid="136" x="7488" y="2816"/>
+  <object name="Fruit" gid="136" x="7680" y="2816"/>
+  <object name="Fruit" gid="136" x="7616" y="2880"/>
+  <object name="Fruit" gid="136" x="7616" y="2816"/>
+  <object name="Fruit" gid="136" x="7680" y="2880"/>
+  <object name="Fruit" gid="136" x="7936" y="2688"/>
+  <object name="Fruit" gid="136" x="7872" y="2752"/>
+  <object name="Fruit" gid="136" x="8000" y="2752"/>
+  <object name="Fruit" gid="136" x="7936" y="2752"/>
+  <object name="Fruit" gid="136" x="7936" y="2048"/>
+  <object name="Fruit" gid="136" x="7936" y="2432"/>
+  <object name="Fruit" gid="136" x="7936" y="1920"/>
+  <object name="Fruit" gid="136" x="7936" y="2112"/>
+  <object name="Fruit" gid="136" x="7936" y="2560"/>
+  <object name="Fruit" gid="136" x="7936" y="2496"/>
+  <object name="Fruit" gid="136" x="7936" y="2240"/>
+  <object name="Fruit" gid="136" x="7936" y="2368"/>
+  <object name="Fruit" gid="136" x="7936" y="2176"/>
+  <object name="Fruit" gid="136" x="7936" y="1984"/>
+  <object name="Fruit" gid="136" x="7936" y="2304"/>
+  <object name="Fruit" gid="136" x="8128" y="2240"/>
+  <object name="Fruit" gid="136" x="8192" y="2368"/>
+  <object name="Fruit" gid="136" x="8128" y="2368"/>
+  <object name="Fruit" gid="136" x="8192" y="2240"/>
+  <object name="Fruit" gid="136" x="8192" y="2112"/>
+  <object name="Fruit" gid="136" x="8128" y="2176"/>
+  <object name="Fruit" gid="136" x="8192" y="2048"/>
+  <object name="Fruit" gid="136" x="8192" y="1984"/>
+  <object name="Fruit" gid="136" x="8128" y="1984"/>
+  <object name="Fruit" gid="136" x="8192" y="2176"/>
+  <object name="Fruit" gid="136" x="8128" y="2112"/>
+  <object name="Fruit" gid="136" x="8192" y="2304"/>
+  <object name="Fruit" gid="136" x="8128" y="2304"/>
+  <object name="Fruit" gid="136" x="8128" y="2048"/>
+  <object name="Fruit" gid="136" x="8576" y="2240"/>
+  <object name="Fruit" gid="136" x="8512" y="2048"/>
+  <object name="Fruit" gid="136" x="8576" y="2176"/>
+  <object name="Fruit" gid="136" x="8512" y="2240"/>
+  <object name="Fruit" gid="136" x="8512" y="2112"/>
+  <object name="Fruit" gid="136" x="8576" y="2048"/>
+  <object name="Fruit" gid="136" x="8576" y="2304"/>
+  <object name="Fruit" gid="136" x="8576" y="1984"/>
+  <object name="Fruit" gid="136" x="8512" y="2304"/>
+  <object name="Fruit" gid="136" x="8576" y="2112"/>
+  <object name="Fruit" gid="136" x="8512" y="2176"/>
+  <object name="Fruit" gid="136" x="8512" y="1984"/>
+  <object name="Fruit" gid="136" x="8192" y="2624"/>
+  <object name="Fruit" gid="136" x="8256" y="2560"/>
+  <object name="Fruit" gid="136" x="8256" y="2624"/>
+  <object name="Fruit" gid="136" x="8320" y="2624"/>
+  <object name="Fruit" gid="136" x="8192" y="2560"/>
+  <object name="Fruit" gid="136" x="8384" y="2624"/>
+  <object name="Fruit" gid="136" x="8320" y="2560"/>
+  <object name="Fruit" gid="136" x="8384" y="2560"/>
+  <object name="Fruit" gid="136" x="8576" y="2496"/>
+  <object name="Fruit" gid="136" x="8832" y="2432"/>
+  <object name="Fruit" gid="136" x="8832" y="2496"/>
+  <object name="Fruit" gid="136" x="8640" y="2432"/>
+  <object name="Fruit" gid="136" x="8640" y="2496"/>
+  <object name="Fruit" gid="136" x="8576" y="2432"/>
+  <object name="Fruit" gid="136" x="8768" y="2496"/>
+  <object name="Fruit" gid="136" x="8768" y="2432"/>
+  <object name="Fruit" gid="136" x="9344" y="2368"/>
+  <object name="Fruit" gid="136" x="9152" y="2304"/>
+  <object name="Fruit" gid="136" x="9216" y="2304"/>
+  <object name="Fruit" gid="136" x="9216" y="2368"/>
+  <object name="Fruit" gid="136" x="9280" y="2304"/>
+  <object name="Fruit" gid="136" x="9344" y="2304"/>
+  <object name="Fruit" gid="136" x="9280" y="2368"/>
+  <object name="Fruit" gid="136" x="9152" y="2368"/>
+  <object name="Fruit" gid="136" x="8384" y="2432"/>
+  <object name="Fruit" gid="136" x="8384" y="2304"/>
+  <object name="Fruit" gid="136" x="8384" y="1984"/>
+  <object name="Fruit" gid="136" x="8384" y="2112"/>
+  <object name="Fruit" gid="136" x="8384" y="2048"/>
+  <object name="Fruit" gid="136" x="8384" y="2240"/>
+  <object name="Fruit" gid="136" x="8384" y="2368"/>
+  <object name="Fruit" gid="136" x="8384" y="2176"/>
+  <object name="Fruit" gid="136" x="8704" y="2176"/>
+  <object name="Fruit" gid="136" x="8704" y="2304"/>
+  <object name="Fruit" gid="136" x="8704" y="2240"/>
+  <object name="Fruit" gid="136" x="8704" y="2112"/>
+  <object name="Fruit" gid="136" x="8704" y="1920"/>
+  <object name="Fruit" gid="136" x="8704" y="2048"/>
+  <object name="Fruit" gid="136" x="8704" y="1984"/>
+  <object name="Fruit" gid="136" x="8896" y="1856"/>
+  <object name="Fruit" gid="136" x="8960" y="1856"/>
+  <object name="Fruit" gid="136" x="9024" y="1856"/>
+  <object name="Fruit" gid="136" x="9152" y="1599"/>
+  <object name="Fruit" gid="136" x="9088" y="1535"/>
+  <object name="Fruit" gid="136" x="9024" y="1535"/>
+  <object name="Fruit" gid="136" x="9152" y="1663"/>
+  <object name="Fruit" gid="136" x="9216" y="1664"/>
+  <object name="Fruit" gid="136" x="9088" y="1599"/>
+  <object name="Fruit" gid="136" x="9408" y="1792"/>
+  <object name="Fruit" gid="136" x="9344" y="1728"/>
+  <object name="Fruit" gid="136" x="9280" y="1728"/>
+  <object name="Fruit" gid="136" x="9408" y="1856"/>
+  <object name="Fruit" gid="136" x="9472" y="1856"/>
+  <object name="Fruit" gid="136" x="9344" y="1792"/>
+  <object name="Fruit" gid="136" x="9664" y="1984"/>
+  <object name="Fruit" gid="136" x="9600" y="1920"/>
+  <object name="Fruit" gid="136" x="9536" y="1920"/>
+  <object name="Fruit" gid="136" x="9664" y="2048"/>
+  <object name="Fruit" gid="136" x="9728" y="2048"/>
+  <object name="Fruit" gid="136" x="9600" y="1984"/>
+  <object name="Fruit" gid="136" x="9152" y="1984"/>
+  <object name="Fruit" gid="136" x="9088" y="1920"/>
+  <object name="Fruit" gid="136" x="9280" y="2048"/>
+  <object name="Fruit" gid="136" x="9216" y="1984"/>
+  <object name="Fruit" gid="136" x="9344" y="2112"/>
+  <object name="Fruit" gid="136" x="9408" y="2112"/>
+  <object name="Fruit" gid="136" x="9600" y="2176"/>
+  <object name="Fruit" gid="136" x="9728" y="2176"/>
+  <object name="Fruit" gid="136" x="9664" y="2240"/>
+  <object name="Fruit" gid="136" x="9536" y="2240"/>
+  <object name="Fruit" gid="136" x="9856" y="2176"/>
+  <object name="Fruit" gid="136" x="9984" y="2176"/>
+  <object name="Fruit" gid="136" x="9920" y="2240"/>
+  <object name="Fruit" gid="136" x="9792" y="2240"/>
+  <object name="Fruit" gid="136" x="10240" y="2176"/>
+  <object name="Fruit" gid="136" x="10304" y="2240"/>
+  <object name="Fruit" gid="136" x="10176" y="2240"/>
+  <object name="Fruit" gid="136" x="10048" y="2240"/>
+  <object name="Fruit" gid="136" x="10112" y="2176"/>
+  <object name="Fruit" gid="136" x="10368" y="2176"/>
+  <object name="Fruit" gid="136" x="10496" y="2112"/>
+  <object name="Fruit" gid="136" x="10432" y="2176"/>
+  <object name="Fruit" gid="136" x="10496" y="2048"/>
+  <object name="Fruit" gid="136" x="10560" y="2048"/>
+  <object name="Fruit" gid="136" x="10176" y="2048"/>
+  <object name="Fruit" gid="136" x="10240" y="2048"/>
+  <object name="Fruit" gid="136" x="10304" y="1984"/>
+  <object name="Fruit" gid="136" x="10368" y="1984"/>
+  <object name="Fruit" gid="136" x="10432" y="2112"/>
+  <object name="Fruit" gid="136" x="10560" y="1984"/>
+  <object name="Fruit" gid="136" x="10432" y="1920"/>
+  <object name="Fruit" gid="136" x="10496" y="1920"/>
+  <object name="Fruit" gid="136" x="10816" y="1856"/>
+  <object name="Fruit" gid="136" x="10624" y="1856"/>
+  <object name="Fruit" gid="136" x="10880" y="1856"/>
+  <object name="Fruit" gid="136" x="10944" y="1856"/>
+  <object name="Fruit" gid="136" x="10816" y="1664"/>
+  <object name="Fruit" gid="136" x="10880" y="1664"/>
+  <object name="Fruit" gid="136" x="10944" y="1664"/>
+  <object name="Fruit" gid="136" x="10688" y="1856"/>
+  <object name="Fruit" gid="136" x="10752" y="1856"/>
+  <object name="Fruit" gid="136" x="10752" y="1728"/>
+  <object name="Fruit" gid="136" x="10880" y="1920"/>
+  <object name="Fruit" gid="136" x="10944" y="1792"/>
+  <object name="Fruit" gid="136" x="11008" y="1792"/>
+  <object name="Fruit" gid="136" x="11008" y="1728"/>
+  <object name="Fruit" gid="136" x="11200" y="1728"/>
+  <object name="Fruit" gid="136" x="11200" y="1792"/>
+  <object name="Fruit" gid="136" x="11264" y="1664"/>
+  <object name="Fruit" gid="136" x="11264" y="1856"/>
+  <object name="Fruit" gid="136" x="11328" y="1792"/>
+  <object name="Fruit" gid="136" x="11328" y="1920"/>
+  <object name="Fruit" gid="136" x="11392" y="1728"/>
+  <object name="Fruit" gid="136" x="11392" y="1856"/>
+  <object name="Fruit" gid="136" x="11520" y="1792"/>
+  <object name="Fruit" gid="136" x="11456" y="1792"/>
+  <object name="Fruit" gid="136" x="11648" y="1792"/>
+  <object name="Fruit" gid="136" x="11584" y="1728"/>
+  <object name="Fruit" gid="136" x="11648" y="1728"/>
+  <object name="Fruit" gid="136" x="11520" y="1728"/>
+  <object name="Fruit" gid="136" x="11392" y="1984"/>
+  <object name="Fruit" gid="136" x="11584" y="1984"/>
+  <object name="Fruit" gid="136" x="11584" y="2048"/>
+  <object name="Fruit" gid="136" x="11456" y="2048"/>
+  <object name="Fruit" gid="136" x="11648" y="2048"/>
+  <object name="Fruit" gid="136" x="11520" y="2048"/>
+  <object name="Fruit" gid="136" x="11712" y="2048"/>
+  <object name="Fruit" gid="136" x="11648" y="2112"/>
+  <object name="Fruit" gid="136" x="11520" y="2112"/>
+  <object name="Fruit" gid="136" x="11584" y="2176"/>
+  <object name="Fruit" gid="136" x="12224" y="1664"/>
+  <object name="Fruit" gid="136" x="12160" y="1664"/>
+  <object name="Fruit" gid="136" x="12288" y="1664"/>
+  <object name="Fruit" gid="136" x="12224" y="1728"/>
+  <object name="Fruit" gid="136" x="12160" y="1728"/>
+  <object name="Fruit" gid="136" x="12288" y="1728"/>
+  <object name="Fruit" gid="136" x="11712" y="1856"/>
+  <object name="Fruit" gid="136" x="11776" y="1984"/>
+  <object name="Fruit" gid="136" x="11840" y="1984"/>
+  <object name="Fruit" gid="136" x="12416" y="1664"/>
+  <object name="Fruit" gid="136" x="12416" y="1728"/>
+  <object name="Fruit" gid="136" x="12480" y="1664"/>
+  <object name="Fruit" gid="136" x="12480" y="1728"/>
+  <object name="Fruit" gid="136" x="11776" y="1728"/>
+  <object name="Fruit" gid="136" x="11776" y="1792"/>
+  <object name="Fruit" gid="136" x="11840" y="1728"/>
+  <object name="Fruit" gid="136" x="11840" y="1792"/>
+  <object name="Fruit" gid="136" x="11904" y="1856"/>
+  <object name="Fruit" gid="136" x="11904" y="1920"/>
+  <object name="Fruit" gid="136" x="11968" y="1856"/>
+  <object name="Fruit" gid="136" x="11904" y="1664"/>
+  <object name="Fruit" gid="136" x="11968" y="1664"/>
+  <object name="Fruit" gid="136" x="12032" y="1728"/>
+  <object name="Fruit" gid="136" x="12032" y="1792"/>
+  <object name="Fruit" gid="136" x="12608" y="1664"/>
+  <object name="Fruit" gid="136" x="12608" y="1728"/>
+  <object name="Dengue" gid="131" x="2176" y="2560"/>
+  <object name="Dengue" gid="131" x="2304" y="2688"/>
+  <object name="Dengue" gid="131" x="2816" y="2752"/>
+  <object name="Dengue" gid="131" x="2752" y="2496"/>
+  <object name="Dengue" gid="131" x="2944" y="1600"/>
+  <object name="Dengue" gid="131" x="5184" y="2880"/>
+  <object name="Dengue" gid="131" x="7104" y="704"/>
+  <object name="Dengue" gid="131" x="6912" y="896"/>
+  <object name="Dengue" gid="131" x="7104" y="1088"/>
+  <object name="Dengue" gid="131" x="6912" y="1280"/>
+  <object name="Dengue" gid="131" x="7104" y="1408"/>
+  <object name="Dengue" gid="131" x="6912" y="1600"/>
+  <object name="Dengue" gid="131" x="7104" y="1792"/>
+  <object name="Dengue" gid="131" x="6912" y="1984"/>
+  <object name="Dengue" gid="131" x="7104" y="2176"/>
+  <object name="Dengue" gid="131" x="6912" y="2368"/>
+  <object name="Dengue" gid="131" x="7104" y="2496"/>
+  <object name="Dengue" gid="131" x="6912" y="2688"/>
+  <object name="Dengue" gid="131" x="7104" y="2816"/>
+  <object name="Dengue" gid="131" x="896" y="2880"/>
+  <object name="Mono" gid="130" x="1664" y="2240"/>
+  <object name="Gaucho" gid="132" x="1920" y="2496"/>
+  <object name="Mono" gid="130" x="2258" y="1556"/>
+  <object name="Mono" gid="130" x="2368" y="1600"/>
+  <object name="Mono" gid="130" x="3068" y="1612"/>
+  <object name="Mono" gid="130" x="3834" y="1823"/>
+  <object name="Mono" gid="130" x="3891" y="1915"/>
+  <object name="Mono" gid="130" x="5708" y="2542"/>
+  <object name="Mono" gid="130" x="6033" y="460"/>
+  <object name="Mono" gid="130" x="6635" y="481"/>
+  <object name="Mono" gid="130" x="8704" y="2496"/>
+  <object name="Mono" gid="130" x="11186" y="1658"/>
+  <object name="Mono" gid="130" x="11584" y="1792"/>
+  <object name="Gaucho" gid="132" x="2495" y="2816"/>
+  <object name="Gaucho" gid="132" x="2769" y="2240"/>
+  <object name="Gaucho" gid="132" x="2769" y="1984"/>
+  <object name="Gaucho" gid="132" x="2132" y="1728"/>
+  <object name="Gaucho" gid="132" x="2816" y="1536"/>
+  <object name="Gaucho" gid="132" x="3327" y="1664"/>
+  <object name="Gaucho" gid="132" x="3775" y="2048"/>
+  <object name="Gaucho" gid="132" x="4163" y="1856"/>
+  <object name="Gaucho" gid="132" x="4544" y="1856"/>
+  <object name="Gaucho" gid="132" x="5632" y="2688"/>
+  <object name="Mono" gid="130" x="5504" y="2688"/>
+  <object name="Gaucho" gid="132" x="6336" y="2560"/>
+  <object name="Gaucho" gid="132" x="6144" y="1856"/>
+  <object name="Gaucho" gid="132" x="5840" y="1856"/>
+  <object name="Gaucho" gid="132" x="5189" y="1600"/>
+  <object name="Gaucho" gid="132" x="4684" y="1088"/>
+  <object name="Gaucho" gid="132" x="5312" y="832"/>
+  <object name="Gaucho" gid="132" x="5824" y="576"/>
+  <object name="Gaucho" gid="132" x="6336" y="576"/>
+  <object name="Gaucho" gid="132" x="8000" y="2816"/>
+  <object name="Gaucho" gid="132" x="8320" y="2688"/>
+  <object name="Gaucho" gid="132" x="9088" y="2432"/>
+  <object name="Gaucho" gid="132" x="9728" y="2304"/>
+  <object name="Gaucho" gid="132" x="9984" y="2304"/>
+  <object name="Gaucho" gid="132" x="10816" y="1984"/>
+  <object name="Gaucho" gid="132" x="11840" y="1984"/>
+  <object name="Hat" gid="133" x="576" y="2944"/>
+  <object name="Sombrero" gid="133" x="3776" y="2560"/>
+  <object name="Caña" gid="135" x="3008" y="2368"/>
+  <object name="Fruit" gid="136" x="2944" y="1472"/>
+  <object name="Fruit" gid="136" x="3008" y="1472"/>
+  <object name="Fruit" gid="136" x="3072" y="1536"/>
+  <object name="Fruit" gid="136" x="3200" y="1600"/>
+  <object name="Fruit" gid="136" x="3264" y="1600"/>
+  <object name="Fruit" gid="136" x="3136" y="1536"/>
+  <object name="Fruit" gid="136" x="3456" y="1536"/>
+  <object name="Fruit" gid="136" x="3392" y="1600"/>
+  <object name="Fruit" gid="136" x="3648" y="1728"/>
+  <object name="Fruit" gid="136" x="3776" y="1856"/>
+  <object name="Fruit" gid="136" x="3520" y="1600"/>
+  <object name="Fruit" gid="136" x="3584" y="1664"/>
+  <object name="Fruit" gid="136" x="3712" y="1792"/>
+  <object name="Fruit" gid="136" x="3072" y="2240"/>
+  <object name="Fruit" gid="136" x="3266" y="2428"/>
+  <object name="Fruit" gid="136" x="3334" y="2176"/>
+  <object name="Fruit" gid="136" x="3200" y="2176"/>
+  <object name="Fruit" gid="136" x="3392" y="1920"/>
+  <object name="Fruit" gid="136" x="3264" y="2048"/>
+  <object name="Fruit" gid="136" x="3520" y="2048"/>
+  <object name="Fruit" gid="136" x="3456" y="1984"/>
+  <object name="Fruit" gid="136" x="3712" y="1985"/>
+  <object name="Fruit" gid="136" x="3649" y="1984"/>
+  <object type="Door" x="13248" y="1536" width="128" height="320">
+   <properties>
+    <property name="Target" value="/Levels/Monte.tmx"/>
+   </properties>
+  </object>
+  <object name="check1" type="Warp" gid="136" x="2560" y="2816"/>
+  <object name="check1" type="Warp" gid="136" x="3200" y="1664"/>
+  <object name="check1" type="Warp" gid="136" x="4224" y="2624"/>
+  <object name="check1" type="Warp" gid="136" x="6080" y="576"/>
+  <object name="check1" type="Warp" gid="136" x="7011" y="512"/>
+  <object name="check2" type="Warp" x="7296" y="2879" width="129" height="131"/>
+  <object type="Warp" x="7556" y="1537" width="184" height="121">
+   <properties>
+    <property name="target" value="secret1"/>
+   </properties>
+  </object>
+  <object name="secret1" type="Warp" x="6979" y="324" width="127" height="128"/>
+  <object name="Caña" gid="135" x="2585" y="1847"/>
+  <object name="Caña" gid="135" x="3443" y="1807"/>
+  <object name="Caña" gid="135" x="3461" y="1806"/>
+  <object name="Hat" gid="135" x="6012" y="575"/>
+  <object x="1225" y="2300" width="62" height="63"/>
+  <object type="Warp" x="3390" y="2938" width="126" height="72">
+   <properties>
+    <property name="target" value="secret2"/>
+   </properties>
+  </object>
+  <object name="secret2" type="Warp" x="5950" y="1793" width="67" height="62"/>
+  <object type="CameraBound" x="1228" y="1347" width="1893" height="1508">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="6772" y="252" width="527" height="2933">
+   <properties>
+    <property name="zoom" value="3.5"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="7366" y="703" width="1447" height="1235">
+   <properties>
+    <property name="zoom" value="5"/>
+   </properties>
+  </object>
+  <object name="Caña" gid="135" x="10178" y="2304"/>
+  <object name="Caña" gid="135" x="6851" y="3135"/>
+  <object name="Caña" gid="135" x="6865" y="3112"/>
+  <object name="Caña" gid="135" x="6878" y="3136"/>
+  <object name="Gaucho" gid="132" x="8288" y="1769"/>
+  <object name="Fruit" gid="136" x="704" y="2880"/>
+  <object name="Fruit" gid="136" x="640" y="2880"/>
+  <object name="Clavel" x="12736" y="1664" width="64" height="64">
+   <properties>
+    <property name="nameId" value="Final"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
