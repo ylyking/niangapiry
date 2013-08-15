@@ -213,7 +213,7 @@ namespace Bosses
 
         void LobiEnd()
         {
-            //TimeLapse = Time.time + 2;
+            //TimeLapse = TimeLapse.time + 2;
             Managers.Dialog.StopConversation();
             GameObject Door = (GameObject)Instantiate(DoorPrefab, new Vector3(LuisonArea.xMin + 4, LuisonArea.yMin + 1, .3f), ThisTransform.rotation);
             Door.transform.parent = ThisTransform;

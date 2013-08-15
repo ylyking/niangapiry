@@ -6,8 +6,6 @@ namespace BonusObjects
 
     public class BonusManager : MonoBehaviour
     {
-
-
         Transform thisTransform;
         Transform playerTransform;
 
@@ -21,6 +19,7 @@ namespace BonusObjects
 
         public float TimeLapse = 5;
         public string PreviousLevel = "/Levels/Home1.tmx";
+        public bool SpecialBonus1 = false;
         public bool SpecialBonus4 = false;
         public GameObject SpecialBonus;
 
@@ -46,9 +45,7 @@ namespace BonusObjects
 
         void Update()
         {
-            Managers.Display.DebugText = " Player s Pos: " + playerTransform.position;
-
-            if (playerTransform.position.x < 6.2f && MisteryBox)
+            if (playerTransform.position.x < 6.2f && playerTransform.position.y < 3.5f && MisteryBox)
             {
                 WinMessage = true;
                 DestroyImmediate(MisteryBox);
@@ -59,17 +56,17 @@ namespace BonusObjects
                           ItemPos + (Vector3.back * 2) + (Vector3.up * 2), thisTransform.rotation), 5);
             }
 
-            if (playerTransform.position.x > 9.8f && RandomItem)
+            if (playerTransform.position.x > 9.8f && playerTransform.position.y < 3.5f  && RandomItem)
             {
                 if (!SpecialBonus4)
                     LoseMessage = true;
                 else
                 {
                     WinMessage = true;
-                    SpecialBonus = (GameObject)Instantiate(Resources.Load("Prefabs/Secrets/Souvenir4", typeof(GameObject))
+                    SpecialBonus = (GameObject)Instantiate(Resources.Load("Prefabs/Secrets/Treasure4", typeof(GameObject))
                         , BoxPos + (Vector3.back * 2) + (Vector3.up * 2), thisTransform.rotation);
                     SpecialBonus.transform.parent = thisTransform;
-                    Managers.Register.Souvenir4 = true;
+                    Managers.Register.Treasure4 = true;
                 }
 
                 DestroyImmediate(RandomItem);
@@ -118,7 +115,10 @@ namespace BonusObjects
 
             if ( Managers.Tiled.Load(PreviousLevel) )
             {
-                Managers.Register.SetPlayerPos();
+                //Managers.Register.SetPlayerPos();
+                if (SpecialBonus1)
+                    //Managers.Display.camTransform.position = new Vector3(2.68f, -1, -2.5f);
+                    Managers.Display.camTransform.position = Vector3.zero;
                 return;
             }
         }

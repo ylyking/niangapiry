@@ -58,6 +58,31 @@ public class BulletShot : MonoBehaviour
         }
     }
 
+
+    public void FireBall(Vector3 moveSpeed, int rowStart, int colStart, int totalframes)
+    {
+        thisTransform = transform;
+        moveDirection = moveSpeed; 	// == transform.up * speed ( orientation of move + force of impulse )
+        rowFrameStart = rowStart;
+        colFrameStart = colStart;
+        totalFrames = totalframes;
+        orientation = (int)Mathf.Sign(moveDirection.x);
+
+        StartCoroutine(MoveFlamed());
+    }
+
+    IEnumerator MoveFlamed()
+    {
+        StartCoroutine(CoUpdate());
+
+        while (true)
+        {
+            PlayFrames(rowFrameStart, colFrameStart, totalFrames, orientation);
+            thisTransform.localScale = Vector3.one + (Vector3.up * Random.Range(0, 2));
+            yield return 0;
+        }
+    }
+
    //void Start()
    // {
    //    if ( totalFrames > 1 )

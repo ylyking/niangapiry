@@ -33,6 +33,8 @@ public class PlayerControls : MonoBehaviour
 
     private int layerMask = 1 << 8;
 
+    BoxCollider Collider;
+
     delegate void InputDelegate();              // This it's like a Pointer Function from C++, but this it's in a C# ( Ugly)
     InputDelegate UpdateInput;
 
@@ -46,6 +48,8 @@ public class PlayerControls : MonoBehaviour
         animPlay.PlayFrames(2, 0, 1, orientation);
 
         Physics.IgnoreCollision(controller.collider, transform.GetComponentInChildren<BoxCollider>());
+
+        Collider = transform.GetComponentInChildren<BoxCollider>();
 
         if (Managers.Register.PlayerAutoRunning)
             UpdateInput = new InputDelegate(ControlAuto);
@@ -63,6 +67,7 @@ public class PlayerControls : MonoBehaviour
     {
         isHoldingObj = System.Convert.ToByte(properties._pickedObject != null);
         bool Stand = Physics.Linecast(thisTransform.position, thisTransform.TransformPoint(-Vector3.up), layerMask);
+        Collider.center = Vector3.zero;
 
         if (controller.isGrounded)
         {
@@ -87,8 +92,12 @@ public class PlayerControls : MonoBehaviour
                 animPlay.PlayFramesFixed(2, 1, 2, orientation, 1.005f);
             }
 
-            if (velocity.x == 0 && Input.GetAxisRaw("Vertical") < 0 && !Managers.Dialog.IsInConversation()) 	                        // Crouch
+            if (velocity.x == 0 && Input.GetAxisRaw("Vertical") < 0 && !Managers.Dialog.IsInConversation())     // Crouch        
+            {
                 animPlay.PlayFrames(3, 3, 1, orientation);
+                Collider.center = Vector3.down * 0.25f;
+            }
+
 
             if (Input.GetButtonDown("Jump"))                                                     // Always running jump
             {
@@ -158,6 +167,7 @@ public class PlayerControls : MonoBehaviour
     {
         isHoldingObj = System.Convert.ToByte(properties._pickedObject != null);
         bool Stand = Physics.Linecast(thisTransform.position, thisTransform.TransformPoint(-Vector3.up), layerMask);
+        Collider.center = Vector3.zero;
 
         if (controller.isGrounded)
         {
@@ -184,8 +194,11 @@ public class PlayerControls : MonoBehaviour
                 animPlay.PlayFramesFixed(2, 1, 2, orientation, 1.005f);
             }
 
-            if (velocity.x == 0 && Input.GetAxisRaw("Vertical") < 0 && !Managers.Dialog.IsInConversation())
-                animPlay.PlayFrames(3, 3, 1, orientation);       // Crouch 
+            if (velocity.x == 0 && Input.GetAxisRaw("Vertical") < 0 && !Managers.Dialog.IsInConversation())          // Crouch
+            {
+                animPlay.PlayFrames(3, 3, 1, orientation);
+                Collider.center = Vector3.up * -0.25f;
+            }                           
 
             if (Input.GetButtonDown("Jump") && (!Input.GetButton("Fire1") || velocity.x == 0))	// Quiet jump
             {											// check player dont make a Running Jump being quiet in the same spot
@@ -330,8 +343,8 @@ public class PlayerControls : MonoBehaviour
 //    //			
 //    //			if( Input.GetKeyDown( "left") || Input.GetKeyDown( "right") )		
 //    //			{
-//    //				running = (Time.time - lastTime < 0.2f);						// RUN
-//    //				lastTime = Time.time;
+//    //				running = (TimeLapse.time - lastTime < 0.2f);						// RUN
+//    //				lastTime = TimeLapse.time;
 //    // 			}
 //    //		}				
 //    //
@@ -401,8 +414,8 @@ public class PlayerControls : MonoBehaviour
 //    ////		velocity.y -= afterHitForceDown;				// apply force downward so player doesnŽt have in the air
 //    ////	}
 //    //
-//    //	velocity.y -= gravity * Time.deltaTime;
-//    //	controller.Move( velocity * Time.deltaTime );
+//    //	velocity.y -= gravity * TimeLapse.deltaTime;
+//    //	controller.Move( velocity * TimeLapse.deltaTime );
 //    //	
 //    //	
 //    //	if (thisTransform.position.y < -5 )	thisTransform.position = Vector3( 0.5f, 10, 0.25f );	// If character falls get it up again 

@@ -1,0 +1,307 @@
+<?xml version="1.0" ?>
+<Conversations>
+	<Characters>
+	      <Character speakerId = "0" >Pito</Character>
+	      <Character speakerId = "1" >Pombero</Character>
+          <Character speakerId = "2" >Primo</Character>
+          <Character speakerId = "3" >Yagua</Character>
+	</Characters>
+	
+	<Conversation nameId = "Bronca" >
+        <Talk speakerId = "1" time = "8.0" >Hola Pitogué, ¿que está pasando en el monte!? <br /> ¡Los animales están como locos! ¿porque todos me atacan !? </Talk>
+		<Talk speakerId = "0" time = "8.0" >Pumbe, viejo amigo, ¡Esto es terrible! Un espantoso monstruo destruyó nuestros arboles y hogares!!</Talk> 
+        <Talk speakerId = "1" time = "6.0" >Ah si!, creo que lo ví hace un rato <br /> vaya que era feo el guacho! </Talk>
+		<Talk speakerId = "0" time = "8.0" >esto no tiene gracia, acabo de perder mi nido! <br /> Se supone que tu eres el guardían del Monte...</Talk> 
+		<Talk speakerId = "0" time = "6.0" >Tu deberías protegernos, Tienes que hacer algo! <br /> Necesitamos tu ayuda Urgente!! </Talk> 
+        <Talk speakerId = "1" time = "6.0" >perdón, no te enojes, yo recién me entero de todo.. ¿que queres que haga? </Talk>
+		<Talk speakerId = "0" time = "12.0" >No sé, empieza a investigar todo esto, buscá a ese monstruo y dale un escarmiento <br /> eres el unico que puede ayudarnos!.</Talk> 
+		<Talk speakerId = "1" time = "12.0" >Eh Tranquilo, te prometo que voy a intentar atraparlo..</Talk> 
+		<Talk speakerId = "0" time = "6.0" >no, no quiero que lo intentés.. HAZLO! </Talk>
+		<Talk speakerId = "1" time = "6.0" >si, por supuesto, Voy a ver que puedo hacer </Talk>
+	
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿Donde puedo buscar al monstruo este?</Talk> 
+	            <Talk speakerId = "1" time = "6.0" >Calma, Voy a buscar al culpable de todo esto, ¿por donde queres que empiece?</Talk> 
+	            <Talk speakerId = "0" time = "6.0" >Bueno, deberías investigar en Pampero que está pasando..</Talk>     
+				<Talk speakerId = "0" time = "8.0" >Tengo un amigo allí que quizá sepa algo, se llama Fernando, buscalo y pidele ayuda</Talk>
+				<Talk speakerId = "1" time = "8.0" > ¿Fernando? mhhh, no me gustan los humanos.. <br /> pero bueno, cuenta conmigo!</Talk>
+	        </Option>
+			
+	        <Option>
+				<Talk speakerId = "1" time = "5.0" >Quiero saber más del PitoGué </Talk>
+				<Talk speakerId = "1" time = "5.0" >estoy preocupado por tí Amigo plumifero, puedo preguntarte algo?</Talk>
+	            <Talk speakerId = "0" time = "7.0" >eh, bueno ¿que quieres saber?</Talk>
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >ahora que te quedaste sin nido ¿Adonde vas a vivír?</Talk> 
+						<Talk speakerId = "0" time = "6.0" >que pregunta, no tengo ni idea, supongo que tendre que volver a casa de mamá</Talk> 
+						<Talk speakerId = "0" time = "6.0" >Pero bueno, deja de perder el tiempo, Muevete!</Talk>     
+						<Talk speakerId = "1" time = "8.0" >Bueno, tranquilo, solo quería ayudar </Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿que haces? ¿de que vivés?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Bien, soy un Pitogué, mi trabajo consiste en anunciar los proximos nacimientos</Talk>
+						<Talk speakerId = "0" time = "6.0" >Por cierto, Hoy tengo uno nuevo que Avisar!..</Talk>
+						<Talk speakerId = "1" time = "5.0" >Que?, ah no! a mi otra véz de nuevo no! </Talk>
+						<Talk speakerId = "0" time = "5.0" >Espera no, no te asustes, No es para tí..</Talk>
+						<Talk speakerId = "1" time = "5.0" >Menos mal, Estoy harto de que siempre me echen la culpa a mí...</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Que vino primero el Huevo o el pichón?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Por favor, no me hagas perder el tiempo con tonterias..</Talk>
+					</Option>
+				</ChooseTalk>
+				
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >Perdon pero no entiendo nada ¿Podrías Explicarme todo de nuevo?</Talk> 
+	            <Talk speakerId = "0" time = "18.0" >Uff, bien, Un Gran monstruo está destruyendo el monte, tu debes Buscarlo y detenerlo</Talk> 
+	            <Talk speakerId = "0" time = "18.0" >Vete hacía a la derecha al fondo para salír de este lugar, luego en Pampero Busca a Fernando que puede darte mucha Información</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Bueno, en sintesis, eso sería todo hasta ahora.</Talk> 
+
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+	
+	<Conversation nameId = "Pito" >
+		<Talk speakerId = "1" time = "6.0" >Hola, necesito preguntarte un par de cosas para la investigación </Talk>
+		<Talk speakerId = "0" time = "6.0" >Bueno, ¿dime que pasa?</Talk> 
+		
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿Por Donde puedo empezar a buscar al monstruo ese?</Talk> 
+	            <Talk speakerId = "1" time = "6.0" >Calma, Voy a buscar al culpable de todo esto, ¿por donde queres que empiece?</Talk> 
+	            <Talk speakerId = "0" time = "6.0" >Bueno, deberías investigar en Pampero que está pasando..</Talk>     
+				<Talk speakerId = "0" time = "8.0" >Tengo un amigo allí que quizá sepa algo, se llama Fernando, buscalo y pidele ayuda</Talk>
+				<Talk speakerId = "1" time = "8.0" > ¿Fernando? mhhh, no me gustan los humanos.. <br /> pero bueno, cuenta conmigo!</Talk>
+	        </Option>
+			
+	        <Option>
+				<Talk speakerId = "1" time = "5.0" >Averiguar más acerca de PitoGué </Talk>
+				<Talk speakerId = "1" time = "5.0" >estoy preocupado por tí Amigo plumifero, puedo preguntarte algo?</Talk>
+	            <Talk speakerId = "0" time = "7.0" >Si,claro ¿que quieres saber?</Talk>
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >ahora que te quedaste sin nido ¿Adonde vas a vivír?</Talk> 
+						<Talk speakerId = "0" time = "6.0" >que pregunta, no tengo ni idea, supongo que tendre que volver a casa de mamá</Talk> 
+						<Talk speakerId = "0" time = "6.0" >Pero bueno, deja de perder el tiempo, Muevete!</Talk>     
+						<Talk speakerId = "1" time = "8.0" >Bueno, tranquilo, solo quería darte mis condolencias</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿que haces? ¿de que vivés?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Bien, soy un Pitogué, mi trabajo consiste en anunciar proximos nacimientos</Talk>
+						<Talk speakerId = "0" time = "6.0" >Por cierto, Hoy tengo uno nuevo que Avisar!..</Talk>
+						<Talk speakerId = "1" time = "5.0" >Eh?, ah no! a mi otra véz, de nuevo no! </Talk>
+						<Talk speakerId = "0" time = "5.0" >Espera no, no te asustes, No es para tí..</Talk>
+						<Talk speakerId = "1" time = "5.0" >Menos mal, Estoy harto de que siempre me echen la culpa a mí...</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Que vino primero el Huevo o el pichón?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Por favor, no me hagas perder el tiempo con tonterias..</Talk>
+					</Option>
+				</ChooseTalk>
+				
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >Perdon pero no entiendo nada ¿Podrías Explicarme todo de nuevo?</Talk> 
+	            <Talk speakerId = "0" time = "18.0" >Uff, bien, Un Gran monstruo está destruyendo el monte, tu debes Buscarlo y detenerlo</Talk> 
+	            <Talk speakerId = "0" time = "18.0" >Vete hacía a la derecha al fondo para salír de este lugar, luego en Pampero Busca a Fernando que puede darte mucha Información</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Bueno, en sintesis, eso sería todo hasta ahora.</Talk> 
+
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+	
+	
+	
+<Conversation nameId = "HelperIntro" >
+        <Talk speakerId = "1" time = "6.0" >Eh! ¿Que hacés vos de nuevo Acá!!? ¿No era que las plantas no se movían de lugar? </Talk>
+		<Talk speakerId = "2" time = "6.0" >estás muy confundido, yo en realidad soy el Primo de Till y ofrezco servicios de asesoramiento</Talk> 
+		<Talk speakerId = "1" time = "6.0" >¿!? ... </Talk> 
+		<Talk speakerId = "2" time = "6.0" >o sea, estoy aqui para responder tus dudas y ayudarte, intentaré orientarte en este lío </Talk>			
+		<Talk speakerId = "1" time = "6.0" >Ah, en serio? vaya, que bueno! justo tengo varias consultas que hacerte! </Talk> 
+		<Talk speakerId = "2" time = "6.0" >Claro, por supuesto, decime ¿que queres saber ? </Talk> 
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿Que Podes decírme de ese dichoso monstruo?</Talk> 
+	            <Talk speakerId = "2" time = "10.0" >a ver, en principio no existe un solo "monstruo", tené en cuenta que el Monte es misterioso, complejo y en sus profundidades alberga cientos de horrores</Talk>     
+				<Talk speakerId = "2" time = "8.0" >La cuestión es ¿de que clase de monstruo estás hablando? ¿podrías describirmelo un poco mejor?</Talk>
+				<Talk speakerId = "1" time = "6.0" >no sé, creo que era Verde con Cuerpo de Lagarto y cabeza de Perro</Talk>
+				<Talk speakerId = "2" time = "6.0" >Aaaaah sí!, ya sé de quien me estás hablando, ¿Que queres saber de el?</Talk>
+				
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Quien es? ¿Como se llama?¿De donde salió? </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Bien, su nombre es Tejú Yaguá, el Perro Lagarto.. </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Es el primer Hijo Maldito de Kerana con el Terrible Taú.. </Talk>     
+						<Talk speakerId = "2" time = "8.0" >Tiene piel de escamas Brillosas, Puede lanzar fuego por los ojos Y además tiene siete cabezas</Talk>
+						<Talk speakerId = "1" time = "6.0" >¿Algo más? ¿No tiene un LanzaMisiles o algo así?.. </Talk> 
+			
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Donde Puedo encontrarlo?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Oh, está aquí cerca al lado, en su cuevita durmiendo la siesta. </Talk>
+						<Talk speakerId = "2" time = "6.0" >sigue adelante hasta el fondo y lo encontrarás en su esplendor</Talk>
+						<Talk speakerId = "1" time = "5.0" >¿y para donde me puedo ir sino quiero verlo y escaparme de aqui?</Talk>
+						<Talk speakerId = "2" time = "6.0" >Ah, eso es muy facíl, simplemente presiona pausa y luego escape o select para salir del mundo y volver al mapa</Talk>					
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >Tengo miedo ¿Como puedo hacer para derrotarlo?</Talk>
+						<Talk speakerId = "2" time = "7.0" >¿Derrotár A Yaguá? es bastante docil, No entiendo porque queres pelear con el</Talk>
+						<Talk speakerId = "1" time = "6.0" >La verdad es que yo tampoco, pero bueno ya estoy en el baile así que tengo que bailar</Talk>
+						<Talk speakerId = "2" time = "12.0" >Bueno, escucha bien, lo que tenes que hacer para derrotarlo es:</Talk>
+						<Talk speakerId = "2" time = "10.0" >cuando está corriendo saltá o subíte a algún lugar alto para evitar sus embestidas</Talk>
+						<Talk speakerId = "2" time = "12.0" >correrá durante una o dos veces y luego se estacionará en un rincón, ahí es entonces cuando puedes atacarlo</Talk>
+						<Talk speakerId = "2" time = "10.0" >pero cuidado, si vés que tiene llamas en los ojos escapá rapido! te va a tirar fuego!! </Talk>
+						<Talk speakerId = "1" time = "6.0" >Genial, es lo que necesitaba, me diste una verdadera ayuda, gracias! </Talk>
+						<Talk speakerId = "2" time = "10.0" >insisto, no sé porque no hablas con el, es más facíl alegrarlo con una fruta pero bueh hacé lo que quieras..</Talk>
+					</Option>
+				</ChooseTalk>
+	        </Option>
+			
+	        <Option>
+				<Talk speakerId = "1" time = "5.0" >Quiero saber más acerca del Primo de Till </Talk>
+				<Talk speakerId = "2" time = "5.0" >Soy una plantita pero puedes considerarme como tu Gurú</Talk>
+	            <Talk speakerId = "1" time = "7.0" >bien,Lo que quieras mientras no me pidas ofrendas..</Talk>
+				<Talk speakerId = "2" time = "1.0" >Por cierto mi primo te ha mentido, los Claveles del aire somos muy agiles y podemos adherirnos en cualquier lugar</Talk>
+				<Talk speakerId = "1" time = "2.0" >que como? que cosa dijiste?</Talk>
+				<Talk speakerId = "2" time = "4.0" >no, nada nada, no tiene importancia, no te preocupes </Talk>
+
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >no entiendo nada ¿Podrías Explicarme todo de nuevo?</Talk> 
+	            <Talk speakerId = "2" time = "18.0" >Uff, bien, Un Gran monstruo está destruyendo el monte, tu debes Buscarlo y detenerlo</Talk> 
+	            <Talk speakerId = "2" time = "18.0" >Vete hacía a la derecha al fondo para salír de este lugar, luego en Pampero Busca a Fernando que puede darte mucha Información</Talk> 
+	            <Talk speakerId = "2" time = "10.0" >Y Bueno, eso es basicamente todo, Cuando andes perdido o no sepas que hacer Buscame y te daré una mano.</Talk> 
+
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+
+<Conversation nameId = "Helper" >
+		<Talk speakerId = "1" time = "6.0" >Ey tengo algunas consultas que hacerte! </Talk> 
+		<Talk speakerId = "2" time = "6.0" >Claro, para eso estoy, dime ¿que quieres saber ? </Talk> 
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿Que Podes decírme de ese dichoso monstruo?</Talk> 
+	            <Talk speakerId = "2" time = "10.0" >a ver, en principio no existe un solo "monstruo",Hay que tenér en cuenta que el Monte es misterioso, complejo y en sus profundidades alberga cientos de horrores</Talk>     
+				<Talk speakerId = "2" time = "8.0" >El tema es ¿de que clase de monstruo estás hablando? ¿podrías describirmelo un poco mejor?</Talk>
+				<Talk speakerId = "1" time = "6.0" >no sé, creo que era Verde con Cuerpo de Lagarto y cabeza de Perro</Talk>
+				<Talk speakerId = "2" time = "6.0" >Aaaah sí!, ya sé de quien me estás hablando, ¿Que queres saber de el?</Talk>
+				
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Quien es? ¿Como se llama?¿De donde salió? </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Bien, su nombre es Tejú Yaguá, el Perro Lagarto.. </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Es el primer Hijo Maldito de Kerana con el Terrible Taú.. </Talk>     
+						<Talk speakerId = "2" time = "6.0" >Tiene piel de escamas Brillosas, algunos dicen que es porque se revuelca en las riquezas del suelo</Talk>   
+						<Talk speakerId = "2" time = "8.0" >También Puede lanzar fuego por los ojos Y además tiene siete cabezas</Talk>
+						<Talk speakerId = "1" time = "6.0" >¿Algo más? ¿No tiene un reproductor de mp3 o algo así?.. </Talk> 
+			
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Donde Puedo encontrarlo?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Oh, está aquí cerca al lado, en su cuevita durmiendo la siesta. </Talk>
+						<Talk speakerId = "2" time = "6.0" >sigue adelante hasta el fondo y lo encontrarás en todo su esplendor</Talk>
+						<Talk speakerId = "1" time = "5.0" >¿y para donde me puedo ir sino quiero verlo y escaparme de aqui?</Talk>
+						<Talk speakerId = "2" time = "6.0" >Ah, eso es muy facíl, simplemente presiona pausa y luego escape o select para salir del mundo y volver al mapa</Talk>					
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >Tengo miedo ¿Como puedo hacer para derrotarlo?</Talk>
+						<Talk speakerId = "2" time = "7.0" >¿Derrotár A Yaguá? es bastante docil, No entiendo porque queres pelear con el</Talk>
+						<Talk speakerId = "1" time = "6.0" >La verdad es que yo tampoco, pero bueno ya estoy en el baile así que tengo que bailar</Talk>
+						<Talk speakerId = "2" time = "12.0" >Bueno, escucha bien, lo que tenes que hacer para derrotarlo es:</Talk>
+						<Talk speakerId = "2" time = "10.0" >cuando está corriendo saltá o subíte a algún lugar alto para evitar sus embestidas</Talk>
+						<Talk speakerId = "2" time = "12.0" >correrá durante 1 o 2 veces y luego se estacionará en un rincón, ahí es entonces cuando puedes atacarlo</Talk>
+						<Talk speakerId = "2" time = "10.0" >pero cuidado, si vés que tiene llamas en los ojos escapá rapido! te va a tirar fuego!! </Talk>
+						<Talk speakerId = "1" time = "6.0" >Genial, es lo que necesitaba, me diste una verdadera ayuda, gracias! </Talk>
+						<Talk speakerId = "2" time = "10.0" >insisto, no sé porque no hablas con el, es más facíl alegrarlo con una fruta pero bueh hacé lo que quieras..</Talk>
+					</Option>
+				</ChooseTalk>
+	        </Option>
+			
+	        <Option>
+				<Talk speakerId = "1" time = "5.0" >Quiero saber más acerca del Primo de Till </Talk>
+				<Talk speakerId = "2" time = "5.0" >Soy una plantita pero puedes considerarme como un Gurú que te acercará al conocimiento</Talk>
+	            <Talk speakerId = "1" time = "7.0" >bien, lo que quieras mientras no me pidas ofrendas..</Talk>
+				<Talk speakerId = "2" time = "1.0" >Por cierto mi primo te ha mentido, los Claveles del aire somos muy agiles y podemos adherirnos en cualquier lugar</Talk>
+				<Talk speakerId = "1" time = "2.0" >que como? que cosa dijiste?</Talk>
+				<Talk speakerId = "2" time = "4.0" >no, nada nada, no tiene importancia, no te preocupes </Talk>
+
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >no entiendo nada ¿Podrías Explicarme todo de nuevo?</Talk> 
+	            <Talk speakerId = "2" time = "18.0" >Uff, bien, Aparecieron unos simbolos raros, Un Gran monstruo está destruyendo el monte, tu debes Buscarlo y detenerlo</Talk> 
+	            <Talk speakerId = "2" time = "18.0" >Vete hacía a la derecha al fondo para salír de este lugar, luego en Pampero Busca a Fernando que puede darte mucha Información</Talk> 
+	            <Talk speakerId = "2" time = "10.0" >Y Bueno, eso es basicamente todo, Cuando andes perdido o no sepas que hacer Buscame y te daré una mano.</Talk> 
+
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+
+	
+	
+  <Conversation nameId = "Fight" >
+    <Talk speakerId = "3" time = "5.0" >¡Alto ahí Enano! está totalmente prohibido el paso por este camino</Talk>
+    <Talk speakerId = "1" time = "8.0" >¿¡como que Enano? ignorante!, Soy El Gran Pombero, Guardian del monte y el Río® <br /> y Vengo a Buscar Respuestas..</Talk>
+    <Talk speakerId = "3" time = "5.0" >¿? ¿lo qué? disculpa pero ¿los pomberos no tenían los pies al revéz? yo ya no entiendo nada..</Talk>
+    <Talk speakerId = "1" time = "5.0" >Ah listo, entonces explicame ¿no era que tenías siete cabezas? ¿y que pasó con las otras seis? </Talk>
+	<Talk speakerId = "3" time = "5.0" >Ejemh estee, y Bueno..   ..es lo que hay...</Talk>
+	<Talk speakerId = "3" time = "5.0" >Pero caramba!  ¡Yo tengo las cabezas que quiera tenér! y basta de estas tonterías </Talk>
+    <Talk speakerId = "1" time = "8.0" >Perfecto, terminemos esto rapido, quiero que te disculpes inmediatamente por tirar los Arboles Abajo!</Talk>
+	<Talk speakerId = "3" time = "6.0" >que Quee?! Jua jua, no tengo ni remota idea de que estás hablando, largate de aqui ahora mismo por donde viniste</Talk>
+	<Talk speakerId = "1" time = "5.0" >No, lo siento pero no puedo hacerlo, vengo de muy lejos para hecharme atras justo ahora..</Talk>
+	<Talk speakerId = "3" time = "8.0" >¿Como? Estás Loco, Te lo advierto si dás un solo paso más hacía adelante, entrarás automaticamente en Guerra conmigo y todos mis otros Hermanos, Los Poderosos Hijos de Kerana!</Talk>
+	<Talk speakerId = "1" time = "5.0" >No te tengo miedo y si es necesario me enfrantaré con todos tu Hermanos juntos por más feos que sean... </Talk>
+	<Talk speakerId = "3" time = "5.0" >Muy Bien, preparate para el duelo entonces..</Talk>
+  </Conversation>
+
+  
+    <Conversation nameId = "Friendship" >
+    <Talk speakerId = "3" time = "8.0" >¡Un Maracuya! Adonde lo conseguiste?, esto cambia totalmente nuestras relaciones diplomaticas</Talk>
+	<Talk speakerId = "3" time = "5.0" >Creo que no es necesario que sigamos peleando, supongo que puedes pasar..</Talk>
+    <Talk speakerId = "1" time = "8.0" >Fenomeno! ya que estamos Tengo un par de dudas que seguro me explicas..</Talk>
+	<Talk speakerId = "3" time = "5.0" >Ñam ñam, claro, si,¿ que quieres saber?</Talk>
+  
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿Que son esos simbolos? ¿y Quien está tirando abajo los arboles?</Talk> 
+	            <Talk speakerId = "3" time = "6.0" >Oh, mira, la verdad es que ni idea, pero te aseguro que yo no fuí y nunca haría algo semejante Amiguito</Talk> 
+	            <Talk speakerId = "1" time = "6.0" >Bueno, pero quizá puedas decirme si haz visto esos simbolos y si sabes que significan?</Talk>     
+				<Talk speakerId = "3" time = "8.0" >Uhh Me suenan conocidos pero no recuerdo de donde, lo siento, quisiera poder ayudarte mucho más pero es todo lo que sé, soy un desastre, perdón</Talk>
+	        </Option>
+			
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >Bien, Quiero saber un poco más del Gran Yagua y sus hermanos </Talk>
+				<Talk speakerId = "3" time = "8.0" >¿hablar de mi? que puedo decírte? Bueno, vivo en esta cuevita debajo de la tierra, si bien no abunda la higiene vivo rodeado de piedras preciosas y las riquezas del suelo sagrado</Talk>
+				<Talk speakerId = "3" time = "8.0" >Además soy el primero de siete hijos, creo que comparado con mis otros hermanos soy bastante inofensivo</Talk>
+	            <Talk speakerId = "1" time = "6.0" >¿O sea que tú eres el mas bueno? uy, y donde están todos ellos Ahora?</Talk>
+				<Talk speakerId = "3" time = "8.0" >La verdad es que no sabría decirte, excepto Moñai hace mucho tiempo que no veo a ninguno de los demás, seguro que andan en algo raro</Talk>
+				<Talk speakerId = "3" time = "8.0" >Mmhhh, para tu salud, te sugiero que los evites todo lo posible y si los ves, Huye!</Talk>
+				
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >Ok, por cierto ¿no sabes nada de el terrible monstruo que asusta a los Hombres en Pampero? </Talk> 
+	            <Talk speakerId = "3" time = "10.0" >ja Ja, si que lo sé, Ese es Moñai mi segundo hermano! los tiene bien a raya a esos miserables humanos</Talk> 
+	            <Talk speakerId = "1" time = "10.0" >y Sí, eso me parece bien, pero yo igual no le tengo confianza, creo que es muy peligroso en el fondo</Talk> 
+	            <Talk speakerId = "3" time = "10.0" >emmhh, mirá, de el solo puedo decír esto: <br /> ¡TODO LO QUE EL DICE ES VERDAD! </Talk> 
+
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+  
+</Conversations>

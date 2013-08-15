@@ -29,7 +29,7 @@ public class SpriteChain : MonoBehaviour
         if (LinkSprite != null)
             for (int i = 1; i < mChainLength; i++)
             {
-                mChainElementArray[i] = Instantiate(LinkSprite) as GameObject;
+                mChainElementArray[i] = Instantiate(LinkSprite, transform.position + Vector3.one * i, transform.rotation) as GameObject;
 
                 mChainElementArray[i].transform.position = new Vector3(mChainElementArray[i].transform.position.x + DELTA * i,
                                                                           mChainElementArray[i].transform.position.y + DELTA * i,
@@ -50,7 +50,7 @@ public class SpriteChain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //headTransform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * Time.deltaTime * 10;
+        //headTransform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * TimeLapse.deltaTime * 10;
 
         if (MoveStyle == TranslationMode.Smooth)
             for (int i = 1; i < mChainLength; i++)
@@ -82,7 +82,7 @@ public class SpriteChain : MonoBehaviour
             }
 
 
-        //timer = Time.deltaTime * 100;
+        //timer = TimeLapse.deltaTime * 100;
 
         //// float timer = 0;
         //if ( Mathf.Approximately( mTargetArray[0].x,  mChainElementArray[1].transform.position.x) &&

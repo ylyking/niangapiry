@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="150" height="120" tilewidth="64" tileheight="64" backgroundcolor="#55557f">
+ <properties>
+  <property name="Sandunga" value="Lesbiana"/>
+ </properties>
+ <tileset firstgid="1" name="CampoDelCielo_ts" tilewidth="64" tileheight="64">
+  <image source="CampoDelCielo_ts.png" width="512" height="512"/>
+  <tile id="2">
+   <properties>
+    <property name="collision" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="collision" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="collision" value="plane"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="collision" value="plane"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="collision" value="plane"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Collision" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="Collision" value="Plane"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="Collision" value="Box"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="65" name="arboles_CampoDelCielo" tilewidth="64" tileheight="64">
+  <image source="arboles_CampoDelCielo.png" width="512" height="512"/>
+ </tileset>
+ <imagelayer name="cielo" width="150" height="120" visible="0">
+  <image source="CampoDelCielo_fondo.png"/>
+  <properties>
+   <property name="Depth" value="20"/>
+   <property name="Size" value="Fullscreen"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="moon" width="150" height="120" visible="0">
+  <image source="CampoDelCielo_moon.png"/>
+  <properties>
+   <property name="Offset" value="-2.5, -1.5"/>
+   <property name="Scale" value="2"/>
+   <property name="Scroll" value="Relative"/>
+   <property name="Size" value="NoRepeat"/>
+   <property name="Speed" value="0, 0"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="stars1" width="150" height="120" visible="0">
+  <image source="CampoDelCielo_stars1.png"/>
+  <properties>
+   <property name="Depth" value="4"/>
+   <property name="Scroll" value="Relative"/>
+   <property name="Speed" value="0.05"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="stars2" width="150" height="120" visible="0">
+  <image source="CampoDelCielo_stars2.png"/>
+  <properties>
+   <property name="Depth" value="4"/>
+   <property name="Scroll" value="Relative"/>
+   <property name="Speed" value="0.07"/>
+  </properties>
+ </imagelayer>
+ <layer name="arboles" width="150" height="120">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA3D+pgykAZAQA=
+  </data>
+ </layer>
+ <layer name="alambrados" width="150" height="120">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA3D+pgykAZAQA=
+  </data>
+ </layer>
+ <layer name="cactus" width="150" height="120">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA3D+pgykAZAQA=
+  </data>
+ </layer>
+ <layer name="arbustos" width="150" height="120">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA3D+pgykAZAQA=
+  </data>
+ </layer>
+ <layer name="casas" width="150" height="120">
+  <properties>
+   <property name="Depth" value="0.50"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3SSwoDIRAFQDdJ3JjxyH30NGhAhrgfJlXwkP7tLAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADu4ZF5Zl6ZOupY+3W+3/75Nucxb6Nu9vg/LfPOHJk+6lj7fb7tx39pYx7zNvpmDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAa/oAvkJX/EAZAQA=
+  </data>
+ </layer>
+ <layer name="behindwall" width="150" height="120">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3ZzU3DMACAUS9Bz4zQY8fpKIzCKIwGAnEt+fFHQ3lP8jWx5E9OZI8BAAAAAAAAAAAAAAAAAMf2tGLAUrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArtlrTjq5YSlf/wz3W7zTGi64e2621O0XvnNFVNTfm0BWFv/od1NWx6YrZ7vV/rKvHpisKW9d0rxldXcZ4/XjO9XucJ8yL/e65T8zoyv51TLqioCsKuqK0ZQ330hUF984UzmO8nb7OCT7HZYyrrphty/4FP9EVBV1R0BUFXVHQFYXzGM9rzxtgqTX7FiylKwq6ouDekIKuKOiKkq4o6IqCrijoioKuKOiKgq4o6IqCrqjoh4KuKGiKgq4o6AoAAAAAAPgt71xc+z9AGQEA
+  </data>
+ </layer>
+ <layer name="plataforma2_c" width="150" height="120">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3aSwqEMBRFwcx10b10cRAQ6UYM72poquDNMzgQ8mkNAAAAAAAAAAAAAAAAAAAAAOqsh1leXgv/Yz0NVNAVKboiQVcAAAAAAAAAAAD3La19/HGnmq5I0BUJvSs9UUlXJOiKBF2RoCsSelcAszrfW30beyN36YoEXZHwq6vekq4YoSsSrrqCEboCAAAAAABg1NVfHm9OjNAVCboiRVc8RVek6IoUXQEAAMB89vcSZ3aq6YoEXQEAAAAAAAAAAAAAAAAAAAAAM9oAyi8f/UAZAQA=
+  </data>
+ </layer>
+ <layer name="plataforma2_b" width="150" height="120">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3cS4rCQBRA0RKHuqhemkvvzkBaRJxYlyLxHAjJ8EHuIJ9KxgAAAAAAAAAAAAAAAAAAAAAA2KfT6gE4jMsYt+vf/nG7rB2JA9AVBV1R0BUFXVHQFQVdUdAVBV1R2Lq6H+uKgq6o6IqCrihsXZ3H+Fk9BwAAAABA4XEtg2fszKIrCrqipCsKugIAAPguz98OuidkpntfumImXQEAAAAAAAAAe/PqH+/WbDFD3dW7dvV7bM43AAAAAAD8296ZeE7ObLqioCsAvtV59QDs3qu1cq6r+JSuKOiKgq4o6IqCrijoioKuKOiKgq4o6IqCrijoioKuAAAAAACA1X4BJxJB90AZAQA=
+  </data>
+ </layer>
+ <layer name="plataforma2_a" width="150" height="120">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dQQrCMBAF0AGX7SE8qkfxKB5NQQOhKGqdiUrfg1l018UnCZ0kjQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtma+FWSYIg4tU/P1GT4mV1SQKyr0uYIsckWFlivIJFdU2EXsL3X89nsAAAAAAIzQ9wbtYwAAAADg1yzP4izLNy0AAADWcJaaCs68UkGuAAAAAKjkrmT+2bP9hbINAAAAAABsTeuf6I2QSc8NAAAAAADGmiJO7hwCRvIvSyq8kyvzHq96lKu2fpIl1jAPUuFervqxyngFAAAAAABkOwNUVegEQBkBAA==
+  </data>
+ </layer>
+ <layer name="PLATAFORMA2_BASE" width="150" height="120">
+  <properties>
+   <property name="Collision" value="Plane"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dQQrDIBAF0JQco5ft0ZMuBAltEijUP/geZO9CvqMjZlkAAAAAAAAAAAAAAAAAAACAWT26bx08FoC79rx6tewCAAAAgFTP0QMAONGftesVAgAAAJDCuRVQkb4gUEFfZ6mxgDTqKaAatRWQ7HjO3rLK2TtQiX0ikMy9BqCCT3tD2QUAAMCvvAtPOj0mIJ2cApLpL9GzZpHOHJ3D2dpkXSKZumoO7pJS2VVOmdsAAACQ772/t28H0skqoJLWP5FbAAD3fXv/GAAAAGAU76MB/+ZflkB1x34PQCJZBQAAAAAAQDUbZmI4MkAZAQA=
+  </data>
+ </layer>
+ <layer name="plataforma1" width="150" height="120">
+  <properties>
+   <property name="Collision" value="Box"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3db46bMBCHYSL2G3uF3iVH26PsUXK0gjZWvVPzx2bMjM37SKNU7Yea6JdxMOB8DgAAAAAAAAAAAAAAAAAAAAAAAAAAlPk0qGkYnqmxzH//0vx/YIdcoQYPuRqH4esxv37Mr+SqD05y9Zpz9fqgX3XDKFdJzIP98NCvAnLVj8d7Drqiwjy3kasvcoVc006uRuUcX3pwMBNyNfetJUOAivH3XAioiXvWsmZF34KGuGfRt6ApXk/guxa0yPO+ceX8EAAAAIA/y31YnBtC27L+wHoWtMT3i5IraJlYf4eypVfF97WTK2hg7R0AgPb8eRcAAAAAAAAAAAAAAC3iGROUemwUzwKgVM7+v+HZEw91tI96GnPu2FuWkyvtvVlP7kt8iKcxx/sb5WQs57OhldnSz2NArnxnTD7zM//5Kfe4rbHXW+m+4YHXXKXev5JnX7T3Ka5ZqWOS73kqN9Pv3Kn0rfh9y/ktjcBrrjhf+HEkV6nPjuYzZzm9KyBXvh3J1QVj6DJXud8hezjfWvudMHJVXst3q7iPHz2u8J2sh+eO146ZXOn0qpzj6mHu3Ps9Q3JFrnLJNQUvx9hDruQceOS4epn/5Hld6vyeXOn0qiPH1XqfWpM6bnKll6u9tc3W+9QaclU3V3dFrshVDeRKr+LrsHe/B4Vc+ajUueRVatznlVpzIFfXl+UceuG1CNXsluabXNV3ZD3zLhWQq/O8vy/kqq1c7V3Lu2MF5Krce712uYb0zLmnsucKyJUO7+8NuSJXLVdArnR4f2+uzlVgPR5y1UdJ1uMhV32UZD2e1nO1di/P3c4TJevxlFb8/Grta4NhvSrn2nbpc8OtlmQ9ntK6skeFjGxdo5OZI1dt1pW52rtvdZnz5HjGm82HkvV4WsjVnuknP8l58i7f6yXr8fSSq7Uxkau2ymGuvlM9i1y1VQ5zlRwXuWqrnObqW+5DRa7aKq+5Cq/Tv38jVw2Vp1xt7W9GrtoqT7naQq7aKk+52nrW6y73KkvW4+khV3fpSXfIldb+vxrI1f+sx3O2rPsWzxCSqxroVeSqBnJFrraU7t/BHEiuttB3yFVJrvb6EX2HXJXkin5UtyTr8ZwtcuWjJOvxnC1y5aMk6/GcLXLloyTr8ZwtcuWjJOvxnC1y5aOAmv4C9lTyZ0AZAQA=
+  </data>
+ </layer>
+ <layer name="columnas1" width="150" height="120">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3YQQqAMAwAwT7E/7/Te8GTXaw684JAFgIZAwAAAAAAAAAAAAAAAAAAAAAAAAAAAIDdHU8PwCfpioKuKOiKgq4AAAAA2JG/FQVdUdAVBV2xwtyRrlhBVxR0RUFXFHRFQVcUrrrSF3foioKuKOiKgq4o6IeCrijoioKuAOBd3G4KumIlP1sKuqKgK4rd64qVu5970tV/6YqCrijoioKuKOiKgq4o6Ird6QoAAAAAAAAAAAAAAAAAAAAAAAAA9nUC3kncYUAZAQA=
+  </data>
+ </layer>
+ <objectgroup name="enemies" width="150" height="120"/>
+ <objectgroup name="cameras" width="150" height="120" visible="0">
+  <object x="11136" y="4480"/>
+  <object x="11648" y="4672"/>
+  <object x="11520" y="5184"/>
+  <object type="CameraBound" x="128" y="192" width="9344" height="7424">
+   <properties>
+    <property name="zoom" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="items" width="150" height="120"/>
+ <objectgroup name="otros" width="150" height="120">
+  <object name="Pombero" x="128" y="3968" width="64" height="64"/>
+ </objectgroup>
+</map>

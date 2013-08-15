@@ -33,8 +33,8 @@ public class ScreenManager : MonoBehaviour
 
 #region Show InGame Status 
  
-    public float ShowDelay          = 6.0f;                          // Time lapse to display Player status and then hide
-    bool ShowState                  = false;
+    public float ShowDelay          = 6.0f;                          // TimeLapse lapse to display Player status and then hide
+    public bool ShowState           = false;
     float TimeLapse                 = 0.0f;
 
     Texture2D HealthTex             = null;
@@ -48,7 +48,9 @@ public class ScreenManager : MonoBehaviour
     Rect LifesCoord                 = new Rect(.5f, .125f, .125f, .125f);               // player's Lifes HUD system
 
         //HealthCoord = new Rect( Managers.Game.Health * .125f, 0.125f, .125f, .125f);
-
+    public bool HintDialog = false;
+    public bool HintDoor   = false;
+    public bool HintFish   = false;
 
 #endregion
 
@@ -103,7 +105,7 @@ public class ScreenManager : MonoBehaviour
         //LifesPos = new Rect((Screen.width * .85f), (Screen.height * .85f), LifesTex.width, LifesTex.height);
 
 		LifesTex = Resources.Load("GUI/Items") as Texture2D;
-		LifesPos = new Rect((Screen.width * .85f), (Screen.height * .85f), LifesTex.width *.15f, LifesTex.height *.15f);
+		LifesPos = new Rect((Screen.width * .825f), (Screen.height * .825f), LifesTex.width *.2f, LifesTex.height *.2f);
 	}
 
     public void ShowStatus()
@@ -121,10 +123,14 @@ public class ScreenManager : MonoBehaviour
 
     public bool ShowImage( string path, float lapse = 2)
     {
-        WWW www = new WWW("file://" + path);
-        ImageTex = www.texture  ;
+        
+        //#if TEXTURE_RESOURCE
+            ImageTex = (Texture2D)Resources.Load( path, typeof(Texture2D) )  ;
+        //#else
+        //    WWW www = new WWW("file://" + path);
+        //    ImageTex = www.texture  ;
+        //#endif
          
-        //ImageTex = (Texture2D)Resources.Load( path, typeof(Texture2D) )  ;
 
         if ( ImageTex != null )
         {
@@ -149,9 +155,24 @@ public class ScreenManager : MonoBehaviour
         FadeSpeed = speed;
         Fading  = true;
     }
+    
+
+    public float PaletteSwap = 0;
+    public Vector2 WaterFlow;       // This both Are Updated 
+    public Vector2 WaterFlowAlpha;   
+
 
     void Update()
     {
+        PaletteSwap += Time.deltaTime * 4;
+        PaletteSwap %= 1;
+        //FireTime = Mathf.Repeat(FireTime, 1);
+
+        //int index = ((int)(Time.time * 16)) % 2; // time control fps
+        int u = (((int)(Time.time * 16)) % 2) % 8;
+        WaterFlow = new Vector2(((u + 4) * .125f), .375f); // offset
+        WaterFlowAlpha = new Vector2(((u) * .125f), .375f); // offset alpha
+
 
     	if ( FlashBang )                                                        // FLASHBANG 
     	{
@@ -172,6 +193,7 @@ public class ScreenManager : MonoBehaviour
             TimeLapse -= Time.deltaTime;	                					 // Decrease the message time
             ShowState = (TimeLapse > 0);
         }
+
         //HealthCoord = new Rect( Managers.Game.Health * .25f, 0, .25f, .25f);
         HealthCoord = new Rect( Managers.Register.Health * .125f, 0.125f, .125f, .125f);
 
@@ -189,6 +211,8 @@ public class ScreenManager : MonoBehaviour
         if ( Input.GetKeyDown("f") )
             EnableDebug = !EnableDebug;
 
+        //Managers.Display.DebugText =  " Time.time: " + Time.deltaTime + " Time.realTimeSinceStart: " + Time.fixedDeltaTime;
+
 
     }
     //////////////////////////////////////////////////////////////   
@@ -199,18 +223,21 @@ public class ScreenManager : MonoBehaviour
     	
 	    if( Event.current.type == EventType.Repaint) 
 	    {
-             if ( EnableDebug )
-            {
-                GUI.color = Color.black;
-                GUI.Label(new Rect((Screen.width * .25f), (Screen.height * .9f), 600, 200), DebugText);
-            }
-
             if( Managers.Dialog.IsInConversation() )
                 Managers.Dialog.Render();
 
-            Managers.Display.Render();
+            //Managers.Display.Render();
 
             Managers.Game.Render();
+
+            Managers.Display.Render();
+                         
+            if ( EnableDebug )
+            {
+                //GUI.color = Color.black;
+                GUI.skin.label.fontSize = 14;
+                GUI.Label(new Rect((Screen.width * .25f), (Screen.height * .9f), 600, 200), DebugText);
+            }
 	    }
     }
 
@@ -242,6 +269,30 @@ public class ScreenManager : MonoBehaviour
 
         if (gSkinB) GUI.skin = gSkinB;
 
+        //if (HintDialog)
+        //{
+        //    gSkinB.label.fontSize = 14;
+        //    if(Mathf.Sin(Time.time * 20) > 0)
+        //        GUI.Label(new Rect((Screen.width * .5f)-32, (Screen.height * .5f) + 256, 100, 50),
+        //        "Pulsa Arriba para Hablar");
+        //}
+                
+        //if (HintDoor)
+        //{
+        //    gSkinB.label.fontSize = 14;
+        //    if(Mathf.Sin(Time.time * 20) > 0)
+        //        GUI.Label(new Rect((Screen.width * .5f)-32 , (Screen.height * .5f) + 256, 100, 50),
+        //        "Pulsa Arriba para Ingresar");
+        //}
+
+        //if (HintFish)
+        //{
+        //    gSkinB.label.fontSize = 14;
+        //    if(Mathf.Sin(Time.time * 20) > 0)
+        //        GUI.Label(new Rect((Screen.width * .5f)-32 , (Screen.height * .5f) + 256, 100, 50),
+        //        "Pulsa Disparo para Pescar");
+        //}
+
         //if (Managers.Game.IsPaused)           // Moved to "../PauseState.cs"
         //{
         //    GUI.color = new Color(1, 0.36f, 0.22f, 1);
@@ -259,6 +310,8 @@ public class ScreenManager : MonoBehaviour
 
             if (!ShowState) return;
 
+            gSkinB.label.fontSize = Mathf.RoundToInt(Screen.width * 0.035f);
+
             GUI.DrawTextureWithTexCoords(LifesPos, LifesTex, LifesCoord);                       // Life remaining HUD
 
             GUI.color = Color.magenta;
@@ -266,14 +319,5 @@ public class ScreenManager : MonoBehaviour
                  "Score: " + Managers.Register.Score + "\n" + "Fruits: " + Managers.Register.Fruits);
             GUI.Label(new Rect((Screen.width * .92f), (Screen.height * .9f), 200, 50), "x" + Managers.Register.Lifes); // Score
         }
-
-        if (Managers.Register.Lifes <= 0)
-        {
-            // GUI.skin.label.fontSize = 64;
-            // GUI.skin.label.fontStyle = FontStyle.Bold;
-            GUI.color = Color.magenta;
-            GUI.Label(new Rect((Screen.width * .35f), (Screen.height * .5f), 100, 50), "- GAME OVER -");
-        }
-
     }
 }

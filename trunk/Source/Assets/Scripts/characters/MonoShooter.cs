@@ -84,6 +84,7 @@ IEnumerator CoUpdate()	                                                        /
     while (thisTransform )
     {
         if (!target)
+        {
             if (Managers.Game.PlayerPrefab)
             {
                 target = Managers.Game.PlayerPrefab.transform;
@@ -91,6 +92,7 @@ IEnumerator CoUpdate()	                                                        /
             }
             else
                 yield return 0;
+        }
 
         if (target)
         if ( thisTransform.IsChildOf(target)) 									// check if the player has taken us... 
@@ -162,7 +164,7 @@ IEnumerator  Sleeping (){
  			
 			while( timertrigger > Time.time )
 			{
-//				thisTransform.Translate( 0, 1.5f * Time.deltaTime, 0);
+//				thisTransform.Translate( 0, 1.5f * TimeLapse.deltaTime, 0);
                 thisTransform.position = new Vector3(thisTransform.position.x,
                                                         groundPosition + Mathf.Sin((timertrigger - Time.time) * 5) * .5f,
                                                         thisTransform.position.z);
@@ -276,10 +278,54 @@ void  BeingHolded ()
 	velocity.x *= Mathf.Sign(orientation);
    	enemyState = ShooterState.Shooted;												// Then it means we have been shooted...
     gameObject.tag = "p_shot";	
-    
    }
 }
 
+
+
+public void Paralize()
+{
+    velocity = Vector3.zero;
+
+    if ((int)enemyState < 3)
+    {
+        StopAllCoroutines();
+        StartCoroutine(Freeze());
+    }
+}
+
+IEnumerator Freeze()
+{
+    float TimeLapse = Time.time + 20;
+    float OriginalPos = thisTransform.position.x;
+
+    while (TimeLapse > Time.time)
+    {
+        thisTransform.position = new Vector3(OriginalPos + (Mathf.Sin(Time.time * 50) * .05f),
+                                                                        thisTransform.position.y,
+                                                                        thisTransform.position.z);
+        if ((int)enemyState > 1)
+        {
+            if (gameObject.tag == "pickup" && enemyState != ShooterState.Dead)
+                enemyState = ShooterState.Dead;
+
+            StartCoroutine(CoUpdate());
+            yield break;
+        }
+
+        yield return 0;
+    }
+
+    thisTransform.position = new Vector3(OriginalPos, thisTransform.position.y, thisTransform.position.z);
+
+    //if (gameObject.tag == "pickup")
+    //    gameObject.tag = "Enemy";
+    StartCoroutine(CoUpdate());
+
+    //rigidbody.velocity = Vector3.zero;
+    velocity = Vector3.zero;
+    yield return 0;
+}
 
 
 
@@ -288,7 +334,7 @@ IEnumerator OnTriggerEnter(  Collider other  )											// other.transform.posi
 {																		
 	if ( other.CompareTag( "Player") )
 	{
-		if ( gameObject.CompareTag( "Enemy") && (target.position.y > thisTransform.position.y + .1) )
+		if ( gameObject.CompareTag( "Enemy") && (target.position.y > thisTransform.position.y + .1f) )
 		{
 			linkToPlayerControls.velocity.y = deathForce; 
 			this.tag = "Untagged";
@@ -327,7 +373,7 @@ IEnumerator OnTriggerEnter(  Collider other  )											// other.transform.posi
 
 void  BeatDown ()
 {
-    Managers.Register.Score += 100;
+    Managers.Register.Score += 5 * Random.Range(1, 99);
     Managers.Audio.Play(soundCrash, thisTransform, 6.0f, 1.0f);
 	gameObject.tag = "pickup";
 	velocity.x *= -.25f;
@@ -338,12 +384,12 @@ void  BeatDown ()
 	
 }
 
-public void Paralize()
-{
-    Debug.Log("Oh my GOD, el pombero está silvando");
-    velocity = Vector3.zero;
-    enemyState = ShooterState.Dead;
-    //StartCoroutine(Freeze());
-}
+//public void Paralize()
+//{
+//    Debug.Log("Oh my GOD, el pombero está silvando");
+//    velocity = Vector3.zero;
+//    enemyState = ShooterState.Dead;
+//    //StartCoroutine(Freeze());
+//}
 
 }

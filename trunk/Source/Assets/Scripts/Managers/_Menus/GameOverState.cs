@@ -3,90 +3,59 @@ using System.Collections;
 
 public class GameOverState : GameState 
 {
-//    private UITextInstance text1;
-	
-//    private UIButton RetryButton;
-//    private UIButton QuitButton;
-//    private UIButton HelpButton;
-//    public AudioClip YouLose = null;
-	
-	
+    float timeLapse = 7;
+    GUISkin gSkinB = null;
+
     public override void Init()
     {
-//        Managers.Audio.PlayMusic(YouLose, 0.5f, 1.0f);
+        gSkinB = Resources.Load("GUI/GUISkin B") as GUISkin;
+        gSkinB.label.fontSize = Mathf.RoundToInt(Screen.width * 0.035f);
 
-//        var text = Managers.Display.text;
-//        text1 = text.addTextInstance( "GAME OVER", Screen.width * .5f, Screen.height * .45f, 1.5f);
+        timeLapse = 5;
+        Managers.Game.IsPlaying = false;
 
-//        RetryButton = UIButton.create( "RetryButtonUp.png", "RetryButtonDown.png", 0, 0);  				// Retry Menu
-//        RetryButton.centerize();
-//        RetryButton.positionFromTopLeft(0.925f, 0.05f) ;
-//        RetryButton.onTouchUpInside += delegate(UIButton sender) 
-//        {
-//            sender.highlightedTouchOffsets = new UIEdgeOffsets( 30 );
-//            var ani = sender.scaleFromTo( 0.3f, Vector3.one, new Vector3(1.3f,1.3f,1), Easing.Sinusoidal.easeOut );
-//            ani.autoreverse = true;
-//            sender.disabled = true;
-			
-//            ani.onComplete = () => 	RestartMission();
-//        };
-		
-//        QuitButton = UIButton.create( "QuitButtonUp.png", "QuitButtonDown.png", 0, 0); 				// Quit main Menu
-//        QuitButton.centerize();
-//        QuitButton.positionFromTopLeft( 0.925f, 0.5f) ;
-//        QuitButton.onTouchUpInside += delegate(UIButton sender) 
-//        {
+        if (Managers.Register.Score > Managers.Register.TopScore)
+            Managers.Register.TopScore = Managers.Register.Score;
 
-//            sender.highlightedTouchOffsets = new UIEdgeOffsets( 30 );
-//            var ani = sender.scaleFromTo( 0.3f, Vector3.one, new Vector3(1.3f,1.3f,1), Easing.Sinusoidal.easeOut );
-//            ani.autoreverse = true;
-//            sender.disabled = true;
-			
-//            ani.onComplete = () =>	QuitMission();
-//        };
-		
-				
-//        HelpButton = UIButton.create( "HelpButtonUp.png", "HelpButtonDown.png", 0, 0);  				// Quit main Menu
-//        HelpButton.centerize();
-//        HelpButton.positionFromTopLeft( 0.925f, 0.95f) ;
-//        HelpButton.onTouchUpInside += delegate(UIButton sender) 
-//        {
-//            sender.highlightedTouchOffsets = new UIEdgeOffsets( 30 );
-//            var ani = sender.scaleFromTo( 0.3f, Vector3.one, new Vector3(1.3f,1.3f,1), Easing.Sinusoidal.easeOut );
-//            ani.autoreverse = true;
-//            ani.onComplete = () => sender.disabled = true;
-			
-//            print ("Que Dios te ayude");
-//        };
+        //ShowFlash(2.0f);
 
+        //Application.LoadLevel("Intro");
+        //Managers.Game.PopState();
+        //Managers.Register.SoftReset();
     }
 	
-    private void RestartMission()
-    {
-//        Managers.Game.PopState();
-//        Managers.Game.State.DeInit();
-//        Managers.Game.State.Init();
-    }
-
-    private void QuitMission()
-    {
-        Managers.Game.PopState();
-        Managers.Game.ChangeState(typeof(MainMenuState));
-        //		Managers.Game.PopState();
-    }
-
-
     public override void DeInit()
     {
-        //text1.clear();
-        //RetryButton.destroy();
-        //QuitButton.destroy();
-        //HelpButton.destroy();
+        Managers.Register.SoftReset();
+        //Managers.Register.HardReset();
+        Managers.Game.IsPlaying = true;
     }
 
     public override void OnUpdate()
     {
-        ;
+        timeLapse -= Time.deltaTime;
+
+        if ( Input.anyKey)
+            timeLapse -= Time.deltaTime;
+
+
+        if (timeLapse < 0)
+        {
+            timeLapse = 7;
+            Managers.Display.ShowFlash(2);
+            Managers.Game.PopState();
+            Managers.Game.PopState();
+        }
+    }
+
+    public override void OnRender()
+    {
+        if (gSkinB) GUI.skin = gSkinB;
+
+        //GUI.skin.label.fontSize = 64;
+        //GUI.skin.label.fontStyle = FontStyle.Bold;
+        GUI.color = Color.magenta;
+        GUI.Label(new Rect((Screen.width * .5f) - Screen.width * .25f, (Screen.height * .5f), 100, 50), "- JUEGO TERMINADO -");
     }
 
     public override void Pause() { ;}

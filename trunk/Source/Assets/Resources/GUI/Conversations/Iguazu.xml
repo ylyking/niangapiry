@@ -1,0 +1,430 @@
+<?xml version="1.0" ?>
+<Conversations>
+	<Characters>
+	      <Character speakerId = "0" >kurupi</Character>
+	      <Character speakerId = "1" >Pombero</Character>
+          <Character speakerId = "2" >Clavel</Character>
+          <Character speakerId = "3" >MboiTui</Character>
+		  <Character speakerId = "4" >YasiYatere</Character>
+	</Characters>
+	
+	 
+	
+	<Conversation nameId = "Conspiracion" >
+        <Talk speakerId = "1" time = "8.0" >Vaya vaya! Finalmente me encuentro con uno más de los malvivientes..</Talk>
+		<Talk speakerId = "1" time = "8.0" >¡Estas Conciente de la Destrucción y el Desastre que Hicieron en los Montes!</Talk>
+		<Talk speakerId = "0" time = "8.0" >Si, pero espera un poco, Vengo en Son de Paz, no me interesa pelear!</Talk> 
+        <Talk speakerId = "1" time = "8.0" >¡No me vás a engañar! Sos Hermano de Yaguá y Moñai ¿Porque debería Creerte? </Talk> 
+		<Talk speakerId = "0" time = "8.0" >Prefiero hacer el Amor y no la Guerra, Entiendo tu desconfianza pero te juro que estoy de tu lado y quiero ayudarte!</Talk> 
+		<Talk speakerId = "0" time = "8.0" >Las cosas están muy mal: Simbolos Malditos, Animales y Hombres Asustados, Arboles Destruídos, Mis Hermanos Están fuera de Control y tenemos que hacer algo urgente para detenerlos!</Talk> 
+		<Talk speakerId = "1" time = "8.0" >Bien, es justamente lo que yo digo<br />pero ya he intentado hablar con Yagua y Moñai y no he conseguido nada excepto Insultos y Peleas</Talk>
+		<Talk speakerId = "0" time = "8.0" >Claro, ya veo, mirá, tengo una idea: tenemos que Contactar con mi Hermano menor Luisón, El tiene la posta, es el unico que sabe que está pasando realmente</Talk> 
+		<Talk speakerId = "1" time = "6.0" >Vaya, eso suena como un plan ¿Adonde puedo Buscarlo!?</Talk> 
+        <Talk speakerId = "0" time = "10.0">Lo ultimo que supe de el es que estaba exiliado en Campo del Cielo, Hay un solo camino directo hacia allá pero desgraciadamente parece que está bloqueado</Talk>
+		<Talk speakerId = "1" time = "12.0">Mmhhh, vaya, veré cual es el problema e intentaré encontrar a Luizón entonces</Talk> 
+		<Talk speakerId = "0" time = "12.0">Ah, y por cierto, vé con cuidado, evita a toda costa encontrarte con mis otros Hermanos sino quieres terminar engañado o muerto</Talk> 
+
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >Cuentame Más Sobre Iguazú</Talk> 
+	            <Talk speakerId = "0" time = "6.0" >¡pura Belleza! entre los diferentes atractivos turisticos Podés admirar las cascadas o incluso pescar un Dorado</Talk> 
+	            <ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Que Significa Iguazú?</Talk>
+						<Talk speakerId = "0" time = "7.0" >proviene de dos palabras: la palabra guaraní 'y'(que se lee [ɨ] y significa "agua") y la palabra 'guasú' que en lengua guaraní quiere decir "grande".</Talk>
+						<Talk speakerId = "0" time = "5.0" >Está compuesto de 275 saltos y es oficialmente una de las siete maravillas Naturales del Mundo</Talk>
+						<Talk speakerId = "1" time = "5.0" >Oh, me dejaste sin palabras..</Talk>	
+						<Talk speakerId = "0" time = "5.0" >Es lo que sucede cuando uno contempla la gracía de estas Cascadas</Talk>
+					</Option>
+				
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Pescar un Dorado? ¿y Como puedo hacer eso?!</Talk> 
+						<Talk speakerId = "0" time = "6.0" >En realidad es LA Pesca DEL DORADO! y es muy facíl</Talk> 
+						<Talk speakerId = "0" time = "6.0" >Cuando veas algúna cañita de pescar proxima a un pozo, solo acercate, pulsa disparo y comenzarás tu Pesca</Talk>     
+						<Talk speakerId = "1" time = "8.0" >¡Wee! ni me había dado cuenta de que era para eso</Talk>
+						<Talk speakerId = "0" time = "6.0" >pero claro!, cada Dorado que pescas aumenta tu energía pudiendo intentarlo todas las veces que quieras</Talk> 
+						<Talk speakerId = "0" time = "6.0" >y cuando más profundas sean las cosas que encuentres MAS VALIOSOS SERÁN LOS PREMIOS!</Talk> 			
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Como es eso de que está bloqueado el camino hacía Campo del Cielo?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Según los rumores, Es un Camino que hace muchos años está protegido por una especie de Sello Mistico</Talk>
+						<Talk speakerId = "1" time = "6.0" >¿Sello Mistico? ¿Que es eso?</Talk>
+						<Talk speakerId = "0" time = "5.0" >Es una protección magica que los guaranies aplicaron en el valle para defenderse de los Conquistadores Españoles hace mucho.. Es una larga historia que no tengo ganas de contarte ahora..</Talk>
+						<Talk speakerId = "1" time = "5.0" >Uff, ni yo de escucharla..</Talk>
+						<Talk speakerId = "0" time = "5.0" >pero lo importante es que según tengo entendido existe un Templo Sagrado desde donde es posible suspender el efecto del Sello Mistico</Talk>
+						<Talk speakerId = "1" time = "5.0" >Hubieras empezado por ahí ¿Y Donde está ese templo?</Talk>	
+						<Talk speakerId = "0" time = "5.0" >Eso es lo que no sé, pero buscando ¡seguro lo encuentras!..</Talk>
+					</Option>
+					
+
+				</ChooseTalk>	        
+			</Option>
+			
+	        <Option>
+				<Talk speakerId = "1" time = "5.0" >Quiero Saber más acerca de tu Familia</Talk>
+	            <Talk speakerId = "0" time = "7.0" >Si, claro ¿que queres saber?</Talk>
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Que podés decirme acerca de vos?</Talk> 
+						<Talk speakerId = "0" time = "6.0" >Uff.. La verdad es que no me gusta mucho hablar de mí mismo, Prefiero que las demás personas me juzgen por lo que soy, me parece algo más objetivo</Talk> 	
+						<Talk speakerId = "1" time = "6.0" >Bueno, pero si buscás confianza algo tenés que contarme de vos mismo .. </Talk> 
+						<Talk speakerId = "0" time = "6.0" >Ok, soy el quinto hijo de Taú y Kerana y al igual que mis hermanos he nacido con alguna que otra cuestión especial</Talk> 
+						<Talk speakerId = "1" time = "6.0" >Ahh si, claro, esa 'cuestión'..  pero ¿porque no eres malvado como tus hermanos?</Talk>     
+						<Talk speakerId = "0" time = "8.0" >Es que a diferencia de mi Familia yo no tengo ningún motivo para estár enojado o resentido, en realidad gracias a que fuí dotado con esta gran virtud estoy más que Felíz con la naturaleza..</Talk>
+						<Talk speakerId = "1" time = "6.0" >Bien, bien ya lo entendí, no es necesario profundizar en detalles..</Talk> 
+						<Talk speakerId = "0" time = "6.0" >No quiero ser soberbio pero te lo dije..</Talk> 			
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Que podés decirme acerca de Luisón?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Bien, Es mi septimo y ultimo Hermano, posee el titulo oficial del SEÑOR DE LA NOCHE y es uno de los más importantes Seres legendarios de la Mitología Guaraní</Talk>
+						<Talk speakerId = "0" time = "6.0" >Es Bastante poderoso, generalmente se mimetiza como una persona común entre los Humanos pero puede transformarse en lobo como un licántropo</Talk>
+						<Talk speakerId = "1" time = "5.0" >Ah, entonces sería como un Hombre-Lobo Europeo, es un Humano que se transforma en todas las noche de luna Llena y Corre por las llanuras</Talk>
+						<Talk speakerId = "0" time = "5.0" >si mas o menos,  en realidad es mucho más que eso, Luizón es EL origen de los licántropos, todos los lobizones aparecieron a partír de el</Talk>
+						<Talk speakerId = "1" time = "5.0" >Aahhh, Vaya, ahora me cierran mejor las cosas.. para variar seguro que Los humanos lo odian y temen por pura ignorancia</Talk>
+						<Talk speakerId = "0" time = "5.0" >Si, si, Lo cierto es que a pesar de toda la mala reputación que carga en el fondo es muy buena persona, un incomprendido que es perseguido y acosado solo porque le gusta la noche</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Quienes Son tus otros Hermanos?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Ellos son: AoAo, Mboi Tuí y Yasi Yateré, Uno Peor que el otro, ¿De cual te interesa sabér?</Talk>
+							<ChooseTalk>
+								  <Option>
+									<Talk speakerId = "1" time = "5.0" >Cuentame Acerca de AoAo</Talk>
+									<Talk speakerId = "0" time = "5.0" >Oh, el viejo y torpe AoAo es mi sexto hermano, A pesar de ser algo bruto y tonto es muy Fuerte y Peligroso, También le encanta comer Humanos</Talk>
+									<Talk speakerId = "0" time = "5.0" >su forma es una especie de animal cuadrúpedo, algo parecido a una oveja, pero con cabeza de jabalí; salvo que es mucho más grande y además muy feroz. </Talk>
+									<Talk speakerId = "0" time = "5.0" >Posee la facultad de reproducirse solo y vive en una gran manada en las zonas más inhóspitas de cerros y valles.</Talk>
+									<Talk speakerId = "0" time = "5.0" >Tiene unas garras enormes que usa para excavar y derribar los Arboles en Donde la gente asustada se trepa para escaparse de el.</Talk>
+								  </Option>
+							  
+								  <Option>
+									<Talk speakerId = "1" time = "5.0" >Cuentame Acerca de Mboi Tuí</Talk>
+									<Talk speakerId = "0" time = "5.0" >Es el segundo hijo de Papá y mamá. Tiene cuerpo de víbora y pico de loro. </Talk>
+									<Talk speakerId = "0" time = "5.0" >De estas características también proviene su nombre: mbói: víbora, tu`i: loro.</Talk>
+									<Talk speakerId = "0" time = "5.0" >Es respetado como dios de los anfibios, la humedad y el rocío.</Talk>
+								  </Option>
+							  
+								  <Option>
+									<Talk speakerId = "1" time = "5.0" >Cuentame Acerca de Yasi Yateré</Talk>
+									<Talk speakerId = "0" time = "5.0" >Uhh mi cuarto hermano, El peor de todos, su nombre original es "fragmento de luna" en guaraní</Talk>
+									<Talk speakerId = "0" time = "5.0" >Su manifestación fisica más habitual es el cuerpo de un niño con risitos de oro corriendo desnudo con un bastón dorado en la mano</Talk>
+									<Talk speakerId = "0" time = "5.0" >suele atraer a los niños con su llanto para secuestrarlos y jugar con ellos, Es el más inteligente y astuto de todos.</Talk>
+								  </Option>
+							  
+							</ChooseTalk>  
+					</Option>
+				</ChooseTalk>
+				
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >En Sintesis ¿Que Joraca tengo que hacer?</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >A ver, Quedamos en que te ibas a reunír con mi Hermano Luizón en Campo del Cielo..</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >El problema es que el camino hacía allá (por aquí derecho al fondo) está Cerrado por unos "Bloques Sagrados"</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Entonces debes buscar a lo largo del valle un Templo Sagrado en donde se podrían desactivar estos bloques </Talk> 
+	            <Talk speakerId = "0" time = "12.0" >La cuestión es ¿Adonde está ese templo Mistico? no sabemos, eso es justamente lo que hay que buscar..</Talk> 
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+	
+	
+	
+	<Conversation nameId = "ConspiracionRepeat" >
+		<Talk speakerId = "1" time = "12.0">necesito un poco más de información</Talk> 
+		<Talk speakerId = "0" time = "12.0">Eh, Claro ¿que queres sabér?</Talk> 
+
+ 	        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >Cuentame Más Sobre Iguazú</Talk> 
+	            <Talk speakerId = "0" time = "6.0" >¡pura Belleza! entre los diferentes atractivos turisticos Podés admirar las cascadas o incluso pescar un Dorado</Talk> 
+	            <ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Que Significa Iguazú?</Talk>
+						<Talk speakerId = "0" time = "7.0" >proviene de dos palabras: la palabra guaraní 'y'(que se lee [ɨ] y significa "agua") y la palabra 'guasú' que en lengua guaraní quiere decir "grande".</Talk>
+						<Talk speakerId = "0" time = "5.0" >Está compuesto de 275 saltos y es oficialmente una de las siete maravillas Naturales del Mundo</Talk>
+						<Talk speakerId = "1" time = "5.0" >Oh, me dejaste sin palabras..</Talk>	
+						<Talk speakerId = "0" time = "5.0" >Es lo que sucede cuando uno contempla la gracía de estas Cascadas</Talk>
+					</Option>
+				
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Pescar un Dorado? ¿y Como puedo hacer eso?!</Talk> 
+						<Talk speakerId = "0" time = "6.0" >En realidad es LA Pesca DEL DORADO! y es muy facíl</Talk> 
+						<Talk speakerId = "0" time = "6.0" >Cuando veas algúna cañita de pescar proxima a un pozo, solo acercate, pulsa disparo y comenzarás tu Pesca</Talk>     
+						<Talk speakerId = "1" time = "8.0" >¡Wee! ni me había dado cuenta de que era para eso</Talk>
+						<Talk speakerId = "0" time = "6.0" >pero claro!, cada Dorado que pescas aumenta tu energía pudiendo intentarlo todas las veces que quieras</Talk> 
+						<Talk speakerId = "0" time = "6.0" >y cuando más profundas sean las cosas que encuentres MAS VALIOSOS SERÁN LOS PREMIOS!</Talk> 			
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Como es eso de que está bloqueando el camino hacía Campo del Cielo?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Según los rumores, Es un Camino que hace muchos años está protegido por una especie de Sello Mistico</Talk>
+						<Talk speakerId = "1" time = "6.0" >¿Sello Mistico? ¿Que es eso?</Talk>
+						<Talk speakerId = "0" time = "5.0" >Es una protección magica que los guaranies aplicaron en el valle para defenderse de los Conquistadores Españoles hace mucho.. Es una larga historia que no tengo ganas de contarte ahora..</Talk>
+						<Talk speakerId = "1" time = "5.0" >Uff, ni yo de escucharla..</Talk>
+						<Talk speakerId = "0" time = "5.0" >pero lo interesante es que según tengo entendido existe un Templo Sagrado desde donde es posible suspender el efecto del Sello Mistico</Talk>
+						<Talk speakerId = "1" time = "5.0" >Hubieras empezado por ahí ¿Y Donde está ese templo?</Talk>	
+						<Talk speakerId = "0" time = "5.0" >Eso es lo que no sé, pero buscando ¡seguro lo encuentras!..</Talk>
+					</Option>
+					
+
+				</ChooseTalk>	        
+			</Option>
+			
+	        <Option>
+				<Talk speakerId = "1" time = "5.0" >Quiero Saber más acerca de tu Familia</Talk>
+	            <Talk speakerId = "0" time = "7.0" >Si, claro ¿que queres saber?</Talk>
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Que podés decirme acerca de vos?</Talk> 
+						<Talk speakerId = "0" time = "6.0" >Uff.. La verdad es que no me gusta mucho hablar de mí mismo, Prefiero que las demás personas me juzgen por lo que soy, me parece algo más objetivo</Talk> 	
+						<Talk speakerId = "1" time = "6.0" >Bueno, pero si buscás confianza algo tenés que contarme de vos mismo .. </Talk> 
+						<Talk speakerId = "0" time = "6.0" >Ok, soy el quinto hijo de Taú y Kerana y al igual que mis hermanos he nacido con alguna que otra cuestión especial</Talk> 
+						<Talk speakerId = "1" time = "6.0" >Ahh si, claro, esa 'cuestión'..  pero ¿porque no eres malvado como tus hermanos?</Talk>     
+						<Talk speakerId = "0" time = "8.0" >Es que a diferencia de mi Familia yo no tengo ningún motivo para estár enojado o resentido, en realidad gracias a que fuí dotado con esta gran virtud estoy más que Felíz con la naturaleza..</Talk>
+						<Talk speakerId = "1" time = "6.0" >Bien, bien ya lo entendí, no es necesario profundizar en detalles..</Talk> 
+						<Talk speakerId = "0" time = "6.0" >No quiero ser soberbio pero te lo dije..</Talk> 			
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Que podés decirme acerca de Luisón?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Bien, Es mi septimo y ultimo Hermano, posee el titulo oficial del SEÑOR DE LA NOCHE y es uno de los más importantes Seres legendarios de la Mitología Guaraní</Talk>
+						<Talk speakerId = "0" time = "6.0" >Es Bastante poderoso, generalmente se mimetiza como una persona común entre los Humanos pero puede transformarse en lobo como un licántropo</Talk>
+						<Talk speakerId = "1" time = "5.0" >Ah, entonces sería como un Hombre-Lobo Europeo, es un Humano que se transforma en todas las noche de luna Llena y Corre por las llanuras</Talk>
+						<Talk speakerId = "0" time = "5.0" >si mas o menos,  en realidad es mucho más que eso, Luizón es EL origen de los licántropos, todos los lobizones aparecieron a partír de el</Talk>
+						<Talk speakerId = "1" time = "5.0" >Aahhh, Vaya, ahora me cierran mejor las cosas.. para variar seguro que Los humanos lo odian y temen por pura ignorancia</Talk>
+						<Talk speakerId = "0" time = "5.0" >Si, si, Lo cierto es que a pesar de toda la mala reputación que carga en el fondo es muy buena persona, un incomprendido que es perseguido y acosado solo porque le gusta la noche</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Quienes Son tus otros Hermanos?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Ellos son: AoAo, Mboi Tuí y Yasi Yateré, Uno Peor que el otro, ¿De cual te interesa sabér?</Talk>
+							<ChooseTalk>
+								  <Option>
+									<Talk speakerId = "1" time = "5.0" >Cuentame Acerca de AoAo</Talk>
+									<Talk speakerId = "0" time = "5.0" >Oh, el viejo y torpe AoAo es mi sexto hermano, A pesar de ser algo bruto y tonto es muy Fuerte y Peligroso</Talk>
+									<Talk speakerId = "0" time = "5.0" >su forma es una especie de animal cuadrúpedo, con un gran parecido con una oveja, pero con cabeza de jabalí; y con la diferencia de que es más grande y además muy feroz. </Talk>
+									<Talk speakerId = "0" time = "5.0" >Posee la facultad de reproducirse solo y vive en una gran manada en las zonas más inhóspitas de cerros y valles.</Talk>
+								  </Option>
+							  
+								  <Option>
+									<Talk speakerId = "1" time = "5.0" >Cuentame Acerca de Mboi Tuí</Talk>
+									<Talk speakerId = "0" time = "5.0" >el segundo hijo de Papá y mamá. Tiene cuerpo de víbora y pico de loro. </Talk>
+									<Talk speakerId = "0" time = "5.0" >De estas características también proviene su nombre: mbói: víbora, tu`i: loro.</Talk>
+									<Talk speakerId = "0" time = "5.0" >Es respetado como dios de los anfibios, la humedad y el rocío.</Talk>
+								  </Option>
+							  
+								  <Option>
+									<Talk speakerId = "1" time = "5.0" >Cuentame Acerca de Yasi Yateré</Talk>
+									<Talk speakerId = "0" time = "5.0" >Uhh mi cuarto hermano, El peor de todos, su nombre original es "fragmento de luna" en guaraní</Talk>
+									<Talk speakerId = "0" time = "5.0" >Su manifestación fisica más habitual es el cuerpo de un niño con risitos de oro corriendo desnudo con un bastón dorado en la mano</Talk>
+									<Talk speakerId = "0" time = "5.0" >suele atraer a los niños con su llanto para secuestrarlos y jugar con ellos, Es el más inteligente y astuto de todos.</Talk>
+								  </Option>
+							  
+							</ChooseTalk>  
+					</Option>
+				</ChooseTalk>
+				
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >En Sintesis ¿Que Joraca tengo que hacer?</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >A ver, Quedamos en que te ibas a reunír con mi Hermano Luizón en Campo del Cielo..</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >El problema es que el camino hacía allá (por aquí derecho al fondo) está Cerrado por unos "Bloques Sagrados"</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Entonces debes buscar a lo largo del valle un Templo Sagrado en donde se podrían desactivar estos bloques </Talk> 
+	            <Talk speakerId = "0" time = "12.0" >La cuestión es ¿Adonde está ese templo Mistico? no sabemos, eso es justamente lo que hay que buscar..</Talk> 
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+
+	
+	
+	<Conversation nameId = "HelperIntro" >
+		<Talk speakerId = "1" time = "6.0" >Ey,¡Aquí Estás! pensé que no volvería a verte más</Talk> 
+		<Talk speakerId = "2" time = "6.0" >Me extraña, Araña, decime nomás en que puedo ayudarte..</Talk> 
+		<Talk speakerId = "1" time = "6.0" >Necesito Contactar con Luisón que se encuentra en Campo del Cielo pero el Camino hasta allí está cerrado por unos Bloques raros</Talk> 
+		<Talk speakerId = "2" time = "6.0" >Ah si, Ese Camino está bloqueado por un Sello magico que es muy poderoso, Esos bloques tienen más de 500 siglos, es imposbile pasar..</Talk>	
+		<Talk speakerId = "1" time = "6.0" >Bueno, entonces me tengo que rendír y desistir de mi aventura, he fracasado miserablemente..</Talk> 	
+		<Talk speakerId = "2" time = "6.0" >Pero existe una forma de liberar el Camino, existen muy cerca unas Ruinas ocultas en algún lugar de este mapa desde las cuales es posible desactivar el sello</Talk>
+						
+		<ChooseTalk> 
+	        <Option>
+	
+				<Talk speakerId = "1" time = "6.0" >quiero saber más acerca de esas Ruinas Secretas</Talk> 
+				<Talk speakerId = "2" time = "6.0" >Lo que sea, preguntá, Soy todo oidos</Talk>	
+
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Adonde están escondidas esas Ruinas Secretas? </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Bueno, Si todos supieran exactamente donde están no serían tan 'Secretas' pero tengo una ídea de por donde empezar a buscar</Talk>     
+						<Talk speakerId = "2" time = "6.0" >Si continuas por este sendero entrarás en un Laberinto muy oscuro y peligroso</Talk>   
+						<Talk speakerId = "2" time = "8.0" >Estoy seguro de que Si logras cruzar y salír de allí vivo encontraras Las Ruinas Sagradas</Talk>
+						<Talk speakerId = "1" time = "6.0" >Ah, suena tan facil como soplar y hacer botellas!</Talk> 
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Que tipo de obstaculos hay más adelante en ese sendero?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Primero debes superar el Laberinto, del cual nadie ha logrado salir nunca.</Talk>
+						<Talk speakerId = "2" time = "6.0" >Pero Además debes andarte con Muuucho cuidado porque Las Ruinas se encuentran custodiadas por un Guardian Siniestro</Talk>
+						<Talk speakerId = "1" time = "5.0" >Uuuhhh, no me digas más, seguro que es algún monstruo como un Gigante con cabeza de Toro o algo así!</Talk>
+						<Talk speakerId = "2" time = "6.0" >Eh, no no, que ridiculo ¿De donde sacaste eso? nada que ver! El Terrible Guardían de las Ruinas 'Misticas' es una Vaca con cabeza de Hombre</Talk>					
+						<Talk speakerId = "1" time = "5.0" >Eso si que asusta..</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Cual es el origen de las 'ruinas Sagradas'?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Dicen que Fué construída Hace miles de años por seres extraterrestres como un regalo para los Humanos</Talk>
+						<Talk speakerId = "2" time = "12.0" >Allí la Civilización Guarani Realizaba sus rituales para comunicarse con el cosmos y la galaxia</Talk>
+						<Talk speakerId = "2" time = "10.0" >Luego Con la llegada de los primeros Barcos Españoles fueron Cerradas y ocultas para protegerlas de la ignorancia del hombre blanco</Talk>
+						<Talk speakerId = "1" time = "5.0" >Wee, ¿ En serio ? Es verdad todo esto ? </Talk>
+						<Talk speakerId = "2" time = "12.0" >Na mentira, es lo que dicen pero no creo, para mi que era un boliche donde se juntaban los aborigenes a bailar</Talk>
+						<Talk speakerId = "1" time = "6.0" >Mmhhh.. Deja Vu, Que raro, tengo la sensación de haber visto esto de los bloques magicos en algún otro lado antes..</Talk> 						
+						<Talk speakerId = "2" time = "6.0" >Esteem, puede ser.. Los Bloques 'sagrados' Están repartidos por todo el Mundo e incluso en otros universos también</Talk> 	
+						</Option>
+				</ChooseTalk>
+	        </Option>
+			
+	        <Option>
+			<Talk speakerId = "1" time = "6.0" >¿Sos el mismo Clavel que vivía en el Arbol frente a mi Tatakuá? </Talk> 
+			<Talk speakerId = "2" time = "6.0" >para ser breve, SI, soy el mismo o lo era hasta que sucedió el horrible incidente de los Simbolos y el Arbol Cortado..</Talk> 
+			<Talk speakerId = "1" time = "6.0" >Oh si, una tragedia espantosa, ¿y Como hiciste para terminar aquí?</Talk> 
+			<Talk speakerId = "2" time = "6.0" >Cuando el Arbol caía, Una brisa de viento muy fuerte me trajo flotando hasta acá, por desgracia no puede ver quien o que cortaba el Arbol</Talk> 
+			<Talk speakerId = "1" time = "6.0" >mmhh, no importa ya descubriré al verdadero responsable de todo esto</Talk> 
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >no entiendo nada ¿Podrías Explicarme todo de nuevo?</Talk> 
+				<Talk speakerId = "0" time = "12.0" >A ver, Tienes que Liberar el Camino hasta Campo del Cielo que está cerrado por unos "Bloques Sagrados"</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Entonces debes buscar a lo largo del valle un Templo Sagrado en donde se podrían desactivar estos bloques </Talk> 
+	            <Talk speakerId = "0" time = "12.0" >Para hacertelo más facil te diré que hay un sendero directo hacia allí subiendo este morro y después de cruzar el Laberinto, Buena Suerte, jeje</Talk> 
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+	
+	
+	
+	<Conversation nameId = "Helper" >
+		<Talk speakerId = "1" time = "6.0" >Ey, te pregunto una cosita más..</Talk> 
+		<Talk speakerId = "2" time = "6.0" >Claro, estoy Siempre firme junto al pueblo, decime nomás en que puedo ayudarte..</Talk> 
+		<ChooseTalk> 
+	        <Option>
+	
+				<Talk speakerId = "1" time = "6.0" >quiero saber más acerca de esas Ruinas Secretas</Talk> 
+				<Talk speakerId = "2" time = "6.0" >Lo que sea, preguntá, Soy todo oidos</Talk>	
+
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Adonde están escondidas esas Ruinas Secretas? </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Bueno, Si todos supieran exactamente donde están no serían tan 'Secretas' pero tengo una ídea de por donde empezar a buscar</Talk>     
+						<Talk speakerId = "2" time = "6.0" >Si continuas por este sendero entrarás en un Laberinto muy oscuro y peligroso</Talk>   
+						<Talk speakerId = "2" time = "8.0" >Estoy seguro de que Si logras cruzar y salír de allí vivo encontraras Las Ruinas Sagradas</Talk>
+						<Talk speakerId = "1" time = "6.0" >Ah, suena tan facil como soplar y hacer botellas!</Talk> 
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Que tipo de obstaculos hay más adelante en ese sendero?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Primero debes superar el Laberinto, del cual nadie ha logrado salir nunca.</Talk>
+						<Talk speakerId = "2" time = "6.0" >Pero Además debes andarte con Muuucho cuidado porque Las Ruinas se encuentran custodiadas por un Guardian Siniestro</Talk>
+						<Talk speakerId = "1" time = "5.0" >Uuuhhh, no me digas más, seguro que es algún monstruo como un Gigante con cabeza de Toro o algo así!</Talk>
+						<Talk speakerId = "2" time = "6.0" >Eh, no no, que ridiculo ¿De donde sacaste eso? nada que ver! El Terrible Guardían de las Ruinas 'Misticas' es una Vaca con cabeza de Hombre</Talk>					
+						<Talk speakerId = "1" time = "5.0" >Eso si que asusta..</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Cual es el origen de las 'ruinas Sagradas'?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Dicen que Fué construída Hace miles de años por seres extraterrestres como un regalo para los Humanos</Talk>
+						<Talk speakerId = "2" time = "12.0" >Allí la Civilización Guarani Realizaba sus rituales para comunicarse con el cosmos y la galaxia</Talk>
+						<Talk speakerId = "2" time = "10.0" >Luego Con la llegada de los primeros Barcos Españoles fueron Cerradas y ocultas para protegerlas de la ignorancia del hombre blanco</Talk>
+						<Talk speakerId = "1" time = "5.0" >Wee, ¿ En serio ? Es verdad todo esto ? </Talk>
+						<Talk speakerId = "2" time = "12.0" >Na mentira, es lo que dicen pero no creo, para mi que era un boliche donde se juntaban los aborigenes a bailar</Talk>
+						<Talk speakerId = "1" time = "6.0" >Mmhhh.. Deja Vu, Que raro, tengo la sensación de haber visto esto de los bloques magicos en algún otro lado antes..</Talk> 						
+						<Talk speakerId = "2" time = "6.0" >Esteem, puede ser.. Los Bloques 'sagrados' Están repartidos por todo el Mundo e incluso en otros universos también</Talk> 
+						</Option>
+				</ChooseTalk>
+	        </Option>
+			
+	        <Option>
+			<Talk speakerId = "1" time = "6.0" >¿Sos el mismo Clavel que vivía en el Arbol frente a mi Tatakuá? </Talk> 
+				<Talk speakerId = "2" time = "6.0" >para ser breve, SI, soy el mismo o lo era hasta que sucedió el horrible incidente de los Simbolos y el Arbol Cortado..</Talk> 
+			<Talk speakerId = "1" time = "6.0" >Oh si, una tragedia espantosa, ¿y Como hiciste para terminar aquí?</Talk> 
+			<Talk speakerId = "2" time = "6.0" >Cuando el Arbol caía, Una brisa de viento muy fuerte me trajo flotando hasta acá, por desgracia no puede ver quien o que cortaba el Arbol</Talk> 
+			<Talk speakerId = "1" time = "6.0" >mmhh, no importa ya descubriré al verdadero responsable de todo esto</Talk> 
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >no entiendo nada ¿Podrías Explicarme todo de nuevo?</Talk> 
+				<Talk speakerId = "0" time = "12.0" >A ver, Tienes que Liberar el Camino hasta Campo del Cielo que está cerrado por unos "Bloques Sagrados"</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Entonces debes buscar a lo largo del valle un Templo Sagrado en donde se podrían desactivar estos bloques </Talk> 
+	            <Talk speakerId = "0" time = "12.0" >Para hacertelo más facil te diré que hay un sendero directo hacia allí subiendo este morro y después de cruzar el Laberinto, Buena Suerte, jeje</Talk> 
+	        </Option>
+        </ChooseTalk>
+	   
+	</Conversation>
+
+	
+
+	
+	
+	<Conversation nameId = "Mboi" >
+	<Talk speakerId = "1" time = "1.0" >Arghh, Otra Serpiente Gigante.. Como las detesto</Talk>
+    <Talk speakerId = "3" time = "5.0" >¡Detente Ahora mismo! Soy Mboi'Tui, el Guardián de las Ruinas Guaranies</Talk>
+    <Talk speakerId = "1" time = "8.0" >yo Soy Pumbe, Guardián del Monte y Por favor deja de dar tantas vueltas porque me estás mareando..</Talk>
+    <Talk speakerId = "3" time = "5.0" >Aaaaah... así que Guardián del Monte eh? jajaja ¿y Que hacés acá? </Talk>
+	
+	    <ChooseTalk>
+		  <Option>
+			<Talk speakerId = "1" time = "5.0" >Quiero Saber quien está destruyendo el Monte</Talk>
+			<Talk speakerId = "3" time = "5.0" >Pibe, No me vengas a molestar, Rajá de acá o te Reviento</Talk>
+			<Talk speakerId = "1" time = "5.0" >No soy un chico, Soy un Ser Mitologico, no me faltés el respeto!</Talk>
+			<Talk speakerId = "3" time = "5.0" >no entiendo, no caminás hacia atras, no comes personas ¿Que clase de Pombero sos vos? </Talk>
+			<Talk speakerId = "1" time = "5.0" >Vení acá y Te voy a mostrar, Maldita Cotorra..</Talk>
+			<Talk speakerId = "3" time = "5.0" >Jaja, parecés un simple enano pintado con sombrero, 
+			estoy seguro que sos un Hombre disfrazado para que no te coman, pero tu camuflage ha fracasado..</Talk>
+		  </Option>
+      
+		  <Option>
+			<Talk speakerId = "1" time = "5.0" >solo Quiero desbloquear el camino hacia campo del cielo</Talk>
+			<Talk speakerId = "3" time = "5.0" >Pibe, Nadie pasará por aquí, Rajá de acá o te Reviento</Talk>
+			<Talk speakerId = "1" time = "5.0" >No soy un chico, Soy un Ser Mitologico, no me faltés el respeto!</Talk>
+			<Talk speakerId = "3" time = "5.0" >no entiendo, no caminás hacia atras, no comes personas ¿Que clase de Pombero sos vos? </Talk>
+			<Talk speakerId = "1" time = "5.0" >Vení acá y Te voy a mostrar, Maldita Cotorra..</Talk>
+			<Talk speakerId = "3" time = "5.0" >Jaja, parecés un simple enano pintado con sombrero, 
+			estoy seguro que sos un Hombre disfrazado para que no te coman, pero tu camuflage ha fracasado..</Talk>		
+		  </Option>
+	  
+		  <Option>
+			<Talk speakerId = "1" time = "5.0" >Basta de tanto bla bla, Te reto a duelo!</Talk>
+ 			<Talk speakerId = "3" time = "5.0" >Oh vaya, Directo al Grano, ahora te voy a hacer puré</Talk>
+		  </Option>
+
+    </ChooseTalk>
+
+  </Conversation>
+  
+  
+  	<Conversation nameId = "Yasi" >
+	<Talk speakerId = "4" time = "5.0" >Buaaah ¡Me Rindo! No me Mates, Por Favor..</Talk>
+	<Talk speakerId = "1" time = "1.0" >Naaa que Rindo ni ocho y cuartos, ahora te voy a dar yo tu Bastoncito Magico..</Talk>
+    <Talk speakerId = "4" time = "5.0" >Perdón ¡No quise Atacarte! pero fué por precaución, están sucediendo muchas cosas terribles..</Talk>
+    <Talk speakerId = "1" time = "8.0" >Aah Claro, Un Ataque Preventivo entonces, pero mira vos que lindo eh, ¿y a vos te parece bien?..</Talk>
+    <Talk speakerId = "4" time = "5.0" >Espera, por favor, tenés que escucharme, No le Creas al Kurupí, el es un Mentiroso, Adicto a las mujeres que adora las conspiraciones..</Talk>
+	<Talk speakerId = "1" time = "8.0" >Pero dejá de decír pavadas, Si estoy seguro que es uno de ustedes el que está destruyendo el Monte!</Talk>
+    <Talk speakerId = "4" time = "5.0" >Todo eso es un Engaño, un Relato falso que te quieren enchufar, Te digo la verdad, Vamos, porque Crees que a Luizón le dicen el Amo de la Oscuridad y la Muerte!</Talk>
+	<Talk speakerId = "1" time = "8.0" >Bueno, Basta! Ahora si que me están cansando todos ustedes juntos, quiero NOMBRES, Decime ya mismo quien es el Responsable de la destrucción de Arboles</Talk>
+    <Talk speakerId = "4" time = "5.0" >Ah sí, si, ya sé, Tranquilo, Escucha, Yo y cada uno de todos mis hermanos somos terribles pero estoy seguro de que al que estás buscando es Ao Ao entonces..</Talk>
+	
+	<Talk speakerId = "1" time = "1.0" >¿AoAo? y como estás tan seguro que fué el ? no me vas a despistar..</Talk>
+    <Talk speakerId = "4" time = "5.0" >Porque es lo que AoAo hace siempre, le encanta Tumbar Arboles, y es el único con la fuerza capaz de hacer eso..</Talk>
+	<Talk speakerId = "1" time = "1.0" >MMmhhh, bien, por ahora voy a dejar pasar esta, solo porque estoy apurado y tengo que encontrar a Luizón, pero si resulta que me estuviste verseando. ya vas a ver..</Talk>
+    <Talk speakerId = "4" time = "5.0" >...</Talk>
+  </Conversation>
+  
+  
+  
+
+   
+</Conversations>
+
+
+
+

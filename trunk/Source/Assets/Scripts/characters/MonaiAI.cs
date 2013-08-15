@@ -14,10 +14,9 @@ namespace Bosses
 
         int Orientation = -1;                       // This setup the Monster face direction
         int AttackRange = 0;                        // number of Wipes before change to next behaviour
-        int Health = 5;                        // total hits needed to kill it
+        int Health = 3;                        // total hits needed to kill it
         float horizon = 3;                        // medium height from where the Sin moves on...
-        float PlayerHeight = 0;                        // one Time fastcheck player position for Sliding Attack
-        //float timeLapse         = 0;                        // timeLapse for Something...
+        float PlayerHeight = 0;                        // one TimeLapse fastcheck player position for Sliding Attack
 
         float ClimbFactor = 7.5f;                     // It's a kind of inversed Gravity 
         float ClimbSpeed = 0;                        // and this It's the Speed that's Reduced by ClimbFactor
@@ -39,6 +38,8 @@ namespace Bosses
         bool Talking = false;
         public ParticleSystem particle;
         public ParticleSystem Slash;
+        //public ParticleSystem Leafing;
+        public ParticleSystem Leafs;
 
         public AudioClip SnakeHit;
         public AudioClip SnakeRattle;
@@ -48,6 +49,13 @@ namespace Bosses
         // Use this for initialization
         void Start()
         {
+            if (Managers.Register.MonaiDefeated)
+            {
+                Debug.Log("Moñai Already Beated!");
+                DestroyImmediate(gameObject);
+                return;
+            }
+
             thisTransform = this.transform;
             Chain = GetComponent<SpriteChain>();
             Head = GetComponent<AnimSprite>();
@@ -56,8 +64,11 @@ namespace Bosses
             LevelArea = Managers.Display.cameraScroll.levelBounds;
 
             BossArea.center = new Vector2(thisTransform.position.x, thisTransform.position.y);
-            PlayerTransform = Managers.Game.PlayerPrefab.transform;
-            PlayerHeight = PlayerTransform.position.y;
+            if (Managers.Game.PlayerPrefab)
+            {
+                PlayerTransform = Managers.Game.PlayerPrefab.transform;
+                PlayerHeight = PlayerTransform.position.y;
+            }
             horizon = BossArea.center.y;
         }
 
@@ -77,7 +88,7 @@ namespace Bosses
                     break;
                 case BossState.Roaming:
                     Roaming();
-                    if (AttackRange > 2)
+                    if (AttackRange > 4)
                         RandomState();
                     break;
                 case BossState.WildCircle:
@@ -117,8 +128,8 @@ namespace Bosses
 
         //    Head.PlayFrames(0, 1, 1, Orientation);
 
-        //    NewPosition = new Vector3(NewPosition.x + (Time.deltaTime * 3 * Orientation),
-        //                               horizon + (Mathf.Sin(Time.time * 3) * 1.5f), -1);
+        //    NewPosition = new Vector3(NewPosition.x + (TimeLapse.deltaTime * 3 * Orientation),
+        //                               horizon + (Mathf.Sin(TimeLapse.time * 3) * 1.5f), -1);
 
         //    if (NewPosition.x > BossArea.xMax && Orientation == +1)
         //    {
@@ -141,6 +152,16 @@ namespace Bosses
 
         void StandBy()
         {
+
+
+            if (!Managers.Game.PlayerPrefab)
+                return;
+            else if (!PlayerTransform)
+            {
+                PlayerTransform = Managers.Game.PlayerPrefab.transform;
+                PlayerHeight = PlayerTransform.position.y;
+            }
+
             Chain.MoveStyle = SpriteChain.TranslationMode.Smooth;
 
             Head.PlayFrames(0, 1, 1, Orientation);
@@ -232,6 +253,10 @@ namespace Bosses
             if (NewPosition.y > BossArea.yMax - 1.5f)
             {
                 Managers.Audio.Play(SnakeRattle, thisTransform, 5, 1);
+                //Leafs.SetActive(true);
+                //Leafs.particleSystem.Simulate(5);
+                //Leafs.particleSystem.Play();
+                Instantiate(Leafs, thisTransform.position, thisTransform.rotation);
                 ClimbSpeed = -7;
             }
 
@@ -356,7 +381,7 @@ namespace Bosses
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0;
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2.5f;
 
-            //timeLapse = 0;
+            //timeTrailer = 0;
         }
 
 
@@ -421,6 +446,7 @@ namespace Bosses
             AttackRange = 0;
             Health = -1;
             Head.PlayFrames(0, 0, 2, Orientation);
+            Managers.Register.MonaiDefeated = true;
 
         }
 

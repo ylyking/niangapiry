@@ -18,7 +18,8 @@ public class IntroState : GameState
     {
         if ((int)Time.time == 1 )
         {
-            Managers.Display.ShowImage("D:/Niangapiry/Source/Assets/Materials/Textures/sunhouse.png", 7);
+            //Managers.Display.ShowImage("D:/Niangapiry/Source/Assets/Materials/Textures/sunhouse.png", 7);
+            Managers.Display.ShowImage("GUI/sunhouse", 7);
         }
 
         if ((int)Time.time == 2 )

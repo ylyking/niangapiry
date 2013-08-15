@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="16" height="11" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="mundo loco2" tilewidth="64" tileheight="64">
+  <image source="mundo loco2.png" width="1024" height="1024"/>
+ </tileset>
+ <imagelayer name="Scroll 5" width="16" height="11">
+  <image source="mundo loco2 fondo.png"/>
+  <properties>
+   <property name="depth" value="5"/>
+   <property name="speed" value="0"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="Scroll 4" width="16" height="11">
+  <image source="mundo loco2 s2.png"/>
+  <properties>
+   <property name="depth" value="4"/>
+   <property name="speed" value="0, 0.05"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="Scroll 3" width="16" height="11">
+  <image source="mundo loco2 medio.png"/>
+  <properties>
+   <property name="depth" value="2"/>
+   <property name="speed" value="-0.001, 0"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="Scroll 2" width="16" height="11">
+  <image source="mundo loco2 s1.png"/>
+  <properties>
+   <property name="depth" value="2"/>
+   <property name="speed" value="0, 0.05"/>
+  </properties>
+ </imagelayer>
+ <layer name="site" width="16" height="11">
+  <properties>
+   <property name="Depth" value="1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACw3DB1eIAQAAwM9PDNklSSQpmwolKyNUVigyMlKUomW1SClCKSV7pKGsKHX33oUEQTDdGc401FnOdo5zned8FxhmuAuNcJGRLjbKJUa71GXGuNxYVxjnSuNNcJWrXeNa17neDW50k4kmmexmt7jVFFPdZprb3eFOd7nbdPe4133uN8MDHvSQmWaZ7WGPeNRjHjfHE570lLnmedoz5nvWc573ggVe9JKXvWKhVy2y2Gtet8RSb1hmuTe9ZYWVVlltjbe9413ved9a66y3wUYf+NAmH9lsi49ttc0nPrXdZz73hR12+tIuu31lj72+ts83vvWd7/3gRz/52S9+td9vDjjokMN+d8RRf/jTX/72j2P+9Z/jTvjfSYNpQTAF5bM/icACAAA=
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="16" height="11">
+  <object name="Salida" type="Warp" x="993" y="395" width="64" height="320">
+   <properties>
+    <property name="Target" value="Exit"/>
+   </properties>
+  </object>
+  <object type="CollisionBound" x="-36" y="686" width="1110" height="70"/>
+  <object type="Pombero" x="0" y="512" width="64" height="64"/>
+  <object type="CameraBound" x="0" y="0" width="960" height="704">
+   <properties>
+    <property name="zoom" value="5"/>
+   </properties>
+  </object>
+  <object type="FruitPack" x="960" y="576" width="64" height="64"/>
+  <object type="caña" x="960" y="512" width="64" height="64"/>
+  <object type="caña" x="960" y="512" width="64" height="64"/>
+ </objectgroup>
+ <imagelayer name="Scroll 1" width="16" height="11">
+  <image source="mundo loco2 s0.png"/>
+  <properties>
+   <property name="size" value="original"/>
+   <property name="speed" value="0, 0.1"/>
+  </properties>
+ </imagelayer>
+</map>

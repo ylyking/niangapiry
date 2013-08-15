@@ -1,0 +1,422 @@
+<?xml version="1.0" ?>
+<Conversations>
+	<Characters>
+	      <Character speakerId = "0" >Fernando</Character>
+	      <Character speakerId = "1" >Pombero</Character>
+          <Character speakerId = "2" >Clavel</Character>
+          <Character speakerId = "3" >Monai</Character>
+	</Characters>
+	
+	<Conversation nameId = "ContactoHumano" >
+        <Talk speakerId = "1" time = "8.0" >Hola perrito, Yo Soy Pumbe <br /> Estoy buscando a un tal Fernando, ¿no sabrías decirme quien es y donde buscarlo? </Talk>
+		<Talk speakerId = "0" time = "8.0" >Guau, Estás de suerte, Estás hablando con el mismisimo, En efecto ese soy yo..</Talk> 
+        <Talk speakerId = "1" time = "8.0" >Eh? ¡Tú el Canino! ¿En serio?, Que bueno! pensé que era un humano.. </Talk> 
+		<Talk speakerId = "0" time = "8.0" >Si, creo que me bautizaron así en homenaje a un Famoso musico, También tengo buen oido musical sabías?</Talk> 
+		<Talk speakerId = "0" time = "8.0" >por cierto, sShhh, preguntame lo que quieras pero no hagas mucho ruido,<br />los hombres están muy nerviosos hoy y atacarán a cualquier cosa rara que vean</Talk> 
+		<Talk speakerId = "1" time = "8.0" >Bien mirá, estoy investigando este simbolo muy extraño y quería saber si entiendes que significa<br />o si es posible que lo haya hecho un humano.. </Talk>
+		<Talk speakerId = "0" time = "8.0" >mmh, la verdad es que no he visto nada como esto y estoy muy seguro que ningún humano lo dibujaría</Talk> 
+		<Talk speakerId = "1" time = "6.0" >Uy, que mal, esto me lleva a un callejón sin salida entonces.. y me estoy quedando sin pistas</Talk> 
+        <Talk speakerId = "0" time = "10.0" >Disculpa, me gustaría poder ayudarte mejor pero no sé con qué..  a ver<br />en el Monte hay unos pajaros que podrían ayudarte... aunque para ir hasta allí deberías cruzarte con Moñai..</Talk>
+		<Talk speakerId = "1" time = "12.0" >Mmh, eso suena muy interesante <br /> ¿Podrías contarme un poco más?</Talk> 
+		<Talk speakerId = "0" time = "12.0" >¿sobre Moñai? Uff, Es un Enorme y Terrible Monstruo, devorador de Hombres, que tiene aterrorizado a todo el Pueblo, Es posible encontrarlo si lo buscas por aqui, yendo derecho hasta el fondo pero ten mucho cuidado es PELIGROSÍSIMO!</Talk> 
+		<Talk speakerId = "1" time = "6.0" >Bien, eso si que fué una información de gran ayuda</Talk>
+	
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿que otros lugares hay para visitar en el resto de Pampero?</Talk> 
+	            <Talk speakerId = "0" time = "6.0" >Hay varias puertas, patios y recovecos escondidos para Explorar un buen rato<br />Con solo pulsar hacía arriba en cualquier puerta te meterás en infinidad de Habitaciones, procura no perderte..</Talk> 
+	            <Talk speakerId = "1" time = "6.0" >Bueno, eso está muy Bien pero aparte de Habitaciones que otra cosa Hay?</Talk>     
+				<Talk speakerId = "0" time = "8.0" >Ni te imaginas, hay portales interdimensionales, Niveles de Bonus Extra e incluso una misión alternativa ¡No viste nada!</Talk>
+				<Talk speakerId = "1" time = "8.0" >¿Misión Alternativa? Donde está eso y de que se trata?</Talk>
+				<Talk speakerId = "0" time = "8.0" >De hecho es todo un Pueblo Alternativo! Pero será mejor que lo averigues tu mismo,<br />Puedes Llegar a travéz de la segunda puerta a mi derecha..</Talk>
+	        </Option>
+			
+	        <Option>
+				<Talk speakerId = "1" time = "5.0" >Quiero saber más de Fernando</Talk>
+				<Talk speakerId = "1" time = "5.0" >¿puedo preguntarte algo sobre tí?</Talk>
+	            <Talk speakerId = "0" time = "7.0" >Je, claro ¿que queres saber?</Talk>
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Tenés algún Amo ? Adonde vivís?</Talk> 
+						<Talk speakerId = "0" time = "6.0" >Jaja, Ni ahí, No tengo ningún Amo, Soy un Vagabundo, Libre como el viento y Dueño de mi destino</Talk> 
+						<Talk speakerId = "1" time = "6.0" >¿Y como vivis y que comés entonces?</Talk>     
+						<Talk speakerId = "0" time = "8.0" >Eso es lo interesante, Los Humanos me adoran, me invitan a todos los conciertos y fiestas, con solo mirarlos un rato ellos me hacen un Cafe, me sirven Empanadas y me tratan como un Rey, Si hasta me han levantado tres Monumentos incluso!</Talk>
+						<Talk speakerId = "1" time = "6.0" >Increible! ¿como lo hacés? Tiene que haber algún secreto..</Talk> 
+						<Talk speakerId = "0" time = "6.0" >No sé, a ellos les gusta Alardear historias, descargar sus penas y Charlar horas en la pulpería pero nadie quiere escucharse y en cambio si hablan todos de todo, así que cualquiera que acompañe en silencio ya se destaca..</Talk> 			
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿que haces acá? ¿Como soportás a los Humanos?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Bueno, ya te dijieron que soy un infiltrado o un nexo entre Humanos y el resto del universo</Talk>
+						<Talk speakerId = "1" time = "6.0" >Si pero a mi me parecen terriblemente ordinarios y mediocres, una perdida de tiempo..</Talk>
+						<Talk speakerId = "0" time = "5.0" >puede ser, pero de vez en cuando aparecen algunos que son diferentes y que valen la pena</Talk>
+						<Talk speakerId = "1" time = "5.0" >Cierto, pero ¿y eso que tiene que ver con vos?</Talk>
+						<Talk speakerId = "0" time = "5.0" >Bueno, yo en realidad estoy para acompañarlos, orientarlos y por supuesto vigilarlos, algún día estarán listos para compartír el mundo pero mientras tanto tienen mucho que aprender..</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Es cierto que erés el mejor amigo del Hombre?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Si, junto con el Caballo y no sé que otros bichos mas, otro invento de los humanos </Talk>
+						<Talk speakerId = "1" time = "5.0" >Bueno pero no se llevan nada mal, Si hasta los llaman por el nombre y todo</Talk>
+						<Talk speakerId = "0" time = "7.0" >en ese sentido los gatos son más vivos porque ni se calientan en entenderlos pero bueno..</Talk>
+					</Option>
+				</ChooseTalk>
+				
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >Estoy perdido ¿Podrías Indicarme que tengo que hacér o para donde ir?</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >A ver, Los requisitos para avanzar a la proxima etapa son los siguientes:</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >Tenés que enfrentar a Moñai al Final de Pampero, o sea acá, y a Yaguá en el Monte, el otro lugar disponible en el mapa</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Una véz que hayas superado a estos dos monstruos, pegate una vueltita por el tatakuá para ponerte al día</Talk> 
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+	
+	<Conversation nameId = "ContactoRepeat" >
+ 		<Talk speakerId = "1" time = "6.0" >A ver, Hay una cosa más que necesito consultarte</Talk> 
+		<Talk speakerId = "0" time = "6.0" >adelante, preguntame lo que quieras</Talk>
+	
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿que otros lugares hay para visitar en el resto de Pampero?</Talk> 
+	            <Talk speakerId = "0" time = "6.0" >Hay varias puertas, patios y recovecos escondidos para Explorar un buen rato<br />Con solo pulsar hacía arriba en cualquier puerta entrarás en infinidad de Habitaciones, procura no olvidar perderte..</Talk> 
+	            <Talk speakerId = "1" time = "6.0" >Bueno, eso está muy Bien pero aparte de Habitaciones que otra cosa Hay?</Talk>     
+				<Talk speakerId = "0" time = "8.0" >Ni te imaginas, hay portales interdimensionales, Niveles de Bonus Extra e incluso una misión alternativa ¡No viste nada!</Talk>
+				<Talk speakerId = "1" time = "8.0" >¿Misión Alternativa? Donde está eso y de que se trata?</Talk>
+				<Talk speakerId = "0" time = "8.0" >De hecho es todo un Pueblo Alternativo! Pero será mejor que lo averigues tu mismo,<br />Puedes Llegar a travéz de la segunda puerta a mi derecha..</Talk>
+	        </Option>
+			
+	        <Option>
+				<Talk speakerId = "1" time = "5.0" >Quiero saber más de Fernando</Talk>
+				<Talk speakerId = "1" time = "5.0" >¿puedo preguntarte algo sobre tí?</Talk>
+	            <Talk speakerId = "0" time = "7.0" >Je, claro ¿que queres saber?</Talk>
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Tenés algún Amo ? Adonde vivís?</Talk> 
+						<Talk speakerId = "0" time = "6.0" >Jaja, Ni ahí, No tengo ningún Amo, Soy un Vagabundo, Libre como el viento y Dueño de mi destino</Talk> 
+						<Talk speakerId = "1" time = "6.0" >¿Y como vivis y que comés entonces?</Talk>     
+						<Talk speakerId = "0" time = "8.0" >Eso es lo interesante, Los Humanos me adoran, me invitan a todas las Fiestas y Espectaculos, con solo mirarlos un rato ellos me hacen un Cafe, me sirven Empanadas y me tratan como un Rey, Si hasta me han levantado tres Monumentos incluso!</Talk>
+						<Talk speakerId = "1" time = "6.0" >Increible! ¿como lo hacés? Tiene que haber algún secreto..</Talk> 
+						<Talk speakerId = "0" time = "6.0" >No sé, a ellos les gusta Alardear historias, descargar sus penas y Charlar horas en la pulpería pero nadie quiere escucharse y en cambio si hablan todos de todo, así que cualquiera que acompañe en silencio ya se destaca..</Talk> 			
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿que haces acá? ¿Como soportás a los Humanos?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Bueno, ya te dijieron que soy un infiltrado o un nexo entre Humanos y el resto del universo</Talk>
+						<Talk speakerId = "1" time = "6.0" >Si pero a mi me parecen terriblemente ordinarios y mediocres, una perdida de tiempo..</Talk>
+						<Talk speakerId = "0" time = "5.0" >puede ser, pero de vez en cuando aparecen algunos que son diferentes y que valen la pena</Talk>
+						<Talk speakerId = "1" time = "5.0" >Cierto, pero y eso ¿que tiene que ver con vos ?</Talk>
+						<Talk speakerId = "0" time = "5.0" >Bueno, yo en realidad estoy para acompañarlos, orientarlos y por supuesto vigilarlos,<br />algún día estarán listos para compartír el mundo pero mientras tanto tienen mucho que aprender..</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Es cierto que erés el mejor amigo del Hombre?</Talk>
+						<Talk speakerId = "0" time = "7.0" >Si, junto con el Caballo y no sé que otros bichos mas, otro invento de los humanos </Talk>
+						<Talk speakerId = "1" time = "5.0" >Bueno pero no se llevan nada mal, Si hasta los llaman por el nombre y todo</Talk>
+						<Talk speakerId = "0" time = "7.0" >en ese sentido los gatos son más vivos porque ni se calientan en entenderlos pero bueno..</Talk>
+					</Option>
+				</ChooseTalk>
+				
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >Estoy perdido ¿Podrías Indicarme que tengo que hacér o para donde ir?</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >A ver, Los requisitos para avanzar a la proxima etapa son los siguientes:</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >Tenés que enfrentar a Moñai al Final de Pampero, o sea acá, y a Yaguá en el Monte, el otro lugar disponible en el mapa</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Una véz que hayas superado a estos dos monstruos, pegate una vueltita por el tatakuá para ponerte al día</Talk> 
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+
+	
+	
+	<Conversation nameId = "HelperIntro" >
+		<Talk speakerId = "2" time = "6.0" >Buenas Tardes, debo Advertirte que estás en los limites del Pueblo Y Más adelante vas a encontrarte con el Peligroso Moñai </Talk> 
+		<Talk speakerId = "1" time = "6.0" >Uy, menos mal que avisaste!</Talk> 
+		<Talk speakerId = "2" time = "6.0" >Que Bueno, Soy el guía Turistico de Pampero ¿ tienes Alguna otra duda ? </Talk> 
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿Que Podes decírme de Moñai?</Talk> 
+				<Talk speakerId = "2" time = "6.0" >Uff, Espantoso, ¿Que queres saber de el?</Talk>
+				
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Quien y Como es? ¿De donde salió? </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Es el segundo Hijo Maldito de Kerana con el Terrible Taú.. </Talk>     
+						<Talk speakerId = "2" time = "6.0" >Tiene cuerpo de serpiente y una cabeza con cuernos como antenas, es Amo de los Arboles </Talk>   
+						<Talk speakerId = "2" time = "8.0" >Es el horror de los humanos ya que Además de robarse todas sus riquezas luego suele Comerselos</Talk>
+						<Talk speakerId = "1" time = "6.0" >algunos dicen que tiene escondidas todas sus cosas en una cueva secreta..</Talk> 
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Donde Puedo encontrarlo?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Oh, está muy cerca de aquí a la derecha, En un Arbol Enorme. </Talk>
+						<Talk speakerId = "2" time = "6.0" >Pero te aconsejo que Si estás buscando alguien con quien charlar busca a otro que no quiera devorarte!</Talk>
+						<Talk speakerId = "1" time = "5.0" >¿Y porque dices eso? Estoy pensando en enfrentarlo y Vencerlo!</Talk>
+						<Talk speakerId = "2" time = "6.0" >Ah, Claro que sí Campeón, El mide 20 metros y tu uno y medio pero por supuesto que puedes Ganarle</Talk>					
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >Me va a dar una paliza ¿Como puedo derrotarlo?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Vencer A Moñai? Es algo Jorobado, a ver como puedo ayudarte</Talk>
+						<Talk speakerId = "2" time = "12.0" >Presta atención, Moñai no es un monstruito de pacotilla, lo que tenes que hacer para derrotarlo es:</Talk>
+						<Talk speakerId = "2" time = "10.0" >Ejecutar la operación triple 'E' o sea Ex3</Talk>
+						<Talk speakerId = "1" time = "5.0" >¿Eeh?</Talk>
+						<Talk speakerId = "2" time = "12.0" >EVITAR, EVADIR Y ESCUCHAR, tiene un par de movimientos especiales cada véz que escuches su cascabel agachate y Espera, si hace un ruido de Giros Escapa! Si sos rapido y sincronizado podés Esquivar su Remolino orbital justo por el medio</Talk>
+						<Talk speakerId = "2" time = "10.0" >los ruidos, Justamente ahí está la clave, cada véz que emita algún sonido Rajá, salta o lo que sea pero NO LO TOQUÉS </Talk>
+						<Talk speakerId = "2" time = "6.0" >Después de un par de idas y vueltas, hay un momento que se moverá SILENCIOSAMENTE despacio y en forma de oscilación durante unos segundos, Ahí es justo cuando puedes atacarlo saltando en su cabeza para lastimarlo</Talk>
+						<Talk speakerId = "2" time = "10.0" >Pero atento!, ni bien lo golpees y quedando herido, Moñai desaparecerá para volver a contratacar con una embestida a toda velocidad que deberías saltar!</Talk>
+						<Talk speakerId = "1" time = "6.0" >Uff, suena como un verdadero despiole todo esto..</Talk>
+						<Talk speakerId = "2" time = "10.0" >Si, es normal que pierdas contra el un par de veces como minimo, pero Animo que si tienes paciencia con darle tres golpes podrás derrotarlo</Talk>
+
+						</Option>
+				</ChooseTalk>
+	        </Option>
+			
+	        <Option>
+			<Talk speakerId = "1" time = "6.0" >vos el Clavel de nuevo, Otra véz? estás por todos lados! </Talk> 
+			<Talk speakerId = "2" time = "6.0" >error, esta es la primera véz que nos vemos, Estás generalizando mucho, es como si dijieras que todos los hombres que tienen ojos, piernas y pelo son la misma persona y no es así, o sí?</Talk> 
+			<Talk speakerId = "1" time = "6.0" >¿Eh? Bueno no, pero la verdad es que me resultan casi parecidos todos los claveles entre sí por no decír iguales</Talk> 
+			<Talk speakerId = "2" time = "6.0" >Estás discriminando, No seas Burro, acercate más, fijate en los detalles y vas a ver que hay mucha diferencia.. De todos modos eso no importa porque lo esencial es invisible a los ojos..</Talk> 
+			<Talk speakerId = "1" time = "6.0" >Ok, entendido</Talk> 
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >no entiendo nada ¿Podrías Explicarme todo de nuevo?</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >A ver, Los requisitos para avanzar a la proxima etapa son los siguientes:</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >Tenés que enfrentar a Moñai al Final de Pampero, o sea acá, y a Yaguá en el Monte, el otro lugar disponible en el mapa</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Una véz que hayas superado a estos dos monstruos, pegate una vueltita por el tatakuá para ponerte al día</Talk> 
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+	
+	<Conversation nameId = "Helper" >
+		<Talk speakerId = "1" time = "6.0" >Ey tengo algunas consultas que hacerte! </Talk> 
+		<Talk speakerId = "2" time = "6.0" >Claro, para eso estoy, dime ¿que quieres saber ? </Talk> 
+        <ChooseTalk> 
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿Que Podes decírme de Moñai?</Talk> 
+				<Talk speakerId = "2" time = "6.0" >Uff, Espantoso, ¿Que queres saber de el?</Talk>
+				
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Quien y Como es? ¿De donde salió? </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Es el segundo Hijo Maldito de Kerana con el Terrible Taú.. </Talk>     
+						<Talk speakerId = "2" time = "6.0" >Tiene cuerpo de serpiente y una cabeza con cuernos como antenas, es Amo de los Arboles </Talk>   
+						<Talk speakerId = "2" time = "8.0" >Es el horror de los humanos ya que Además de robarse todas sus riquezas luego suele Comerselos</Talk>
+						<Talk speakerId = "1" time = "6.0" >algunos dicen que tiene escondidas todas sus cosas en una cueva secreta..</Talk> 
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Donde Puedo encontrarlo?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Oh, está muy cerca de aquí a la derecha, En un Arbol Enorme. </Talk>
+						<Talk speakerId = "2" time = "6.0" >Pero te advierto que Si estás buscando alguien con quien charlar busca a cualquier otro que no quiera devorarte!</Talk>
+						<Talk speakerId = "1" time = "5.0" >¿Y porque dices eso? Estoy pensando en enfrentarlo y Vencerlo!</Talk>
+						<Talk speakerId = "2" time = "6.0" >Ah, Claro que sí Campeón, El mide 20 metros y tu uno y medio pero por supuesto que puedes Ganarle</Talk>					
+					</Option>
+					
+					<Option>
+							<Talk speakerId = "1" time = "5.0" >Me va a dar una paliza ¿Como puedo derrotarlo?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Vencer A Moñai? Es algo Jorobado, a ver como puedo ayudarte</Talk>
+						<Talk speakerId = "2" time = "12.0" >Presta atención, Moñai no es un monstruito de pacotilla, lo que tenes que hacer para derrotarlo es:</Talk>
+						<Talk speakerId = "2" time = "10.0" >Ejecutar la operación triple 'E' o sea Ex3</Talk>
+						<Talk speakerId = "1" time = "5.0" >¿Eeh?</Talk>
+						<Talk speakerId = "2" time = "12.0" >EVITAR, EVADIR Y ESCUCHAR, tiene un par de movimientos especiales cada véz que escuches su cascabel agachate y Espera, si hace un ruido de Giros Escapa! Si sos rapido y sincronizado podés Esquivar su Remolino orbital justo por el medio</Talk>
+						<Talk speakerId = "2" time = "10.0" >los ruidos, Justamente ahí está la clave, cada véz que emita algún sonido Rajá, salta o lo que sea pero NO LO TOQUÉS </Talk>
+						<Talk speakerId = "2" time = "6.0" >Después de un par de idas y vueltas, hay un momento que se moverá SILENCIOSAMENTE despacio y en forma de oscilación durante unos segundos, Ahí es justo cuando puedes atacarlo saltando en su cabeza para lastimarlo</Talk>
+						<Talk speakerId = "2" time = "10.0" >Pero atento!, ni bien lo golpees y quedando herido, Moñai desaparecerá para volver a contratacar con una embestida a toda velocidad que deberías saltar!</Talk>
+						<Talk speakerId = "1" time = "6.0" >Uff, suena como un verdadero despiole todo esto..</Talk>
+						<Talk speakerId = "2" time = "10.0" >Si, es normal que pierdas contra el un par de veces como minimo, pero Animo que si tienes paciencia con darle tres golpes podrás derrotarlo</Talk>				</Option>
+				</ChooseTalk>
+	        </Option>
+			
+	        <Option>
+			<Talk speakerId = "1" time = "6.0" >vos el Clavel de nuevo, Otra véz? estás por todos lados! </Talk> 
+			<Talk speakerId = "2" time = "6.0" >error, esta es la primera véz que nos vemos, Estás generalizando mucho, es como si dijieras que todos los hombres que tienen ojos, piernas y pelo son la misma persona y no es así, o sí?</Talk> 
+			<Talk speakerId = "1" time = "6.0" >¿Eh? Bueno no, pero la verdad es que me resultan casi parecidos todos los claveles entre sí por no decír iguales</Talk> 
+			<Talk speakerId = "2" time = "6.0" >Estás discriminando, No seas Burro, acercate más, fijate en los detalles y vas a ver que hay mucha diferencia.. De todos modos eso no importa porque lo esencial es invisible a los ojos..</Talk> 
+			<Talk speakerId = "1" time = "6.0" >Ok, entendido</Talk> 
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >no entiendo nada ¿Podrías Explicarme todo de nuevo?</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >A ver, Los requisitos para avanzar a la proxima etapa son los siguientes:</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >Tenés que enfrentar a Moñai al Final de Pampero, o sea acá, y a Yaguá en el Monte, el otro lugar disponible en el mapa</Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Una véz que hayas superado a estos dos monstruos, pegate una vueltita por el tatakuá para ponerte al día</Talk> 
+
+	        </Option>
+        </ChooseTalk>
+	</Conversation>
+
+	
+	
+	<Conversation nameId = "MateIntro" >
+		<Talk speakerId = "1" time = "5.0" >¡Y esto! ¿Un Camino hacía un nuevo lugar?</Talk>
+		<Talk speakerId = "1" time = "8.0" >Cielos, este lugar es enorme ¿Adonde iré a parar por aquí? </Talk>
+	</Conversation>
+ 
+	<Conversation nameId = "MateHelperIntro" >
+		<Talk speakerId = "2" time = "6.0" >Hola ¡Bienvenido a Macondo! El pueblo más copado de Pampero!!</Talk> 
+		<Talk speakerId = "1" time = "6.0" >Uff, se nota, esto tiene menos vida que Tatú embalsamado</Talk> 
+		<Talk speakerId = "2" time = "6.0" >Si bueno, Aquí antes era un lugar increible, Teníamos la fiesta de los mostachos, Ventiladores Eolicos y hasta Semaforos de cinco Colores!</Talk> 
+		<Talk speakerId = "2" time = "6.0" >Pero luego cayó una terrible maldición sobre el pueblo, y casí todo el mundo está bajo el profundo sueño de una siesta infinita.</Talk> 
+		<Talk speakerId = "1" time = "6.0" >Oh vaya, Eso suena terrible ¿Existe alguna forma de romper semejante embrujo? </Talk> 
+		<Talk speakerId = "2" time = "6.0" >Mmmh, quizá con algún brebaje magico o algo especial... ah si, tengo una Idea!</Talk> 
+		<Talk speakerId = "2" time = "6.0" >Te Propongo un Desafío: Construír el Gran Mate! sí, necesitamos preparár un enorme Mate para cargar las pilas y Despertar al pueblo de su letargo!</Talk> 
+		<Talk speakerId = "1" time = "6.0" >Ejemm, perdón, yo en realidad tengo otras cosas que hacer, lo voy a pensar primero y te aviso después ¿puede ser?</Talk> 
+		<Talk speakerId = "2" time = "6.0" >no hay drama, Puedes ir y volver cuando quieras pero Oh vamos, necesitamos tu ayuda en serio, además te prometo que si Solucionas esta Prueba te daré un Premio muy especial! </Talk> 
+        <ChooseTalk> 
+		
+	        <Option>
+				<Talk speakerId = "1" time = "5.0" >¿Que es un Mate?</Talk>
+				<Talk speakerId = "2" time = "5.0" >¿No sabés que es? Vaya, no puedo creerlo ¿No serás un Humano pintado de verde?</Talk>
+	            <Talk speakerId = "1" time = "7.0" >Alto espera, si sé que es algo para tomar pero nunca entendí a que cosa llaman así: al envase, a la yerba mate o a la Bebida? o a todo junto y por igual?.. </Talk>
+				<Talk speakerId = "2" time = "10.0" >El Mate es una Bebida tradicional de America del Sur, De origen Pre-Colombino el Ka'ay o Chimarrão ya era consumida por los Nativos Guaraníes antes de la llegada de los Europeos</Talk>
+				<Talk speakerId = "2" time = "8.0" >Además de Revitalizar al que la consume tiene otras propiedades curativas especiales como Estimulante, Accelerar el ritmo cardiaco y también como Té digestivo para dinamizar el transito lento</Talk>
+				<Talk speakerId = "2" time = "4.0" >Puede agregarsele algún yuyito especial o "burrito" como saborizante y también le suelen poner miel y/o azucar a los que no les gusta la amargura, Hay cientos de formas de Consumirlo</Talk>
+ 				<Talk speakerId = "2" time = "4.0" >Y por cierto, No Es Droga ni Ningúna substancia Ilegal o Maldita, al menos inocua comparada con cualquier cosa que puedas comprar en una Farmacia</Talk>
+			</Option>
+
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿Cuales son sus ingredientes?</Talk> 
+				<Talk speakerId = "2" time = "6.0" >Para preparar cualquier tipo de mate son necesarios tres Cosas minimas: Bombilla, Yerba y Agua caliente</Talk>
+				<Talk speakerId = "2" time = "6.0" >Además del Mate mismo, que por cierto ya hay uno listo atrás mío, Sería ese enorme Recipiente, tenés que juntar las cosas y mezclarlas ahí</Talk>
+				
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Donde puedo conseguír la Yerba? </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Por acá abajo al fondo hacia la izquierda había una bolsa en el Quincho..</Talk>     
+						<Talk speakerId = "2" time = "6.0" >Desgraciadamente los Monos la probaron y se volvieron adictos.. </Talk>   
+						<Talk speakerId = "2" time = "8.0" >Ahora se han amotinado y están todos juntos adentro ¿Quien será el valiente que se anime a buscar la bolsa?</Talk>
+						<Talk speakerId = "1" time = "6.0" >Uff, estos monos locos siempre dando la lata..</Talk> 
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Y la Bombilla?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Mmhhh, eso sería como un canuto metalico para sorber la bebida, Este pueblo se caracterizaba por fabricarlas pero luego desaparecieron casi todas</Talk>
+						<Talk speakerId = "2" time = "6.0" >Justo a la entrada del pueblo hay un Portico con un modelo a escala gigante encima que te puede servír de ejemplo para ver como son</Talk>					
+						<Talk speakerId = "2" time = "6.0" >también podrías usar esa misma pero lamentablemente está muy alto, es imposible alcanzarla, no sé adonde podrías conseguír alguna otra</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿y de donde saco el agua caliente?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Bueno, eso suele servirse en termos pero ya se rompieron todos así que deberás servirte directamente de la pava misma</Talk>
+						<Talk speakerId = "2" time = "8.0" >Hay una una con el agua caliente lista adentro del deposito general que está aquí al fondo a la derecha aunque..</Talk>
+						<Talk speakerId = "1" time = "5.0" >¿pero que pasa?</Talk>
+						<Talk speakerId = "2" time = "8.0" >Los monos también han tomado el Deposito allí, así que deberás luchar un rato..</Talk>
+						<Talk speakerId = "2" time = "10.0" >y encima por si fuera poco hay un pequeño inconveniente de escala, construyeron el deposito con la entrada muy pequeña</Talk>
+						<Talk speakerId = "1" time = "6.0" >Pero Si la empujo un poco seguro que puedo traerla hasta aquí ¿cierto?</Talk>
+						<Talk speakerId = "2" time = "4.0" >Mmmhhh, no lo creo, es más probable que encuentres un camino alternativo..</Talk>
+					</Option>
+				</ChooseTalk>
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >no entiendo nada ¿Que tengo que hacér en este lugar?</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >A ver, El Gran Mate es un desafío opcional que no es requisito para terminar la aventura principal</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >Tenés que ir y buscar la Yerba, Bombilla y el Agua Caliente, que están repartidos a lo largo de este sitio </Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Si te bloqueas, algo te sale mal o no se te ocurre que hacer, Vé por el atajo que hay en la primera puerta a la izquierda y vuelve cuando quieras para seguír intentando, yo seguiré aquí esperandote sin apuros</Talk> 				
+			</Option>
+        </ChooseTalk>
+	</Conversation>
+
+	
+	<Conversation nameId = "MateHelper" >
+
+		<Talk speakerId = "1" time = "6.0" >A ver, tengo otra duda respecto a la Preparación del Mate</Talk> 
+		<Talk speakerId = "2" time = "6.0" >Si, ¿Que quieres sabér exactamente?</Talk> 
+        <ChooseTalk> 			
+	        <Option>
+			<Talk speakerId = "1" time = "5.0" >¿Que es un Mate?</Talk>
+				<Talk speakerId = "2" time = "5.0" >¿No sabés que es el Mate? Vaya, no puedo creerlo ¿No serás un Humano pintado de verde?</Talk>
+	            <Talk speakerId = "1" time = "7.0" >Alto espera, si sé que es algo para tomar pero nunca entendí a que cosa llaman así: al envase, a la yerba mate o a la Bebida? o a todo junto y por igual?.. </Talk>
+				<Talk speakerId = "2" time = "10.0" >El Mate es una Bebida tradicional de America del Sur, De origen Pre-Colombino el Ka'ay o Chimarrão ya era consumida por los Nativos Guaraníes</Talk>
+				<Talk speakerId = "2" time = "8.0" >Además de Revitalizar al que la consume tiene otras propiedades curativas especiales como Estimulante, Accelerar el ritmo cardiaco y también como Té digestivo para dinamizar el transito lento</Talk>
+				<Talk speakerId = "2" time = "4.0" >Puede agregarsele algún yuyito especial o "burrito" como saborizante y también le suelen poner miel y/o azucar a los que no les gusta la amargura, Hay cientos de formas de Consumirlo</Talk>
+	        </Option>
+
+	        <Option>
+				<Talk speakerId = "1" time = "6.0" >¿Cuales son sus ingredientes?</Talk> 
+				<Talk speakerId = "2" time = "6.0" >Para preparar cualquier tipo de mate son necesarios tres Cosas minimas: Bombilla, Yerba y Agua caliente</Talk>
+				<Talk speakerId = "2" time = "6.0" >Además del Mate mismo, que por cierto ya hay uno listo atrás mío, Sería ese enorme Recipiente, tenés que juntar las cosas y mezclarlas ahí</Talk>
+				
+				<ChooseTalk> 
+					<Option>
+						<Talk speakerId = "1" time = "6.0" >¿Donde puedo conseguír la Yerba? </Talk> 
+						<Talk speakerId = "2" time = "6.0" >Por acá abajo al fondo hacia la izquierda había una bolsa en el Quincho..</Talk>     
+						<Talk speakerId = "2" time = "6.0" >Desgraciadamente los Monos la probaron y se volvieron adictos.. </Talk>   
+						<Talk speakerId = "2" time = "8.0" >Ahora se han amotinado y están todos juntos adentro ¿Quien será el valiente que se anime a buscar la bolsa?</Talk>
+						<Talk speakerId = "1" time = "6.0" >Uff, estos monos locos siempre dando la lata..</Talk> 
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿Y la Bombilla?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Mmhhh, eso sería como un canuto metalico para sorber la bebida, Este pueblo se caracterizaba por fabricarlas pero luego desaparecieron casi todas</Talk>
+						<Talk speakerId = "2" time = "6.0" >Justo a la entrada del pueblo hay un Portico con un modelo a escala gigante encima que te puede servír de ejemplo para ver como son</Talk>					
+						<Talk speakerId = "2" time = "6.0" >también podrías usar esa misma pero lamentablemente está muy alto, es imposible alcanzarla, no sé adonde podrías conseguír alguna otra</Talk>
+					</Option>
+					
+					<Option>
+						<Talk speakerId = "1" time = "5.0" >¿y de donde saco el agua caliente?</Talk>
+						<Talk speakerId = "2" time = "7.0" >Bueno, eso suele servirse en termos pero ya se rompieron todos así que deberás servirte directamente de la pava misma</Talk>
+						<Talk speakerId = "2" time = "8.0" >Hay una una con el agua caliente lista adentro del deposito general que está aquí al fondo a la derecha aunque..</Talk>
+						<Talk speakerId = "1" time = "5.0" >¿pero que pasa?</Talk>
+						<Talk speakerId = "2" time = "8.0" >Los monos también han tomado el Deposito allí, así que deberás luchar un rato..</Talk>
+						<Talk speakerId = "2" time = "10.0" >y encima por si fuera poco hay un pequeño inconveniente de escala, construyeron el deposito con la entrada muy pequeña</Talk>
+						<Talk speakerId = "1" time = "6.0" >Pero Si la empujo un poco seguro que puedo traerla hasta aquí ¿cierto?</Talk>
+						<Talk speakerId = "2" time = "4.0" >Mmmhhh, no lo creo, es más probable que encuentres un camino alternativo..</Talk>
+					</Option>
+				</ChooseTalk>
+	        </Option>
+			
+			<Option>
+				<Talk speakerId = "1" time = "6.0" >no entiendo nada ¿Que tengo que hacér en este lugar?</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >A ver, El Gran Mate es un desafío alternativo que no es requisito para terminar la aventura principal</Talk> 
+	            <Talk speakerId = "0" time = "12.0" >Tenés que ir y buscar la Yerba, Bombilla y el Agua Caliente, que están repartidos a lo largo de este sitio </Talk> 
+	            <Talk speakerId = "0" time = "10.0" >Si te bloqueas, algo te sale mal o no se te ocurre que hacer, Vé por el atajo que hay en la primera puerta a la izquierda y vuelve cuando quieras para seguír intentando, yo seguiré aquí esperandote sin apuros</Talk> 				
+			</Option>
+        </ChooseTalk>
+	</Conversation>
+	
+	
+	
+	
+	
+	<Conversation nameId = "Moñai" >
+    <Talk speakerId = "3" time = "5.0" >Vaya, vaya! Estate quietecito o te vas a lastimar, eh</Talk>
+    <Talk speakerId = "3" time = "5.0" >Caramba ¿Adonde vas tan apurado Duendecillo? </Talk>
+    <Talk speakerId = "1" time = "8.0" >No soy un Duende, Soy el Pumbe y vengo a Buscarte</Talk>
+    <Talk speakerId = "3" time = "5.0" >Ah si, creo que he oído algo de tí, Eres un Mito inferior del Gran Chacú, ¿Que hacés acá? </Talk>
+	
+	    <ChooseTalk>
+		  <Option>
+			<Talk speakerId = "1" time = "5.0" >¡Quiero Saber quien hizo esos dichosos Simbolos!</Talk>
+			<Talk speakerId = "3" time = "5.0" >¿Simbolos? no tienen importancia</Talk>
+			<Talk speakerId = "1" time = "5.0" >Estás escondiendo algo, Vamos! Quiero saber la Verdad!</Talk>
+			<Talk speakerId = "3" time = "5.0" >¿La verdad? es demasiado para tí, no eres capaz de soportarla!</Talk>
+		  </Option>
+      
+		  <Option>
+			<Talk speakerId = "1" time = "5.0" >¿Cual es tu problema? ¿porque tan mala actitud?</Talk>
+			<Talk speakerId = "3" time = "5.0" >Creo que te has pasado demasiado tiempo cerca de los hombres, te has vuelto debil y mediocre</Talk>
+			<Talk speakerId = "1" time = "5.0" >y tú, Deberías seguír el ejemplo de Tejú Yaguá</Talk>
+			<Talk speakerId = "3" time = "5.0" >Mmmh, de el solo puedo decír esto: <br /> ¡TODO LO QUE EL DICE ES MENTIRA!</Talk>
+			<Talk speakerId = "1" time = "5.0" >Que Paradojico</Talk>			
+		  </Option>
+	  
+		  <Option>
+			<Talk speakerId = "1" time = "5.0" >No entiendo Nada toda esta locura ¿Que está Sucediendo?</Talk>
+			<Talk speakerId = "3" time = "5.0" >Tranquilo, Acercate un poco más y te explico que fué lo que pasó jeje</Talk>
+			<Talk speakerId = "1" time = "5.0" >mmmh nah, prefiero mantener la distancia..  </Talk>
+			<Talk speakerId = "3" time = "5.0" >Vaya, para merienda dás más vueltas que calesita</Talk>
+			<Talk speakerId = "1" time = "5.0" >¿Merienda? disculpa pero eso no está en mis planes..</Talk>
+		  </Option>
+
+    </ChooseTalk>
+
+  </Conversation>
+  
+
+   
+</Conversations>

@@ -33,6 +33,16 @@ public class WorldState5 : InGameState
 
     public override void Resume()
     {
+        Debug.Log("Called Impenetrable Resume!");
 
+        if (Managers.Game.PlayerPrefab && !Managers.Game.IsPlaying)
+        {
+            Managers.Tiled.Load(Managers.Register.ImpenetrableFile);
+
+            Debug.Log("Reloaded Impenetrable Level!");
+
+            Managers.Game.IsPlaying = true;
+            Managers.Game.IsPaused = false;
+        }
     }
 }

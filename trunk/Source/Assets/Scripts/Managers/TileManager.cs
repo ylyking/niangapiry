@@ -11,7 +11,7 @@ using Ionic.Zlib;
  * 
  * - Load Files From Assets Datafolder as: "/SomeFolder/SomeFile.SomeExtension" ( Don't use 'Ñ' letter)
  * 
- * - Use Tiled Editor and rename file extensions from '.TMX' to '.XML' (And save in Gzip + Base64 Compression)
+ * - Use Tiled Editor and U can rename file extensions from '.TMX' to '.XML' (And save in Gzip + Base64 Compression)
  * 
  * - Remember To always Use 2x Power Texture sizes..
  * 
@@ -39,12 +39,14 @@ public class TileManager : MonoBehaviour {
 
     public float ScrollBaseSpeed = 1;
     public  Transform PlayerTransform;
+    public  Transform CamTransform;
     private Vector3 oldPos;
     private Vector3 scrollValue;
     //----------------------------------------------------------------------------------------//
 
     public bool Load( string filePath )
     {
+        CamTransform = Managers.Display.MainCamera.transform;
         //Debug.Log(Application.dataPath + filePath);
         if (MapTransform != null )
         {
@@ -117,10 +119,14 @@ public class TileManager : MonoBehaviour {
             foreach(XmlNode MapProperty in Doc.DocumentElement.FirstChild )
             {
                 if (MapProperty.Attributes["name"].Value.ToLower() == "music")
-                    Managers.Audio.PlayMusic( (AudioClip)Resources.Load("Sound/" + MapProperty.Attributes["value"].Value, typeof(AudioClip)), 1, 1);
+                    Managers.Audio.PlayMusic( (AudioClip)Resources.Load("Sound/" + MapProperty.Attributes["value"].Value, typeof(AudioClip)), .45f, 1);
                  
                 //if (MapProperty.Attributes["name"].Value.ToLower() == "camerafixedheight")
                 //    Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>().FixedHeight = true;
+
+                if (MapProperty.Attributes["name"].Value.ToLower() == "zoom")
+                    Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>().distanceModifier = 3.5f;
+
             }
 
         Debug.Log("Tiled Level Build Finished: "+ fileName);
@@ -143,6 +149,7 @@ public class TileManager : MonoBehaviour {
             PlayerTransform = null;
         }
 
+        Managers.Audio.StopMusic();
         TileSets.Clear();
         LastUsedMat = 0;
         ScrollBaseSpeed = 1;
@@ -193,26 +200,48 @@ public class TileManager : MonoBehaviour {
         uint CollisionLayer = 0;
 
         XmlElement Data = (XmlElement)LayerInfo.FirstChild;
-        while (Data.Name != "data")	//		if ( Data.Name == "properties" )    // if Layer data has properties get them
+        while (Data.Name != "data") 
         {
-            XmlElement LayerProp = (XmlElement)Data.FirstChild;
-
-            if (LayerProp.GetAttribute("name").ToLower() == "collision")
-                if (LayerProp.GetAttribute("value").ToLower() != "plane") 
-                    CollisionLayer = 1;                                         // check if it's a boxed collision and setup
-                else 
-                    CollisionLayer = 2;                                         // else it's a plane type collsion Layer..
-
-            if (LayerProp.GetAttribute("name").ToLower() == "depth")
+            foreach( XmlElement property in Data)
             {
-                LayerTransform.position = new Vector3(  LayerTransform.position.x,
-                                                        LayerTransform.position.y,
-                                                        float.Parse(LayerProp.GetAttribute("value")));
-                //Debug.Log(float.Parse(LayerProp.GetAttribute("value")));
-            }
+                if (property.GetAttribute("name").ToLower() == "collision")
+                    if (property.GetAttribute("value").ToLower() != "plane") 
+                        CollisionLayer = 1;                                         // check if it's a boxed collision and setup
+                    else 
+                        CollisionLayer = 2;                                         // else it's a plane type collsion Layer..
 
+                if (property.GetAttribute("name").ToLower() == "depth")
+                {
+                    LayerTransform.position = new Vector3(  LayerTransform.position.x,
+                                                            LayerTransform.position.y,
+                                                            float.Parse(property.GetAttribute("value")));
+                }
+
+            }
             Data = (XmlElement)Data.NextSibling;
+
         }
+
+        //while (Data.Name != "data")	//		if ( Data.Name == "properties" )    // if Layer data has properties get them
+        //{
+        //    XmlElement LayerProp = (XmlElement)Data.FirstChild;
+
+        //    if (LayerProp.GetAttribute("name").ToLower() == "collision")
+        //        if (LayerProp.GetAttribute("value").ToLower() != "plane") 
+        //            CollisionLayer = 1;                                         // check if it's a boxed collision and setup
+        //        else 
+        //            CollisionLayer = 2;                                         // else it's a plane type collsion Layer..
+
+        //    if (LayerProp.GetAttribute("name").ToLower() == "depth")
+        //    {
+        //        LayerTransform.position = new Vector3(  LayerTransform.position.x,
+        //                                                LayerTransform.position.y,
+        //                                                float.Parse(LayerProp.GetAttribute("value")));
+        //        //Debug.Log(float.Parse(LayerProp.GetAttribute("value")));
+        //    }
+
+        //    Data = (XmlElement)Data.NextSibling;
+        //}
 
         if ( LayerTransform.position.z == TileOutputSize.z)
             TileOutputSize.z += 0.5f;
@@ -486,9 +515,9 @@ public class TileManager : MonoBehaviour {
                         }
                         break;
 
-                    case "flyPlatform2":
+                    case "flyPlatformA":
                         goto case "flyPlatform";
-                    case "flyPlatform3":
+                    case "flyPlatformB":
                         goto case "flyPlatform";
                     case "flyPlatform":
                         {
@@ -520,12 +549,19 @@ public class TileManager : MonoBehaviour {
                                 {
                                     chat.OneShot = true;
                                     chat.oneShotId = ObjProp.Attributes["value"].Value;
-                                    chat.NameId = chat.oneShotId ;
+                                    //chat.NameId = chat.oneShotId ;
+                                }
+
+                                if ( ObjProp.Attributes["name"].Value.ToLower() == "sound" ) 
+                                {
+                                    chat.soundChat = (AudioClip)Resources.Load( ObjProp.Attributes["value"].Value, typeof(AudioClip));
                                 }
 
                                 if ( ObjProp.Attributes["name"].Value.ToLower() == "nameid" ) 
                                     chat.NameId = ObjProp.Attributes["value"].Value;
 
+                                if ( ObjProp.Attributes["name"].Value.ToLower() == "zoom" ) 
+                                    chat.zoom = float.Parse(ObjProp.Attributes["value"].Value);
                                 //Managers.Dialog.Init(chat.ConversationFile);
                             }
                                 Debug.Log("Deploying Conversation");
@@ -538,13 +574,33 @@ public class TileManager : MonoBehaviour {
                             {
                                 if (ObjProp.Attributes["name"].Value.ToLower() == "zoom" )
                                        ((CameraBounds)ObjPrefab.GetComponent<CameraBounds>()).ZoomFactor = 
-                                           float.Parse(ObjProp.Attributes["value"].Value.ToLower());
+                                           float.Parse(ObjProp.Attributes["value"].Value);
 
                                 if (ObjProp.Attributes["name"].Value.ToLower() == "offset" )
                                     ((CameraBounds)ObjPrefab.GetComponent<CameraBounds>()).Offset = 
-                                           ReadVector( ObjProp.Attributes["value"].Value.ToLower(), 0);
+                                           ReadVector( ObjProp.Attributes["value"].Value, 0);
                             }
                         }
+                        break;
+
+                    default:
+                            foreach (XmlNode ObjProp in ((XmlElement)ObjInfo).GetElementsByTagName("property") )
+                            {
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "depth" )
+                                    ObjPrefab.transform.position += Vector3.forward * 
+                                           float.Parse(ObjProp.Attributes["value"].Value);
+                                  
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "rotation" )
+                                    ObjPrefab.transform.localRotation =  Quaternion.Euler( new Vector3( 0, 0,
+                                        float.Parse(ObjProp.Attributes["value"].Value)  ) );
+
+                                if (ObjProp.Attributes["name"].Value.ToLower() == "scale" )
+                                {
+                                    ObjPrefab.transform.localScale = ReadVector(ObjProp.Attributes["value"].Value) ;
+                                    ObjPrefab.transform.localScale += Vector3.forward;
+                                }
+
+                            }
                         break;
                 }
 
@@ -722,21 +778,27 @@ public class TileManager : MonoBehaviour {
         if ( ScrollLayers == null) return;
 
         UpdateScroll();
-        if ( PlayerTransform )
-        {
-            scrollValue = PlayerTransform.position - oldPos;
-            oldPos = PlayerTransform.position;
-        }
+        //if ( PlayerTransform )
+        //{
+            //scrollValue = PlayerTransform.position - oldPos;
+            //oldPos = PlayerTransform.position;
+
+            scrollValue = CamTransform.position - oldPos;
+            oldPos = CamTransform.position;
+        //}
 
         foreach (ScrollLayer scrollLayer in ScrollLayers)
         {
             if (!scrollLayer)
                 continue;
 
-            if (PlayerTransform)
-                scrollLayer.gameObject.SetActive( ( scrollLayer.range.y > PlayerTransform.position.y &&
-                    scrollLayer.range.x < PlayerTransform.position.y ) );
+            //if (PlayerTransform)
+            //    scrollLayer.gameObject.SetActive( ( scrollLayer.range.y > PlayerTransform.position.y &&
+            //        scrollLayer.range.x < PlayerTransform.position.y ) );
 
+            if (PlayerTransform)
+                scrollLayer.gameObject.SetActive( ( scrollLayer.range.y > Managers.Display.MainCamera.transform.position.y &&
+                    scrollLayer.range.x < Managers.Display.MainCamera.transform.position.y ) );
 
             if (scrollLayer.GetMaterial())
             {
@@ -749,6 +811,12 @@ public class TileManager : MonoBehaviour {
                     {
                         scrollLayer.GetMaterial().SetTextureOffset( textureName, WrapVector(
                             scrollLayer.GetMaterial().GetTextureOffset(textureName) +
+                            //ScrollBaseSpeed * (scrollLayer.GetScrollType() == ScrollType.Auto ?
+                            //                    scrollLayer.GetSpeed() * Time.deltaTime  + 
+                            //                    new Vector2(scrollValue.x * scrollLayer.GetSpeed().x,
+                            //                        scrollValue.y * scrollLayer.GetSpeed().y)   :
+                            //                    new Vector2(scrollValue.x * scrollLayer.GetSpeed().x,
+                            //                                scrollValue.y * scrollLayer.GetSpeed().y) )));
                             ScrollBaseSpeed * (scrollLayer.GetScrollType() == ScrollType.Auto ?
                                                 scrollLayer.GetSpeed() * Time.deltaTime :
                                                 new Vector2(scrollValue.x * scrollLayer.GetSpeed().x,
@@ -859,7 +927,8 @@ class cTileSet
             tex.wrapMode = TextureWrapMode.Repeat;
             tex.anisoLevel = 0;
 
-            this.mat = new Material(Shader.Find("Mobile/Particles/Alpha Blended"));
+            //this.mat = new Material(Shader.Find("Mobile/Particles/Alpha Blended"));
+            this.mat = new Material(Shader.Find("Unlit/Transparent"));
             this.mat.mainTexture = tex;
 
         }

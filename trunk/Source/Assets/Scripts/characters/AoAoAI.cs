@@ -42,40 +42,50 @@ namespace Bosses
         {
             //if (Health <= 0)
             //    Debug.Log("AoAO Already Beated!");
+            //Managers.Display.camTransform.position = Vector3.zero;
 
-            if ((MySize == AoSize.Huge) && Managers.Register.AoAoDefeated)
+            if (MySize == AoSize.Huge) 
             {
-                Debug.Log("AoAO Already Beated!");
 
-                GameObject Door = (GameObject)Instantiate(Prefabs[5],
-                                        new Vector3((Managers.Game.PlayerPrefab).transform.position.x,
-                                                     Managers.Display.cameraScroll.levelBounds.yMin + 1.5f, .3f),
-                                                     gameObject.transform.rotation);
+                Managers.Display.camTransform.position = new Vector3(100, 1.43f, -2.5f);
 
-                Door.transform.parent = gameObject.transform.parent;
-                (Door.GetComponent<Portal>() as Portal).Target = "/Levels/CampoDelCielo.tmx";
+                if ( Managers.Register.AoAoDefeated)
+                {
+                
+                    Debug.Log("AoAO Already Beated!");
 
-                DestroyImmediate(gameObject);
-                //this.enabled = false;
-                return;
+                    GameObject Door = (GameObject)Instantiate(Prefabs[5],
+                                            new Vector3(100,
+                                                         Managers.Display.cameraScroll.levelBounds.yMin + 1.5f, .3f),
+                                                         gameObject.transform.rotation);
+
+                    Door.transform.parent = gameObject.transform.parent;
+                    (Door.GetComponent<Portal>() as Portal).Target = "/Levels/CampoDelCielo.tmx";
+
+                    DestroyImmediate(gameObject);
+                    //this.enabled = false;
+                    return;
+                }
+
+            }
+            else if (MySize != AoSize.Huge)
+            {
+                PlayerTransform = Managers.Game.PlayerPrefab.transform;
+                BossArea.center = new Vector2(PlayerTransform.position.x, PlayerTransform.position.y + 0.5f);
+                TargetTransform = PlayerTransform;
+
+                NewPosition = new Vector3(BossArea.xMin, PlayerTransform.position.y, PlayerTransform.position.z);
             }
 
-
-            PlayerTransform = Managers.Game.PlayerPrefab.transform;
-            BossArea.center = new Vector2(PlayerTransform.position.x, PlayerTransform.position.y + 0.5f);
-            TargetTransform = PlayerTransform;
+    
 
             ThisTransform = transform;
             AoAnim = ThisTransform.GetComponent<AnimSprite>();
-            NewPosition = new Vector3(BossArea.xMin, PlayerTransform.position.y, PlayerTransform.position.z);
 
             LevelArea = Managers.Display.cameraScroll.levelBounds;
 
             if (MySize == AoSize.Huge)
                 ThisTransform.localScale = Vector3.one * 4;
-
-            //if (Managers.Game.State == Managers.Game.GetComponentInChildren<WorldState4>()) 
-            //    ((WorldState4)Managers.Game.State).AoAoReady = true;
 
             if (MySize != AoSize.Huge && TreeTransform == null)
             {
@@ -176,7 +186,20 @@ namespace Bosses
             if (NewPosition.x < LevelArea.xMin)
                 Orientation = +1;
 
-            if (Mathf.Abs(PlayerTransform.position.x - NewPosition.x) < 3)
+            if (PlayerTransform == null && Managers.Game.PlayerPrefab)
+            {
+                PlayerTransform = Managers.Game.PlayerPrefab.transform;
+                BossArea.center = new Vector2(PlayerTransform.position.x, PlayerTransform.position.y + 0.5f);
+                TargetTransform = PlayerTransform;
+
+                NewPosition = new Vector3(BossArea.xMax, PlayerTransform.position.y + 2, PlayerTransform.position.z);
+
+                LevelArea = Managers.Display.cameraScroll.levelBounds;
+                ThisTransform.GetComponent<Rigidbody>().useGravity = true;
+
+                AoAoState = BossState.Roaming;
+            }
+            else if ( PlayerTransform && Mathf.Abs(PlayerTransform.position.x - NewPosition.x) < 3)
             {
                 Talking = true;
                 AoAoState = BossState.Talking;
@@ -383,7 +406,7 @@ namespace Bosses
             }
             else
             {
-                if (Health <= 0)
+                if (Health <= 0 && !Managers.Register.AoAoDefeated)
                 {
                     Managers.Register.AoAoDefeated = true;
 
@@ -403,7 +426,7 @@ namespace Bosses
 
         void OnTriggerEnter(Collider hit)
         {
-            if (hit.tag == "p_shot" && AoAoState != BossState.Talking)
+            if (hit.tag == "p_shot" && AoAoState != BossState.Talking && AoAoState != BossState.Roaming)
             {
                 hit.transform.position = PlayerTransform.position + (Vector3.right * Orientation * 9);
                 AoAoState = BossState.Hurting;
@@ -423,7 +446,7 @@ namespace Bosses
         void OnCollisionEnter(Collision hit)
         {
 
-            if (hit.transform.tag == "pickup" && AoAoState != BossState.Talking)
+            if (hit.transform.tag == "pickup" && AoAoState != BossState.Talking && AoAoState != BossState.Roaming)
             {
                 if (Managers.Dialog.IsInConversation())
                     EndTalk();
@@ -441,7 +464,20 @@ namespace Bosses
                 Destroy(killBox, 3);
             }
 
+            if (hit.transform.tag == "pickup" && AoAoState != BossState.Talking && AoAoState == BossState.Roaming)
+            {
+                if (Managers.Dialog.IsInConversation())
+                    EndTalk();
 
+                AoAnim.PlayFramesFixed(2, 0, 4, Orientation);
+
+                var killBox = (GameObject)Instantiate(Prefabs[3], hit.transform.position, hit.transform.rotation);
+                killBox.transform.parent = hit.transform;
+                hit.transform.rigidbody.AddForce(
+                    new Vector3(Orientation, Random.Range(0.35f, 0.65f), 0) * Random.Range(65, 120), ForceMode.Impulse);
+
+                Destroy(killBox, 2);
+            }
         }
 
 

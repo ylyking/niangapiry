@@ -7,7 +7,6 @@ public class CreditsMenuState : GameState
     string FullText = "Volver";
     string InfoText = "\n\n\n\n Programado By CarliXYZ \n Arte & Diseño By FAC! \n Music By Fernando Verga & Menta-Beat \n\n ÑANGAPIRY 86® - 2012  \n\n- SUNHOUSE™ - ";
 
-    GameObject IntroPrefab;
     GUISkin gSkin;
 
     public override void Init()

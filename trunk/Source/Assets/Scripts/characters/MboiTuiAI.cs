@@ -15,11 +15,11 @@ namespace Bosses
         int Orientation = -1;                       // This setup the Monster face direction
         int RiseOrientation = 1;
         int AttackRange = 0;                        // number of Wipes before change to next behaviour
-        int Health = 5;                        // total hits needed to kill it
+        int Health = 3;                        // total hits needed to kill it
         float horizon = 3;                        // medium height from where the Sin moves on...
-        float PlayerHeight = 0;                        // one Time fastcheck player position for Sliding Attack
-        float PlayerWidth = 0;                        // one Time fastcheck player position for Sliding Attack
-        //float timeLapse         = 0;                        // timeLapse for Something...
+        float PlayerHeight = 0;                        // one TimeLapse fastcheck player position for Sliding Attack
+        float PlayerWidth = 0;                        // one TimeLapse fastcheck player position for Sliding Attack
+        //float timeTrailer         = 0;                        // timeTrailer for Something...
 
         float ClimbFactor = 7.5f;                     // It's a kind of inversed Gravity 
         float ClimbSpeed = 0;                        // and this It's the Speed that's Reduced by ClimbFactor
@@ -51,6 +51,13 @@ namespace Bosses
         // Use this for initialization
         void Start()
         {
+            if (Managers.Register.MboiTuiDefeated)
+            {
+                Debug.Log("MboiTui Already Beated!");
+                DestroyImmediate(gameObject);
+                return;
+            }
+
             thisTransform = this.transform;
             Chain = GetComponent<SpriteChain>();
             Head = GetComponent<AnimSprite>();
@@ -137,8 +144,10 @@ namespace Bosses
                 Orientation = +1;
             }
 
-            if ((thisTransform.position.x - Managers.Game.PlayerPrefab.transform.position.x) < 2)
+            if ((thisTransform.position.x - Managers.Game.PlayerPrefab.transform.position.x) < 2
+                && Mathf.Abs(thisTransform.position.y - Managers.Game.PlayerPrefab.transform.position.y) < 2)
             {
+                PlayerHeight = Managers.Game.PlayerPrefab.transform.position.y;
                 MboiTuiState = BossState.Talking;
                 Talking = true;
             }
@@ -350,7 +359,7 @@ namespace Bosses
             Talking = false;
 
             Managers.Dialog.Init(file);
-            Managers.Dialog.StartConversation("Moñai");
+            Managers.Dialog.StartConversation("Mboi");
 
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 1;
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0.01f;
@@ -368,9 +377,9 @@ namespace Bosses
 
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.y = 0;
             (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).Offset.x = 0;
-            (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 2.5f;
+            (Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>()).distanceModifier = 3;
 
-            //timeLapse = 0;
+            //timeTrailer = 0;
         }
 
 
@@ -399,7 +408,7 @@ namespace Bosses
                                         NewPosition.z);
 
 
-            if (NewPosition.y < -10)
+            if (NewPosition.y < 80)
             {
                 ClimbSpeed = 0;
                 Random.seed = (int)Time.time;
@@ -434,6 +443,8 @@ namespace Bosses
             AttackRange = 0;
             Health = -1;
             Head.PlayFrames(1, 0, 2, Orientation);
+
+            Managers.Register.MboiTuiDefeated = true;
 
         }
 

@@ -3,10 +3,12 @@ using System.Collections;
 
 public class WorldState3 : InGameState
 {
+
     public override void Init()
     {
         //Debug.Log("Enter World 3 State: Iguazú");
         Managers.Tiled.Load(Managers.Register.IguazuFile);
+        //Managers.Tiled.Load("/Levels/Iguazu2.tmx");
         base.Init();
     }
 
@@ -21,6 +23,7 @@ public class WorldState3 : InGameState
 
     public override void OnUpdate()
     {
+
         base.OnUpdate();
        
     }
@@ -32,6 +35,16 @@ public class WorldState3 : InGameState
 
     public override void Resume()
     {
+        Debug.Log("Called Iguazu Resume!");
 
+        if (Managers.Game.PlayerPrefab && !Managers.Game.IsPlaying)
+        {
+            Managers.Tiled.Load(Managers.Register.IguazuFile);
+
+            Debug.Log("Reloaded Iguazu Level!");
+
+            Managers.Game.IsPlaying = true;
+            Managers.Game.IsPaused = false;
+        }
     }
 }

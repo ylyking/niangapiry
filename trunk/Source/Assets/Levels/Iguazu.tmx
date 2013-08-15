@@ -1,156 +1,3064 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="25" height="50" tilewidth="64" tileheight="64" backgroundcolor="#55aaff">
- <tileset firstgid="1" name="plancha1" tilewidth="64" tileheight="64">
-  <image source="plancha1.png" width="512" height="512"/>
-  <tile id="2">
-   <properties>
-    <property name="Collision" value="Plane"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="Collision" value="Plane"/>
-   </properties>
-  </tile>
-  <tile id="5">
-   <properties>
-    <property name="Collision" value="Box"/>
-   </properties>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="Collision" value="Box"/>
-   </properties>
-  </tile>
-  <tile id="9">
-   <properties>
-    <property name="Collision" value="Box"/>
-   </properties>
-  </tile>
-  <tile id="10">
-   <properties>
-    <property name="Collision" value="Slope"/>
-   </properties>
-  </tile>
-  <tile id="11">
-   <properties>
-    <property name="Collision" value="Box"/>
-   </properties>
-  </tile>
-  <tile id="16">
-   <properties>
-    <property name="Player" value="Spawn"/>
-   </properties>
-  </tile>
-  <tile id="17">
-   <properties>
-    <property name="Collision" value="Slope"/>
-   </properties>
-  </tile>
-  <tile id="19">
-   <properties>
-    <property name="Collision" value="Plane"/>
-   </properties>
-  </tile>
-  <tile id="20">
-   <properties>
-    <property name="Collision" value="Plane"/>
-   </properties>
-  </tile>
+<map version="1.0" orientation="orthogonal" width="300" height="100" tilewidth="64" tileheight="64" backgroundcolor="#55aaff">
+ <properties>
+  <property name="music" value="soundtracka"/>
+ </properties>
+ <tileset firstgid="1" name="Iguazu_ts" tilewidth="64" tileheight="64">
+  <image source="Iguazu_ts.png" width="512" height="512"/>
  </tileset>
  <tileset firstgid="65" name="plancha2" tilewidth="64" tileheight="64">
   <image source="plancha2.png" width="512" height="512"/>
  </tileset>
- <tileset firstgid="129" name="PLANCHA3" tilewidth="64" tileheight="64">
-  <image source="PLANCHA3.png" width="512" height="512"/>
+ <tileset firstgid="129" name="pampa" tilewidth="64" tileheight="64">
+  <image source="pampa.png" width="512" height="512"/>
  </tileset>
- <imagelayer name="Sky" width="25" height="50">
+ <imagelayer name="Sky" width="300" height="100">
   <image source="cielo.png"/>
   <properties>
-   <property name="Padding" value="1.5,0"/>
-   <property name="Repeat" value="x"/>
-   <property name="Size" value="Fullscreen"/>
+   <property name="padding" value="1.5,1"/>
   </properties>
  </imagelayer>
- <imagelayer name="FarClouds" width="25" height="50">
+ <imagelayer name="nubes1" width="300" height="100">
   <image source="nube1.png"/>
   <properties>
-   <property name="Repeat" value=""/>
-   <property name="Size" value="Original"/>
+   <property name="speed" value="0.01"/>
   </properties>
  </imagelayer>
- <imagelayer name="NearClouds" width="25" height="50">
+ <imagelayer name="nubes2" width="300" height="100">
   <image source="nube2.png"/>
   <properties>
-   <property name="Repeat" value=""/>
-   <property name="Size" value="Original"/>
+   <property name="speed" value="0.02"/>
   </properties>
  </imagelayer>
- <layer name="Fondo" width="25" height="50">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3QsQ0AIAhEURawchb3c3QtryARJRQm/yWU3ClmAAAAAADgV2NPk6mg+b04//Yf3q7u7/fO7H28fL2DdryKdmREOpIVOFic/n6ciBMAAA==
-  </data>
- </layer>
- <layer name="Arboles 2" width="25" height="50">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OIRLAMAgEQFyqQp/cpwcTE9UKTGd3hjkFXAQAAABfzYjnqszG+3flnvlyZzR2yqNT1x+Av1oFoplMiBMAAA==
-  </data>
- </layer>
- <layer name="Plataformas 2" width="25" height="50">
+ <layer name="Pampita" width="300" height="100">
   <properties>
-   <property name="Depth" value="0.5"/>
+   <property name="depth" value="1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3NuwkAIBBEwdMa/LRr6QragIFGM7C8cCMAAAD4Ia+l01dqxCi7z/T10XYBuDAB4iZteYgTAAA=
+   H4sIAAAAAAAAC+3UPQrCUBBG0dmyruA1/kSIpNLSrbg0P0jEIBYqiCnOgcsQQoZUUwUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAsm7RNu7Qfn9v93TmdxtleffvtXoB3dOmQ29FN96NPxzRMs5/dlctjtvrQbG8bnvYCAAAAv7Wuuq7Sv/8DAAAAAABYnht+xvBzwNQBAA==
   </data>
  </layer>
- <layer name="Arboles 1" width="25" height="50">
+ <layer name="ArbolesBack" width="300" height="100">
+  <properties>
+   <property name="Depth" value="2"/>
+  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3Nuw6CMABG4b6aiAMgA6KLMyNxE1xQH90zN2k7sJnzJWf6ewlBkiRJkv7XI7MdqKJj4Y2aTontSQut9KIp2htqqSv8caY+sW30pg99aY72gS40Fv640q1wJue+464kKYQfNG9zSYgTAAA=
+   H4sIAAAAAAAAC+3d6W7bRhAAYD5aep/pnR9N0KQO0KQu0ASS0yOy0/LR+mhdmp50siUlOZJNyv4+YKDD0nIocoe7FGE1DQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABw07xf4oOpkwDYwucl7k6dBMAWvitxb+okAAAAAACAnT0s8WjqJAC28KTE06mTANjS86kTAAAAAAAAAAAY8ahp2oclps4DYJOnpVY9Ua+AA/BcreIGezZ1AsCklk3zT4k7U+exyW8lfi/xR4k/J84FmMYvpV4dl5g6j01elfirxN+NSQTcVo9LrTp6y3rl91bmy/9tgV6pb12d83srM+b/tkCvzB+7eeRsf28l6uk+fbPn9q7SSYkXUyexhZM0tXct1u1Q+mV7NMF2Xjbn9erOvT2fq9/H+kQ9PerjvK1nF7e5lo316/Jce1LlcP8K832vvP/dEu9U7axrO69H5BuvPy3Pne2S0DU5TeuWr8Waap++LodyPBmzy3ig9Mv2+AZt213WJ9eZZWrr4rvF7rbN7Y/167O+z7e5zfsjdXko39ie2+6Xn5X3f1rik6qdqLu1Rb/M13+LfOO5xch6zVm+FmtO+3TdNy+7bYdc9nhSHz+nrndj++U2Sr9sl/tM5orFsTN/5h+W+KjEx02/Pou33FdznVldtNXdv/husX3Vf1ZtXl73urvV8lbpcbQZ46t6XxnKN7bnpv0y2vm2vL/MN9uvq9wWffuD8t9WM+nb+5I/0019c5dj/Tb9vq6dx328MYYdGg9uymt1iTzzft3ZtOzrcEg1ZxdDffmLEl+W+Krp+97LK/78q+V15+BGlxe1IMZXdQ0aqxWpljQPRtqOdh709bD9vkTO7WWzfr++zD5/SPI+UH/e9Vhj3fh2k3XHk6hldT1Y9O2fz73j848c8nLrMUiujXG/W5cX6fHYuYpV1fZqYNlj6xjvO6Tvi+d23cFtqc1cvXXj2yz3/6gTna7fD9W3qGV1WzG+itucQ64d9dg418a4H/P2eDx0riJyzX87S/OTev1PqnWN/A/p++K47mAfY8ehc9EwN/UxMdeLs6qPD41RYow3NCdf/FeT2vza5f/baMYed/fz+DnOX+S8VinX5ZvPv56P1uP702pdc/6H8jsfcd1BbJdtz9f9MFCX6rk0zNHQXHls/lzXmUNxU88HhKjfm84Dxzjsp7QdfzzQbQocpnyebl1tjjnvr6lG/axeATO07nt0AACA2+BfZhqrRcDUAQA=
   </data>
  </layer>
- <layer name="Plataformas 1" width="25" height="50">
+ <layer name="ArbolesFront" width="300" height="100">
+  <properties>
+   <property name="Depth" value="-1"/>
+  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2TUQqEMAxEo7gLSr880R6lR+lRPIpHM8VmCZK1GxXxYx4MbSXJlKQSAQAAAAAAAAB4Gg1RErV8tuRlm9dXNBi5oqZI1+v4rv26fnlV9FaxQ8nfu4eFx4P3cy3mDg9rfmc8+DxlBRWT56FnccZjJPpYfbE44iH1eU38LWaFHU+j5qSl+8D7pOv/O3fP+xC29a/2sOp7PEps1OL+RIkNP96u1+PI/3Gxh9mnJ3gs3WTubIgTAAA=
+   H4sIAAAAAAAAC+3ZS0/CUBAG0P41Fd+4UHGhBnUh6kI0LnxsNPx0hxASggUb23IrPSeZwKbTCWHul6ZZBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAe/dQDABQ0SD0AQEHD1AMAAAAAAAAAAAD8YzepBwAo6CH1AAAAAAAAtE4najv1EAAFdKOOUg8BrIWtLBttRm1E1dG/F3VWR+Ma3db0W0AT1X0GTMVz1qhT8h6Hcf1B1P5cnyp6z3qqqtEKPDqvaJFFZ0BVXma+d0ve4zSuP4k6nusTz3Cjsr2nXqPeJp+V9KN6ka1ZZOw4a2mZRWdAHXol73EZ119Enc/1iWe4UdneU59RX5PPSvqVYS/zRbZmkbHjrF1qle9P+g34v7TBojOA1crbraJ72TaRrVlk7Dhrl1r2/qTqZ/5Bzfsju2iSvN0qupfrYi92fjdq55fdj2zNImPHWbvUovcn02f+96iPP8yZZ1jzedW07LqKuk49BMnk7VbRvWT9NS277qLuUw8BNFITs+s59QAAAAAA/PANhON85cDUAQA=
   </data>
  </layer>
- <objectgroup name="Capa de Objetos 1" width="25" height="50">
-  <object name="Fruit" gid="136" x="320" y="2880"/>
-  <object name="Fruit" gid="136" x="384" y="2880"/>
-  <object name="Fruit" gid="136" x="448" y="2880"/>
-  <object name="Fruit" gid="136" x="512" y="2880"/>
-  <object name="Fruit" gid="136" x="576" y="2752"/>
-  <object name="Fruit" gid="136" x="576" y="2624"/>
-  <object name="Fruit" gid="136" x="576" y="2496"/>
-  <object name="Fruit" gid="136" x="832" y="2368"/>
-  <object name="Fruit" gid="136" x="960" y="2368"/>
-  <object name="Fruit" gid="136" x="896" y="2368"/>
-  <object name="Fruit" gid="136" x="768" y="2368"/>
-  <object name="Fruit" gid="136" x="1024" y="2368"/>
-  <object name="Fruit" gid="136" x="896" y="2176"/>
-  <object name="Fruit" gid="136" x="960" y="2176"/>
-  <object name="Fruit" gid="136" x="1024" y="2176"/>
-  <object name="Fruit" gid="136" x="576" y="2240"/>
-  <object name="Fruit" gid="136" x="640" y="2240"/>
-  <object name="Fruit" gid="136" x="1024" y="1984"/>
-  <object name="Fruit" gid="136" x="960" y="1984"/>
-  <object name="Fruit" gid="136" x="960" y="2048"/>
-  <object name="Fruit" gid="136" x="1088" y="1920"/>
-  <object name="Fruit" gid="136" x="1216" y="1856"/>
-  <object name="Fruit" gid="136" x="1152" y="1856"/>
-  <object name="Fruit" gid="136" x="768" y="2880"/>
-  <object name="Fruit" gid="136" x="832" y="2816"/>
-  <object name="Fruit" gid="136" x="896" y="2752"/>
-  <object name="Fruit" gid="136" x="960" y="2688"/>
-  <object name="Fruit" gid="136" x="1088" y="2688"/>
-  <object name="Fruit" gid="136" x="1216" y="2560"/>
-  <object name="Dengue" gid="131" x="576" y="2880"/>
-  <object name="Hat" gid="133" x="256" y="2944"/>
-  <object type="Warp" x="1344" y="2496" width="64" height="64">
+ <layer name="Fondo" width="300" height="100">
+  <data encoding="base64" compression="gzip">
+   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
+  </data>
+ </layer>
+ <layer name="3 Plano" width="300" height="100">
+  <data encoding="base64" compression="gzip">
+   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
+  </data>
+ </layer>
+ <layer name="2 Plano" width="300" height="100">
+  <data encoding="base64" compression="gzip">
+   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
+  </data>
+ </layer>
+ <layer name="CollisionPlane" width="300" height="100">
+  <properties>
+   <property name="Collision" value="Plane"/>
+   <property name="Depth" value="0.3"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dW26jMBQAUAapyXQX/s4S+jVLY2ld2iQNSK7rQCjEvM6REJDyMAUul5epKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2L+6qpp6wrh/7m0AAAAAAAAAAAAAAGAl2uf9m6XLAQCwRV0udXt/Mm4A1iKOUwBrlOZTAAAAMEZ8bV49h8CWiFsAAPM6Vc4Rge26xTBxCwAAYD9qdTcAAIzW3udrkrZ3DoFi1MsArN1cdYaG6UWB1QnRvhEWKwX1xFwquLYOFBKS/qFnz9Ph4YiC4/SqnK/r4716/fPnSf2A8XX7xrPv9Anfu5s5pvmRmW7ftMOM82aaW9w4tXErqb+98Q4gJYWlCxAJSxcA4EWic4i4cbwvLM230rb1wSN1ZhsJ0XnVNadvztf233v34urq5zeiHtU3EoqXjimS44n6Yw6ob3+u7v2f198/r+1/pcu2Buk+Umr/uBSaT59LNa4cuW8KjhhnVPOb5eG4wpPbTC4/e8U4e3FJmqXLsjVvyXX8I25DWxEWOO6E8cM3U+e51DsdaS5QYl+4JN1pHOuLKUPxpu/v9YScMnfe9qh5JfWOEvtN/j+38LO/KV+KeTzKq/p+rzK/58ZLpzE07rPqez7TtPUSr+JcbShGimPHUjK/oKz6iXXbxahzG6fGbAfiBM/K3Ts7reB4OIeQ9Of2u3SYuD/+3+TE5zhTysk6DN1Hlo/tk++TEHtvmz1vE7dnd27P8HTLubfle4Ux99D2cr8tyG02J81juvdw9uAtWpapeZi6nsvptsncO2Fzx8hgvcLhbO0bbWHpAgAAAADw5T+JYT1UwNQBAA==
+  </data>
+ </layer>
+ <layer name="CollisionBox" width="300" height="100">
+  <properties>
+   <property name="Collision" value="Box"/>
+   <property name="Depth" value="0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dW3KbMBQAUOy4Tbshz3T6k6V0KSzFS/HSCg0kiizxcDEvnzNzxwngoAz2lUBCFAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAcKeiuFZxeZlxn9W+ynqfbcy4a2DDFsxXhVwFjCFfAVuxcL76FwB9mutH2lfA6jW56trkreKQiGPifdWyMrcutV0cQdvqMsk/AuxelS/+hPkq7LNrI2x3NfmnjNfF+SveLhHyFTBKIl9dw5jg718zIV8Bdzll4lH7ApiSvAIAAAAAAKxVMG62DF7LzO8fywHmcF66AAAAAAA8nWP+OvnNvBXhPBV9c1oATK3KO9fDe7zFEc8lVs/3FfwMsBrxXGKnzLqwrdW21+YqI8AYYe5yfzkAAAAAW1Zfj8+NhehaBzCHcIxXuyz1vKF6DEW17dsihQSeUjz2dMh7fhoDAdwpdW7mfA1Yo3YsezjHFQAAAAA8Ut/Yp+YVNuv4dW6km/idWe5zvz7Hz3lj4jEHH/cpmyeGZ2Pc37bpCwQAAABCx6/XslPPxH1buIhwl1wfjb6Y7XpdugDQ42Xie5H1Qa7X9+pY/6qi7vf/Vr02UTRRLlGmdoxCfU98nS9/vJdzVL137BjjcPjcBm7IV0yhzlmpdnsmN908/6nveVDAc4jHbXaNUzZ+Jntd0DUVWEjuPIzx11ziZ+3tOeTm/TkvXYAdGNrGGfr9STw7PRueg5fnPH1fzoV8NYWhbZxE26ZMxamJx5X4OchX/XLf/6XbxmuNPbTZp+4HZxpD8lXffe5LfA+GzNHc12/9vzGnqm6+TBCz2EMdKF+t05DP1lqOXfys+7gtHi/b03WALeWr5hh01hWpumZMOy1XF93znlTs6bOzJ0P6Fhy75W0pXw3V11btqkvXUocC1Lrq0rYtDezXX/q0yhDA1AEA
+  </data>
+ </layer>
+ <layer name="1 Plano" width="300" height="100">
+  <properties>
+   <property name="Depth" value="0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   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
+  </data>
+ </layer>
+ <layer name="0 Plano" width="300" height="100">
+  <properties>
+   <property name="Depth" value="-.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dTW7iMBgA0IhFZyrNpmzYZjtXqABxlByFo/QoHIWjjF3sUUgLpCng0LwnRSGUwEcjf4l/YqoKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArm9RVfvSMQD0EfJVXToGgK54LRWWbek4ANpCXtqFZdPa3ruWAsYm5ap3q6p6S9t1yZgAumJumoccVToOgEvW1XvOAvgRQj5r2tt/OtsAY7E4tGk1peMA+Iqcu1L/4SavS8cF8JmUs+rOdlMuIoD+0hiIpnQcAOfEXBXHba1LBwLQQ6oTbkrHAdCHOiHwKBbqhAAAAMVpSwLGKs9fle9dXh/66wBGIV9DrUoHAnBB7Iubh5xVOg54JIvDskuPm6LBAJyx6Jzj3f8KPBJtvQAAAOOS+8C7bU43+JztLd+fY3XpAODKZimHxFyS25eW6bnlgPzS/t26E38HGGTW4zS8vEMcTMvsMO5+VzoOgHPkKX4S9+XC+KTfPWpy+Xyuqu1T6aAKaY8n1cYF5cVyuD4ul7t038r/nLWUs6qXEdQX4vEIx6pZm4OciTvxW22MVDw+39k/z5XgniTGIvf912XD+OCzslaHWNt1z7De/grr32F5vmNsU2Qu82mIbT2t6/Nm6PuE/XfziY1bXHVy1lPn+7fGW8GR7px/U+rby9994L71F1+/z/usWuUz1726Zbi0S23tt2yLf01rdRWiKc35dy4f37ONpn3dfepz45ju1WG9SdtvaT36Y/V6+SUwSCw7L85dxcT5FsP/f999fkrXtqX97bEAp32332fgZ8Z+8sH1YgAAAAAAAOC6/gFOltE8wNQBAA==
+  </data>
+ </layer>
+ <objectgroup name="Objetos" width="300" height="100">
+  <object name="FirstCamera" type="CameraBound" x="0" y="5696" width="1634" height="420">
    <properties>
-    <property name="target" value="/Levels/Iguazu2.tmx"/>
+    <property name="zoom" value="3"/>
    </properties>
   </object>
-  <object name="checkpoint" type="Warp" x="1152" y="2624" width="64" height="64"/>
+  <object name="ProxiCam" type="CameraBound" x="6376" y="2396" width="2176" height="1472">
+   <properties>
+    <property name="zoom" value="7"/>
+   </properties>
+  </object>
+  <object type="Pombero" x="128" y="6016" width="64" height="64"/>
+  <object name="ProxiBox" type="killBox" x="6912" y="3584" width="1088" height="128"/>
+  <object name="ProxiEnter" type="Door" x="6720" y="3264" width="64" height="64">
+   <properties>
+    <property name="Target" value="MontainOut"/>
+   </properties>
+  </object>
+  <object name="ProxiExit" type="Door" x="8192" y="3264" width="64" height="64">
+   <properties>
+    <property name="Target" value="/Levels/Iguazu2.tmx"/>
+   </properties>
+  </object>
+  <object type="Dengue" x="7040" y="3200" width="64" height="64"/>
+  <object type="Dengue" x="7616" y="3328" width="64" height="64"/>
+  <object type="Dengue" x="7872" y="3264" width="64" height="64"/>
+  <object type="Particles/WaterFall" x="1024" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="1024" y="6049" width="64" height="64"/>
+  <object type="Particles/WaterFall" x="1024" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1024" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1024" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="1088" y="6050" width="64" height="64"/>
+  <object type="Particles/WaterFall" x="1088" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1088" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1088" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1088" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1024" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1088" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1088" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1537" y="6088" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1537" y="6344" width="64" height="64"/>
+  <object type="Particles/WaterBound" x="1537" y="6066" width="64" height="30"/>
+  <object type="Particles/WaterBound" x="2240" y="6208" width="192" height="64"/>
+  <object type="Palometa" x="2304" y="6208" width="64" height="64"/>
+  <object type="Particles/WaterFlow" x="2241" y="6180" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2304" y="6144" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="2305" y="6180" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="2369" y="6181" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1537" y="6152" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1537" y="6216" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1537" y="6280" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2304" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2304" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2304" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="Scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="1024" y="5632" width="64" height="64"/>
+  <object type="Particles/Water" x="1024" y="5632" width="64" height="64"/>
+  <object type="Particles/Water" x="1088" y="5632" width="64" height="64"/>
+  <object type="Particles/WaterBound" x="2176" y="5824" width="320" height="64"/>
+  <object type="Particles/WaterFallAlpha" x="2304" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="Scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="1536" y="6024" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+   </properties>
+  </object>
+  <object name="BloqueUno" type="Secrets/MagicBlock" x="13056" y="3840" width="64" height="64">
+   <properties>
+    <property name="depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Secrets/MagicBlock" x="13056" y="3776" width="64" height="64">
+   <properties>
+    <property name="depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Secrets/MagicBlock" x="13056" y="3712" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="13056" y="3648" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="13056" y="3584" width="64" height="64"/>
+  <object type="CollisionBound" x="12864" y="3520" width="640" height="64"/>
+  <object type="CollisionBound" x="13376" y="3584" width="128" height="320"/>
+  <object type="MagicBlock" x="13056" y="4480" width="64" height="64"/>
+  <object type="Particles/WaterFlow" x="12012" y="4830" width="101" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="11968" y="4288" width="192" height="64"/>
+  <object type="Palometa" x="12032" y="4288" width="64" height="64"/>
+  <object type="Particles/WaterAlpha" x="11968" y="4224" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="12032" y="4224" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="12096" y="4224" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="12863" y="3875" width="128" height="59">
+   <properties>
+    <property name="depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="12608" y="4352" width="128" height="64"/>
+  <object type="Palometa" x="11392" y="5184" width="64" height="64"/>
+  <object type="Particles/WaterFlow" x="13241" y="4511" width="140" height="58">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="11513" y="5022" width="77" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="4224" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="4288" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="4992" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="4608" width="64" height="256">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,4"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="4928" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="4864" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="4800" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="4416" width="64" height="192">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="4736" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="4352" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="4672" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="4608" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="11251" y="5536" width="77" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="11330" y="5535" width="77" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12649" y="4480" width="87" height="253">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12649" y="4416" width="87" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12649" y="4733" width="87" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12649" y="4797" width="87" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12649" y="4861" width="87" height="66">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="12642" y="4895" width="101" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13312" y="3584" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13248" y="3584" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13312" y="3648" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13248" y="3648" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13312" y="3712" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13248" y="3712" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13312" y="3776" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13248" y="3776" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13312" y="3840" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13248" y="3840" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="3904" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="3904" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="3968" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="3968" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="4032" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="4032" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="4096" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="4096" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="4160" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="4160" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="4224" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="4224" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="4288" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="4288" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="4352" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="4352" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="4416" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="4416" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13312" y="4480" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13248" y="4480" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12649" y="5055" width="87" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12649" y="4991" width="87" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12649" y="4927" width="87" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12649" y="5248" width="87" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12649" y="5184" width="87" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12649" y="5120" width="87" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="4352" width="64" height="256">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,4"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12864" y="3584" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="13504" y="5215" width="140" height="58">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object name="BloqueTres" type="Particles/WaterFallAlpha" x="13511" y="4736" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object name="BloqueDos" type="Particles/WaterAlpha" x="2816" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="2880" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="2944" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3008" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3072" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3136" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="2944" y="6235" width="64" height="64"/>
+  <object type="Particles/WaterFallAlpha" x="2944" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2944" y="6144" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3008" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3008" y="6144" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="3008" y="6235" width="64" height="64"/>
+  <object type="Particles/WaterFallAlpha" x="3008" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2944" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3008" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2944" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3008" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2944" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="2816" y="6272" width="384" height="64"/>
+  <object type="Particles/WaterFallAlpha" x="2112" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+    <property name="Scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2496" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+    <property name="Scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="2944" y="5952" width="128" height="320"/>
+  <object type="Particles/WaterFallAlpha" x="2176" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="Scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="2160" y="5759" width="81" height="65">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2240" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="Scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2304" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="Scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2368" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="Scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2432" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="Scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="2240" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="2304" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="2368" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="2432" y="5760" width="72" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Palometa" x="2304" y="5824" width="64" height="64"/>
+  <object type="Particles/WaterFall" x="1664" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1664" y="5312" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1664" y="5248" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="1664" y="5184" width="64" height="64"/>
+  <object type="Particles/WaterFall" x="1664" y="5504" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1664" y="5376" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="1664" y="5120" width="64" height="64"/>
+  <object type="Particles/WaterFlow" x="1665" y="5534" width="64" height="64"/>
+  <object type="Particles/WaterFallAlpha" x="1517" y="5664" width="36" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1517" y="5728" width="36" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1517" y="5792" width="36" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="960" y="5632" width="64" height="64"/>
+  <object type="Secrets/Bonus3" x="960" y="5632" width="64" height="64"/>
+  <object type="Particles/WaterFall" x="1024" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="2880" y="5760" width="128" height="192"/>
+  <object type="Particles/WaterFall" x="2944" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="2880" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="2944" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="2880" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="2944" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="2880" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="2945" y="5921" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="2881" y="5921" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Secrets/FishBass" x="1920" y="6154" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.6"/>
+   </properties>
+  </object>
+  <object type="whistle" x="2368" y="5440" width="64" height="64"/>
+  <object type="Particles/WaterFallAlpha" x="2836" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="2836" y="5730" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="CollisionBound" x="2150" y="5877" width="39" height="38"/>
+  <object type="CollisionBound" x="2481" y="5875" width="39" height="38"/>
+  <object type="CollisionBound" x="1600" y="6272" width="1216" height="64"/>
+  <object type="Particles/WaterBound" x="949" y="5685" width="221" height="23"/>
+  <object type="Particles/WaterFallAlpha" x="3776" y="6144" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="3648" y="6208" width="384" height="64"/>
+  <object type="Particles/WaterFlow" x="3777" y="6176" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object name="CheckPoint" type="Warp" x="3295" y="6027" width="64" height="64"/>
+  <object type="Palometa" x="2976" y="6272" width="64" height="64"/>
+  <object type="Particles/WaterFallAlpha" x="3840" y="6144" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="3841" y="6176" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3712" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3712" y="5568" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3840" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="3649" y="5659" width="64" height="64"/>
+  <object type="Particles/WaterFallAlpha" x="3712" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3776" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="3776" y="5824" width="128" height="320"/>
+  <object type="Particles/WaterAlpha" x="3904" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Palometa" x="3840" y="5696" width="64" height="64"/>
+  <object type="Particles/WaterAlpha" x="3968" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="3520" y="5696" width="640" height="64"/>
+  <object type="Particles/WaterFlow" x="3713" y="5659" width="64" height="64"/>
+  <object type="Particles/WaterAlpha" x="3648" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3584" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3520" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="4096" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="4032" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3776" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3840" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3776" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3840" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3776" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3840" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3776" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3840" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3776" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3840" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3776" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3840" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="1664" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3456" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="4160" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="CollisionBound" x="3204" y="6272" width="2176" height="64"/>
+  <object type="CameraBound" x="1152" y="5184" width="1342" height="422">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="3008" y="5760" width="1764" height="548">
+   <properties>
+    <property name="zoom" value="4"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3712" y="5504" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3712" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3712" y="5376" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3712" y="5312" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3712" y="5248" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3712" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3776" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3840" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3904" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="3968" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="4032" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="4096" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="3778" y="5661" width="64" height="64"/>
+  <object type="Particles/WaterFall" x="4288" y="5248" width="64" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4288" y="5312" width="64" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4352" y="5376" width="64" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4352" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4352" y="5504" width="64" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4352" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Secrets/FishBass" x="6271" y="5388" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.6"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="2548" y="5947" width="17" height="75">
+   <properties>
+    <property name="Depth" value="1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="2840" y="6208" width="10" height="33">
+   <properties>
+    <property name="Depth" value=".35"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="2651" y="6123" width="12" height="49">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2532" y="6144" width="13" height="65">
+   <properties>
+    <property name="Depth" value=".35"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="2432" y="6080" width="13" height="51">
+   <properties>
+    <property name="Depth" value=".35"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3776" y="5248" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Secrets/FishBass" x="4180" y="6155" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.6"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1853" y="5362" width="8" height="36">
+   <properties>
+    <property name="Depth" value=".35"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1771" y="5454" width="13" height="51">
+   <properties>
+    <property name="Depth" value=".35"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="1853" y="5398" width="8" height="43">
+   <properties>
+    <property name="Depth" value=".35"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="4557" y="5824" width="38" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="4557" y="5888" width="38" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="4557" y="5952" width="38" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="4525" y="6016" width="19" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="4525" y="6080" width="19" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="4652" y="6079" width="19" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="4652" y="6143" width="19" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="4608" y="6016" width="19" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="4480" y="6144" width="19" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="4526" y="5985" width="101" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="4480" y="6109" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="4609" y="6048" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="5441" y="5938" width="576" height="79"/>
+  <object type="Particles/WaterAlpha" x="5440" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5504" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5568" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5632" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5696" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5760" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5824" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5888" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3648" y="6272" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3712" y="6272" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3776" y="6272" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3840" y="6272" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3904" y="6272" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3968" y="6272" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="3584" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4032" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="3648" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="3712" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="3776" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="3840" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="3904" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="3968" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3648" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3712" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3776" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3840" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3904" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="3968" y="6208" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5952" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5696" y="5504" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5696" y="5568" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5696" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5696" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5696" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5696" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4288" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4224" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4288" y="5056" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4224" y="5056" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4288" y="4992" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4224" y="4992" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4288" y="4928" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4224" y="4928" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4288" y="4864" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4224" y="4864" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5346" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".38"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5346" y="5312" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5346" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".38"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5346" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5346" y="5056" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".38"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5346" y="5376" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".38"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5346" y="5248" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".38"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5376" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5440" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5504" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5568" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5632" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5696" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5312" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5248" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="5184" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4288" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="4224" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".28"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="5696" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="5676" y="5914" width="101" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="5323" y="5470" width="101" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="4480" y="4800" width="2016" height="730">
+   <properties>
+    <property name="zoom" value="5"/>
+   </properties>
+  </object>
+  <object type="Palometa" x="5696" y="5952" width="64" height="64"/>
+  <object type="Particles/WaterBound" x="5696" y="5504" width="64" height="448"/>
+  <object type="Fruit" x="3392" y="6144" width="64" height="64"/>
+  <object type="Fruit" x="3297" y="6113" width="64" height="64"/>
+  <object type="Fruit" x="3327" y="6144" width="64" height="64"/>
+  <object type="Fruit" x="3329" y="6080" width="64" height="64"/>
+  <object type="Fruit" x="3360" y="6112" width="64" height="64"/>
+  <object type="Fruit" x="3264" y="6145" width="64" height="64"/>
+  <object type="Fruit" x="2849" y="5440" width="64" height="64"/>
+  <object type="Fruit" x="2912" y="5439" width="64" height="64"/>
+  <object type="Fruit" x="2945" y="5407" width="64" height="64"/>
+  <object type="Fruit" x="2882" y="5408" width="64" height="64"/>
+  <object type="Fruit" x="2914" y="5375" width="64" height="64"/>
+  <object type="Fruit" x="2977" y="5439" width="64" height="64"/>
+  <object type="Fruit" x="4480" y="5185" width="64" height="64"/>
+  <object type="Fruit" x="4544" y="5184" width="64" height="64"/>
+  <object type="Fruit" x="4576" y="5152" width="64" height="64"/>
+  <object type="Fruit" x="4513" y="5153" width="64" height="64"/>
+  <object type="Fruit" x="4545" y="5120" width="64" height="64"/>
+  <object type="Fruit" x="4608" y="5184" width="64" height="64"/>
+  <object type="Fruit" x="5440" y="5441" width="64" height="64"/>
+  <object type="Fruit" x="5568" y="5440" width="64" height="64"/>
+  <object type="Fruit" x="1792" y="5505" width="64" height="64"/>
+  <object type="Fruit" x="1855" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="1888" y="5472" width="64" height="64"/>
+  <object type="Fruit" x="1825" y="5473" width="64" height="64"/>
+  <object type="Fruit" x="1857" y="5440" width="64" height="64"/>
+  <object type="Fruit" x="1920" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="4416" y="5633" width="64" height="64"/>
+  <object type="Fruit" x="4479" y="5632" width="64" height="64"/>
+  <object type="Fruit" x="4512" y="5600" width="64" height="64"/>
+  <object type="Fruit" x="4449" y="5601" width="64" height="64"/>
+  <object type="Fruit" x="4481" y="5568" width="64" height="64"/>
+  <object type="Fruit" x="4544" y="5632" width="64" height="64"/>
+  <object type="Fruit" x="1408" y="5505" width="64" height="64"/>
+  <object type="Fruit" x="1471" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="1504" y="5472" width="64" height="64"/>
+  <object type="Fruit" x="1441" y="5473" width="64" height="64"/>
+  <object type="Fruit" x="1473" y="5440" width="64" height="64"/>
+  <object type="Fruit" x="1536" y="5504" width="64" height="64"/>
+  <object type="FruitPack" x="1088" y="5632" width="64" height="64"/>
+  <object type="Fruit" x="6464" y="5888" width="64" height="64"/>
+  <object type="Fruit" x="6592" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="6336" y="5888" width="64" height="64"/>
+  <object type="Fruit" x="6848" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="6720" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="2176" y="6144" width="64" height="64"/>
+  <object type="Fruit" x="2112" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="2560" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="2624" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="2752" y="6144" width="64" height="64"/>
+  <object type="Fruit" x="2880" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="2944" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="3008" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="2944" y="5888" width="64" height="64"/>
+  <object type="Fruit" x="2880" y="5888" width="64" height="64"/>
+  <object type="Fruit" x="3712" y="6208" width="64" height="64">
+   <properties>
+    <property name="depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Fruit" x="3840" y="6208" width="64" height="64">
+   <properties>
+    <property name="depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Fruit" x="3968" y="6208" width="64" height="64">
+   <properties>
+    <property name="depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Fruit" x="1697" y="5793" width="64" height="64"/>
+  <object type="Fruit" x="1664" y="5825" width="64" height="64"/>
+  <object type="Fruit" x="1760" y="5792" width="64" height="64"/>
+  <object type="Fruit" x="1729" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="1727" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="1792" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="5312" y="5312" width="64" height="64"/>
+  <object type="Fruit" x="5376" y="5184" width="64" height="64"/>
+  <object type="Fruit" x="4800" y="5248" width="64" height="64"/>
+  <object type="Fruit" x="6976" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="7104" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="704" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="1600" y="6016" width="64" height="64"/>
+  <object type="CollisionBound" x="4736" y="6016" width="2304" height="64"/>
+  <object type="CollisionBound" x="1600" y="6336" width="2496" height="64"/>
+  <object type="Fruit" x="3904" y="5696" width="64" height="64"/>
+  <object type="Fruit" x="4032" y="5696" width="64" height="64"/>
+  <object type="Fruit" x="5120" y="5888" width="64" height="64"/>
+  <object type="Fruit" x="4992" y="5888" width="64" height="64"/>
+  <object type="whistle" x="3776" y="5760" width="64" height="64"/>
+  <object type="whistle" x="4647" y="6155" width="64" height="64">
+   <properties>
+    <property name="depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="whistle" x="3392" y="5248" width="64" height="64"/>
+  <object type="Particles/WaterBound" x="3714" y="5238" width="636" height="22"/>
+  <object type="Particles/WaterBound" x="5183" y="5494" width="576" height="27"/>
+  <object type="Particles/WaterBound" x="3627" y="6208" width="415" height="24"/>
+  <object type="Particles/WaterBound" x="4480" y="6134" width="61" height="24"/>
+  <object type="Particles/WaterBound" x="4608" y="6070" width="61" height="24"/>
+  <object type="Particles/WaterBound" x="4546" y="6003" width="61" height="24"/>
+  <object type="Particles/WaterBound" x="5350" y="5044" width="53" height="468"/>
+  <object type="Fruit" x="5312" y="5056" width="64" height="64"/>
+  <object type="whistle" x="129" y="5864" width="64" height="64">
+   <properties>
+    <property name="depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Stone" x="1694" y="6140" width="64" height="64"/>
+  <object type="CameraBound" x="7040" y="5440" width="3013" height="483">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="Pomberox" x="6656" y="5504" width="64" height="64"/>
+  <object type="Particles/WaterFlow" x="12672" y="5026" width="54" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Secrets/MagicBlock" x="16448" y="5952" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="16448" y="5888" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="16448" y="5760" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="16448" y="5824" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="16448" y="5696" width="64" height="64"/>
+  <object type="BigBlock" x="11428" y="5466" width="64" height="64"/>
+  <object type="Particles/WaterBound" x="11264" y="5184" width="320" height="64"/>
+  <object type="Particles/WaterBound" x="11968" y="4864" width="192" height="64"/>
+  <object type="Particles/WaterBound" x="13376" y="4672" width="320" height="64"/>
+  <object type="Particles/WaterBound" x="11328" y="6144" width="512" height="64"/>
+  <object type="Particles/WaterFlow" x="11133" y="5857" width="77" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="11147" y="5760" width="52" height="63">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="11147" y="5823" width="52" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="11456" y="6113" width="77" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11648" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="11648" y="6113" width="77" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="11584" y="6113" width="77" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="11520" y="6113" width="77" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11648" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11648" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11648" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11648" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11648" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11648" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11584" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11584" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11584" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11584" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11584" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11584" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11584" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11520" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11456" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11456" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11456" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11456" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11456" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11456" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11456" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11328" y="5312" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11264" y="5376" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11328" y="5376" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11264" y="5504" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11328" y="5504" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11264" y="5248" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11264" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11264" y="5312" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11328" y="5248" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11328" y="5440" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="5568" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="5696" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="5632" width="101" height="65">
+   <properties>
+    <property name="depth" value="-1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="5760" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="5824" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="5952" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="5888" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12032" y="6016" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12139" y="5376" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12139" y="5248" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12139" y="5312" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12139" y="5184" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12139" y="5440" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12139" y="5504" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="12133" y="5534" width="107" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="12032" y="6051" width="101" height="62">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="14134" y="6045" width="74" height="61">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14144" y="5889" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.5"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14144" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14144" y="5953" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14144" y="5760" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14407" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14407" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="14371" y="6046" width="140" height="58">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14407" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14656" y="5888" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12139" y="5056" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="12139" y="5120" width="101" height="65">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13511" y="4800" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13511" y="4864" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13511" y="4928" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13511" y="4992" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13511" y="5056" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13511" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13511" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13575" y="4800" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13575" y="4864" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13575" y="4928" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13575" y="4992" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13575" y="4736" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13575" y="5056" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13575" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="13575" y="5184" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12928" y="3584" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12864" y="3648" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12928" y="3648" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12864" y="3712" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12928" y="3712" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12864" y="3776" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12928" y="3776" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12864" y="3840" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="12928" y="3840" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Palometa" x="12672" y="4352" width="64" height="64"/>
+  <object type="Particles/WaterAlpha" x="11456" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11520" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11584" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11648" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11712" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11776" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11840" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11904" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11968" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="11456" y="5664" width="575" height="46"/>
+  <object type="Particles/WaterAlpha" x="12160" y="5504" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="12096" y="5504" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="12032" y="5504" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterBound" x="12033" y="5536" width="191" height="41"/>
+  <object type="Particles/WaterAlpha" x="11328" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11392" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11520" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11456" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11648" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11584" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11776" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11712" y="6080" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11456" y="5056" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11392" y="5056" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11328" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11264" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11456" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11400" y="5120" width="49" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11200" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11154" y="5121" width="47" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11456" y="5120" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="11449" y="5147" width="77" height="63">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Palometa" x="11520" y="6144" width="64" height="64"/>
+  <object type="Palometa" x="13504" y="4672" width="64" height="64"/>
+  <object type="Particles/WaterFall" x="14656" y="6016" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14656" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="14656" y="6044" width="74" height="61">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13417" y="5247" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="13396" y="5599" width="74" height="61">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="13438" y="5215" width="74" height="61">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13417" y="5311" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13417" y="5375" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13417" y="5439" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13417" y="5503" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13417" y="5567" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13983" y="5824" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13535" y="5632" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13983" y="5760" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="13663" y="5696" width="33" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="13517" y="5660" width="74" height="61">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="13644" y="5728" width="74" height="61">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFlow" x="13966" y="5855" width="74" height="61">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="13376" y="5568" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="13440" y="5568" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="13504" y="5568" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="13568" y="5632" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="13632" y="5632" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="13696" y="5696" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11392" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11328" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFallAlpha" x="11264" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1.25,1"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11264" y="5632" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11264" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11200" y="5696" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterAlpha" x="11150" y="5696" width="50" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="13760" y="5696" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="13824" y="5696" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="13888" y="5696" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="13952" y="5696" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14016" y="5696" width="64" height="64">
+   <properties>
+    <property name="depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14080" y="5696" width="64" height="64">
+   <properties>
+    <property name="depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14144" y="5696" width="64" height="64">
+   <properties>
+    <property name="depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="14144" y="5824" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".25"/>
+    <property name="scale" value="-1,1"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14400" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14208" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14336" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14272" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14016" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14080" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14144" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value=".3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14656" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14464" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14528" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Particles/Water" x="14592" y="5824" width="64" height="64">
+   <properties>
+    <property name="depth" value="-.3"/>
+   </properties>
+  </object>
+  <object type="Secrets/FishBass" x="11966" y="3977" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.6"/>
+   </properties>
+  </object>
+  <object type="Secrets/FishBass" x="11713" y="4936" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.6"/>
+   </properties>
+  </object>
+  <object type="Secrets/FishBass" x="13778" y="5193" width="64" height="64">
+   <properties>
+    <property name="Depth" value="-.6"/>
+   </properties>
+  </object>
+  <object type="Mono" x="11712" y="4608" width="64" height="64"/>
+  <object type="Mono" x="11582" y="4018" width="64" height="64"/>
+  <object type="Mono" x="11513" y="4101" width="64" height="64"/>
+  <object type="Mono" x="12288" y="3712" width="64" height="64"/>
+  <object type="Mono" x="13667" y="4480" width="64" height="64"/>
+  <object type="Mono" x="13761" y="4498" width="64" height="64"/>
+  <object type="Mono" x="13820" y="5106" width="64" height="64"/>
+  <object type="Mono" x="14044" y="5567" width="64" height="64"/>
+  <object type="Mono" x="12484" y="5876" width="64" height="64"/>
+  <object type="Mono" x="12747" y="5906" width="64" height="64"/>
+  <object type="Mono" x="12856" y="5886" width="64" height="64"/>
+  <object type="Mono" x="12412" y="5954" width="64" height="64"/>
+  <object type="Mono" x="10622" y="5748" width="64" height="64"/>
+  <object type="CameraBound" x="11296" y="5760" width="784" height="488">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="12164" y="5788" width="1114" height="332">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="13154" y="4771" width="1268" height="576">
+   <properties>
+    <property name="zoom" value="7"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="12765" y="4645" width="384" height="192">
+   <properties>
+    <property name="zoom" value="7.5"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="10432" y="5376" width="128" height="192">
+   <properties>
+    <property name="zoom" value="20"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="10210" y="4514" width="1664" height="832">
+   <properties>
+    <property name="zoom" value="7"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="13536" y="5916" width="1344" height="256">
+   <properties>
+    <property name="zoom" value="5"/>
+   </properties>
+  </object>
+  <object type="CollisionBound" x="12032" y="5568" width="64" height="128"/>
+  <object name="MontainOut" type="Door" x="12544" y="3840" width="64" height="64">
+   <properties>
+    <property name="Target" value="ProxiEnter"/>
+   </properties>
+  </object>
+  <object name="Arriba" type="Door" x="13568" y="5184" width="128" height="64">
+   <properties>
+    <property name="Target" value="Abajo"/>
+   </properties>
+  </object>
+  <object name="Abajo" type="Door" x="13376" y="6016" width="64" height="64">
+   <properties>
+    <property name="Target" value="Arriba"/>
+   </properties>
+  </object>
+  <object type="hat" x="13152" y="3818" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="12032" y="5504" width="64" height="64"/>
+  <object type="Particles/WaterBound" x="11441" y="5669" width="648" height="39"/>
+  <object type="Particles/WaterBound" x="13435" y="5222" width="209" height="48"/>
+  <object type="Particles/WaterBound" x="14080" y="6080" width="128" height="64"/>
+  <object type="Particles/WaterBound" x="14336" y="6080" width="192" height="64"/>
+  <object type="Particles/WaterBound" x="14656" y="6080" width="128" height="64"/>
+  <object type="Particles/WaterBound" x="13983" y="5863" width="224" height="33"/>
+  <object type="Particles/WaterBound" x="14215" y="5861" width="224" height="33"/>
+  <object type="Particles/WaterBound" x="14471" y="5862" width="224" height="33"/>
+  <object type="Particles/WaterBound" x="13988" y="5737" width="224" height="33"/>
+  <object type="Particles/WaterBound" x="13761" y="5737" width="224" height="33"/>
+  <object type="Mono" x="12160" y="5136" width="64" height="64">
+   <properties>
+    <property name="depth" value=".5"/>
+   </properties>
+  </object>
+  <object type="Mono" x="12665" y="5653" width="64" height="64"/>
+  <object type="Mono" x="12928" y="5259" width="64" height="64"/>
+  <object type="CollisionBound" x="16256" y="3648" width="256" height="2048"/>
+  <object name="Salida" type="Collision/DoorPrefab" x="19008" y="5952" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="target" value="Exit"/>
+   </properties>
+  </object>
+  <object type="Bosses/YasiYatere" x="17728" y="5952" width="64" height="64"/>
+  <object type="Fruit" x="4864" y="5888" width="64" height="64"/>
+  <object type="Fruit" x="4736" y="5888" width="64" height="64"/>
+  <object type="Fruit" x="6144" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="6080" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="6208" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="6112" y="5792" width="64" height="64"/>
+  <object type="Fruit" x="6177" y="5792" width="64" height="64"/>
+  <object type="Fruit" x="6145" y="5759" width="64" height="64"/>
+  <object type="Fruit" x="6528" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="6592" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="6720" y="5632" width="64" height="64"/>
+  <object type="Fruit" x="6784" y="5632" width="64" height="64"/>
+  <object type="Fruit" x="6848" y="5632" width="64" height="64"/>
+  <object type="Fruit" x="6464" y="5376" width="64" height="64"/>
+  <object type="Fruit" x="6336" y="5376" width="64" height="64"/>
+  <object type="Fruit" x="896" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="1472" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="1536" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="1408" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="1536" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="1216" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="1308" y="5503" width="64" height="64"/>
+  <object type="Fruit" x="2304" y="5440" width="64" height="64"/>
+  <object type="Fruit" x="2432" y="5440" width="64" height="64"/>
+  <object type="Fruit" x="2688" y="5568" width="64" height="64"/>
+  <object type="Fruit" x="320" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="512" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="3584" y="6144" width="64" height="64"/>
+  <object type="Fruit" x="4073" y="6145" width="64" height="64"/>
+  <object type="Fruit" x="7232" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="7471" y="5759" width="64" height="64"/>
+  <object type="Fruit" x="8000" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="7936" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="8832" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="8448" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="8896" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="8576" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="8640" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="9408" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="9344" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="10752" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="10816" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="10944" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="11264" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="11200" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="11072" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="11392" y="5888" width="64" height="64"/>
+  <object type="Fruit" x="11712" y="5952" width="64" height="64"/>
+  <object type="Fruit" x="11776" y="5952" width="64" height="64"/>
+  <object type="Fruit" x="11904" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="11968" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="11840" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="11776" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="11904" y="5760" width="64" height="64"/>
+  <object type="Fruit" x="12352" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="12545" y="6013" width="64" height="64"/>
+  <object type="Fruit" x="12736" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="12928" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="13120" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="12224" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="11392" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="12352" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="12480" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="12608" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="13248" y="5504" width="64" height="64"/>
+  <object type="Fruit" x="13696" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="13824" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="13952" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="14208" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="14528" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="14784" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="13824" y="5696" width="64" height="64"/>
+  <object type="Fruit" x="13952" y="5696" width="64" height="64"/>
+  <object type="Fruit" x="14080" y="5696" width="64" height="64"/>
+  <object type="Fruit" x="14272" y="5824" width="64" height="64"/>
+  <object type="Palometa" x="14111" y="6081" width="64" height="64"/>
+  <object type="Palometa" x="14400" y="6080" width="64" height="64"/>
+  <object type="Palometa" x="14692" y="6081" width="64" height="64"/>
+  <object type="Fruit" x="11968" y="5248" width="64" height="64"/>
+  <object type="Fruit" x="12416" y="5376" width="64" height="64"/>
+  <object type="Fruit" x="12544" y="5376" width="64" height="64"/>
+  <object type="Fruit" x="12672" y="5376" width="64" height="64"/>
+  <object type="Fruit" x="11584" y="4992" width="64" height="64"/>
+  <object type="Fruit" x="11776" y="4928" width="64" height="64"/>
+  <object type="Fruit" x="12224" y="4800" width="64" height="64"/>
+  <object type="Fruit" x="12480" y="4864" width="64" height="64"/>
+  <object type="Fruit" x="13184" y="4672" width="64" height="64"/>
+  <object type="Fruit" x="13376" y="4544" width="64" height="64"/>
+  <object type="Fruit" x="13056" y="4352" width="64" height="64"/>
+  <object type="Fruit" x="12864" y="4288" width="64" height="64"/>
+  <object type="Fruit" x="12480" y="4288" width="64" height="64"/>
+  <object type="Fruit" x="12288" y="4160" width="64" height="64"/>
+  <object type="Fruit" x="11584" y="4160" width="64" height="64"/>
+  <object type="Fruit" x="11712" y="4096" width="64" height="64"/>
+  <object type="Fruit" x="11840" y="4032" width="64" height="64"/>
+  <object type="Fruit" x="13660" y="4607" width="64" height="64"/>
+  <object type="Fruit" x="13724" y="4607" width="64" height="64"/>
+  <object type="Fruit" x="13691" y="4571" width="64" height="64"/>
+  <object type="Fruit" x="13788" y="4607" width="64" height="64"/>
+  <object type="Fruit" x="13756" y="4571" width="64" height="64"/>
+  <object type="Fruit" x="13723" y="4543" width="64" height="64"/>
+  <object type="Fruit" x="13568" y="5568" width="64" height="64"/>
+  <object type="Fruit" x="14528" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="14784" y="5824" width="64" height="64"/>
+  <object type="Fruit" x="15104" y="5888" width="64" height="64"/>
+  <object type="Fruit" x="15424" y="5952" width="64" height="64"/>
+  <object type="Fruit" x="15680" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="16192" y="6016" width="64" height="64"/>
+  <object type="Fruit" x="16640" y="5952" width="64" height="64"/>
+  <object type="Fruit" x="16576" y="5952" width="64" height="64"/>
+  <object type="Fruit" x="16704" y="5952" width="64" height="64"/>
+  <object type="Fruit" x="15872" y="6016" width="64" height="64"/>
+  <object type="Chate" x="9010" y="5733" width="320" height="192">
+   <properties>
+    <property name="File" value="GUI/Conversations/Iguazu"/>
+    <property name="nameId" value="ConspiracionRepeat"/>
+    <property name="oneShotId" value="Conspiracion"/>
+    <property name="zoom" value="3.5"/>
+   </properties>
+  </object>
+  <object type="Kuruponga" x="9152" y="5824" width="64" height="64"/>
+  <object name="CheckPoint" type="Warp" x="6912" y="5504" width="64" height="320"/>
+  <object type="Particles/WaterFall" x="7252" y="3242" width="64" height="64">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="7252" y="3114" width="64" height="128">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Particles/WaterFall" x="7936" y="3136" width="64" height="128">
+   <properties>
+    <property name="Depth" value="2"/>
+   </properties>
+  </object>
+  <object type="Secrets/Bonus3" x="12672" y="4864" width="64" height="64">
+   <properties>
+    <property name="depth" value=".5"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

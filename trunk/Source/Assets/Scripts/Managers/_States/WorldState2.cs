@@ -5,9 +5,25 @@ public class WorldState2 : InGameState
 {
     public override void Init()
     {
-        //Debug.Log("Enter World 2 State: Pombero's House");
-        //Managers.Tiled.Load(Managers.Register.HomeFile);
-        Managers.Tiled.Load("/Levels/Home1.tmx");
+        Managers.Game.IsPlaying = true;
+
+        if (Managers.Register.YaguaDefeated && Managers.Register.MonaiDefeated && !Managers.Register.YasiYatereDefeated)
+        {
+            if (Managers.Register.UnlockedStages <= 3)
+                Managers.Register.UnlockedStages = 4;
+            Managers.Tiled.Load("/Levels/Home2.tmx");
+        }
+        else if (Managers.Register.YasiYatereDefeated)
+        {
+            if (Managers.Register.UnlockedStages <= 4)
+                Managers.Register.UnlockedStages = 5;
+            Managers.Tiled.Load("/Levels/Home3.tmx");
+        }
+        else
+            Managers.Tiled.Load("/Levels/Home1.tmx");
+
+        Managers.Display.camTransform.position = new Vector3(3.75f, 2.5f, 0);
+
         base.Init();
 
     }

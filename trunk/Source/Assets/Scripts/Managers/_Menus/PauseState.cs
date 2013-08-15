@@ -4,10 +4,12 @@ using System.Collections;
 public class PauseState : GameState 
 {
     GUISkin gSkinB = null;
+    public AudioClip Pip;
 	
     public override void Init()
     {
         Managers.Game.IsPaused = true;
+        Managers.Audio.Play(Pip, Managers.Display.camTransform);
 
             Time.timeScale = 0.00000000000001f;
             //(player.GetComponent<PlayerControls>() as PlayerControls).enabled = false;
@@ -28,19 +30,20 @@ public class PauseState : GameState
 
         //(player.GetComponent<PlayerControls>()as PlayerControls).enabled = true;
         AudioListener.pause = Managers.Game.IsPaused;
+        Managers.Audio.Play(Pip, Managers.Display.camTransform);
 
 
         //        if ( Managers.Audio.SoundEnable )
         //            Managers.Audio.ResumeMusic();
     }
 	
-    private void RestartMission()
-    {
-////		Managers.Missions.RestartMission();
-//        Managers.Game.PopState();
-//        Managers.Game.State.DeInit();
-//        Managers.Game.State.Init();
-    }
+//    private void RestartMission()
+//    {
+//////		Managers.Missions.RestartMission();
+////        Managers.Game.PopState();
+////        Managers.Game.State.DeInit();
+////        Managers.Game.State.Init();
+//    }
 	
     private void ReturnMap()
     {
@@ -49,8 +52,6 @@ public class PauseState : GameState
 //        Managers.Game.ChangeState(typeof(MainMenuState));
     }
 	
-
-
 
     public override void OnUpdate()
     {
@@ -72,10 +73,9 @@ public class PauseState : GameState
             if (gSkinB) GUI.skin = gSkinB;
 
             GUI.color = new Color(1, 0.36f, 0.22f, 1);
-            GUI.Box(new Rect((Screen.width * .5f) - (Screen.width * .15f),
-                                 (Screen.height * .5f) - (Screen.height * .15f),
-                                 (Screen.width * .35f), (Screen.height * .35f)),
-                                    "\n\n - PAUSE - \n\n press 'Q' to Quit Game \n and return Main Menu ");
+            GUI.Box(new Rect(((Screen.width * .5f) - 180), (Screen.height * .5f) - 128, 360, 256),
+                    "\n\n - PAUSA - \n\n\n\n presiona 'Q' o 'Select' \n para Salir del Nivel \n y volver al Mapa principal");
+                                    //"\n\n - PAUSE - \n\n press 'Q' to Quit Game \n and return Main Menu ");
             GUI.color = Color.clear;
             return;
         }

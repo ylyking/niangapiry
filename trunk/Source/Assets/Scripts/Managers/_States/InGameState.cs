@@ -3,6 +3,7 @@ using System.Collections;
 
 public abstract class InGameState : GameState {
 
+
     public override void Init()
     {
         //Managers.Game.PlayerPrefab = null;
@@ -28,12 +29,12 @@ public abstract class InGameState : GameState {
         //    Destroy(Player);
 
         Managers.Game.IsPlaying = false;
-
     }
 
     public override void OnUpdate()
     {
-        if (Input.GetKeyDown("escape") || Input.GetButtonDown("Start"))
+        //if ((Input.GetKeyDown("escape") || Input.GetButtonDown("Start")) && Managers.Game.PlayerPrefab.GetComponent<PlayerControls>().enabled)
+        if ((Input.GetKeyDown("escape") || Input.GetButtonDown("Start")) && !Managers.Game.PlayerPrefab.GetComponent<PlayerProperties>().dead)
             Managers.Game.PushState(typeof(PauseState));
     }
 

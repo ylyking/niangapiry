@@ -8,6 +8,9 @@ public class MapState : GameState
     uint TotalOptions = 0;
     Dictionary<int, MapNode> OptionsList = new Dictionary<int, MapNode>();
 
+    public AudioClip Select;
+    public AudioClip Play;
+
     float timeLapse = 0;
     bool MapSelected = false;
 
@@ -25,6 +28,8 @@ public class MapState : GameState
             Managers.Game.ChangeState(typeof(MainMenuState));
         }
 
+
+
         Target = GameObject.Find("mapindex");
         if (Target)
             MiniAnim = Target.GetComponent<AnimSprite>();
@@ -33,7 +38,7 @@ public class MapState : GameState
             Target.transform.position + new Vector3(-1.5f, -2, 0)));
         OptionsList.Add(1, new MapNode( "Monte"             , 2, 5, 0, 3,
             Target.transform.position + new Vector3(1.5f, -2, 0)));
-        OptionsList.Add(2, new MapNode( "Home"              , 5, 1, 4, 3,
+        OptionsList.Add(2, new MapNode( "Tatakuá"              , 5, 1, 4, 3,
             Target.transform.position + (Vector3.forward * 0)));
         OptionsList.Add(3, new MapNode( "Iguazú"            , 5, 1, 2, 4 ,
             Target.transform.position + new Vector3(2, .6f, 0)));
@@ -51,6 +56,12 @@ public class MapState : GameState
 
         timeLapse = Time.time + 0.75f;    
         Target.GetComponent<CameraTargetAttributes>().distanceModifier = 0.05f;
+
+        if (Managers.Register.FirstTimePlay)
+        {
+            Managers.Register.FirstTimePlay = false;
+            Managers.Game.PushState(typeof(WorldState2));                   // Home World
+        }
 
 	}
 	
@@ -89,6 +100,7 @@ public class MapState : GameState
             if (Input.GetButtonDown("Fire1") || Input.GetKeyDown("return") || Input.GetButtonDown("Start"))
             {
                 timeLapse = Time.time + 0.75f;
+                Managers.Audio.Play(Play, Managers.Display.camTransform);
                 MapSelected = true;
             }
 
@@ -97,7 +109,6 @@ public class MapState : GameState
                 if (timeLapse > Time.time)
                     return;
                 Managers.Display.ShowFlash(1);
-
 
                 MapSelected = false;
                 switch (ChooseOption)
@@ -132,30 +143,42 @@ public class MapState : GameState
 
                 //if (Input.GetKeyDown("up"))
                 if (Managers.Game.InputUp)
+                {
                     if (ChooseOption == TotalOptions - 1)
                         ChooseOption = 0;
                     else if (OptionsList[(int)ChooseOption].Up > TotalOptions - 1)
                         ChooseOption = TotalOptions - 1;
                     else
                         ChooseOption = OptionsList[(int)ChooseOption].Up;
+                    Managers.Audio.Play(Select, Managers.Display.camTransform);
+                }
 
                 if (Managers.Game.InputDown)
+                {
                     if (ChooseOption == 0 || (OptionsList[(int)ChooseOption].Down > TotalOptions - 1))
                         ChooseOption = TotalOptions - 1;
                     else
                         ChooseOption = OptionsList[(int)ChooseOption].Down;
+                    Managers.Audio.Play(Select, Managers.Display.camTransform);
+                }
 
-                if ( Managers.Game.InputLeft)
+                if (Managers.Game.InputLeft)
+                {
                     if (OptionsList[(int)ChooseOption].Left > TotalOptions - 1)
                         ChooseOption = 0;
                     else
                         ChooseOption = OptionsList[(int)ChooseOption].Left;
+                    Managers.Audio.Play(Select, Managers.Display.camTransform);
+                }
 
                 if (Managers.Game.InputRight)
+                {
                     if (OptionsList[(int)ChooseOption].Right > TotalOptions - 1)
                         ChooseOption = 1;
                     else
                         ChooseOption = OptionsList[(int)ChooseOption].Right;
+                    Managers.Audio.Play(Select, Managers.Display.camTransform);
+                }
 
                 #endregion
 
@@ -192,6 +215,9 @@ public class MapState : GameState
 	
 	public override void Resume()
 	{
+        if ( TotalOptions != (uint)Managers.Register.UnlockedStages)
+            TotalOptions = (uint)Managers.Register.UnlockedStages;
+
         Managers.Display.ShowFlash(1);
         Managers.Tiled.Load("/Levels/Map.tmx");
         Target = GameObject.Find("mapindex");

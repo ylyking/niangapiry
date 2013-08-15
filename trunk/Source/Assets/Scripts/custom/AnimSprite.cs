@@ -92,9 +92,29 @@ public class AnimSprite : MonoBehaviour
         renderer.material.mainTextureScale = size;		// texture scale
     }
 
-    public void PlayFramesFixed(int rowFrameStart, int colFrameStart, int totalframes, int flipped, float fraction)
+    public void PlayFramesFixed(int rowFrameStart, int colFrameStart, int totalframes, int flipped, float fraction)//Ej. 1.005f
     {
         int index = (int)(Time.time * framesPerSecond);							// time control fps
+        index = index % totalframes;
+
+        Vector2 size = new Vector2(1.0f / ColumnSize, fraction / RowSize);	// scale
+
+        int u = index % ColumnSize;
+        int v = index / ColumnSize;
+
+        Vector2 offset = new Vector2(((u + colFrameStart) * size.x), (1.0f - size.y) - (v + rowFrameStart) * size.y); // offset
+
+        offset.x = ((offset.x * flipped) - size.x * (System.Convert.ToByte(flipped < 0))) * flipped;
+
+        size.x *= flipped;
+
+        renderer.material.mainTextureOffset = offset;		// texture offset
+        renderer.material.mainTextureScale = size;		// texture scale
+    }
+
+    public void PlayFramesFixedFPS(int rowFrameStart, int colFrameStart, int totalframes, int flipped, float fraction, int FPS) //Ej. 1.005f
+    {
+        int index = (int)(Time.time * FPS);							// time control fps
         index = index % totalframes;
 
         Vector2 size = new Vector2(1.0f / ColumnSize, fraction / RowSize);	// scale
