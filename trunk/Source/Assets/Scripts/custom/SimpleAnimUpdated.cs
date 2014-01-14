@@ -17,15 +17,15 @@ namespace CustomAnimations
 
 
         private AnimSprite simpleAnim;
-        private Transform thisTransform;
-        Vector3 InitPos;
+//        private Transform thisTransform;
+//        Vector3 InitPos;
 
         void Start()
         {
 
             simpleAnim = gameObject.GetComponent<AnimSprite>() as AnimSprite;
-            thisTransform = transform;
-            InitPos = thisTransform.position;
+//            thisTransform = transform;
+//            InitPos = thisTransform.position;
 
             //    StartCoroutine(CoUpdate());                                 // Changed Because it can't hold re-activation
         }

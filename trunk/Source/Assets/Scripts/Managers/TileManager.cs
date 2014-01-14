@@ -119,7 +119,7 @@ public class TileManager : MonoBehaviour {
             foreach(XmlNode MapProperty in Doc.DocumentElement.FirstChild )
             {
                 if (MapProperty.Attributes["name"].Value.ToLower() == "music")
-                    Managers.Audio.PlayMusic( (AudioClip)Resources.Load("Sound/" + MapProperty.Attributes["value"].Value, typeof(AudioClip)), .45f, 1);
+                    Managers.Audio.PlayMusic( (AudioClip)Resources.Load("Sound/" + MapProperty.Attributes["value"].Value, typeof(AudioClip)), .3f, 1);
                  
                 //if (MapProperty.Attributes["name"].Value.ToLower() == "camerafixedheight")
                 //    Managers.Game.PlayerPrefab.GetComponent<CameraTargetAttributes>().FixedHeight = true;
@@ -149,7 +149,7 @@ public class TileManager : MonoBehaviour {
             PlayerTransform = null;
         }
 
-        Managers.Audio.StopMusic();
+//        Managers.Audio.StopMusic();
         TileSets.Clear();
         LastUsedMat = 0;
         ScrollBaseSpeed = 1;

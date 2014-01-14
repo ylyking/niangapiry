@@ -120,7 +120,7 @@ void  OnTriggerEnter (  Collider other   )
                     oldZoom = PlayerCamera.distanceModifier;
 
                 isTalking = true;
-                soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 1f, 2);
+                soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 3f, 2);
                 Managers.Dialog.StartConversation(oneShotId);
             }
             else Debug.Log("Conversation ID not assigned");
@@ -147,7 +147,7 @@ void OnTriggerStay(Collider hit)
                     oldZoom = PlayerCamera.distanceModifier; // A Very Important Check to avoid Camera Zoom Fixation issues
 
                 isTalking = true;
-                soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 1f, 2.0f);
+                soundSource = Managers.Audio.Play(soundChat, gameObject.transform, 3f, 2.0f);
                 Managers.Dialog.StartConversation(NameId);
             }
             else Debug.Log("Conversation ID not assigned");

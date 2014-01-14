@@ -23,8 +23,8 @@ namespace BonusObjects
         public float ReSpawnTime = 5;
         public string PreviousLevel = "/Levels/CampoDelCielo.tmx";
 
-        bool WinMessage = false;
-        bool LoseMessage = false;
+//        bool WinMessage = false;
+//        bool LoseMessage = false;
 
         void Start()
         {

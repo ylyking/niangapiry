@@ -123,15 +123,19 @@ public class AudioManager : MonoBehaviour
     {
         if (!MusicEnable)
             return null;
-
-		if ( Music.isPlaying )
-			Music.Stop();
 		
-        //Create the source
-		Music.clip = clip ;
-        Music.volume = volume;
-        Music.pitch = pitch;
-        Music.Play();
+		if ( Music.clip == null || (Music.clip).name.ToString() != clip.name.ToString() )
+	    {
+			if ( Music.isPlaying )
+				Music.Stop();
+			
+	        //Create the source
+			Music.clip = clip ;
+	    	Music.Play();
+		}
+			        
+		Music.volume = volume;
+		Music.pitch = pitch;
 		
         return Music;
     }

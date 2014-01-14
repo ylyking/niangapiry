@@ -5,11 +5,14 @@ public class DemoAdvise : GameState
 {
     GUISkin gSkinB = null;
 	
+	float timeLapse = 0;
+	
     public override void Init()
     {
-        Managers.Game.IsPaused = true;
-
-            Time.timeScale = 0.00000000000001f;
+		timeLapse = Time.time + .5f;
+//        Managers.Game.IsPaused = true;
+//
+//            Time.timeScale = 0.00000000000001f;
             //(player.GetComponent<PlayerControls>() as PlayerControls).enabled = false;
             //( (PlayerControls) player.GetComponent(typeof(PlayerControls)) ).enabled = false;
 
@@ -46,7 +49,13 @@ public class DemoAdvise : GameState
 
     public override void OnUpdate()
     {
-        if (Input.GetKeyDown("escape") || Input.GetButtonDown("Start") || Input.GetButtonDown("Fire1"))
+		if (Time.time > timeLapse)
+		{
+	        Managers.Game.IsPaused = true;
+            Time.timeScale = 0.00000000000001f;
+		}
+		
+        if (Input.GetKeyDown("escape") || Input.GetButtonDown("Start") || Input.GetButtonDown("Fire1") || Input.GetKeyDown("return") )
             Managers.Game.PopState();
 
     }
@@ -61,9 +70,9 @@ public class DemoAdvise : GameState
             GUI.Box(new Rect((Screen.width * .5f) - (Screen.width * .25f),
                                  (Screen.height * .5f) - (Screen.height * .15f),
                                  (Screen.width * .5f), (Screen.height * .35f)),
-                                    "\n\n NIVEL NO DISPONIBLE \n\n Aguarda el día \n de Estreno para disfrutar \n la version Completa ");
+                                    "\n NIVEL NO DISPONIBLE \n\n Este juego solo es \n una versión Demo \n Aguarda en breve el lanzamiento \n de la aventura completa \n\n Buscanos en facebook \n y/o www.sunhouse.com.ar \n para saber más de nosotros.");
             GUI.color = Color.clear;
-            return;
+//            return;
         }
     }
 

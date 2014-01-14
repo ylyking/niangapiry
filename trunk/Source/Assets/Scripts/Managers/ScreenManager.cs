@@ -226,11 +226,11 @@ public class ScreenManager : MonoBehaviour
             if( Managers.Dialog.IsInConversation() )
                 Managers.Dialog.Render();
 
-            //Managers.Display.Render();
+            Managers.Display.Render();
 
             Managers.Game.Render();
 
-            Managers.Display.Render();
+//            Managers.Display.Render();
                          
             if ( EnableDebug )
             {
