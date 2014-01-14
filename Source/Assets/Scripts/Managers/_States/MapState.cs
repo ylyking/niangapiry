@@ -10,9 +10,11 @@ public class MapState : GameState
 
     public AudioClip Select;
     public AudioClip Play;
+	public AudioClip MusicMap;
 
     float timeLapse = 0;
     bool MapSelected = false;
+	
 
     GameObject Target;
     AnimSprite MiniAnim;
@@ -27,7 +29,8 @@ public class MapState : GameState
             Debug.Log(" Map not loaded");
             Managers.Game.ChangeState(typeof(MainMenuState));
         }
-
+		
+//		Managers.Audio.PlayMusic( MusicMap, 1, 1);
 
 
         Target = GameObject.Find("mapindex");
@@ -75,6 +78,9 @@ public class MapState : GameState
 
         OptionsList.Clear();
         ChooseOption = 2;               // Setting Home position
+		
+        Managers.Audio.StopMusic();
+		
         //FullText = "";
         Debug.Log("Exit the current State and returning main menu");
 
@@ -123,13 +129,16 @@ public class MapState : GameState
                         Managers.Game.PushState(typeof(WorldState2));                   // Home World
                         break;
                     case 3:
-                        Managers.Game.PushState(typeof(WorldState3));                   // Iguazu World
+                        Managers.Game.PushState(typeof(DemoAdvise));                   // Iguazu World
+//                        Managers.Game.PushState(typeof(WorldState3));                   // Iguazu World
                         break;
                     case 4:
-                        Managers.Game.PushState(typeof(WorldState4));                   // SkyField World       
+                        Managers.Game.PushState(typeof(DemoAdvise));                   // Iguazu World
+//                        Managers.Game.PushState(typeof(WorldState4));                   // SkyField World       
                         break;
                     case 5:
-                        Managers.Game.PushState(typeof(WorldState5));                   // Impenetrable World
+                        Managers.Game.PushState(typeof(DemoAdvise));                   // Iguazu World
+//                        Managers.Game.PushState(typeof(WorldState5));                   // Impenetrable World
                         break;
                 }
             }
@@ -217,6 +226,8 @@ public class MapState : GameState
 	{
         if ( TotalOptions != (uint)Managers.Register.UnlockedStages)
             TotalOptions = (uint)Managers.Register.UnlockedStages;
+		
+//		Managers.Audio.PlayMusic( MusicMap, 1, 1);
 
         Managers.Display.ShowFlash(1);
         Managers.Tiled.Load("/Levels/Map.tmx");

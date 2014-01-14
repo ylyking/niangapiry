@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour
         //PushState(typeof(IntroState)); // Loading some State
         PushState(typeof(MainMenuState)); // A Starting ShortCut to menu
     }
-
+	
+ 
+	
     void OnApplicationQuit() 	// "DeInit()"
     {
         // cleanup the all states

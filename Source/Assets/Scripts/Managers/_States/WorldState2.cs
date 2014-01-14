@@ -3,9 +3,13 @@ using System.Collections;
 
 public class WorldState2 : InGameState
 {
+	public AudioClip MusicMap;
+	
     public override void Init()
     {
         Managers.Game.IsPlaying = true;
+		
+//		Managers.Audio.PlayMusic( MusicMap, 1, 1);
 
         if (Managers.Register.YaguaDefeated && Managers.Register.MonaiDefeated && !Managers.Register.YasiYatereDefeated)
         {

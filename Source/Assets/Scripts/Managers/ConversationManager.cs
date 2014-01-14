@@ -17,10 +17,12 @@ public class ConversationManager : MonoBehaviour {
     Rect ComicWord;
     
     int miChatDirection = 0;														//  indicates the current Dialog's direction of Comic balloon 
+    int miCharIndex = 0;														//  indicates the current Dialog's direction of Comic balloon 
 
  	List<cCharacterSpeaker> mSpeakers = new List<cCharacterSpeaker>();// Characters talk able list
     List<cConversation> mConversations = new List<cConversation>();		// Conversations list
 	cConversationNode mpCurrentConversationNode;
+	cConversationNode mpPreviousConversationNode = null;
 		
   	bool  mbConversationState = false;
     float mfMessageTime;
@@ -231,7 +233,20 @@ public class ConversationManager : MonoBehaviour {
                     switch (mpCurrentConversationNode.meType)
                     {
                         case eConversationNodeType.eNormalTalk:									// Enum 0; Nodo activo de tipo eNormalTalk
-
+					
+							if ( mpCurrentConversationNode != mpPreviousConversationNode )
+							{
+								miCharIndex++;
+						
+                            	if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump") || Input.GetKeyDown("return"))
+                                {
+									miCharIndex = 0;
+									mpPreviousConversationNode = mpCurrentConversationNode;
+								}
+//								else
+									break;
+							}
+					
                             mfMessageTime -= Time.deltaTime * .1f;	                					// Decrease the message time
 
                             if ((mfMessageTime <= 0.0f) || Input.GetButtonDown("Fire1") || Input.GetKeyDown("return"))
@@ -274,6 +289,8 @@ public class ConversationManager : MonoBehaviour {
                 mfMessageTime = mpCurrentConversationNode.mfDuration; 	// Asignamos el tipo inicial
                 
                 muiChooseOption = 0;
+				
+				mpPreviousConversationNode = null;
             }
 	    }
 
@@ -309,6 +326,29 @@ public class ConversationManager : MonoBehaviour {
                 //miChatDirection = (mpCurrentConversationNode.miCharacterId == 1 ? 1 : 0);
                 miChatDirection = System.Convert.ToByte(mpCurrentConversationNode.miCharacterId == 1 );
 
+								
+				if ( mpCurrentConversationNode != mpPreviousConversationNode )
+				{
+	
+						
+//                	if ( miCharIndex < (mpCurrentConversationNode.macText).Length)
+//                    {
+					
+						if ( miCharIndex < mpCurrentConversationNode.macText.Length)
+						{
+							GUI.Label( new Rect(ComicWord.xMin, (Screen.height * .15f), ComicWord.width, 200), 
+								(mpCurrentConversationNode.macText).Remove(miCharIndex).ToString());// Character Speak	
+							break;
+						}	
+						else 
+						{
+							miCharIndex = 0;
+							mpPreviousConversationNode = mpCurrentConversationNode;
+						}	
+					
+						
+//					}
+				}
 
                 //GUI.Label(new Rect((Screen.width * .5f) - 220, (Screen.height * .15f), 486, 200), mpCurrentConversationNode.macText);// Character Speak														///*///
                 GUI.Label(new Rect(ComicWord.xMin, (Screen.height * .15f), ComicWord.width, 200), mpCurrentConversationNode.macText);// Character Speak														///*///

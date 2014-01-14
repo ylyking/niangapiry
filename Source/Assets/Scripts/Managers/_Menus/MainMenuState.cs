@@ -98,16 +98,17 @@ public class MainMenuState : GameState
 
     public override void OnUpdate()
     {
-        //if (Input.anyKeyDown)
-        //    timeTrailer = 10;
+  
+		if (Input.anyKeyDown)
+        	timeTrailer = 10;
 
-        //timeTrailer -= Time.deltaTime;
+        timeTrailer -= Time.deltaTime;
 
-        //if (timeTrailer <= 0)
-        //{
-        //    Managers.Game.ChangeState(typeof(TrailerState));
-        //    return;
-        //}
+        if (timeTrailer <= 0)
+        {
+            Managers.Game.ChangeState(typeof(TrailerState));
+            return;
+        }
 
         CamTransform.position = new Vector3((float)System.Math.Round((Mathf.Sin(Time.time) * 0.05f), 4),
                                             CamTransform.position.y, CamTransform.position.z); // OJo aca
@@ -192,7 +193,9 @@ public class MainMenuState : GameState
             GUI.color = new Color(1, 0.36f, 0.22f, 1);
         }
         else Debug.Log("MainMenuGUI : GUI skin object missing!");
-
+		
+        GUI.Label(new Rect((Screen.width * .01f), (Screen.height * .875f), 400, 200), "DEMO"  );
+		
         if (isLoading)
         {
             GUI.Label(new Rect((Screen.width * .5f) - 100, (Screen.height * .5f), 400, 50), "Loading...");
@@ -201,8 +204,9 @@ public class MainMenuState : GameState
 
 
         GUI.color = new Color(1, 0.36f, 0.22f, 1);
-        GUI.Label(new Rect((Screen.width * .01f), (Screen.height * .01f), 400, 200), "Mejor Puntaje\n" + Managers.Register.TopScore);
+        GUI.Label(new Rect((Screen.width * .01f), (Screen.height * .01f), 400, 200), "Alto Puntaje\n" + Managers.Register.TopScore);
         GUI.Label(new Rect((Screen.width * .65f), (Screen.height * .75f), 400, 200), FullText);
+		
         string jump = "";
 
         foreach (int Option in OptionsList.Keys)
@@ -232,7 +236,7 @@ public class MainMenuState : GameState
         //DisplayMenu = true;
 
 //        Managers.Audio.StopMusic();
-
+//		Managers.Audio.PlayMusic(Opening, .75f, 1);
     }
   
 }

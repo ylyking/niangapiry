@@ -106,13 +106,14 @@ namespace CustomAnimations
                     case AnimationType.MateGaucho:
                         if (Managers.Register.Treasure2)
                         {
-                             GameObject Gaucho;
+                             GameObject Gaucho = null;
                              if (Random.Range(0, 100) > 50)
                                  Gaucho = (GameObject)Instantiate(Resources.Load("Prefabs/Gaucho", typeof(GameObject)),
                                      transform.position, transform.rotation);
                              else
                                  Gaucho = (GameObject)Instantiate(Resources.Load("Prefabs/GauchoFacon", typeof(GameObject)),
                                      transform.position, transform.rotation);
+							Gaucho.transform.parent = Managers.Tiled.MapTransform;
                              Destroy(gameObject);
                         }
                         else

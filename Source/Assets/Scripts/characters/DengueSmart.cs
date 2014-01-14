@@ -10,8 +10,8 @@ public float moveSpeed = 2;		                        // set the speed of the Bat
 bool FallingDown = false;
 float FallingHeight = 0;
 float FallingSpeed = -4;
-float timeLapse = 0;
-int ReleaseKeys = 0;
+//float timeLapse = 0;
+//int ReleaseKeys = 0;
 
 public int orientation = 1;		                        // set facing direction delay 
 public float attackRange = 3;		                    // set range for speed increase

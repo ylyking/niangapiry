@@ -8,7 +8,7 @@ namespace BonusObjects
 public class HomeState : GameState 
 {
     GUISkin gSkinB                  = null;
-    float Increment                 = 0;
+//    float Increment                 = 0;
     float prevVolume                = 0;
 
     uint ChooseOption = 0;
@@ -115,11 +115,11 @@ public class HomeState : GameState
 
         TotalOptions = 0;
         OptionsList.Clear();
-        Increment = 0;
+//        Increment = 0;
         gSkinB.label.fontSize = Mathf.RoundToInt(Screen.width * 0.035f);
         currentState = HouseState.Start;
 
-        Managers.Audio.Music.volume = .45f;
+        Managers.Audio.Music.volume = prevVolume;
 
     }
 	
