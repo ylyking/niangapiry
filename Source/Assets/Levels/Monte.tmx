@@ -452,6 +452,11 @@
   <object type="Dengue" x="10880" y="2816" width="64" height="64"/>
   <object type="Dengue" x="11264" y="3008" width="64" height="64"/>
   <object type="hat" x="8419" y="1390" width="64" height="64"/>
-  <object type="Secrets/Treasure1" x="8995" y="1535" width="64" height="64"/>
+  <object type="Secrets/Treasure1" x="8960" y="1472" width="64" height="64"/>
+  <object type="Secrets/Treasure1" x="-41" y="2559" width="64" height="64"/>
+  <object type="BirdSource" x="2240" y="2112" width="64" height="64"/>
+  <object type="BirdSource" x="4480" y="1728" width="64" height="64"/>
+  <object type="BirdSource" x="7552" y="1024" width="64" height="64"/>
+  <object type="BirdSource" x="8512" y="1344" width="64" height="64"/>
  </objectgroup>
 </map>

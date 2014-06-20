@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="200" height="50" tilewidth="64" tileheight="64">
  <properties>
-  <property name="Sandunga" value="Lesbiana"/>
+  <property name="music" value="NO SE QUE HACER CON ESTO"/>
  </properties>
  <tileset firstgid="1" name="pampa" tilewidth="64" tileheight="64">
   <image source="pampa.png" width="512" height="512"/>
@@ -30,11 +30,7 @@
   </tile>
  </tileset>
  <imagelayer name="fondoinverse" width="200" height="50">
-  <image source="cielo.png"/>
-  <properties>
-   <property name="offset" value="0, -1"/>
-   <property name="scale" value="3, 2"/>
-  </properties>
+  <image source="tutSky.png"/>
  </imagelayer>
  <imagelayer name="clouds" width="200" height="50">
   <image source="Clouds2.png"/>
@@ -233,7 +229,7 @@
     <property name="depth" value=".2"/>
    </properties>
   </object>
-  <object type="CameraBound" x="6" y="1789" width="2432" height="640">
+  <object type="CameraBound" x="6" y="1789" width="2432" height="576">
    <properties>
     <property name="zoom" value="3"/>
    </properties>
@@ -305,7 +301,7 @@
   </object>
   <object type="CollisionBound" x="5824" y="832" width="534" height="10"/>
   <object type="Dengue" x="3456" y="2944" width="64" height="64"/>
-  <object type="Dengue" x="1408" y="2176" width="64" height="64"/>
+  <object type="Dengue" x="896" y="2240" width="64" height="64"/>
   <object type="Warp" x="4608" y="2944" width="64" height="64"/>
   <object type="Warp" x="3072" y="2112" width="64" height="64"/>
   <object type="Chat" x="5312" y="2304" width="192" height="128">
@@ -320,7 +316,7 @@
     <property name="oneShotId" value="Macondo"/>
    </properties>
   </object>
-  <object type="Chat" x="128" y="2112" width="192" height="192">
+  <object type="Chat" x="1380" y="2139" width="192" height="192">
    <properties>
     <property name="File" value="Pampero"/>
     <property name="oneShotId" value="MateIntro"/>

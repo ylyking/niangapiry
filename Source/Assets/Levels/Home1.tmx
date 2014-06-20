@@ -49,7 +49,7 @@
  </layer>
  <layer name="1 plano" width="18" height="6">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoD5QAmJlIFahwAxNINYCYm0g1qPAHEMgNgJiYyA2IVKPBRKbGYh5gJiJgaHBCkgLA2kbCB8OmKCYGyjHBMFwMR6oGYyouAEPH10OBQMAOGhLjbABAAA=
+   H4sIAAAAAAAAC2NgoD5QAmJlIFahwAxNINYCYm0g1qPAHEMgNgJiYyA2IUM/MxDzADETA0ODFZAWBtI2ED4cMEExN1COCYLhYjxQMxhRcQMeProcCgYAGzxTdLABAAA=
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="18" height="6">
@@ -64,7 +64,7 @@
     <property name="Warp" value="exit"/>
    </properties>
   </object>
-  <object name="Clavel" type="Chat" x="768" y="128" width="320" height="192">
+  <object type="Clavele" x="960" y="128" width="64" height="64">
    <properties>
     <property name="file" value="GUI/Conversations/ClavelDialogs"/>
     <property name="nameId" value="Adonde"/>
@@ -72,6 +72,15 @@
    </properties>
   </object>
   <object type="Pombero" x="448" y="128" width="64" height="64"/>
+  <object type="Clavel" gid="56" x="960" y="256">
+   <properties>
+    <property name="file" value="GUI/Conversations/ClavelDialogs"/>
+    <property name="nameId" value="Adonde"/>
+    <property name="oneShotId" value="Hola"/>
+   </properties>
+  </object>
+  <object name="aVES" type="BirdSource" x="896" y="128" width="64" height="64"/>
+  <object name="aVES" type="BirdSource" x="256" y="128" width="64" height="64"/>
  </objectgroup>
  <imagelayer name="Frente" width="18" height="6">
   <image source="Scroll trees 1.png"/>

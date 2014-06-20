@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="300" height="50" tilewidth="64" tileheight="64">
  <properties>
-  <property name="music" value="soundtrack"/>
+  <property name="music" value="Pampero"/>
  </properties>
  <tileset firstgid="1" name="pampa" tilewidth="64" tileheight="64">
   <image source="pampa.png" width="512" height="512"/>
@@ -59,7 +59,7 @@
  </layer>
  <layer name="fondo" width="300" height="50">
   <data encoding="base64" compression="gzip">
-   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
+   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
   </data>
  </layer>
  <layer name="SegundoPlano" width="300" height="50">
@@ -111,7 +111,7 @@
    <property name="Depth" value="-2"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3dzW3CMAAGUI/SQ0/5a049MwqjZJSMklE6Su06FhGlldoCCc17kuXENsQg8REfwCEAAAAAAAAAAABsUxfC1OX6uPZcYO/6EIa15/AT/Z2v153q8c6Xhodx78/l3nm/AQAAAAAAYNue154AAAAAAADsTO/3ygAAAAAAAAAAAAAAAAAAAAAAAAAAAMA/VIdwbGNdhTCWtiq3A6yq5FMTwpAyqp3/Mz6ejymnUl+Xy7jMsEvPcZ5x520Af9Eu9rSImTR0F44XY8dyHDNqiJkWSsa9hM8ZV9puOH1gR5oLe/DErJliOVw4HtO6sAqnPCq5FstbLMc0Ppz6plpeAVcSs+fY5Ez6yJp4bzTFtqnkWJvvmdKYQzvnTz2PT5lUShrX5HVhqp9KllkPAtdWzzlVzqucPV/eH5X+ZpFxqa3O+XZY5tvycc1NXwXwaPq1J/CNsrYE2IqvMrP95Z7VW85g4LG85jKsPQ9Yg+9TANb2Dpn/jIxg6gAA
+   H4sIAAAAAAAAC+3dzW3CMAAGUI/SM/lpTj0zSkbJKBklo3SU2nWsRDRUagsEynuS5cQ2xCDxER/AIQAAAAAAAAAAANynNoSpzXW/91zg2XUhDHvP4Se6G1+vXerxxpeGh3Hrz+Wz834DAAAAAAAAAAAAAADAovN7ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAOAfqkLom1gfQhhL2yG3A+yq5FMdwpAyqpn/Mz6ejymnUl+by7jOsK3nOM240zaAv2hWe1rETBrajePV2LEcx4waYqaFknGv4WvGlbYrTh94IvXGHjwxa6ZYjhvHY1oXHsKSRyXXYnmPpU/jw9I3VfIKuJCYPX2dM+kza+K90RTbppJjTb5nSmOOzZw/1Tw+ZVIpaVyd14WpfilZZj0IXFo151Q5P+TsOXt/VPrrVcaltirn23Gdb+vH1Vd9FcCj6faewDfK2hLgXpzLzOaXe1bfcwYDj+Utl2HvecAefJ8CsLcPF26IC2DqAAA=
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="300" height="50">
@@ -264,7 +264,7 @@
     <property name="target" value="pasillo2"/>
    </properties>
   </object>
-  <object name="pasillo2" type="Warp" x="10508" y="576" width="38" height="64"/>
+  <object name="pasillo2" type="Warp" x="10516" y="576" width="38" height="64"/>
   <object name="apasillo3" type="Door" x="10636" y="578" width="35" height="61">
    <properties>
     <property name="target" value="pasillo3"/>
@@ -531,7 +531,7 @@
   <object type="CollisionBound" x="13359" y="461" width="11" height="114"/>
   <object type="GauchoFacon" x="13462" y="386" width="64" height="64"/>
   <object type="GauchoFacon" x="16512" y="576" width="64" height="64"/>
-  <object type="killbox" x="11521" y="668" width="64" height="64"/>
+  <object type="killbox" x="11648" y="640" width="64" height="64"/>
   <object type="Fruit" x="14620" y="515" width="64" height="64"/>
   <object type="Fruit" x="14464" y="512" width="64" height="64"/>
   <object type="Fruit" x="14784" y="512" width="64" height="64"/>
@@ -599,14 +599,18 @@
    </properties>
   </object>
   <object type="Secrets/DengueFocus" x="3392" y="2176" width="64" height="64"/>
-  <object type="Fruit" x="10497" y="416" width="64" height="64"/>
-  <object type="Fruit" x="10496" y="448" width="64" height="64"/>
-  <object type="Fruit" x="10529" y="418" width="64" height="64"/>
-  <object type="Fruit" x="10464" y="418" width="64" height="64"/>
-  <object type="Fruit" x="10560" y="384" width="64" height="64"/>
-  <object type="Fruit" x="10432" y="384" width="64" height="64"/>
-  <object type="Fruit" x="10497" y="352" width="64" height="64"/>
-  <object type="Secrets/ElseWorld1" x="10496" y="576" width="64" height="64"/>
+  <object type="Fruit" x="10561" y="415" width="64" height="64"/>
+  <object type="Fruit" x="10561" y="352" width="64" height="64"/>
+  <object type="Fruit" x="10593" y="417" width="64" height="64"/>
+  <object type="Fruit" x="10528" y="417" width="64" height="64"/>
+  <object type="Fruit" x="10624" y="383" width="64" height="64"/>
+  <object type="Fruit" x="10496" y="383" width="64" height="64"/>
+  <object type="Fruit" x="10560" y="382" width="64" height="64"/>
+  <object type="Secrets/ElseWorld1" x="10496" y="576" width="51" height="64"/>
   <object type="FruitPack" x="16640" y="1088" width="64" height="64"/>
+  <object name="Gordo" type="FatBastard1" x="15068" y="1023" width="64" height="64"/>
+  <object x="15889" y="1095"/>
+  <object type="Secrets/MagicBlock" x="15874" y="1088" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="15872" y="1152" width="64" height="64"/>
  </objectgroup>
 </map>

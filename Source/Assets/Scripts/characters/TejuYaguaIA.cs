@@ -6,6 +6,9 @@ namespace Bosses
 
     public class TejuYaguaIA : MonoBehaviour
     {
+		public AudioClip BossMusic;
+		public AudioClip PrevMusic;
+
         AnimSprite Anime = null;
         Transform thisTransform = null;
         Transform PlayerTransform = null;
@@ -93,6 +96,7 @@ namespace Bosses
 
                     if (Mathf.Abs(PlayerTransform.position.x - thisTransform.position.x) < 4)
                     {
+						Managers.Audio.PlayMusic(BossMusic, 0.75f, 1);
                         Talking = true;
                         YaguaState = BossState.Talking;
                     }
@@ -307,6 +311,7 @@ namespace Bosses
 
                 if (Health <= 0)
                 {
+					Managers.Audio.PlayMusic(PrevMusic, 0.75f, 1);
                     YaguaState = BossState.Escaping;
                     return;
                 }
@@ -357,6 +362,7 @@ namespace Bosses
 
                 if (Health <= 0)
                 {
+					Managers.Audio.PlayMusic(PrevMusic, 0.75f, 1);
                     YaguaState = BossState.Escaping;
                     return;
                 }
@@ -396,6 +402,7 @@ namespace Bosses
 
             if (Maracuya != null && Maracuya.position.x < 188)
             {
+				
                 if (Maracuya.parent == Managers.Game.PlayerPrefab.transform)
                 {
                     Maracuya.parent = null;        		//resets the pickup's parent to null so it won't keep following the player	
@@ -559,6 +566,7 @@ namespace Bosses
 
                 timeLapse = 0;
                 AttackRange = 0;
+				Managers.Audio.PlayMusic(PrevMusic, 0.75f, 1);
                 YaguaState = BossState.FriendShip;
 
                 Managers.Register.YaguaDefeated = true;
