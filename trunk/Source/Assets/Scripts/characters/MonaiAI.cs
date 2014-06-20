@@ -6,6 +6,8 @@ namespace Bosses
 
     public class MonaiAI : MonoBehaviour
     {
+		public AudioClip BossMusic;
+		public AudioClip prevMusic;
 
         SpriteChain Chain = null;
         AnimSprite Head = null;
@@ -24,7 +26,7 @@ namespace Bosses
 
         public Rect BossArea = new Rect(0, 0, 15, 5);
         //public Rect PrevArea = Managers.Display.cameraScroll.levelBounds;
-        public Rect LevelArea;
+		public Rect LevelArea = new Rect(0, 0, 300, 50);
 
         public bool DisplayArea = false;
         public enum BossState { Standby = 0, Talking, Roaming, WildCircle, AttakingTree, Sliding, Hurting, Dying }
@@ -183,6 +185,7 @@ namespace Bosses
 
             if ((thisTransform.position.x - Managers.Game.PlayerPrefab.transform.position.x) < 2)
             {
+				Managers.Audio.PlayMusic(BossMusic, 0.75f, 1);
                 MonaiState = BossState.Talking;
                 Talking = true;
             }
@@ -390,7 +393,9 @@ namespace Bosses
 
             if (Health <= 1)
             {
+				Managers.Audio.PlayMusic(prevMusic, 0.75f, 1);
                 Managers.Display.cameraScroll.ResetBounds(LevelArea);
+//                Managers.Display.cameraScroll.ResetBounds(LevelArea);
                 MonaiState = BossState.Dying;
                 return;
 
@@ -465,7 +470,7 @@ namespace Bosses
         void OnTriggerEnter(Collider hit)
         {
 
-            if (hit.tag == "Player" && (MonaiState == BossState.Roaming) &&
+			if (hit.tag == "Player" &&  (MonaiState == BossState.WildCircle)||(MonaiState == BossState.Roaming)  &&
                 (hit.transform.position.y > thisTransform.position.y + .1f))
             {
                 //Debug.Log("Found Pombero");

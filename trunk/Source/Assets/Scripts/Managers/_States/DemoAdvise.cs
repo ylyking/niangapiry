@@ -69,8 +69,8 @@ public class DemoAdvise : GameState
             GUI.color = new Color(1, 0.36f, 0.22f, 1);
             GUI.Box(new Rect((Screen.width * .5f) - (Screen.width * .25f),
                                  (Screen.height * .5f) - (Screen.height * .15f),
-                                 (Screen.width * .5f), (Screen.height * .35f)),
-                                    "\n NIVEL NO DISPONIBLE \n\n Este juego solo es \n una versión Demo \n Aguarda en breve el lanzamiento \n de la aventura completa \n\n Buscanos en facebook \n y/o www.sunhouse.com.ar \n para saber más de nosotros.");
+                                 (Screen.width * .5f), (Screen.height * .45f)),
+			        "\n NIVEL NO DISPONIBLE \n\n Este juego solo es \n una versión Demo \n Busca la aventura completa \n en distribuidores autorizados  \n\n Buscanos en facebook \n y/o www.sunhouse.com.ar \n para saber más de nosotros.");
             GUI.color = Color.clear;
 //            return;
         }

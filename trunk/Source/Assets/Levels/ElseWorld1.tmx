@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="16" height="11" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="16" height="10" tilewidth="64" tileheight="64">
+ <properties>
+  <property name="music" value="Tongue Mallet Echo 04"/>
+ </properties>
  <tileset firstgid="1" name="mundo loco1" tilewidth="64" tileheight="64">
   <image source="mundo loco1.png" width="1024" height="1024"/>
   <tile id="0">
@@ -28,29 +31,25 @@
    </properties>
   </tile>
  </tileset>
- <layer name="capa 1" width="16" height="11">
+ <layer name="capa 1" width="16" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC6XDhzZQAQAA0NenZlQqWhpIE9EQWZU0RMMss0Q2idAkK7KiqSSRcf+he87dGgRBiKGGGe42t7vDCHe6y91GGuUe97rP/R4w2oMe8rBHjDHWOI8a7zGPe8KTnvK0CSaa5BmTTfGs5zzvBVO9aJrpXjLDTLPMNsfLXvGquV4zz+ve8Ka3zPe2BRZ6x7ve875FFltiqWWW+8CHVlhpldXWWOsjH1vnE+tt8KmNNtlsi6222W6HnT6zy+d22+MLe+2z35e+8rVvfOs7Bxz0vUMOO+KoY35w3Ak/OumU08446yfnnPezX/zqN7/7wwV/+stFf7vkH5f964qr/nPNdTcMtgT/bRN4sEW/wAIAAA==
+   H4sIAAAAAAAACw3DBzeQAQAAwM9PRUgZJSsyUqlsUaTQUKmsNFCU0bAqUhLtYUSFqKhw996FBkEQZrjbjDDSKLcb7Q53GmOscca7y90muMdEk0w2xVT3mma6+8ww0yyz3W+OBzzoIXM97BGPmme+BRZaZLEllnrMMss97gkrrPSkVZ7ytNXWWOsZz3rO89Z5wYtest7LXvGqDTbaZLMtXrPV697wprdss90Ob3vHTru86z277bHXPu/7wIc+st8BBx1y2Mc+8akjjvrMMZ/7wnFfOuErJ53ytW986zvf+8GPfvKzX5x2xlnn/Oq8C37zuz9cdMllf7riqr/87R/XXPev//zvhpsGIUGwBT5lH+WAAgAA
   </data>
  </layer>
- <layer name="collisions" width="16" height="11">
+ <layer name="collisions" width="16" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAUwYIrEZoViSgEpZpgSVkKMGQ0wt5PjB2x6TbGYS4w5yGxk/cjiohRiAN9fDirAAgAA
+   H4sIAAAAAAAAC2NgGAUwYIrEZoViSgEpZpgSVkKMGQ0wt5PjB2x6TbGYS4w5yGxk/cjiACH1ZqGAAgAA
   </data>
  </layer>
- <layer name="capa 0" width="16" height="11">
+ <layer name="capa 0" width="16" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC83LOQ5BARRA0d+YlWZas9b0ac1as/2vw1nCSyTiJqe8SfJfZciSI0+BIiXKgb9KjToNmrRo0wn8XXr0GTBkxJhJ4J8yY86CJSkr1oF/w5Ydew4cOXEO/Beu3Ljz4MmLd+D/dZUvfQAZf++XwAIAAA==
+   H4sIAAAAAAAAC83LJxLCABRAwRhawFKDpWPpWDqWzv3PwR7hqwxvZuVLkv+qQJESZSqkVKkF/joNmrRo0yGjG/h79BkwZMSYCdPAP2POgiUr1mzYBv4dew4cOXHmwjXw37jz4MmLNx++gT/vfkChot2AAgAA
   </data>
  </layer>
- <objectgroup name="Objects" width="16" height="11">
-  <object type="Pombero" x="960" y="384" width="64" height="64"/>
-  <object type="CameraBound" x="45" y="45" width="975" height="596">
-   <properties>
-    <property name="zoom" value="5"/>
-   </properties>
-  </object>
-  <object name="Salida" type="Warp" x="-40" y="360" width="64" height="320">
+ <objectgroup name="Objects" width="16" height="10">
+  <object type="Pombero" x="64" y="384" width="64" height="64"/>
+  <object type="CollisionBound" x="2" y="630" width="1024" height="64"/>
+  <object name="Salida" type="Warp" x="994" y="346" width="64" height="320">
    <properties>
     <property name="Target" value="Exit"/>
    </properties>
@@ -61,5 +60,15 @@
    </properties>
   </object>
   <object type="FruitPack" x="256" y="0" width="64" height="64"/>
+  <object type="CameraBound" x="0" y="0" width="1024" height="640">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="0" y="576" width="64" height="64">
+   <properties>
+    <property name="zoom" value="4"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

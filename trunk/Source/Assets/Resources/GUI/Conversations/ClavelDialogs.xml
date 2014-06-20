@@ -22,7 +22,7 @@
 	
 	<ChooseTalk> 
 		<Option>
-			<Talk speakerId = "1" time = "6.0" >Bueno, está bien, voy a hacer un esfuerzo ¿Por donde empiezo? </Talk> 
+			<Talk speakerId = "1" time = "6.0" >Bueno, está bien, voy a hacer un esfuerzo ¿donde empiezo? </Talk> 
 			<Talk speakerId = "0" time = "6.0" >Genial, Existen un par de sitios al Sur: Monte y Pampero, Ambos lugares son muy diferentes <br /> alli tengo un par de contactos que podrían ayudarte</Talk> 
 			
 			<ChooseTalk> 

@@ -44,6 +44,8 @@ public class TileManager : MonoBehaviour {
     private Vector3 scrollValue;
     //----------------------------------------------------------------------------------------//
 
+	TextAsset FileData;
+
     public bool Load( string filePath )
     {
         CamTransform = Managers.Display.MainCamera.transform;
@@ -65,7 +67,7 @@ public class TileManager : MonoBehaviour {
 
         StreamReader sr = File.OpenText(Application.dataPath + filePath);				    // Do Stream Read
         XmlDocument Doc = new XmlDocument();
-
+//		FileData.text.ToString
         Doc.LoadXml(sr.ReadToEnd());                                                        // and Read XML
         sr.Close();
 

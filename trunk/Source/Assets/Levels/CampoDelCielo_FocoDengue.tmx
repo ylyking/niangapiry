@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="150" height="120" tilewidth="64" tileheight="64" backgroundcolor="#55557f">
  <properties>
-  <property name="Sandunga" value="Lesbiana"/>
+  <property name="music" value="NO SE QUE HACER CON ESTO"/>
  </properties>
  <tileset firstgid="1" name="CampoDelCielo_ts" tilewidth="64" tileheight="64">
   <image source="CampoDelCielo_ts.png" width="512" height="512"/>
-  <tile id="2">
-   <properties>
-    <property name="collision" value=""/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="collision" value=""/>
-   </properties>
-  </tile>
   <tile id="5">
    <properties>
     <property name="collision" value="plane"/>
@@ -28,11 +18,6 @@
   <tile id="7">
    <properties>
     <property name="collision" value="plane"/>
-   </properties>
-  </tile>
-  <tile id="10">
-   <properties>
-    <property name="Collision" value=""/>
    </properties>
   </tile>
   <tile id="28">
@@ -69,7 +54,7 @@
  <imagelayer name="stars1" width="150" height="120" visible="0">
   <image source="CampoDelCielo_stars1.png"/>
   <properties>
-   <property name="Depth" value="4"/>
+   <property name="Depth" value="5"/>
    <property name="Scroll" value="Relative"/>
    <property name="Speed" value="0.05"/>
   </properties>
@@ -77,29 +62,29 @@
  <imagelayer name="stars2" width="150" height="120" visible="0">
   <image source="CampoDelCielo_stars2.png"/>
   <properties>
-   <property name="Depth" value="4"/>
+   <property name="Depth" value="6"/>
    <property name="Scroll" value="Relative"/>
    <property name="Speed" value="0.07"/>
   </properties>
  </imagelayer>
  <layer name="arboles" width="150" height="120">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA3D+pgykAZAQA=
+   H4sIAAAAAAAAC+3dSU7DQBCG0VwNwhRmSFgAd2DHsGE4Ov8BQHJit8p23pO+ndX2pnZW12IBAAAAAAAAAAAAAACM2ctA5xyl44HOYtpe01t6Tx89z7pMV72/iDn4TF/pO/30PGuTHvp+EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD84yAdpmX1h8zQSTpNZx2ebbFHoXI3wyqdp4ui94/NkHN2nW7SbYdnW+xRqNzNcJfu07ro/btoOYdVc9Zij0LlbobH9JSei96/i5ZzOMU5Yxgt53CKcwYAAAAAAAAAAH/Z5v9g6Gqb/4MBAAAAgPGqvOOB+aq844H5qrzjAQAAAAAAAAAAYF/YDUcLdsPRgp1VtGBnFQAAAADsn18Fp5LtQBkBAA==
   </data>
  </layer>
  <layer name="alambrados" width="150" height="120">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA3D+pgykAZAQA=
+   H4sIAAAAAAAAC+3SIQoAIBBFQet6ao+uKBaxGRScgR+2bXgpAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwH15rETb7V/4V+tvtth32mMsd95M8wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA76qllX+1QBkBAA==
   </data>
  </layer>
  <layer name="cactus" width="150" height="120">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA3D+pgykAZAQA=
+   H4sIAAAAAAAAC+3dQQrAIAwEQB/bYx/Rp/cLRdxYdeZuKpiCEGFbAwAAAAAAAAAAAAAAYEVXa0/FmmQd/ufuONueNck6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEC9a/YG2NJd+K3eHh6Z4ZDOg5A3Ua+3h0dmOKTzIJL1Z/Ss/2R/MzJS5LIAwFncKUlwpwQAAAAAWI+ZAQmVMwM9TIK5FwAAAAAAX5lVkGBWAQAAAAAAAAAAAHA275RJ8E4ZAAAAAM70AufKzYRAGQEA
   </data>
  </layer>
  <layer name="arbustos" width="150" height="120">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA3D+pgykAZAQA=
+   H4sIAAAAAAAAC+3d0QqDIBQAUH9h7aG2r/VT9qm7EUWMYdEoap4D98VEfUgKM29KAAAAAAAAAAAAAAAAACndVtRpIu479D1vd2kczRB5h2EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHACa87Ph6N9uy9LeRyiPJdyPCzlf9gyDx4Rz4g2oiu0EddyO9R/behmYq5yduOc6D7K98rBsrZ/gF95BgPU46h3VwDgWvp1p36N19oTAAAA1GPc82UtgKua73XwDQwAAAAAADiSf76BGvkfHQAAAAAAAACAf2Z/DHBW47nB9i4DAAAAQB3e6wCN40AZAQA=
   </data>
  </layer>
  <layer name="casas" width="150" height="120">
@@ -107,17 +92,17 @@
    <property name="Depth" value="0.50"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3SSwoDIRAFQDdJ3JjxyH30NGhAhrgfJlXwkP7tLAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADu4ZF5Zl6ZOupY+3W+3/75Nucxb6Nu9vg/LfPOHJk+6lj7fb7tx39pYx7zNvpmDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAa/oAvkJX/EAZAQA=
+   H4sIAAAAAAAAC+3dQQqDQAwFUDe1bqoeOUdvwBkIoiulYHkPwkBCwtzgDwMAAAAAAAAAAAAAAABP9cqast7tHbde1PnY5mf9/c6Vv9Sb0013+b1P1pq1tHfeelHnc5uf9fc7V/5Sb6433QUAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4H/VDIWan9D7RxkPdTfn0XZD/gJdzVCo+Qm9f5TxUHdzHm035C8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADzLF1I9lapAGQEA
   </data>
  </layer>
  <layer name="behindwall" width="150" height="120">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3ZzU3DMACAUS9Bz4zQY8fpKIzCKIwGAnEt+fFHQ3lP8jWx5E9OZI8BAAAAAAAAAAAAAAAAAMf2tGLAUrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArCrqioCsKuqKgKwq6oqArtlrTjq5YSlf/wz3W7zTGi64e2621O0XvnNFVNTfm0BWFv/od1NWx6YrZ7vV/rKvHpisKW9d0rxldXcZ4/XjO9XucJ8yL/e65T8zoyv51TLqioCsKuqK0ZQ330hUF984UzmO8nb7OCT7HZYyrrphty/4FP9EVBV1R0BUFXVHQFYXzGM9rzxtgqTX7FiylKwq6ouDekIKuKOiKkq4o6IqCrijoioKuKOiKgq4o6IqCrqjoh4KuKGiKgq4o6AoAAAAAAPgt71xc+z9AGQEA
+   H4sIAAAAAAAAC+3dQU7CQACG0V5C1xyhS5YexaN4FI7iUTyKNUAyIRU6Zf5Cy3vJbBRTLR9DbUmn6wAAAAAAAAAAAAAAAADgub0V49bjYKqyq/eu+/xv6IoabxUDptIVCboiQVck6Irh/7Lvmg5aD7ZJVyT0Q1dDW7vz2J/OK+mKloa2vnRFa5fzV82YM9fBLXPmOrhFVySU76FT3xOhxtS5C2roigRdkaArEnRFgq5opS8+u77vnL+iDedFSdAVCboiQVck6IoEXZGgKxJ0RYKuSNAVCboiQVck6IoEXZGgKxJ0RYKuSNAVCboiQVck6Yq5auclXTHFWrrS830e8fy1uGdk2sL743tr3V577t5D22zRVep3O1uybV21sYWuWm7/1bp65Pvgvut+hscdylHey09Xz+1Zuxp73sr9v4Wu+mE/XN6TYguWPIYo6epobM2OLVhTV/3xdb17lq5a7JtX7iq0P6ccX331xc/83TN5+NpH8f1DuTZv37W1xOtti13NbarR/H+zq7FtXVvrqfX8pat5dHVdsqux43Vd3e/Vu7r296/dGrran17XxT0id4/uqoUtd3U2p617JdaU0xVrvO7ckq4yTussjV6feZWu/tsW7fgcMgm6IkFXJOiKBF2RoCsS+uPazlXnG2CqmnkLptIVCboiYQ3XDVkfXZHQ6vMzMEZXJOiKBF2RoCsSdEWCrkjQFQm6IkFTpOiHBF2RoCkSdEWCrgAAAAAAgKX8As9DTolAGQEA
   </data>
  </layer>
  <layer name="plataforma2_c" width="150" height="120">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3aSwqEMBRFwcx10b10cRAQ6UYM72poquDNMzgQ8mkNAAAAAAAAAAAAAAAAAAAAAOqsh1leXgv/Yz0NVNAVKboiQVcAAAAAAAAAAAD3La19/HGnmq5I0BUJvSs9UUlXJOiKBF2RoCsSelcAszrfW30beyN36YoEXZHwq6vekq4YoSsSrrqCEboCAAAAAABg1NVfHm9OjNAVCboiRVc8RVek6IoUXQEAAMB89vcSZ3aq6YoEXQEAAAAAAAAAAAAAAAAAAAAAM9oAyi8f/UAZAQA=
+   H4sIAAAAAAAAC+3aSwqEMBRFwQx6povupYtgQKQbMeRqkCp48wwOhHxKAQAAAAAAAAAAAAAAAAAAAIB+5m0+Ty+EV5kPAz3oihRdkaArAAAAAAAAAACA66ZSvvv/V9PD6+EddEWCrkioXemJnnRFgq5I0BUJuiKhdgUwquO91a+xN3KVrkjQFQn/uqot6YoWuiLhrCtooSsAAAAAAABanf3l8eZEC12RoCtSdMVddEWKrkjQFQAAAIxpfS9xZqc3XZGgKwAAAAAAAAAAAAAAAAAAAABgRAvbaBrKQBkBAA==
   </data>
  </layer>
  <layer name="plataforma2_b" width="150" height="120">
@@ -127,15 +112,25 @@
  </layer>
  <layer name="plataforma2_a" width="150" height="120">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3dQQrCMBAF0AGX7SE8qkfxKB5NQQOhKGqdiUrfg1l018UnCZ0kjQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtma+FWSYIg4tU/P1GT4mV1SQKyr0uYIsckWFlivIJFdU2EXsL3X89nsAAAAAAIzQ9wbtYwAAAADg1yzP4izLNy0AAADWcJaaCs68UkGuAAAAAKjkrmT+2bP9hbINAAAAAABsTeuf6I2QSc8NAAAAAADGmiJO7hwCRvIvSyq8kyvzHq96lKu2fpIl1jAPUuFervqxyngFAAAAAABkOwNUVegEQBkBAA==
+   H4sIAAAAAAAAC+3dwWnDMACGUYX01gzRUTpaR8koGa0urcGYhNJaf2TJ74HAufnwIZPIUkoBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI7m8jOghtdSPuamLt+fYTNdkaArEpZdQS26ImHuCmrSFQnnUt6mcW19HwAAAAAAz7BcG/QeAwAAAAB7s96Lsx5+0wIAAOA/1t83oQZ7XknQFQBAXc7WIkFXJOiKBF1xz9azknVFS7+9X+hdQwAAAAAA4Gjm9RNrI9RkzW181lxJeNTSSynvp1JuX+M8XTe8RTpkjiJBVyQ8ev559rGFeYoEXZGgKxJ66erU+gb4kx66cu5Qf3roiv48qyv/ZXkse+zKM28crbqarm/2vI9rT/MV42jR1XKuMl+NyVxCgq5I0BUJuiJBVyToigRdkaArEnQF4/sEKnUIT0AZAQA=
   </data>
  </layer>
  <layer name="PLATAFORMA2_BASE" width="150" height="120">
   <properties>
    <property name="Collision" value="Plane"/>
+   <property name="Depth" value="0.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3dQQrDIBAF0JQco5ft0ZMuBAltEijUP/geZO9CvqMjZlkAAAAAAAAAAAAAAAAAAACAWT26bx08FoC79rx6tewCAAAAgFTP0QMAONGftesVAgAAAJDCuRVQkb4gUEFfZ6mxgDTqKaAatRWQ7HjO3rLK2TtQiX0ikMy9BqCCT3tD2QUAAMCvvAtPOj0mIJ2cApLpL9GzZpHOHJ3D2dpkXSKZumoO7pJS2VVOmdsAAACQ772/t28H0skqoJLWP5FbAAD3fXv/GAAAAGAU76MB/+ZflkB1x34PQCJZBQAAAAAAQDUbZmI4MkAZAQA=
+   H4sIAAAAAAAAC+3dOw6DMAwAUCgX5+glVSNZUSagzYf3JIYyZYiM7biwLAAAAAAAAAAAAAAAAAAAAMBTrcf1Oq6t9UKYlr3FLxz7ak+xa229EAAAAAAAGFTsta+LMx0AAAAA+pD6VrlnZc4dAOA+Oc+SYwEAXBdnr+RWQG/KPnuuA/NvsQsA4JrYb5dbAb0q/zsY60SxCwAAgLPKehMAAJjHN9/fK+dLn/vOlwD4t3IuPj6fPJfoWZgx3Mu8yv6dR+yXe38Do4n1X60OjHHL3gYAAIA+bep2YABiFTCSfP4nbgFn1eacxBVgdrU5T3EPAAAAaC31LFqvAXgO37IERld+fwmgR96HDQAAAAAAwGje8rScNkAZAQA=
+  </data>
+ </layer>
+ <layer name="columnas_PLATF" width="150" height="120">
+  <properties>
+   <property name="Collision" value="Plane"/>
+   <property name="Depth" value="0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3ZyQkAIAwEwPRh/3369SsaXGGmgjxCDrYKAAAAAAAAAAAAAAAAAAAAAAAAAAAAuGm8LgAAAAAAAABoJxcEADjjngIAAGDlTwQAAAAAAGCXjAlIZ04B8As7i3R6FAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEgxAd186MhAGQEA
   </data>
  </layer>
  <layer name="plataforma1" width="150" height="120">
@@ -143,27 +138,188 @@
    <property name="Collision" value="Box"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   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
+   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
+  </data>
+ </layer>
+ <layer name="vegeta ad" width="150" height="120">
+  <properties>
+   <property name="Depth" value="0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dwXGjMBQAUFrI7sGY01bgU3J3KSklpbgUl5JSFkVohmXBFg6OhXlvhoGMIaM4QqDPF6oqAAAAAAAAAAAAAAAAYEteB8tbt+QcN2Xs+Gu/9+3CPm9XPk/7XCoTwDV1VX3s2qVdf459ntM2wlBTVX8ObZ3aT9QruEWoV7uMOrWP+3003TLVvkGwi+3V1XrS7ffZro/t+phTF9mufawjx7HrYL9/F/Zr695xuA0AwDypH9iuPx5dFp5HHfuB+n8sLsQYGvWKBe1je6Vesag63l+JVwHFys3zAgAAAICflMYpApQsPGOWZ8XScsfmwBzDsTmeDwIALMN9FVC64Xv35IwCpdpXX7HRsD49uCg8kbZOvR+q6lyrVyyobafe2+WcfnZvBayNfiFwT/05KqbkxqqmPn+d2IYx3qnNPSz9Tm1tGYF3arNW2jBYt5fettwCgMf51S6/u+2QO1GPbMN3dLkTp5CXc4g/nx5cpKe0tfM35E60dencdIvcnHlyx6Y7f5kjd2z62s9f/dWfdWneSG73cn0XVkbbVL5rcc86Xh+NZaj+jVPwPHpzPYd57L/G7tQjn6ft3DbNOKDlbCGWkKs/DqhfZ8PadzQt5cmF76rLl7saSyjtHA7X41Du9D+fW666N+dqPZh/dTgOiDwpTy7FEHYZsYTSxvKl8oSyH+I932nm8V/xlnBeHeJ59plzXD93tYvvZeexDvNe++fCM1wvbsmNa2743y2tf3/Ulv+c2pT+dq46zo15bGbGXQa5q6c5eazDvNdwfGpvtxp7brr4eynXwUeZyl3NOVeH+/evFWuMPS+h7r6DLf7tAGzTsP9dkktxAsqW+uJNL9ZVSgzr1jgBj5f64ruuP97EvvHD4w39ss2NE1CmsVjRvcbn3Pr70rPxtccZua+UN5Bbd/cx1hae85zuWjAWV/pcWzv1apVKn2urhOdOzFdyPnN4hhuet2mvWFLTPd8tsc5TvpR3MrzPa8Sz+IY6tkv/5aeUfu/Hz7qlj7kfuccr+d6Pn6ed4R60M5QgjTE2LhUoUb9dmoozwHdMxRngu3YxD+vz0eXgeexje6VecdXY/ExT722p4/2V+SeAxVx6p9acsTT6f+SaM+ZH/4+hqfcczR3zM/acme2a856jW94PwzZ5VxkAAGvxF+SgSOpAGQEA
   </data>
  </layer>
  <layer name="columnas1" width="150" height="120">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YQQqAMAwAwT7E/7/Te8GTXaw684JAFgIZAwAAAAAAAAAAAAAAAAAAAAAAAAAAAIDdHU8PwCfpioKuKOiKgq4AAAAA2JG/FQVdUdAVBV2xwtyRrlhBVxR0RUFXFHRFQVcUrrrSF3foioKuKOiKgq4o6IeCrijoioKuAOBd3G4KumIlP1sKuqKgK4rd64qVu5970tV/6YqCrijoioKuKOiKgq4o6Ird6QoAAAAAAAAAAAAAAAAAAAAAAAAA9nUC3kncYUAZAQA=
+   H4sIAAAAAAAAC+3aMYpCMRRA0Q+WbsHFuDSXrqUEnBHJ1Xw9p0sTArnVS7YNAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNWdPn0AvpKuKOiKgq4o6AoAAACAFZlbUdAVBV1R0BUzjB3pihl0ReHVrg7bdjnMPgxf49WujreujndrnXFvVlfjmt+mKwqPuvqvL13xF11R0BUFXVHQFSvRFQVdMZoxG9cVoxkN6IqRrijoisLeu/JHbE26orDXrp6d2fIZuqKgKwoTuzo/2rO4e12tbW9djT3pak26oqArCrqioCsKuqKgKwq6oqArCrqioCsKxRuxrtAVBV1R0BUFXVHQFQVdsRe6ovCO/+38Hl1R0BUFXVHQFQVdUdAVBV1R0BUFXVHQFQVdUdAVBV0BAAAAAADPuAKFaz0OQBkBAA==
   </data>
  </layer>
  <objectgroup name="enemies" width="150" height="120"/>
- <objectgroup name="cameras" width="150" height="120" visible="0">
+ <objectgroup name="cameras" width="150" height="120">
   <object x="11136" y="4480"/>
   <object x="11648" y="4672"/>
   <object x="11520" y="5184"/>
-  <object type="CameraBound" x="128" y="192" width="9344" height="7424">
+  <object type="CameraBound" x="0" y="192" width="9472" height="7424">
    <properties>
     <property name="zoom" value="5"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="items" width="150" height="120"/>
- <objectgroup name="otros" width="150" height="120">
-  <object name="Pombero" x="128" y="3968" width="64" height="64"/>
+ <objectgroup name="items" width="150" height="120">
+  <object name="Fruit" x="2880" y="4480" width="64" height="64"/>
+  <object name="Fruit" x="2816" y="4480" width="64" height="64"/>
+  <object name="Fruit" x="2752" y="4480" width="64" height="64"/>
+  <object name="Fruit" x="2688" y="4480" width="64" height="64"/>
+  <object name="Fruit" x="2368" y="4992" width="64" height="64"/>
+  <object name="Fruit" x="2368" y="4928" width="64" height="64"/>
+  <object name="Fruit" x="2432" y="4992" width="64" height="64"/>
+  <object name="Fruit" x="2432" y="4928" width="64" height="64"/>
+  <object name="Fruit" x="3072" y="4992" width="64" height="64"/>
+  <object name="Fruit" x="3136" y="4992" width="64" height="64"/>
+  <object name="Fruit" x="3008" y="4992" width="64" height="64"/>
+  <object name="Fruit" x="3328" y="5888" width="64" height="64"/>
+  <object name="Fruit" x="3328" y="5824" width="64" height="64"/>
+  <object name="Fruit" x="3328" y="5760" width="64" height="64"/>
+  <object name="Fruit" x="4224" y="7104" width="64" height="64"/>
+  <object name="Fruit" x="4288" y="7104" width="64" height="64"/>
+  <object name="Fruit" x="4160" y="7104" width="64" height="64"/>
+  <object name="Fruit" x="5120" y="6976" width="64" height="64"/>
+  <object name="Fruit" x="5184" y="6976" width="64" height="64"/>
+  <object name="Fruit" x="4864" y="6592" width="64" height="64"/>
+  <object name="Fruit" x="4736" y="6592" width="64" height="64"/>
+  <object name="Fruit" x="4928" y="6592" width="64" height="64"/>
+  <object name="Fruit" x="4800" y="6592" width="64" height="64"/>
+  <object name="Fruit" x="4544" y="5888" width="64" height="64"/>
+  <object name="Fruit" x="4480" y="5952" width="64" height="64"/>
+  <object name="Fruit" x="4480" y="5888" width="64" height="64"/>
+  <object name="Fruit" x="4544" y="5952" width="64" height="64"/>
+  <object name="Fruit" x="4736" y="5760" width="64" height="64"/>
+  <object name="Fruit" x="4736" y="5696" width="64" height="64"/>
+  <object name="Fruit" x="4736" y="5632" width="64" height="64"/>
+  <object name="Fruit" x="5184" y="5632" width="64" height="64"/>
+  <object name="Fruit" x="4928" y="5184" width="64" height="64"/>
+  <object name="Fruit" x="5184" y="5696" width="64" height="64"/>
+  <object name="Fruit" x="4992" y="5184" width="64" height="64"/>
+  <object name="Fruit" x="4992" y="5120" width="64" height="64"/>
+  <object name="Fruit" x="4928" y="5120" width="64" height="64"/>
+  <object name="Fruit" x="6528" y="5120" width="64" height="64"/>
+  <object name="Fruit" x="6080" y="4672" width="64" height="64"/>
+  <object name="Fruit" x="6528" y="4992" width="64" height="64"/>
+  <object name="Fruit" x="6528" y="5056" width="64" height="64"/>
+  <object name="Fruit" x="6080" y="4608" width="64" height="64"/>
+  <object name="Fruit" x="7168" y="4096" width="64" height="64"/>
+  <object name="Fruit" x="7232" y="4032" width="64" height="64"/>
+  <object name="Fruit" x="7296" y="4096" width="64" height="64"/>
+  <object name="Fruit" x="6976" y="5184" width="64" height="64"/>
+  <object name="Fruit" x="7040" y="5184" width="64" height="64"/>
+  <object name="Fruit" x="6976" y="5120" width="64" height="64"/>
+  <object name="Fruit" x="7040" y="4864" width="64" height="64"/>
+  <object name="Fruit" x="7104" y="4864" width="64" height="64"/>
+  <object name="Fruit" x="7168" y="4608" width="64" height="64"/>
+  <object name="Fruit" x="7104" y="4608" width="64" height="64"/>
+  <object name="Fruit" x="7360" y="5184" width="64" height="64"/>
+  <object name="Fruit" x="7488" y="5184" width="64" height="64"/>
+  <object name="Fruit" x="7616" y="5184" width="64" height="64"/>
+  <object name="Fruit" x="7616" y="5056" width="64" height="64"/>
+  <object name="Fruit" x="7488" y="5056" width="64" height="64"/>
+  <object name="Fruit" x="7488" y="4928" width="64" height="64"/>
+  <object name="Fruit" x="8704" y="5120" width="64" height="64"/>
+  <object name="Fruit" x="8704" y="5184" width="64" height="64"/>
+  <object name="Fruit" x="8640" y="5184" width="64" height="64"/>
+  <object name="Fruit" x="8704" y="5056" width="64" height="64"/>
+  <object name="Fruit" x="3520" y="4032" width="64" height="64"/>
+  <object name="Fruit" x="3456" y="4032" width="64" height="64"/>
+  <object name="Fruit" x="3392" y="4096" width="64" height="64"/>
+  <object name="Fruit" x="3328" y="4160" width="64" height="64"/>
+  <object name="Fruit" x="4288" y="4096" width="64" height="64"/>
+  <object name="Fruit" x="4352" y="4096" width="64" height="64"/>
+  <object name="Fruit" x="4416" y="4096" width="64" height="64"/>
+  <object name="Fruit" x="4608" y="3520" width="64" height="64"/>
+  <object name="Fruit" x="4544" y="3520" width="64" height="64"/>
+  <object name="Fruit" x="4480" y="3584" width="64" height="64"/>
+  <object name="Fruit" x="4672" y="3584" width="64" height="64"/>
+  <object name="Fruit" x="5312" y="3136" width="64" height="64"/>
+  <object name="Fruit" x="5376" y="3136" width="64" height="64"/>
+  <object name="Fruit" x="5504" y="3200" width="64" height="64"/>
+  <object name="Fruit" x="5568" y="3200" width="64" height="64"/>
+  <object name="Fruit" x="4672" y="2880" width="64" height="64"/>
+  <object name="Fruit" x="5824" y="3392" width="64" height="64"/>
+  <object name="Fruit" x="5888" y="3392" width="64" height="64"/>
+  <object name="Fruit" x="5888" y="3456" width="64" height="64"/>
+  <object name="Fruit" x="5824" y="3456" width="64" height="64"/>
+  <object name="Fruit" x="6080" y="3456" width="64" height="64"/>
+  <object name="Fruit" x="6208" y="3520" width="64" height="64"/>
+  <object name="Fruit" x="6144" y="3456" width="64" height="64"/>
+  <object name="Fruit" x="6272" y="3520" width="64" height="64"/>
+  <object name="Fruit" x="4736" y="2880" width="64" height="64"/>
+  <object name="Fruit" x="4672" y="2944" width="64" height="64"/>
+  <object name="Fruit" x="5504" y="2496" width="64" height="64"/>
+  <object name="Fruit" x="5568" y="2560" width="64" height="64"/>
+  <object name="Fruit" x="5632" y="2560" width="64" height="64"/>
+  <object name="Fruit" x="5632" y="2624" width="64" height="64"/>
+  <object name="Fruit" x="5696" y="2624" width="64" height="64"/>
+  <object name="Fruit" x="5568" y="2496" width="64" height="64"/>
+  <object name="Fruit" x="6400" y="1408" width="64" height="64"/>
+  <object name="Fruit" x="6336" y="1408" width="64" height="64"/>
+  <object name="Fruit" x="6464" y="1408" width="64" height="64"/>
+  <object name="Fruit" x="6272" y="1408" width="64" height="64"/>
+  <object name="Fruit" x="3072" y="1408" width="64" height="64"/>
+  <object name="Fruit" x="3200" y="1408" width="64" height="64"/>
+  <object name="Fruit" x="3136" y="1408" width="64" height="64"/>
+  <object name="Fruit" x="3008" y="1408" width="64" height="64"/>
+  <object name="whistle" type="whistle" x="3584" y="5824" width="64" height="64"/>
+  <object x="4032" y="5824"/>
+  <object x="3648" y="5824"/>
+  <object name="whistle" type="whistle" x="6238" y="4994" width="64" height="64"/>
  </objectgroup>
+ <objectgroup name="otros" width="150" height="120">
+  <object name="Pombero" x="128" y="3904" width="64" height="64"/>
+  <object name="Killbox" type="Killbox" x="576" y="4352" width="128" height="192"/>
+  <object name="secrets/denguefocusa" type="secrets/denguefocusa" x="4608" y="6912" width="128" height="128"/>
+  <object name="secrets/denguefocusb" type="secrets/denguefocusb" x="8448" y="5120" width="128" height="128"/>
+  <object name="secrets/denguefocusa" type="secrets/denguefocusa" x="5376" y="1344" width="128" height="128"/>
+  <object type="ClavelDengue" x="2270" y="4064" width="54" height="53"/>
+  <object name="Return" type="Door" x="1216" y="4096" width="64" height="64">
+   <properties>
+    <property name="Target" value="/Levels/CampoDelCielo.tmx"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="bichitos luz" width="150" height="120">
+  <object name="particles/glow" x="256" y="4032" width="192" height="64"/>
+  <object name="particles/glow" x="0" y="4032" width="192" height="64"/>
+  <object name="particles/glow" x="1344" y="4096" width="192" height="64"/>
+  <object name="particles/glow" x="960" y="4096" width="192" height="64"/>
+  <object name="particles/glow" x="1856" y="4096" width="192" height="64"/>
+  <object name="particles/glow" x="2368" y="4096" width="192" height="64"/>
+  <object name="particles/glow" x="2752" y="4096" width="192" height="64"/>
+  <object name="particles/glow" x="3712" y="4096" width="192" height="64"/>
+  <object name="particles/glow" x="3904" y="4096" width="192" height="64"/>
+  <object name="particles/glow" x="4352" y="4096" width="192" height="64"/>
+  <object name="particles/glow" x="5504" y="4096" width="192" height="64"/>
+  <object name="particles/glow" x="3072" y="4480" width="192" height="64"/>
+  <object name="particles/glow" x="3136" y="5056" width="192" height="64"/>
+  <object name="particles/glow" x="3328" y="5888" width="192" height="64"/>
+  <object name="particles/glow" x="4160" y="7104" width="192" height="64"/>
+  <object name="particles/glow" x="4928" y="6976" width="256" height="64"/>
+  <object name="particles/glow" x="5440" y="5120" width="256" height="64"/>
+  <object name="particles/glow" x="6208" y="5120" width="256" height="64"/>
+  <object name="particles/glow" x="7040" y="4160" width="256" height="64"/>
+  <object name="particles/glow" x="6720" y="4160" width="192" height="64"/>
+  <object name="particles/glow" x="7616" y="4672" width="256" height="64"/>
+  <object name="particles/glow" x="6976" y="5184" width="320" height="64"/>
+  <object name="particles/glow" x="7936" y="5184" width="192" height="64"/>
+  <object name="particles/glow" x="8128" y="5184" width="192" height="64"/>
+  <object name="particles/glow" x="3456" y="1408" width="192" height="64"/>
+  <object name="particles/glow" x="3648" y="1408" width="192" height="64"/>
+  <object name="particles/glow" x="4032" y="1408" width="192" height="64"/>
+  <object name="particles/glow" x="4224" y="1408" width="192" height="64"/>
+  <object name="particles/glow" x="4480" y="1408" width="192" height="64"/>
+  <object name="particles/glow" x="4672" y="1408" width="192" height="64"/>
+  <object name="particles/glow" x="6016" y="1408" width="192" height="64"/>
+  <object name="particles/glow" x="6208" y="1408" width="192" height="64"/>
+  <object name="particles/glow" x="5632" y="1408" width="192" height="64"/>
+  <object name="particles/glow" x="5440" y="1408" width="192" height="64"/>
+ </objectgroup>
+ <objectgroup name="meteoros" width="150" height="120"/>
 </map>

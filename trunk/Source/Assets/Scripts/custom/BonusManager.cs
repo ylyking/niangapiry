@@ -6,6 +6,8 @@ namespace BonusObjects
 
     public class BonusManager : MonoBehaviour
     {
+		public AudioClip Cheers;
+
         Transform thisTransform;
         Transform playerTransform;
 
@@ -48,6 +50,9 @@ namespace BonusObjects
             if (playerTransform.position.x < 6.2f && playerTransform.position.y < 3.5f && MisteryBox)
             {
                 WinMessage = true;
+
+				Managers.Audio.Play(Cheers, Managers.Display.camTransform);
+
                 DestroyImmediate(MisteryBox);
                 Destroy(Instantiate(Resources.Load("Prefabs/Particles/ParticleFlam", typeof(GameObject)),
                           BoxPos + (Vector3.back * 2), thisTransform.rotation), 5);
