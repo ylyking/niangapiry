@@ -24,7 +24,7 @@ public class MapState : GameState
 	{
         Debug.Log("Enter map State");
 
-        if (Managers.Tiled.Load("/Levels/Map.tmx") != true)
+        if (Managers.Tiled.Load("Map") != true)
         {
             Debug.Log(" Map not loaded");
             Managers.Game.ChangeState(typeof(MainMenuState));
@@ -230,7 +230,7 @@ public class MapState : GameState
 //		Managers.Audio.PlayMusic( MusicMap, 1, 1);
 
         Managers.Display.ShowFlash(1);
-        Managers.Tiled.Load("/Levels/Map.tmx");
+        Managers.Tiled.Load("Map");
         Target = GameObject.Find("mapindex");
         MiniAnim = Target.GetComponent<AnimSprite>();
         Managers.Display.cameraScroll.SetTarget(Target.transform);

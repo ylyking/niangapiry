@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="300" height="50" tilewidth="64" tileheight="64">
+ <properties>
+  <property name="music" value="Pampero"/>
+ </properties>
+ <tileset firstgid="1" name="pampa" tilewidth="64" tileheight="64">
+  <image source="pampa.png" width="512" height="512"/>
+  <tile id="5">
+   <properties>
+    <property name="Collision" value="plane"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="collision" value="plane"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="collision" value="plane"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="65" name="plancha2" tilewidth="64" tileheight="64">
+  <image source="plancha2.png" width="512" height="512"/>
+ </tileset>
+ <imagelayer name="fondo" width="300" height="50">
+  <image source="Pampero_fondo.png"/>
+  <properties>
+   <property name="heightRange" value="0,15"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="fondoinverse" width="300" height="50">
+  <image source="Pampero_fondo.png"/>
+  <properties>
+   <property name="heightRange" value="15, 50"/>
+   <property name="scale" value="1, -1"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="clouds" width="300" height="50">
+  <image source="Clouds3.png"/>
+  <properties>
+   <property name="scroll" value="auto"/>
+   <property name="speed" value="0.05"/>
+  </properties>
+ </imagelayer>
+ <layer name="ArbolesBack" width="300" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3bSW/aQBQA4PlrbZOuSVdyaCMSH7JwSODU5dKWn943qS25KCwGgzH9PunJCBiePWjezBiREgAAAAAAAPxfjiKOuz4JoDcuIi47yn0ScdpRbqB/biJuO8o9iDjrKDfQT5OuTwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAvfEypemLiOcRXZ8LwCLvo069i3irXgEAAAAAAAD02nFK06Md/fY7LPNcxvHC783QK8MN28eYz2N/Zc+iRjyNeFKrFafx+GRHteO6zHMbxxv1CnqhKI/XDduNZ8Z4jPk89lf2Jtq/jnhV+5yzeDzYUe24L/NM1sw3Lo9Vnd603h+iXa6X+VdxIP2e90H1PdCofP5+xfY/ot33iG8RX2f6ZNLgPD5F248RH7bQr9v8H0QREded4vpT9EPuj4c63bTetyFqQa4Je6taL4+Xv5WWjXZQr64avHfdeSvvgzbZA0Wj6e+IXxE/N+iT82j7JeLzFvp1m/+DyPU9rjvF9afoh4cEuU6vWu/bFLUg14SV1Pfrba8Fh7V+ruep1sv12t5HxZLXY15MMT/mebK3ruaMlUU16a7B5zeZW+s58z5o3T0Q++G8/P6iFuSaMFdRe1zfr7e9FqzuBRbp8fsC9dreR6Mlr8e8mGJ+zPNkb93N+Xqa1KRFBn/j0Rzbykm/zI6zar/e9lqwuhdY5WtyXwAAAIDD9Qei/S3wYOoAAA==
+  </data>
+ </layer>
+ <layer name="ArbolesFront" width="300" height="50">
+  <properties>
+   <property name="depth" value="-.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dS28TMRQGUP81IOWZ8kwXgAJdNKWLhq54bID56dyRGDFCqMmMbVqHc6S7iCJZdz7H1owUa1ICAAAAAAAAgJt3L6XubtSdqNyxFlFH+S0Vt648fmSXIsM+S6CiJ7FPPY56VGC/WkYd57dU3GbH9w/j2h9E3Z+ZQWSXIsM+S6CiV7FGX0a9KLBfraJO8lsqbrvj++dx7c+ins7MILJLkWGfZTotkCPwd29jfb2Jem2dzRbZpciwzzJdyBEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACK8J5IoBW574lce/cR8I+M3xM5x2aP/eps5tgAY+P3RM6x3WO/upw5NgAAAAAAAAAA9b2Lej/67L9p0LZhTa9vupEKzqM+jD6X+G9aqZw+FhqnRc6lHYZd81hjTxnW9KbC2LlK/K6vCvUyKJHTp6jPUV+ivhYYrzW559JaU+ueYBF1lDlG9NVFf92c3q6bx9NUb0/p1/S20thT9XMwZDfOI+alW9yC85MlcvoW9T3qR7oFF1TA1OfsqefSWn+Or3VPsIw6zhwj+uqiv25Ob9fN40X6vVb2nb+zBpdDPwdDduM8Yl66ZYPX8z+Y+pw99VzaIZwxq3FPsIo6yRzj6teamtNb7vnCP102uL77ORiyG+cR89KtGrweAAAA4PD8BIFGhuRg6gAA
+  </data>
+ </layer>
+ <layer name="fondo" width="300" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3db3ISMRjH8TBSlVpqa/3TFquVN8zUdtSq7zkKR9mj7FH2KB7FhE3a9CG7BHaBbPl+Zp4JhN00g+VH2C6uUgAAAAAAAAAAAAAA7J8Pur4Fap/cKHW96zkAWCRz6UrXeaBe6Xqt66VS2YGuujFkfdT1KdC2Md+6WofOKnWnVLHm7sCzsuz11PTxGANdh1591jWydaHKxYW9nbm+E13HZZsNRV4pu71r7XiZ29/M9auuL6Jdlze2KzXy5uraVdmsyhtMDei0n/a1fWrvX6oyD8ZqnhXZQLz2x6J1XMaYfpcvZ3rfd4HsaCq0vrrawM9pKjRPv1Zhnl+dVbNb8gronCav/W3p6erbCs03xYwF0C7zeh955fpS01fVeWX6bJ7NbOW23D6uX71/rMLd7osCkKY2Pl9tg58jobyKraqxySsgfV3JK//zoCm9Fsxj88o3eazcVjHxjmORV0C6UsuriSiRPf/cdueircsrMWYusqpwj7lxAKQp4bzKA3k1rVo39eLGfBjXViEqJ6+AdCWcV6H1VVGVV3U5I7KqCNyeucwir4B0pZZXddzf/I5sruh26j22kHWBejheJT8L+tkIIE1dySubJVnd+ioir5589iOvgG7RaxR3Dtb8Oy7mnPqrMhfybc2hp9dJy+ooYpzJ8k2WIq+AdIXOvzyy54p7a5KqtUpMf16xXex6aOatfdzxq1yus9yc23g+AKTJrFveqIXzL5tkzEZKnqe+qVwhr4C0hc4X97LiOvI4trs9i9hmlTz011dzVcev2ioA3WSOZ0VkUWyWTSPz78m+8v+vCCFnAEh1+VK13SrjrYu8AuATa63g/XFNv/1bX1G1XexaSjLjvvDOxQIAAAAAAAAAAAAAAACaWvdam/t+fXIAm3cqvp9+qe+bc+8uRH/ddTd1//x8vZFoz9qfLgAAAAAAAAAAAAAAAAAAAIAlDgJ9Q1VeM+JE17FS2bCl61xh0X24b7bteQBtGug6fKxssEKGuH1jmYxy17nRmTX96j02LB9Xb8vHzP1Mjn1o+6rmyXVkHulsKn6XbX5ftrNfuq/JmDe67tqYHLAjPdHuu5j8bvIesYo/OqNMZukq7lu4JvZ3Pc6P5tNKnvnun/uen3sfNe+h5r3U//c63cns0uI/V13QFy3S4H6PVv19qvsOr3G7xmfKJu9ly9bwbs29qczH8+KuKSOvLeMXdkOvq67/qvCxLMlkivsszVoZz1VVRpFX3cOxP+yDsbg9DvQjbate9/4/gnDvJmDqAAA=
+  </data>
+ </layer>
+ <layer name="SegundoPlano" width="300" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3d0W7aMBTG8VOJm27purYaK7Aqnaa1d70p4ppH4VH8KDwKj7bjxgZjBXC6hBj4/6QjJ8EE3+TDiUAWAQAAAAAAAAAAAADgMv3UGoqYYbVtW/NDq+dhAbhgmkHiMsm35re2ZdCndDn1tCOv6s4R5pxvhx2MN/pcf8yQscD50QySsWzyyWdTk7yy5xi594y3z7FuNQOXXYw3HGuTMQNI56/tOnrcjPa/vr4ej6E83KVXu/LqUcgr4NLknld17Jgf+x4EgKOz1/6k70Ek+Lq9bfoaB4Djq7vPytHAlc2rSVWmaV69ar2ILHy9tj9MAB3KPaf2YX4FXJbc8krHs/T1EhwfyPYc67lqzaClz2WuBeQvt7wKvRzustZWbgHIV87Pr3bllZ9Xaa0GLf3mC8DpyDGvPD93KkTmtrV5ZbeLKq9W7hiAC5FzXl25tqjKhNtt5RXPr4DTYfNq1PcgPsnmGfMr4Pz56zz+7094/ZduDrOP77Ov76E+dcf5zQKAWBn8/jKeqyTm1Vb7mT6lrH/PsEZeAbCuov0c8ip+nbwC0ERbeRX3/Z9zAAAAAAAAAAAAAAAAAAAAAMifXxvXr4GbuvZtzfq9jd4PAE09uXa82Tep77NreAbr9360rEUJAAAAAAAAAAAAAAAAAOjan74HAABAjanIwrbvInNbM7efwvd9E1l2MTagTrzGTIobrW8i5rvWbbVv7PG7oM/fhHPcunPoucS15ibx/wj3Wg9a11pfqjLX/JchmebN0mbOTDbZM+t3SGiRXhvmoe9BtGQQFbrnctX4fHWZbzPbZrXEOX2stXY0o1Zt5tRbgznaOUr9vm3TfVVGr+U51zPOxV20r/eAiyn3cwBOxCwxr6auLfQ7fLq3J3C6JjpPfdbSVn5V+x81DraRP3ufoVm1KoRnCADyVzR4NvMPKMJxhGDqAAA=
+  </data>
+ </layer>
+ <layer name="CollisionesPlane" width="300" height="50">
+  <properties>
+   <property name="Collision" value="Plane"/>
+   <property name="Depth" value=".3"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dXW+CMBQAUFA3l7hnfeO38tNXI92QDQeobdnOSW4qPtSbEG4/1LSqAAAAAAAAAACAUh1H3m96sUTzQ6SS+vMAlmoGLQAA4zYh6hDb3IkALBBqVxtqWJs7DwCANaq7OK8LrQkBAB7rvG+16fau7F8BANwnzq3sYQEApXrWPOXw1X/b/53n8Hqqurr+jjC2mwfkCqzPdmV71/1999y5AABE/pMHAAAAAAAAAAAAAAAAAAAAAAAAAAAATNHkTgBgolivXkK8htiHeLtct7lygjUy9n83t64cuxjq9xHaNly3Y33dW8u6s7M+zwB0RgXP0lS364aaMk888zOe1bnr4i87FDZX+63+nqpLjT8lzyy9Rz+/v9WLuX3d0r+P++r6PqasS4PxuM09HjeD1/2Yauxs4tLqVZ07AViZOB7HZzz3OuJWfbq3jpdWr0rKhTTivGDpM9ZfM3Tt7DlG7OO9sLn4f7SbEKUoKRcgvTXVK/uRAKTyAXuWlGhg6gAA
+  </data>
+ </layer>
+ <layer name="ColisionesBox" width="300" height="50">
+  <properties>
+   <property name="Collision" value="Box"/>
+   <property name="Depth" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3d7ZWqMBCA4Sj+k0Lu7cJSLCWlWAql3FIW9yY6zg6YhMgSfZ9z5oAfQEQzBATiHAAAAAAAAAAAAAAAAAAAAAC0o3PO78ahjr09/uO9XcY814qxvH7/vwy3oVVOAOV0Pd+7e90TdfBWJ616quqrM6Z7yDPH8bXDOLQixdF+zmd/+BezyimJde/FevqxvlUe91YOBz7BWGeG3TpxGpd1Ess8yejH5z4tX6WWeVw3p71Yl9d1tbhwAIrJNlfCe83p65ZouVr5Ss9ni58V+CQt56tetRVjxPbklLkyh3l+t6f0fDraWsCvajlfPWtHzUznl86Tthawvk/OV+Fzn8b4F8Y9+QrYrk/MV9b/Dqn7kmLZvnDxAAq1nK96Z58ztsb5V+QrYH059W5r+WpKabsrcxl+hcUAEGrlK/Vf3aDGH84HSzlnTI3fIqWcz/bp5Lm6e/ejjZYUPfkKWJ3MV9b5AfF80oOz81WnzkltAW0joE2y7iacZ9mk2J6KbSjaRkCbcvJVS2SOIj8B70HtD5rHaeL+oHzdOt4z9b9cV3jPhNzp5HEpchTwfmoey9H5Tt4XohePRdvn+54H8nl5H4Q+TBfzo8xd3f0eMmZuTb2GG0A75s6dXBrqvhCDfqyv05NlieXbi+fkMf1u/j/IxeeDAgAAAAAAAAAAAAAAAAAAAHgtqy/e3Pv+5AT97AIAAAAAAAAAAAAAAAAAapH3/NX3+AWALTk6N1yHB+cuU336vRvZVw35GWjH8d4nwiDzle4jz7r+QIx7FbfXdJ8OKeES35dyTYRVftlXjfq8c8H1Eyim+y6Rv8dWfje6Dr+i3HPr6TqUdfeas2L9rdVPjZxfaMNdQm6Mw0H2IRP7kRGPzyEGEecwfXztXKN8pfPQ8/obhjk5ujQ/b/W3Hsqpf3d6G7jJYxDdvZ8jb63zkm3nXH9ucp/Gqq+vvEYxJ/RnsPrbq72MWLcPaj8wjFetv849tF+GnRH9fL6Kee2i85OOpeWrma/+VJznMzm/GVEHJ7dfU0Pdd9nU++K4/k5FeD0ePoNX7XWnc4YKL4apkbSORD9sl/JvJt3xcdyvscytS6nTr8xXBdNVWf6afiNfrUV+jyl9v87kq+KoKW6v58q/FvLVdljbf7lNjtuynPbzVr1zvurFeEpd/gJPnaqdYOoAAA==
+  </data>
+ </layer>
+ <layer name="PrimerPlano" width="300" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dXZKaQBSG4U4VSWo0k4pjZXKV0ovcTXKVLMClsBSWwlJYikvJcezWtm2gEekGeZ+qUwo0/8wnw8igFAAAAAAAAAAAAAAAmKM3pYq31AsBAAEkq6o/SpWplwNI6bvUq9QP+fyW10K6C9/w15bhdePHskox08h+K5VzjoU5+3ndXRxeX6TWDcPbxsdtnqQWxyoW1nvpX8j51VYyqzRtAMSXBVSfcWNWTF/4bACiI6+u16mmfyWVp8pHAEchObCR34XsChlvinkVirwC0pja+dUYjGU5gLmZal5t+qx0T+QVkAZ51R15BaQRkg9jun51sFLkFTA3fa4XpT6/SmksywHMRd98SJVXY8gx8gqIa4w5MBVsFyCuOeZRdvzO56FKXWY75Fa57S7a6OkAiKgpr5ZKFfZwfZ19b9XWqtztHnK5zfX+zQ3/M8HKqaa8aswzPR0AEYXm1dLqn/JvcrfIrPtonP6Tul4GzN2j/tzp9XLPo0p12Z+8AiZkin+Xa1Pzu54irwAAAAAAAAAAAAAAAAAAAAAAAAA8In2vfeHc/2S691I7XduGCr6vaulZBgAIYeWVqaaM8rXtdB8oeQUAAAAAAAAAAAAAw/ko9Unq8/F9ETreStqupV46jAMAfTxLfZXM+Sb1rLNHMkit9fBVzXjSZidtdjJ819QOAO7pw8Dtb5Hi2Qwmc+28bvNroGUZ2uJYxeH1yXOOPNXPH1kXs27v6+dbt9TGum2HXq7s+Iy8tnK/l7u3v8urVHsuZOdnF5vxyq5Zco9nyfBcmmlYjTAjQjjHS2leky5URzGO91un3zGrquxynNM85XypCli+SudVlTnPEQ1Z9rHmVd9pjikj/8m++duyLx9Ndv783WXn+2xMt93PvBZWHp2OZU9WncozT6rTXjptt6ql3Hlc9Xe51670PVm+adn7tW5+vcvco2U/N7rL9mprn3qfD3Xs3PtYC5Gpq3vyTPmWwTfc7nbfX7TR89vX1K6lcj2tKvPnVa9t+2BVZpfP3rS3V+WU3e69nJ9ft72vOu0Ln4bxzTxyM69b1c0jZl7dW8zjyjPvvKn9fxyUKB9g6gAA
+  </data>
+ </layer>
+ <layer name="Plano2" width="300" height="50">
+  <properties>
+   <property name="Depth" value="-1.25"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3Y3WnDMBQG0LtCN+izf2pIoM8ZxaN4lIziUTJKJSSDMU3TQFLT9hy4JJKug/PyISkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgN+ijRj79NlEnJe5pswD7GrJpy5iyhmVvo9DGZ9zTuW1odY6wz77jW3GvUVcrj0DcK8ln75T/Sp7UkZNKdPiVsZ18gp4kO6OvMqVz4XNff3nn/s3wF+WsmdMmTWns9uYak57oznNzTnH8npf9ky555TXcv60tX+dS4eI11SX3H9YzTsPAo/W1pxaxk25k5qv7Y+W9a5m3KHcf41tybfTOt9qf9R7MoBdHW/so9pVFgLs6VjPj1svm/Hw/FcB+NJ7qWnv9wAA+I8+AACkmdVg6gAA
+  </data>
+ </layer>
+ <layer name="Plano1" width="300" height="50">
+  <properties>
+   <property name="Depth" value="-1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3Y0W2DMBQFUI/S7xCKlFb5ziiMklEYhVEySp9ro1pR0yZSG9T0HMkC2w8EP1cPUgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgr+hSGvs4blKalrVNWQdY1ZJP25SOOaPifExlPuWcynvPZUxthn12j/OMi2tOl64BuFXOpyGO14y+yZ7IqGNkWloyLu+fZ9yydr+3AR7Z9oa8yiN/F9be6X0ex2Ptv07N+Vj35k5eAT8ksmeMzJqbHmqOtXnJsb70TLnm0Nf86Zr6tvd6iboYh6h9Gj7uP63yYsDD6mpOLfNN+Sd1sT9a9nM+7WK+j/NdybKcb4c232p9qv/JAFYTOTXv63/6S7rSs83DV0UAdxB5Ne2uqOu/yTWA3/Zavg3ntZ8DAOA/egNjtE9PYOoAAA==
+  </data>
+ </layer>
+ <layer name="Plano0" width="300" height="50">
+  <properties>
+   <property name="Depth" value="-2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dzW3CMAAGUI/SM/lpTj0zSkbJKBklo3SU2nWsRDRUagsEynuS5cQ2xCDxER/AIQAAAAAAAAAAANynNoSpzXW/91zg2XUhDHvP4Se6G1+vXerxxpeGh3Hrz+Wz834DAAAAAAAAAAAAAADAovN7ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAOAfqkLom1gfQhhL2yG3A+yq5FMdwpAyqpn/Mz6ejymnUl+by7jOsK3nOM240zaAv2hWe1rETBrajePV2LEcx4waYqaFknGv4WvGlbYrTh94IvXGHjwxa6ZYjhvHY1oXHsKSRyXXYnmPpU/jw9I3VfIKuJCYPX2dM+kza+K90RTbppJjTb5nSmOOzZw/1Tw+ZVIpaVyd14WpfilZZj0IXFo151Q5P+TsOXt/VPrrVcaltirn23Gdb+vH1Vd9FcCj6faewDfK2hLgXpzLzOaXe1bfcwYDj+Utl2HvecAefJ8CsLcPF26IC2DqAAA=
+  </data>
+ </layer>
+ <objectgroup name="Capa de Objetos 1" width="300" height="50">
+  <object type="Pombero" x="64" y="2944" width="64" height="64"/>
+  <object type="Fruit" x="1216" y="3008" width="64" height="64"/>
+  <object name="home2" type="Door" x="10624" y="2816" width="64" height="64">
+   <properties>
+    <property name="target" value="pasillo1"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="704" y="2688" width="2432" height="422">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="3200" y="2624" width="1280" height="448">
+   <properties>
+    <property name="zoom" value="2.5"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="13120" y="2432" width="2376" height="554"/>
+  <object type="GauchoFacon" x="1984" y="2944" width="64" height="64"/>
+  <object type="Fruit" x="1088" y="3008" width="64" height="64"/>
+  <object type="Fruit" x="1344" y="3008" width="64" height="64"/>
+  <object type="caña" x="2048" y="2944" width="64" height="64"/>
+  <object type="CameraBound" x="4544" y="2496" width="2301" height="541">
+   <properties>
+    <property name="zoom" value="3.5"/>
+   </properties>
+  </object>
+  <object type="Gaucho" x="4032" y="2944" width="64" height="64"/>
+  <object x="8576" y="1472"/>
+  <object type="CameraBound" x="4544" y="2011" width="640" height="256">
+   <properties>
+    <property name="zoom" value="2"/>
+   </properties>
+  </object>
+  <object type="Secrets/Bonus2" x="4928" y="2176" width="64" height="64"/>
+  <object name="bonus" type="Door" x="4800" y="2176" width="64" height="64">
+   <properties>
+    <property name="target" value="home1"/>
+   </properties>
+  </object>
+  <object name="home1" type="Door" x="3850" y="2176" width="41" height="64">
+   <properties>
+    <property name="target" value="bonus"/>
+   </properties>
+  </object>
+  <object name="home1afuera" type="Door" x="3904" y="2944" width="64" height="64">
+   <properties>
+    <property name="target" value="home1adentro"/>
+   </properties>
+  </object>
+  <object name="home1adentro" type="Door" x="3785" y="2175" width="45" height="63">
+   <properties>
+    <property name="target" value="home1afuera"/>
+   </properties>
+  </object>
+  <object type="CollisionBound" x="3755" y="2112" width="17" height="128"/>
+  <object type="CollisionBound" x="3971" y="2113" width="19" height="127"/>
+  <object type="CollisionBound" x="4655" y="2110" width="16" height="129"/>
+  <object type="CollisionBound" x="5004" y="2114" width="51" height="129"/>
+  <object type="CollisionBound" x="4657" y="2115" width="347" height="15"/>
+  <object type="Gaucho" x="3612" y="2177" width="64" height="64"/>
+  <object type="GauchoFacon" x="3584" y="2944" width="64" height="64"/>
+  <object type="CollisionBound" x="3755" y="2112" width="231" height="14"/>
+  <object type="CameraBound" x="6912" y="2432" width="2240" height="640">
+   <properties>
+    <property name="zoom" value="5"/>
+   </properties>
+  </object>
+  <object type="GauchoFacon" x="5888" y="2816" width="64" height="64"/>
+  <object type="Gaucho" x="6144" y="2944" width="64" height="64"/>
+  <object type="Dengue" x="4992" y="2816" width="64" height="64"/>
+  <object type="Dengue" x="5696" y="2880" width="64" height="64"/>
+  <object type="Dengue" x="6208" y="2816" width="64" height="64"/>
+  <object type="Gaucho" x="7424" y="2944" width="64" height="64"/>
+  <object type="GauchoFacon" x="8448" y="2944" width="64" height="64"/>
+  <object type="GauchoFacon" x="7488" y="2880" width="64" height="64"/>
+  <object type="Gaucho" x="4159" y="2795" width="64" height="64"/>
+  <object type="caña" x="3904" y="2176" width="64" height="64"/>
+  <object type="caña" x="4071" y="2753" width="64" height="64"/>
+  <object type="caña" x="4116" y="2753" width="64" height="64"/>
+  <object type="caña" x="4480" y="2816" width="64" height="64"/>
+  <object type="Mono" x="8384" y="2816" width="64" height="64">
+   <properties>
+    <property name="depth" value=".2"/>
+   </properties>
+  </object>
+  <object type="Mono" x="8501" y="2816" width="64" height="64">
+   <properties>
+    <property name="depth" value=".2"/>
+   </properties>
+  </object>
+  <object type="Mono" x="8640" y="2880" width="64" height="64">
+   <properties>
+    <property name="depth" value=".2"/>
+   </properties>
+  </object>
+  <object type="hat" x="8448" y="2752" width="64" height="64"/>
+  <object type="Fruit" x="4736" y="2176" width="64" height="64"/>
+  <object type="Fruit" x="4864" y="2176" width="64" height="64"/>
+  <object type="Fruit" x="6016" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="6080" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="6144" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="7583" y="2854" width="64" height="64"/>
+  <object type="Fruit" x="7616" y="2879" width="64" height="64"/>
+  <object type="Fruit" x="7680" y="2879" width="64" height="64"/>
+  <object type="Fruit" x="7647" y="2854" width="64" height="64"/>
+  <object type="Fruit" x="7552" y="2879" width="64" height="64"/>
+  <object type="Fruit" x="7615" y="2816" width="64" height="64"/>
+  <object type="Fruit" x="2880" y="3008" width="64" height="64"/>
+  <object type="Fruit" x="2944" y="3008" width="64" height="64"/>
+  <object type="Gaucho" x="9344" y="2880" width="64" height="64"/>
+  <object type="Gaucho" x="9536" y="2752" width="64" height="64"/>
+  <object type="Fruit" x="9471" y="2816" width="64" height="64"/>
+  <object type="Fruit" x="9408" y="2879" width="64" height="64"/>
+  <object type="Fruit" x="9503" y="2854" width="64" height="64"/>
+  <object type="Fruit" x="9536" y="2879" width="64" height="64"/>
+  <object type="Fruit" x="9472" y="2879" width="64" height="64"/>
+  <object type="Fruit" x="9439" y="2854" width="64" height="64"/>
+  <object type="killbox" x="9922" y="2968" width="64" height="64"/>
+  <object type="CameraBound" x="9216" y="2496" width="1079" height="494">
+   <properties>
+    <property name="zoom" value="3.5"/>
+   </properties>
+  </object>
+  <object name="D1" type="Door" x="768" y="3008" width="64" height="64">
+   <properties>
+    <property name="target" value="city"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="9728" y="256" width="2244" height="428">
+   <properties>
+    <property name="zoom" value="2.5"/>
+   </properties>
+  </object>
+  <object name="pasillo1" type="Door" x="9995" y="575" width="41" height="64">
+   <properties>
+    <property name="target" value="home2"/>
+   </properties>
+  </object>
+  <object name="pasillo3" type="Door" x="11022" y="576" width="37" height="63">
+   <properties>
+    <property name="target" value="home2"/>
+   </properties>
+  </object>
+  <object name="apasillo2" type="Door" x="10123" y="577" width="40" height="63">
+   <properties>
+    <property name="target" value="pasillo2"/>
+   </properties>
+  </object>
+  <object name="pasillo2" type="Warp" x="10516" y="576" width="38" height="64"/>
+  <object name="apasillo3" type="Door" x="10636" y="578" width="35" height="61">
+   <properties>
+    <property name="target" value="pasillo3"/>
+   </properties>
+  </object>
+  <object type="CollisionBound" x="9966" y="527" width="17" height="113"/>
+  <object type="CollisionBound" x="10177" y="526" width="17" height="113"/>
+  <object type="CollisionBound" x="9963" y="515" width="237" height="14"/>
+  <object type="CollisionBound" x="10688" y="526" width="17" height="113"/>
+  <object type="CollisionBound" x="10471" y="514" width="242" height="15"/>
+  <object type="CollisionBound" x="10477" y="527" width="17" height="113"/>
+  <object type="CollisionBound" x="11202" y="525" width="17" height="113"/>
+  <object type="CollisionBound" x="10988" y="514" width="235" height="14"/>
+  <object type="CollisionBound" x="10991" y="526" width="17" height="113"/>
+  <object type="Fruit" x="4608" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="4672" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="4736" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="4800" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="4800" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="4352" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="4416" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="4480" y="2880" width="64" height="64"/>
+  <object type="Fruit" x="4544" y="2880" width="64" height="64"/>
+  <object type="hat" x="12224" y="1408" width="64" height="64"/>
+  <object type="Dengue" x="13440" y="1408" width="64" height="64"/>
+  <object type="CollisionBound" x="15085" y="449" width="735" height="12"/>
+  <object type="Dengue" x="12800" y="1088" width="64" height="64"/>
+  <object type="Gaucho" x="12992" y="1408" width="64" height="64"/>
+  <object type="Gaucho" x="13888" y="1472" width="64" height="64"/>
+  <object type="Gaucho" x="14208" y="1472" width="64" height="64"/>
+  <object type="Gaucho" x="14976" y="1472" width="64" height="64"/>
+  <object type="killbox" x="13696" y="1629" width="64" height="64"/>
+  <object type="killbox" x="13439" y="1628" width="64" height="64"/>
+  <object type="killbox" x="14080" y="1629" width="64" height="64"/>
+  <object type="killbox" x="14721" y="1631" width="128" height="64"/>
+  <object type="Dengue" x="14720" y="1472" width="64" height="64"/>
+  <object type="Dengue" x="15424" y="960" width="64" height="64"/>
+  <object type="Gaucho" x="15424" y="1344" width="64" height="64"/>
+  <object type="CameraBound" x="13085" y="1254" width="2780" height="384">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="caña" x="11148" y="576" width="64" height="64"/>
+  <object type="caña" x="11120" y="575" width="64" height="64"/>
+  <object name="entradaunder" type="Door" x="11583" y="2813" width="64" height="64">
+   <properties>
+    <property name="target" value="salidaunder"/>
+   </properties>
+  </object>
+  <object name="salidaprevia" type="Door" x="15120" y="518" width="32" height="54">
+   <properties>
+    <property name="target" value="previaboss"/>
+   </properties>
+  </object>
+  <object name="previaboss" type="Door" x="15744" y="2880" width="64" height="64">
+   <properties>
+    <property name="target" value="salidaprevia"/>
+   </properties>
+  </object>
+  <object name="MateEnter" type="Door" x="12416" y="2816" width="64" height="64">
+   <properties>
+    <property name="target" value="MateExit"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="16256" y="704" width="704" height="576">
+   <properties>
+    <property name="zoom" value="3.5"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="12096" y="1280" width="384" height="256">
+   <properties>
+    <property name="zoom" value="2"/>
+   </properties>
+  </object>
+  <object type="Fruit" x="15552" y="896" width="64" height="64"/>
+  <object type="Fruit" x="15616" y="896" width="64" height="64"/>
+  <object type="Fruit" x="15680" y="896" width="64" height="64"/>
+  <object type="Fruit" x="15744" y="896" width="64" height="64"/>
+  <object type="Fruit" x="15680" y="640" width="64" height="64"/>
+  <object type="Fruit" x="15744" y="640" width="64" height="64"/>
+  <object type="Fruit" x="15360" y="576" width="64" height="64"/>
+  <object type="Fruit" x="15424" y="576" width="64" height="64"/>
+  <object type="Fruit" x="15234" y="514" width="64" height="64"/>
+  <object type="Fruit" x="15360" y="768" width="64" height="64"/>
+  <object type="Fruit" x="15424" y="768" width="64" height="64"/>
+  <object name=" Gaucho" type="Gaucho" x="11584" y="2688" width="64" height="64"/>
+  <object name=" Gaucho" type="Gaucho" x="11968" y="2624" width="64" height="64"/>
+  <object name=" Gaucho" type="GauchoFacon" x="12416" y="2688" width="64" height="64"/>
+  <object name=" Gaucho" type="Gaucho" x="11776" y="2816" width="64" height="64"/>
+  <object name=" Gaucho" type="Gaucho" x="12224" y="2816" width="64" height="64"/>
+  <object name=" Gaucho" type="Gaucho" x="10496" y="2688" width="64" height="64"/>
+  <object name=" Gaucho" type="Gaucho" x="13312" y="2688" width="64" height="64"/>
+  <object name=" Gaucho" type="Gaucho" x="13440" y="2816" width="64" height="64"/>
+  <object name=" Gaucho" type="Gaucho" x="13568" y="2688" width="64" height="64"/>
+  <object type="GauchoFacon" x="14464" y="2816" width="64" height="64"/>
+  <object type="Dengue" x="14208" y="2752" width="64" height="64"/>
+  <object type="Dengue" x="14720" y="2752" width="64" height="64"/>
+  <object type="Gaucho" x="15360" y="2880" width="64" height="64"/>
+  <object name=" " type="caña" x="12131" y="2757" width="64" height="64"/>
+  <object type="hat" x="15963" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16027" y="1154" width="64" height="64"/>
+  <object name=" " type="caña" x="12736" y="2757" width="64" height="64"/>
+  <object type="Fruit" x="16091" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16155" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="15963" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16027" y="1090" width="64" height="64"/>
+  <object name=" " type="caña" x="12736" y="2693" width="64" height="64"/>
+  <object type="Fruit" x="16091" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16155" y="1090" width="64" height="64"/>
+  <object name=" Gaucho" type="GauchoFacon" x="11776" y="2688" width="64" height="64"/>
+  <object type="Gaucho" x="14400" y="2816" width="64" height="64"/>
+  <object type="GauchoFacon" x="12544" y="1400" width="64" height="64"/>
+  <object name=" Gaucho" type="Gaucho" x="10560" y="2816" width="64" height="64"/>
+  <object type="Dengue" x="15232" y="1344" width="64" height="64"/>
+  <object type="Dengue" x="15552" y="704" width="64" height="64"/>
+  <object type="Fruit" x="15488" y="768" width="64" height="64"/>
+  <object name="Moñai" type="Bosses/Moñai" x="18112" y="2816" width="64" height="64"/>
+  <object name="monaiWarp" type="Warp" x="18495" y="3176" width="128" height="64">
+   <properties>
+    <property name="target" value="secretRoom"/>
+   </properties>
+  </object>
+  <object name="secretRoom" type="Warp" x="16512" y="768" width="192" height="64"/>
+  <object name="Salida" type="Collision/DoorPrefab" x="19072" y="2945" width="64" height="64">
+   <properties>
+    <property name="Depth" value=".3"/>
+    <property name="target" value="Exit"/>
+   </properties>
+  </object>
+  <object type="Stone" x="9536" y="2880" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="18496" y="3008" width="64" height="64">
+   <properties>
+    <property name="depth" value=".1"/>
+   </properties>
+  </object>
+  <object type="Secrets/MagicBlock" x="15808" y="1152" width="64" height="64">
+   <properties>
+    <property name="depth" value=".1"/>
+   </properties>
+  </object>
+  <object type="Secrets/MagicBlock" x="15808" y="1088" width="64" height="64">
+   <properties>
+    <property name="depth" value=".1"/>
+   </properties>
+  </object>
+  <object type="Fruit" x="16446" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16446" y="1154" width="64" height="64"/>
+  <object type="FruitPack" x="16510" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16510" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16318" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16318" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16382" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16638" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16702" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16702" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16766" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16766" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16574" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16574" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16510" y="1026" width="64" height="64"/>
+  <object type="Fruit" x="16574" y="962" width="64" height="64"/>
+  <object type="Fruit" x="16574" y="1026" width="64" height="64"/>
+  <object type="Fruit" x="16638" y="962" width="64" height="64"/>
+  <object type="Fruit" x="16638" y="1026" width="64" height="64"/>
+  <object type="Fruit" x="16382" y="1026" width="64" height="64"/>
+  <object type="Fruit" x="16446" y="1026" width="64" height="64"/>
+  <object type="Fruit" x="16510" y="962" width="64" height="64"/>
+  <object type="Fruit" x="16830" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16830" y="1090" width="64" height="64"/>
+  <object type="Fruit" x="16382" y="1154" width="64" height="64"/>
+  <object type="Fruit" x="16702" y="1026" width="64" height="64"/>
+  <object type="Fruit" x="16702" y="962" width="64" height="64"/>
+  <object type="Fruit" x="16766" y="1026" width="64" height="64"/>
+  <object type="Fruit" x="16446" y="962" width="64" height="64"/>
+  <object name=" Gaucho" type="GauchoFacon" x="13504" y="2752" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="4864" y="3008" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="4928" y="3008" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="11648" y="3072" width="64" height="64">
+   <properties>
+    <property name="depth" value=".1"/>
+   </properties>
+  </object>
+  <object name="city" type="Door" x="11520" y="3072" width="64" height="64">
+   <properties>
+    <property name="target" value="D1"/>
+   </properties>
+  </object>
+  <object type="Secrets/MagicBlock" x="11200" y="2880" width="64" height="64">
+   <properties>
+    <property name="depth" value=".1"/>
+   </properties>
+  </object>
+  <object name="va" type="Doore" x="576" y="2944" width="64" height="64">
+   <properties>
+    <property name="target" value="previaboss"/>
+   </properties>
+  </object>
+  <object type="Gaucho" x="12950" y="512" width="64" height="64"/>
+  <object type="CollisionBound" x="13366" y="452" width="526" height="11"/>
+  <object name="MateExit" type="Door" x="13507" y="513" width="64" height="64">
+   <properties>
+    <property name="target" value="MateEnter"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="12032" y="128" width="3062" height="538">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="CollisionBound" x="12599" y="384" width="337" height="14"/>
+  <object type="CollisionBound" x="12271" y="445" width="334" height="16"/>
+  <object type="CollisionBound" x="12928" y="384" width="13" height="192"/>
+  <object type="CollisionBound" x="12271" y="452" width="17" height="125"/>
+  <object name="salidaunder" type="Door" x="12291" y="513" width="64" height="64">
+   <properties>
+    <property name="target" value="entradaunder"/>
+   </properties>
+  </object>
+  <object type="CollisionBound" x="12593" y="384" width="14" height="75"/>
+  <object type="CollisionBound" x="15084" y="453" width="12" height="124"/>
+  <object type="CollisionBound" x="15808" y="459" width="13" height="186"/>
+  <object type="Dengue" x="12736" y="896" width="64" height="64"/>
+  <object type="Dengue" x="12800" y="704" width="64" height="64"/>
+  <object type="Dengue" x="12608" y="512" width="64" height="64"/>
+  <object type="Fruit" x="12544" y="512" width="64" height="64"/>
+  <object type="Fruit" x="12733" y="577" width="64" height="64"/>
+  <object type="Fruit" x="12769" y="543" width="64" height="64"/>
+  <object type="Fruit" x="12736" y="768" width="64" height="64"/>
+  <object type="Fruit" x="12736" y="832" width="64" height="64"/>
+  <object type="Fruit" x="12800" y="1024" width="64" height="64"/>
+  <object type="Fruit" x="12800" y="960" width="64" height="64"/>
+  <object type="Fruit" x="12736" y="1216" width="64" height="64"/>
+  <object type="Fruit" x="12736" y="1152" width="64" height="64"/>
+  <object type="Fruit" x="12769" y="607" width="64" height="64"/>
+  <object type="Fruit" x="12767" y="513" width="64" height="64"/>
+  <object type="Fruit" x="12798" y="578" width="64" height="64"/>
+  <object type="Fruit" x="12704" y="544" width="64" height="64"/>
+  <object type="Fruit" x="12834" y="542" width="64" height="64"/>
+  <object type="Fruit" x="12767" y="449" width="64" height="64"/>
+  <object type="Gaucho" x="12950" y="512" width="64" height="64"/>
+  <object type="Fruit" x="15616" y="1280" width="64" height="64"/>
+  <object type="Fruit" x="15552" y="1280" width="64" height="64"/>
+  <object type="Fruit" x="15360" y="1344" width="64" height="64"/>
+  <object type="Fruit" x="15168" y="1408" width="64" height="64"/>
+  <object name=" " type="Mono" x="16580" y="2789" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="14976" y="2944" width="64" height="64">
+   <properties>
+    <property name="depth" value=".1"/>
+   </properties>
+  </object>
+  <object type="Secrets/MagicBlock" x="15104" y="2944" width="64" height="64">
+   <properties>
+    <property name="depth" value=".1"/>
+   </properties>
+  </object>
+  <object type="Secrets/MagicBlock" x="18560" y="3008" width="64" height="64">
+   <properties>
+    <property name="depth" value=".1"/>
+   </properties>
+  </object>
+  <object type="killbox" x="13760" y="2944" width="64" height="64"/>
+  <object type="Gaucho" x="15828" y="579" width="64" height="64"/>
+  <object type="CollisionBound" x="13359" y="461" width="11" height="114"/>
+  <object type="GauchoFacon" x="13462" y="386" width="64" height="64"/>
+  <object type="GauchoFacon" x="16512" y="576" width="64" height="64"/>
+  <object type="killbox" x="11648" y="640" width="64" height="64"/>
+  <object type="Fruit" x="14620" y="515" width="64" height="64"/>
+  <object type="Fruit" x="14464" y="512" width="64" height="64"/>
+  <object type="Fruit" x="14784" y="512" width="64" height="64"/>
+  <object type="Fruit" x="15872" y="448" width="64" height="64"/>
+  <object type="Fruit" x="16000" y="576" width="64" height="64"/>
+  <object type="Fruit" x="16192" y="576" width="64" height="64"/>
+  <object type="Fruit" x="10839" y="451" width="64" height="64"/>
+  <object type="Fruit" x="10816" y="384" width="64" height="64"/>
+  <object type="Fruit" x="11776" y="448" width="64" height="64"/>
+  <object type="Fruit" x="11712" y="448" width="64" height="64"/>
+  <object type="Fruit" x="11648" y="448" width="64" height="64"/>
+  <object type="Fruit" x="11584" y="448" width="64" height="64"/>
+  <object type="Fruit" x="11712" y="384" width="64" height="64"/>
+  <object type="Fruit" x="11712" y="512" width="64" height="64"/>
+  <object type="Fruit" x="11648" y="384" width="64" height="64"/>
+  <object type="Fruit" x="11648" y="512" width="64" height="64"/>
+  <object name="MateBuilder" type="Warp" x="9664" y="256" width="128" height="448">
+   <properties>
+    <property name="target" value="/Levels/MateBuilder.tmx"/>
+   </properties>
+  </object>
+  <object name="Puzzle1" type="Warp" x="16768" y="192" width="320" height="512">
+   <properties>
+    <property name="target" value="MateBuilder"/>
+   </properties>
+  </object>
+  <object type="Fruit" x="13760" y="512" width="64" height="64"/>
+  <object type="Fruit" x="13888" y="512" width="64" height="64"/>
+  <object type="Fruit" x="13632" y="512" width="64" height="64"/>
+  <object type="Fruit" x="14016" y="512" width="64" height="64"/>
+  <object type="GauchoFacon" x="14080" y="384" width="64" height="64"/>
+  <object name="ir" type="Doore" x="448" y="2944" width="64" height="64">
+   <properties>
+    <property name="target" value="MateExit"/>
+   </properties>
+  </object>
+  <object type="BigBlock" x="512" y="2944" width="64" height="64"/>
+  <object name="ReturnLevel" type="Door" x="4685" y="2176" width="42" height="61">
+   <properties>
+    <property name="target" value="MateBuilder"/>
+   </properties>
+  </object>
+  <object type="Fruit" x="13248" y="1472" width="64" height="64"/>
+  <object type="Fruit" x="13184" y="1472" width="64" height="64"/>
+  <object type="Fruit" x="15424" y="256" width="64" height="64"/>
+  <object type="Fruit" x="15424" y="384" width="64" height="64"/>
+  <object type="Fruit" x="15552" y="320" width="64" height="64"/>
+  <object type="Fruit" x="15488" y="256" width="64" height="64"/>
+  <object type="Fruit" x="15360" y="320" width="64" height="64"/>
+  <object type="Fruit" x="15488" y="320" width="64" height="64"/>
+  <object type="Fruit" x="15424" y="320" width="64" height="64"/>
+  <object type="Fruit" x="15488" y="384" width="64" height="64"/>
+  <object type="Chat" x="10891" y="2683" width="191" height="205">
+   <properties>
+    <property name="File" value="GUI/Conversations/Pampero"/>
+    <property name="nameId" value="ContactoRepeat"/>
+    <property name="oneShotId" value="ContactoHumano"/>
+   </properties>
+  </object>
+  <object type="Chat" x="16128" y="2816" width="192" height="128">
+   <properties>
+    <property name="File" value="GUI/Conversations/Pampero"/>
+    <property name="nameId" value="Helper"/>
+    <property name="oneShotId" value="HelperIntro"/>
+   </properties>
+  </object>
+  <object type="Secrets/DengueFocus" x="3392" y="2176" width="64" height="64"/>
+  <object type="Fruit" x="10561" y="415" width="64" height="64"/>
+  <object type="Fruit" x="10561" y="352" width="64" height="64"/>
+  <object type="Fruit" x="10593" y="417" width="64" height="64"/>
+  <object type="Fruit" x="10528" y="417" width="64" height="64"/>
+  <object type="Fruit" x="10624" y="383" width="64" height="64"/>
+  <object type="Fruit" x="10496" y="383" width="64" height="64"/>
+  <object type="Fruit" x="10560" y="382" width="64" height="64"/>
+  <object type="Secrets/ElseWorld1" x="10496" y="576" width="51" height="64"/>
+  <object type="FruitPack" x="16640" y="1088" width="64" height="64"/>
+  <object name="Gordo" type="FatBastard1" x="15068" y="1023" width="64" height="64"/>
+  <object x="15889" y="1095"/>
+  <object type="Secrets/MagicBlock" x="15874" y="1088" width="64" height="64"/>
+  <object type="Secrets/MagicBlock" x="15872" y="1152" width="64" height="64"/>
+ </objectgroup>
+</map>

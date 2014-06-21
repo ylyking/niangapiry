@@ -45,7 +45,7 @@ public class DataManager : MonoBehaviour
 
     #region WORLD 0: PAMPERO
 
-    public string PamperoFile = "/Levels/Pampero.tmx";                                          
+    public string PamperoFile = "Pampero";                                          
     public bool MonaiDefeated = false;
 
     #endregion
@@ -53,7 +53,7 @@ public class DataManager : MonoBehaviour
     
 
     #region WORLD 1: MONTE
-    public string MonteFile = "/Levels/Monte.tmx";
+    public string MonteFile = "Monte";
     public bool YaguaDefeated = false;
 
     #endregion
@@ -67,7 +67,7 @@ public class DataManager : MonoBehaviour
     public bool Treasure4 = false;  // Inter-Dimensional Devices
     public bool Treasure5 = false;  // Comics
 
-    public string HomeFile = "/Levels/Home.tmx";
+    public string HomeFile = "Home";
 
     #endregion
     ////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ public class DataManager : MonoBehaviour
 
     #region WORLD 3: IGUAZU
 
-    public string IguazuFile = "/Levels/Iguazu.tmx";
+    public string IguazuFile = "Iguazu";
     public bool MboiTuiDefeated = false;
     public bool YasiYatereDefeated = false;
     public bool MagicBlockEnabled = true;
@@ -85,7 +85,7 @@ public class DataManager : MonoBehaviour
 
 
     #region WORLD 4: SkyField
-    public string SkyFieldFile = "/Levels/CampoDelCielo.tmx";
+    public string SkyFieldFile = "CampoDelCielo";
     public bool AoAoDefeated = false;
 
     #endregion
@@ -94,7 +94,7 @@ public class DataManager : MonoBehaviour
 
     #region WORLD 5: IMPENETRABLE
 
-    public string ImpenetrableFile = "/Levels/Impenetrable.tmx";
+    public string ImpenetrableFile = "Impenetrable";
 
 
     #endregion
@@ -207,12 +207,12 @@ public class DataManager : MonoBehaviour
         //currentStage;
         UnlockedStages = 3;
 
-        HomeFile        = "/Levels/Home.tmx";
-        MonteFile       = "/Levels/Monte.tmx";
-        PamperoFile     = "/Levels/Pampero.tmx";
-        IguazuFile      = "/Levels/Iguazu.tmx";
-        SkyFieldFile    = "/Levels/CampoDelCielo.tmx";
-        ImpenetrableFile = "/Levels/Impenetrable.tmx";
+        HomeFile        = "Home";
+        MonteFile       = "Monte";
+        PamperoFile     = "Pampero";
+        IguazuFile      = "Iguazu";
+        SkyFieldFile    = "CampoDelCielo";
+        ImpenetrableFile = "Impenetrable";
 
         MapCheckPoints.Clear();
 

@@ -15,16 +15,16 @@ public class WorldState2 : InGameState
         {
             if (Managers.Register.UnlockedStages <= 3)
                 Managers.Register.UnlockedStages = 4;
-            Managers.Tiled.Load("/Levels/Home2.tmx");
+            Managers.Tiled.Load("Home2");
         }
         else if (Managers.Register.YasiYatereDefeated)
         {
             if (Managers.Register.UnlockedStages <= 4)
                 Managers.Register.UnlockedStages = 5;
-            Managers.Tiled.Load("/Levels/Home3.tmx");
+            Managers.Tiled.Load("Home3");
         }
         else
-            Managers.Tiled.Load("/Levels/Home1.tmx");
+            Managers.Tiled.Load("Home1");
 
         Managers.Display.camTransform.position = new Vector3(3.75f, 2.5f, 0);
 
