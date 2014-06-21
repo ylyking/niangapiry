@@ -47,7 +47,7 @@ public class Portal : MonoBehaviour
 
                 Managers.Tiled.Unload();
 
-                if (Managers.Tiled.Load(Target))
+				if (Managers.Tiled.Load(Target.Remove(Target.LastIndexOf(".")) ) )
                 {
                     //Managers.Register.SetPlayerPos();
                     Input.ResetInputAxes();
@@ -95,7 +95,7 @@ public class Portal : MonoBehaviour
                     Managers.Display.ShowFlash(1);
                     Managers.Tiled.Unload();
 
-                    if (Managers.Tiled.Load(Target))
+					if (Managers.Tiled.Load(Target.Remove(Target.LastIndexOf("."))) )
                     {
                         //Managers.Register.StartPoint = Vector3.zero;
                         //Managers.Register.SetPlayerPos();

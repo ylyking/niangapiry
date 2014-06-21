@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="20" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tutorial" tilewidth="64" tileheight="64">
+  <image source="tutorial.png" width="512" height="512"/>
+  <tile id="2">
+   <properties>
+    <property name="collision" value="plane"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="collision" value="plane"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="collision" value="box"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="Collision" value="box"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="collision" value="box"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="collision" value="slope"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="65" name="plancha2" tilewidth="64" tileheight="64">
+  <image source="plancha2.png" width="512" height="512"/>
+ </tileset>
+ <imagelayer name="Sky" width="100" height="20">
+  <image source="tutSky.png"/>
+ </imagelayer>
+ <imagelayer name="CloudsB" width="100" height="20">
+  <image source="nube1.png"/>
+  <properties>
+   <property name="padding" value="0, 0.25"/>
+   <property name="scroll" value="relative"/>
+   <property name="speed" value="0.08, 0.08"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="CloudsA" width="100" height="20">
+  <image source="nube2.png"/>
+  <properties>
+   <property name="depth" value="-1"/>
+   <property name="scroll" value="relative"/>
+   <property name="speed" value="0.16, 0.16"/>
+  </properties>
+ </imagelayer>
+ <layer name="PakaPaka" width="100" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2XTVPCMBCG+9dQEVFE8eOgDujBIgehXPy4qPvT/Gk+yB4ymcaOkAbK7DO8k2Rmm80mZTfNMsMwDMMwDMMwtp0Ruk/sc5hlkthlYxijJ+2n2qccPw92JkEKbfNEezTFz2QHzoO8IqMa45iuOffjDuxxFQeorX3yiowrYm6hPbSv47naz7zn6ti75xXmrHrHiEOIR1qeTYq65/oYattDp9onr8ghbQcdBeboomN0ouN3nnlDr+jFicndu0mU1a9G1TtGHEI80vVs3LpXF66PXNsrdO3Y9NEZOg/MMUAX6FLHwu8LfaKPBuYT4hDikUHJ2osS+23kdtMLiMgd50A8clNyHrH/136uN8rhPL7/Y//Xvd2tV+R86SxrwO/Yz/VGHELfN4s7jFuvyPlC7pe+jv1cb8Qh9H2zuMMUDayhhrEuP++9ZINAHwAA
+  </data>
+ </layer>
+ <layer name="3P" width="100" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2YTW7CMBCFZwPJJjZH4AIUNrRd9ig5So7io/goHKXPzBi5BfMbYimeTxrZRowYzYv9HIgURVGUEliiocG4QiwxX2DMxbJYlfUALfqWyBsi11Fei0XBGmvBsBYurrsbEfaQ5eiRe5i63rmDvq7R477heeh5f00PyfH4vkees6rJ6OA5X1vurZe+ZzVJaXmPuGmrrYt79oecccF3XJEiZ0y4W5lkndsLKan/v7W4ykA/h+DPLfvB0as7uWPF8ULOH/9XxkN82YV5K30WLXxuj/z3/7mzxTM71W+FO6sVPQzfl676dyT1/0kKLcQX4pvHIX5m5Vk0uaQK2SA+ShehnNgjPpP12O+l0VeV58D58SNnyOGZ/F0yl//yvOrxGg2f6+7RvNQjohbh3Ur1eB29hyvKOb+X5+V+QB8AAA==
+  </data>
+ </layer>
+ <layer name="2P" width="100" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3XyQqDMBQF0Gy67MpVR+gIHTYd1sVP66f103pBoSUkNWKS92jugYtBRB9eDGgMERFJqox5Ss9AHyF9VBnmoAb70IV96MI+dGEfuth9jIXmoAb6eNnnRp64LJBlquEKcUCO7dq1X/n6cHWyQ/ZJpizHBbm2a9/38b0O+U7+Sa3sH7mrjxI6yenXfmS/7z5711An5Bxw3SPBsyXF6iN2JzfkHvmeXWbIPPMzh+jTnQYTZBpwXd0eN8g22TS0QtbSQxAJewPmngziQB8AAA==
+  </data>
+ </layer>
+ <layer name="1Way" width="100" height="20">
+  <properties>
+   <property name="collision" value="plane"/>
+   <property name="depth" value=".2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3VsQkAIBADwIAO/qNbaG394l2TARJIAgAAcDeTGjuhPXv9z+m8dA68wlcBAPS1AFmqOflAHwAA
+  </data>
+ </layer>
+ <layer name="1P" width="100" height="20">
+  <properties>
+   <property name="depth" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2YaQrDIBCFh0KEJP96oh6lR/EoOUqOViUKqXVcikuW98EjoBCGeY7LEF0TQSQH9Q1J9AvvdsCPYwE/jsWTaB16BwG+0J5E5l9tIgEW7YnalxZX8AIAAEAKk7r/jh7NvQO7Kfo9ws3Bk/aE/NDAk7bE/NCMjOBVnHnb/9kcukp9q3O9lTN7MmXmar8OH7+Svtz7claKq3kiTO/IaDHSY28jcuZXI25tyxSVij/UgyzlCVffNRAX6eVxnvxT+yn1XStnttd9dmL9+hrKuUMEztD9uKzpdS8aemLzFzqDZajGuH+CfD61/hWrQB8AAA==
+  </data>
+ </layer>
+ <layer name="0P" width="100" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WWQqAIBAGYA08R73VLbqaR09pBiyQNpfR/g8GQUTRcVMKAAAAAECeQSmr9xJAvPN+9aWmOq7HXu4L7ij4kyESvRtdTJn6DtcxfC+YoUg9ph/L31+Juy5idrFUGjtHPuA9Sfmgc2xXKls9X1+kyEfsnbkZ1dbdCA6pnv6fOb8UXHd4Q7lt7TVvMR+h1P+8VuYd01r+rvQyj5I201hBxkAfAAA=
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="100" height="20">
+  <object type="Fruit" gid="46" x="1600" y="896"/>
+  <object type="Fruit" gid="46" x="1664" y="896"/>
+  <object type="Fruit" gid="46" x="1728" y="896"/>
+  <object type="Fruit" gid="46" x="1280" y="1152"/>
+  <object type="Fruit" gid="46" x="1088" y="1152"/>
+  <object type="Fruit" gid="46" x="896" y="1152"/>
+  <object type="Clavel" x="2496" y="832" width="64" height="64"/>
+  <object type="Fruit" gid="46" x="3584" y="576"/>
+  <object type="Fruit" gid="46" x="3776" y="576"/>
+  <object type="Fruit" gid="46" x="3904" y="576"/>
+  <object type="Fruit" gid="46" x="4032" y="576"/>
+  <object type="Fruit" gid="46" x="4352" y="768"/>
+  <object type="Fruit" gid="46" x="768" y="1152"/>
+  <object type="Fruit" gid="46" x="4416" y="768"/>
+  <object type="Fruit" gid="46" x="4288" y="768"/>
+  <object type="Fruit" gid="46" x="3520" y="832"/>
+  <object type="Fruit" gid="46" x="3648" y="832"/>
+  <object type="Fruit" gid="46" x="3456" y="576"/>
+  <object type="Fruit" gid="46" x="3648" y="704"/>
+  <object type="Fruit" gid="46" x="3392" y="832"/>
+  <object type="Fruit" gid="46" x="4224" y="704"/>
+  <object type="Fruit" gid="46" x="4160" y="640"/>
+  <object type="Fruit" gid="46" x="4672" y="768"/>
+  <object type="Fruit" gid="46" x="4736" y="832"/>
+  <object type="Fruit" gid="46" x="4800" y="896"/>
+  <object type="Fruit" gid="46" x="4608" y="768"/>
+  <object type="Fruit" gid="46" x="4864" y="960"/>
+  <object type="Fruit" gid="46" x="4928" y="1024"/>
+  <object type="Fruit" gid="46" x="4992" y="1024"/>
+  <object type="Fruit" gid="46" x="5056" y="1024"/>
+  <object type="Fruit" gid="46" x="5120" y="1024"/>
+  <object type="Fruit" gid="46" x="5184" y="1024"/>
+  <object type="Fruit" gid="46" x="5248" y="1024"/>
+  <object type="Fruit" gid="46" x="5312" y="1024"/>
+  <object type="Fruit" gid="46" x="5376" y="1024"/>
+  <object type="Fruit" gid="46" x="5440" y="1024"/>
+  <object type="Fruit" gid="46" x="5504" y="1024"/>
+  <object type="Fruit" gid="46" x="5568" y="1024"/>
+  <object type="Fruit" gid="46" x="5312" y="832"/>
+  <object type="Fruit" gid="46" x="5184" y="832"/>
+  <object type="Fruit" gid="46" x="5248" y="832"/>
+  <object type="Fruit" gid="46" x="5248" y="448"/>
+  <object type="Fruit" gid="46" x="5312" y="448"/>
+  <object type="Fruit" gid="46" x="5376" y="448"/>
+  <object type="Fruit" gid="46" x="5056" y="640"/>
+  <object type="Fruit" gid="46" x="5120" y="640"/>
+  <object type="Fruit" gid="46" x="5184" y="640"/>
+  <object type="Fruit" gid="46" x="2752" y="896"/>
+  <object type="CameraBound" x="0" y="870" width="1402" height="388">
+   <properties>
+    <property name="zoom" value="2.5"/>
+   </properties>
+  </object>
+  <object type="CameraBound" x="3840" y="192" width="2560" height="896">
+   <properties>
+    <property name="zoom" value="3"/>
+   </properties>
+  </object>
+  <object type="Warp" x="0" y="704" width="64" height="512">
+   <properties>
+    <property name="target" value="exit"/>
+   </properties>
+  </object>
+  <object type="Warp" x="6336" y="512" width="64" height="512">
+   <properties>
+    <property name="target" value="exit"/>
+   </properties>
+  </object>
+  <object type="flyPlatforma" x="4608" y="640" width="64" height="64">
+   <properties>
+    <property name="speed" value=".2"/>
+    <property name="target" value="5, 0"/>
+   </properties>
+  </object>
+  <object type="flyPlatforma" x="5504" y="448" width="64" height="64">
+   <properties>
+    <property name="speed" value=".25"/>
+    <property name="target" value="5, 0"/>
+   </properties>
+  </object>
+  <object type="flyPlatforma" x="5952" y="896" width="64" height="64">
+   <properties>
+    <property name="speed" value=".25"/>
+    <property name="target" value="0, 7"/>
+   </properties>
+  </object>
+  <object type="Pombero" x="192" y="1152" width="64" height="64"/>
+  <object name="Abajo" type="Door" x="1024" y="1088" width="64" height="64">
+   <properties>
+    <property name="target" value="Arriba"/>
+   </properties>
+  </object>
+  <object name="Arriba" type="Door" x="1472" y="832" width="64" height="64">
+   <properties>
+    <property name="target" value="Abajo"/>
+   </properties>
+  </object>
+  <object type="BigLog" x="3456" y="704" width="64" height="64"/>
+  <object type="BigLog" x="3619" y="665" width="64" height="64"/>
+  <object type="BigLog" x="3584" y="768" width="64" height="64"/>
+  <object type="BigLog" x="3200" y="768" width="64" height="64"/>
+  <object type="Log" x="2924" y="740" width="64" height="64"/>
+  <object type="Fruit" gid="46" x="2880" y="896"/>
+  <object type="Log" x="2224" y="787" width="64" height="64"/>
+  <object type="BigLog" x="2955" y="499" width="64" height="64"/>
+  <object type="Log" x="3229" y="557" width="64" height="64"/>
+  <object type="Fruit" gid="46" x="1344" y="896"/>
+  <object type="Fruit" gid="46" x="1408" y="896"/>
+  <object type="FruitPack" gid="46" x="5952" y="448"/>
+  <object type="Fruit" gid="46" x="1280" y="1088"/>
+  <object type="Fruit" gid="46" x="1889" y="877">
+   <properties>
+    <property name="depth" value=".4"/>
+   </properties>
+  </object>
+  <object type="Fruit" gid="46" x="2048" y="896">
+   <properties>
+    <property name="depth" value=".4"/>
+   </properties>
+  </object>
+  <object type="Fruit" gid="46" x="2176" y="896">
+   <properties>
+    <property name="depth" value=".4"/>
+   </properties>
+  </object>
+  <object type="caña" gid="46" x="5824" y="1024"/>
+ </objectgroup>
+</map>

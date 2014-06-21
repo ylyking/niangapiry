@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //PushState(typeof(IntroState)); // Loading some State
-        PushState(typeof(MainMenuState)); // A Starting ShortCut to menu
+        PushState(typeof(IntroState)); // Loading some State
+//        PushState(typeof(MainMenuState)); // A Starting ShortCut to menu
     }
 	
  

@@ -44,8 +44,6 @@ public class TileManager : MonoBehaviour {
     private Vector3 scrollValue;
     //----------------------------------------------------------------------------------------//
 
-	TextAsset FileData;
-
     public bool Load( string filePath )
     {
         CamTransform = Managers.Display.MainCamera.transform;
@@ -56,39 +54,44 @@ public class TileManager : MonoBehaviour {
             return false;
         }
         
-        if ( !File.Exists(Application.dataPath + filePath) )
-        {
-            Debug.LogWarning("Couldn't Load the TileMap, File Don't Exists!");
-            return false;
-        }
-        
-        string fileName = filePath.Remove(0, filePath.LastIndexOf("/") + 1);			    // quit folder path structure
-        fileName = fileName.Remove(fileName.LastIndexOf("."));							    // quit .tmx or .xml extension
+//        if ( !File.Exists(Application.dataPath + filePath) )
+//        {
+//            Debug.LogWarning("Couldn't Load the TileMap, File Don't Exists!");
+//            return false;
+//        }
+//        
+//        string fileName = filePath.Remove(0, filePath.LastIndexOf("/") + 1);			    // quit folder path structure
+//        fileName = fileName.Remove(fileName.LastIndexOf("."));							    // quit .tmx or .xml extension
+//
+//        StreamReader sr = File.OpenText(Application.dataPath + filePath);				    // Do Stream Read
+//        XmlDocument Doc = new XmlDocument();
+////		FileData.text.ToString
+//        Doc.LoadXml(sr.ReadToEnd());                                                        // and Read XML
+//        sr.Close();
 
-        StreamReader sr = File.OpenText(Application.dataPath + filePath);				    // Do Stream Read
         XmlDocument Doc = new XmlDocument();
-//		FileData.text.ToString
-        Doc.LoadXml(sr.ReadToEnd());                                                        // and Read XML
-        sr.Close();
+		Debug.Log ("Levels/" + filePath);
+		TextAsset textAsset = (TextAsset) Resources.Load("Levels/" + filePath, typeof(TextAsset));  
+		Doc.LoadXml(textAsset.text);    
 
+	
        // CHECK IT'S A TMX FILE FROM TILED	
         if (Doc.DocumentElement.Name == "map")												// Access root Map		
         {
             
-            Managers.Register.currentLevelFile = filePath ;
+			Managers.Register.currentLevelFile = "Levels/" +filePath ;
 
-            GameObject map = new GameObject(fileName);										// inside the editor hierarchy.
+			GameObject map = new GameObject(filePath);										// inside the editor hierarchy.
             MapTransform = map.transform;													// take map transform cached
 
             Managers.Display.cameraScroll.ResetBounds(new Rect(0, 0,	// Set Level bounds for camera 
                                             int.Parse(Doc.DocumentElement.Attributes["width"].Value) * TileOutputSize.x,
                                             int.Parse(Doc.DocumentElement.Attributes["height"].Value) * TileOutputSize.y));
 
-            
             // SEEK BITMAP SOURCE FILE	 
             foreach (XmlNode TileSetInfo in Doc.GetElementsByTagName("tileset"))			// array of the level nodes.
             {
-                var TileSetRef = new cTileSet(TileSetInfo, filePath);
+                var TileSetRef = new cTileSet(TileSetInfo);
                 TileSets.Add(TileSetRef);
             }
 
@@ -100,7 +103,7 @@ public class TileManager : MonoBehaviour {
                         StartCoroutine(BuildLayer(Layer));
                         break;
                     case "imagelayer":                                                      // TagName: Image Layers (for scrolling)
-                        StartCoroutine(BuildScrollLayers(Layer, filePath));
+                        StartCoroutine(BuildScrollLayers(Layer));
                         break;
                     case "objectgroup":                                                     // TagName: Object Group Layer
                         StartCoroutine(BuildPrefabs(Layer));
@@ -112,7 +115,7 @@ public class TileManager : MonoBehaviour {
         }
         else
         {
-            Debug.LogError(fileName + " it's not a Tiled File!, wrong load at: "+ filePath);
+			Debug.LogError(filePath + " it's not a Tiled File!, wrong load at: "+ filePath);
             return false;
         }
 
@@ -131,7 +134,7 @@ public class TileManager : MonoBehaviour {
 
             }
 
-        Debug.Log("Tiled Level Build Finished: "+ fileName);
+		Debug.Log("Tiled Level Build Finished: "+ filePath);
         return true;
     }
 
@@ -619,22 +622,12 @@ public class TileManager : MonoBehaviour {
 
     #region ScrollManager 
 
-    IEnumerator BuildScrollLayers(XmlNode LayerInfo, string FilePath)
+    IEnumerator BuildScrollLayers(XmlNode LayerInfo)
     {
         if (!Camera.main)
             yield break;
 
         var cam = Camera.main;
-        //float Depth = (TileOutputSize.z - cam.transform.position.z);
-
-
-        //float Depth = TileOutputSize.z ;
-        //TileOutputSize.z += 0.5f;
-
-        //if ( Depth == 0)
-        //    Depth = 1;
-
-
         float Depth = -120;               //bool AutoDepth = true;
        
 
@@ -714,17 +707,19 @@ public class TileManager : MonoBehaviour {
         scrollLayer.transform.position =  new Vector3( cam.transform.position.x, cam.transform.position.y, Depth );
 
 
-#if TEXTURE_RESOURCE
-        string AuxPath = LayerInfo.FirstChild.Attributes["source"].Value;
-        Texture2D tex = (Texture2D)Resources.Load( AuxPath.Remove(AuxPath.LastIndexOf(".")+1), typeof(Texture2D) );
+//#if TEXTURE_RESOURCE
+        string AuxPath = "Levels/" + LayerInfo.FirstChild.Attributes["source"].Value;
 
-#else
-        // Add textures
-        WWW www = new WWW(  "file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) +
-                            LayerInfo.FirstChild.Attributes["source"].Value);
-        Texture2D tex = www.texture;
+		Debug.Log (AuxPath.Remove(AuxPath.LastIndexOf(".")) );
+        Texture2D tex = (Texture2D)Resources.Load( AuxPath.Remove(AuxPath.LastIndexOf(".")), typeof(Texture2D) );
 
-#endif
+//#else
+//        // Add textures
+//        WWW www = new WWW(  "file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) +
+//                            LayerInfo.FirstChild.Attributes["source"].Value);
+//        Texture2D tex = www.texture;
+//
+//#endif
 
         tex.filterMode = FilterMode.Point;
         tex.anisoLevel = 0;
@@ -871,7 +866,7 @@ class cTileSet
     public Material mat;
     public Dictionary<int, string> Collisions = new Dictionary<int, string>();
 
-    public cTileSet(XmlNode TileSet, string FilePath)			// if ( TileSet.HasChildNodes ) {  var lTileSet : cTileSet = new cTileSet(); lTileSet.Load(
+    public cTileSet(XmlNode TileSet)			// if ( TileSet.HasChildNodes ) {  var lTileSet : cTileSet = new cTileSet(); lTileSet.Load(
     {
 
         foreach (XmlNode TileSetNode in TileSet)
@@ -905,24 +900,30 @@ class cTileSet
             }
 
 
-        #if TEXTURE_RESOURCE
+
+//        #if TEXTURE_RESOURCE
             //SrcImgPath = "Assets" + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath;
             //Texture2D tex = (Texture2D)UnityEditor.AssetDatabase.LoadAssetAtPath(SrcImgPath, typeof(Texture2D));
             //Debug.Log(SrcImgPath);
 
-            SrcImgPath = FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgName;
-            Texture2D tex = (Texture2D)Resources.Load(SrcImgPath.Remove(0, 11), typeof(Texture2D));
+//            SrcImgPath = Managers.Register.currentLevelFile;
+			Debug.Log ("Levels/" + SrcImgPath.Remove(SrcImgPath.LastIndexOf(".")) );
+			           Texture2D tex = (Texture2D)Resources.Load("Levels/" + SrcImgPath.Remove(SrcImgPath.LastIndexOf(".")), typeof(Texture2D) );
 
-        #else
-            //Debug.Log(        "file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
-            WWW www = new WWW("file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
-            Texture2D tex = www.texture;
+//			Debug.Log (AuxPath.Remove(AuxPath.LastIndexOf(".")) );
+//			string AuxPath = "Levels/" + LayerInfo.FirstChild.Attributes["source"].Value;
+//			Texture2D tex = (Texture2D)Resources.Load( AuxPath.Remove(AuxPath.LastIndexOf(".")), typeof(Texture2D) );
 
-        #endif
+            //        #else
+//            //Debug.Log(        "file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
+//            WWW www = new WWW("file://" + Application.dataPath + FilePath.Remove(FilePath.LastIndexOf("/") + 1) + SrcImgPath);
+//            Texture2D tex = www.texture;
+//
+//        #endif
 
             if (tex == null)
             {
-                Debug.LogError( SrcImgPath + " texture file not found, put it in the same Tiled map folder: " + FilePath);
+				Debug.LogError( " texture file not found, put it in the same Tiled map folder: " + SrcImgPath);
                 return;   //	 this.close; 
             }
             tex.filterMode = FilterMode.Point;

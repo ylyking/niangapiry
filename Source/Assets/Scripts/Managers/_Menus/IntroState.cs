@@ -5,12 +5,12 @@ public class IntroState : GameState
 {
     public override void Init()
     {
-        Managers.Display.ShowFadeOut(10);
+		Managers.Display.ShowFade(10);
     }
 	
     public override void DeInit()
     {
-        Managers.Display.ShowFadeIn(10);
+		Managers.Display.ShowFade(10, false);
         //print("Deactivated IntroState");
     }
 
@@ -23,10 +23,10 @@ public class IntroState : GameState
         }
 
         if ((int)Time.time == 2 )
-            Managers.Display.ShowFadeIn(.5f);
+			Managers.Display.ShowFade(.5f, false);
 
         if ((int)Time.time == 7 )
-            Managers.Display.ShowFadeOut(2);
+			Managers.Display.ShowFade(2);
 
         if ((int)Time.time == 9 )
         {
