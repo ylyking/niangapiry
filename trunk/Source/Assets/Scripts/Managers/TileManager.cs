@@ -7,6 +7,8 @@ using System;
 using System.Text;
 using Ionic.Zlib;
 
+//#define RESOURCE_LOADER
+
 /* TILEMANAGER - RULES OF CONSIDERATIONS:
  * 
  * - Load Files From Assets Datafolder as: "/SomeFolder/SomeFile.SomeExtension" ( Don't use 'Ñ' letter)
@@ -54,6 +56,7 @@ public class TileManager : MonoBehaviour {
             return false;
         }
         
+
 //        if ( !File.Exists(Application.dataPath + filePath) )
 //        {
 //            Debug.LogWarning("Couldn't Load the TileMap, File Don't Exists!");
@@ -65,7 +68,7 @@ public class TileManager : MonoBehaviour {
 //
 //        StreamReader sr = File.OpenText(Application.dataPath + filePath);				    // Do Stream Read
 //        XmlDocument Doc = new XmlDocument();
-////		FileData.text.ToString
+//		  FileData.text.ToString
 //        Doc.LoadXml(sr.ReadToEnd());                                                        // and Read XML
 //        sr.Close();
 

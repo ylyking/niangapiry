@@ -56,7 +56,7 @@ public class Portal : MonoBehaviour
             }
 
             if (Target != "")
-                foreach(Portal portal in GameObject.FindSceneObjectsOfType(typeof(Portal) ) )// else look in scene all Ids match
+                foreach(Portal portal in GameObject.FindObjectsOfType(typeof(Portal) ) )// else look in scene all Ids match
                 {
                     if ( portal.Id == Target ) 
                     {
@@ -104,7 +104,7 @@ public class Portal : MonoBehaviour
                     }
                 }
 
-                foreach (Portal portal in GameObject.FindSceneObjectsOfType(typeof(Portal)))// else look in scene all Ids match
+				foreach (Portal portal in GameObject.FindObjectsOfType(typeof(Portal)))// else look in scene all Ids match
                 {
                     if (portal.Id == Target)
                     {

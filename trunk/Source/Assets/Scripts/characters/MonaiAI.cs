@@ -470,7 +470,7 @@ namespace Bosses
         void OnTriggerEnter(Collider hit)
         {
 
-			if (hit.tag == "Player" &&  (MonaiState == BossState.WildCircle)||(MonaiState == BossState.Roaming)  &&
+			if (hit.tag == "Player" &&  ((MonaiState == BossState.WildCircle)||(MonaiState == BossState.Roaming))  &&
                 (hit.transform.position.y > thisTransform.position.y + .1f))
             {
                 //Debug.Log("Found Pombero");

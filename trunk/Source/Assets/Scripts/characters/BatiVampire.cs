@@ -130,7 +130,7 @@ private float distanceToTarget = 0;	                    // get dist to target po
                         if (thisTransform.IsChildOf(playerTransform)) 								// check if the player has taken us... 
                             currentState = EnemyState.Holded;										// & change enemy state to holded..
 
-                    thisTransform.RotateAroundLocal(Vector3.forward, -orientation * 45 * Time.deltaTime);
+				thisTransform.RotateAround(Vector3.forward, -orientation * 45 * Time.deltaTime);
                     velocity.y -= gravity * Time.deltaTime;
                     thisTransform.position += velocity * Time.deltaTime;
 
@@ -141,7 +141,7 @@ private float distanceToTarget = 0;	                    // get dist to target po
                         if (thisTransform.IsChildOf(playerTransform)) 								// check if the player has taken us... 
                             currentState = EnemyState.Holded;										// & change enemy state to holded..
 
-                    thisTransform.RotateAroundLocal(Vector3.forward, -orientation * 45 * Time.deltaTime);
+				thisTransform.RotateAround(Vector3.forward, -orientation * 45 * Time.deltaTime);
                     velocity.y -= gravity * Time.deltaTime;
                     thisTransform.position += velocity * Time.deltaTime;
 

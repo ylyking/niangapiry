@@ -550,12 +550,12 @@
   <object type="Fruit" x="11648" y="512" width="64" height="64"/>
   <object name="MateBuilder" type="Warp" x="9664" y="256" width="128" height="448">
    <properties>
-    <property name="target" value="/Levels/MateBuilder.tmx"/>
+    <property name="target" value="MateBuilder.tmx"/>
    </properties>
   </object>
   <object name="Puzzle1" type="Warp" x="16768" y="192" width="320" height="512">
    <properties>
-    <property name="target" value="MateBuilder"/>
+    <property name="target" value="MateBuilder.tmx"/>
    </properties>
   </object>
   <object type="Fruit" x="13760" y="512" width="64" height="64"/>
@@ -571,7 +571,7 @@
   <object type="BigBlock" x="512" y="2944" width="64" height="64"/>
   <object name="ReturnLevel" type="Door" x="4685" y="2176" width="42" height="61">
    <properties>
-    <property name="target" value="MateBuilder"/>
+    <property name="target" value="MateBuilder.tmx"/>
    </properties>
   </object>
   <object type="Fruit" x="13248" y="1472" width="64" height="64"/>

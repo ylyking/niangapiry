@@ -107,13 +107,13 @@ public class DengueFly : MonoBehaviour
                     break;
 
                 case ShooterState.Shooted: 		// 4# ENEMY IS THROWED IN THE AIR
-                    thisTransform.RotateAroundLocal(Vector3.forward, -orientation * 2 * Time.deltaTime);
+				thisTransform.RotateAround(Vector3.forward, -orientation * 2 * Time.deltaTime);
 
                     break;
 
                 case ShooterState.Dead:			// 5# ENEMY IS DEAD
                     animPlay.PlayFramesFixed(0, 3, 1, orientation);
-                    thisTransform.RotateAroundLocal(Vector3.forward, -orientation * 45 * Time.deltaTime);
+				thisTransform.RotateAround(Vector3.forward, -orientation * 45 * Time.deltaTime);
                     grounded = false;
                     break;
             }
