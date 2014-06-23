@@ -325,7 +325,7 @@ namespace Bosses
             }
 
             Staff.transform.position = StaffPosition;
-            Staff.transform.RotateAroundLocal(Vector3.forward, Time.deltaTime * -45);
+			Staff.transform.Rotate(Vector3.forward, Time.deltaTime * -45);
 
 
             if (timeLapse > 5 && HoldStaff == 0)

@@ -769,7 +769,7 @@ IEnumerator ThrowFiuu()
     //thisTransform.SendMessage("Paralize", SendMessageOptions.DontRequireReceiver);
     Managers.Tiled.MapTransform.BroadcastMessage("Paralize", SendMessageOptions.DontRequireReceiver);
 
-    for (int i = 0; i != thisTransform.GetChildCount(); i++)
+    for (int i = 0; i != thisTransform.childCount; i++)
     {
         thisTransform.GetChild(i).SendMessage("Paralize", SendMessageOptions.DontRequireReceiver);
     }

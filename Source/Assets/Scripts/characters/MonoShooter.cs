@@ -126,13 +126,13 @@ IEnumerator CoUpdate()	                                                        /
                 break;
 
             case ShooterState.Shooted: 		// 4# ENEMY IS THROWED IN THE AIR
-                thisTransform.RotateAroundLocal(Vector3.forward, -orientation * 2 * Time.deltaTime);
+				thisTransform.RotateAround(Vector3.forward, -orientation * 2 * Time.deltaTime);
 
                 break;
 
             case ShooterState.Dead:			// 5# ENEMY IS DEAD
                 animPlay.PlayFramesFixed(1, 1, 1, orientation);
-                thisTransform.RotateAroundLocal(Vector3.forward, -orientation * 45 * Time.deltaTime);
+				thisTransform.RotateAround(Vector3.forward, -orientation * 45 * Time.deltaTime);
                 grounded = false;
 
                 //				Destroy(gameObject, 15);											// Keep falling and die after a while

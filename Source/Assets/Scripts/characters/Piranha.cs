@@ -121,7 +121,7 @@ public class Piranha : MonoBehaviour {
                         if (thisTransform.IsChildOf(playerTransform)) 								// check if the player has taken us... 
                             currentState = EnemyState.Holded;										// & change enemy state to holded..
 
-                    thisTransform.RotateAroundLocal(Vector3.forward, -orientation * 45 * Time.deltaTime);
+				thisTransform.RotateAround(Vector3.forward, -orientation * 45 * Time.deltaTime);
                     break;
 
                 case EnemyState.Dead:
@@ -129,7 +129,7 @@ public class Piranha : MonoBehaviour {
                         if (thisTransform.IsChildOf(playerTransform)) 								// check if the player has taken us... 
                             currentState = EnemyState.Holded;										// & change enemy state to holded..
 
-                    thisTransform.RotateAroundLocal(Vector3.forward, -orientation * 45 * Time.deltaTime);
+				thisTransform.RotateAround(Vector3.forward, -orientation * 45 * Time.deltaTime);
                     break;
             }
 

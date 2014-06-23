@@ -125,7 +125,7 @@ public class BulletShot : MonoBehaviour
         {
             thisTransform.position += Time.deltaTime * moveDirection;							// moveDirection == orientation * speed ;
 
-            thisTransform.RotateAroundLocal(Vector3.forward, rotationSpeed * Time.deltaTime); 	// if > 0, Rotate around own z-axis
+            thisTransform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime); 	// if > 0, Rotate around own z-axis
 
             Destroy(gameObject, LifeTime);
 

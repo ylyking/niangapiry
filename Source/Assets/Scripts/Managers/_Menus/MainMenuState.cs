@@ -55,9 +55,9 @@ public class MainMenuState : GameState
         if (camFront)
         {
             MainCam.orthographicSize = 0.01f;
-            camFront.fov = 170;
-            camMiddle.fov = 170;
-            camBack.fov = 170;
+            camFront.fieldOfView = 170;
+			camMiddle.fieldOfView = 170;
+			camBack.fieldOfView = 170;
         }
 
         OptionsList.Add(0, "Comenzar");
@@ -116,7 +116,7 @@ public class MainMenuState : GameState
         if (SkyTransform)
             SkyTransform.Rotate(Vector3.forward * Time.deltaTime * 10);
 
-        DisplayMenu = (camFront.fov <= 58);
+		DisplayMenu = (camFront.fieldOfView <= 58);
 
 
         if (MainCam.orthographicSize < 0.9f)
@@ -128,9 +128,9 @@ public class MainMenuState : GameState
             if (Input.anyKey)
                 speed = 100;
 
-            camBack.fov -= Time.deltaTime * speed;
-            camMiddle.fov -= Time.deltaTime * speed;
-            camFront.fov -= Time.deltaTime * speed;
+			camBack.fieldOfView -= Time.deltaTime * speed;
+			camMiddle.fieldOfView -= Time.deltaTime * speed;
+			camFront.fieldOfView -= Time.deltaTime * speed;
             return;
         }
 

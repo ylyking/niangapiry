@@ -99,7 +99,7 @@
    <property name="depth" value="-.1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3cbW6CMBzHcUzcQzLcposvjSa+0Vt4FI7CUTiKR9lR9q8DU7sWynNh30/yj4AFO8IPCkuIIgAAAAAAAAAAAAAAAADw8yT1GkXpi9SzlMynY/cJCMVK6lMy8SH1LrUiHwAAAAAAAAAAAAAAAAAAAAAAAACAQOzH7gAQMPIBuEk+LmP3AQjB0bKM68cwtmN3AI2Qj2HstOm9ezodpjfw1eX4Sr0Pqs27oM5ddSRA5GN4J+OziS6vH/n7oKKm74Jq83eEjnxMU0jjqznnQynu/8jHMM752OjcYow093yY98XbmsdgH+8Q9cnHjqwEYe752P2dT+us38c7RMnHdMw9HyEiH/WsR/ztLvJR9dxpI/VVc93lYyWO6Syvq1b69+byxPjebGNra/u9TG9XY1fduPY5+QhPF/koO+9LNi6SjcvacY+kr7t0V6Idn9dYtrWoqNizna062CWlSq4fd+QjDH3ko87/MTzzUZzXb+fuN4/tSpvUp90YyMd09JGPsuuJmR3VVmXAPNe7zv9q+dTzUUfcYPw2R2Vj9Crmc3PzmC/LQNN86PdMVfk4OabVMVzkwzyWXce373Efaj6kT4nUd/5ZTN9K9kVWlJxHsrH7OheWPKRl82Xr+tpo2yyO+aMxb36vT6t86fmQ82S00CqeaT7i3/GhqkNRsuywHLtjsBpifOW6fhTz2j34w7Ol2PJbKje25bZ2IeYD/0/TfCyjez4yo2zPbm3PWq+Wde/b8MkR0Le21w/Mww8NXqVXQJwAAA==
+   H4sIAAAAAAAAC+3c203DMBiG4SCVg0Q4q5cVSNzQO0boKB0lo2SUjsIo/C51ZYydOKkTu+Z9pF8kqZOayl9OlFQVAAAAAAAAAAAAAAAAAIS5lLqpquZa6kpK5pvUfcL/85npuLuTepS+PUjdS91l2k8AAAAAAADEket9KgAAAAAAAAAAAAAAAABweU3dASBj5APwk3xsUvcByMG7YxnHj3ksU3dgZqX8rwL5mMfKmH71Tzfz9GY6n6k7EFnM8yv1PKhTngW1jtWRDP2XfOTkw/o5Rszjx+F5UNXYZ0Gd8nvkjnycp5zOr0rOh6Kv/8jHPNaHc6P1CedIpefDvi5eDhyDUzxDNCQfK7KShdLzsfo73wxZf4pniJKP81F6PnJEPoZ5SvjeMfLRd9/pWepl4LqL37X1TLeH2hllvm4v31qv221cbV3v15rtBnxUe77PnHzkJ0Y+uvb7ko2NZGPz5LlGMtdd+GtrjM9dLdu66Kk6sJ2rInwknTqOH0fkIw9T5GPI3zEC86H36/t9923AdqVNE9IuBfJxPqbIR9fxxM6OaqsyYO/rfft/tfxc8zHmOxf1iPO3EnWdo/ex75vbY74rA2PzYV4z9eXjwzOtxrDOhxrL5vjxje/QcZ9jPhTp01bq6/BTT+9LPotWl+xH2tR9LYUjD03XfNe6oZ6Nbeox/27N26+b0ypfZj5kP1ldGFVb41tnp2/ch7ZLpf45P1T1pkuWvS1SdwxOc5xf+Y4fet64Bv91b6l2vJfKjWu5q519TJpSKd9XRXxj87GojvlorXLdu3Xda9051j1uIyRHwNROPX6gDN8gprXUQJwAAA==
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="200" height="50">
@@ -218,7 +218,7 @@
   </object>
   <object name="Salida" type="Door" x="5376" y="1152" width="64" height="64">
    <properties>
-    <property name="target" value="Pampero"/>
+    <property name="target" value="Pampero.tmx"/>
    </properties>
   </object>
   <object name="MateBombilla" type="Secrets/MateBombilla" x="3455" y="1888" width="64" height="64"/>
@@ -249,9 +249,9 @@
     <property name="zoom" value="3"/>
    </properties>
   </object>
-  <object name="Salida" type="Warp" x="-44" y="1923" width="64" height="320">
+  <object name="Salida" type="Warp" x="-44" y="1923" width="74" height="388">
    <properties>
-    <property name="Target" value="Pampero"/>
+    <property name="Target" value="Pampero.tmx"/>
    </properties>
   </object>
   <object type="CameraBound" x="5661" y="2081" width="3551" height="512">
@@ -451,5 +451,6 @@
     <property name="depth" value=".2"/>
    </properties>
   </object>
+  <object type="Log" x="5055" y="764" width="62" height="57"/>
  </objectgroup>
 </map>
