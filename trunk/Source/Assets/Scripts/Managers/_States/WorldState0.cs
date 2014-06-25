@@ -35,15 +35,17 @@ public class WorldState0 : InGameState
     {
         //Debug.Log("Called Pampero Resume!");
 
-        if (Managers.Game.PlayerPrefab && !Managers.Game.IsPlaying)
-        {
-            Managers.Tiled.Load(Managers.Register.PamperoFile);
-
-            //Debug.Log("Reloaded Pampero Level!");
-
-            Managers.Game.IsPlaying = true;
-            Managers.Game.IsPaused = false;
-        }
+		if (!Managers.Game.PlayerPrefab || Managers.Game.IsPlaying)
+			return;
+		Managers.Tiled.Load(Managers.Register.PamperoFile);
+		Managers.Game.IsPlaying = true;
+		Managers.Game.IsPaused = false;
+//        if (Managers.Game.PlayerPrefab && !Managers.Game.IsPlaying)
+//        {
+//            Managers.Tiled.Load(Managers.Register.PamperoFile);
+//            Managers.Game.IsPlaying = true;
+//            Managers.Game.IsPaused = false;
+//        }
 
 
     }

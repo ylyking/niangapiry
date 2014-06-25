@@ -41,9 +41,9 @@ public class MapState : GameState
             Target.transform.position + new Vector3(-1.5f, -2, 0)));
         OptionsList.Add(1, new MapNode( "Monte"             , 2, 5, 0, 3,
             Target.transform.position + new Vector3(1.5f, -2, 0)));
-        OptionsList.Add(2, new MapNode( "Tatakuá"              , 5, 1, 4, 3,
+        OptionsList.Add(2, new MapNode( "Tatakua"              , 5, 1, 4, 3,
             Target.transform.position + (Vector3.forward * 0)));
-        OptionsList.Add(3, new MapNode( "Iguazú"            , 5, 1, 2, 4 ,
+        OptionsList.Add(3, new MapNode( "Iguazu"            , 5, 1, 2, 4 ,
             Target.transform.position + new Vector3(2, .6f, 0)));
         OptionsList.Add(4, new MapNode( "Campo Del Cielo"   , 5, 0, 3, 2,
             Target.transform.position + new Vector3(-2, .6f, 0)));

@@ -219,8 +219,8 @@ public class ScreenManager : MonoBehaviour
 			Fading = !(currentAlpha == 1 || currentAlpha == 0); // "If the the alpha transition ended Then stop Fading"
 		}
 		
-		if ( Input.GetKeyDown("f") )
-			EnableDebug = !EnableDebug;
+//		if ( Input.GetKeyDown("f") )
+//			EnableDebug = !EnableDebug;
 		
 		//Managers.Display.DebugText =  " Time.time: " + Time.deltaTime + " Time.realTimeSinceStart: " + Time.fixedDeltaTime;
 		

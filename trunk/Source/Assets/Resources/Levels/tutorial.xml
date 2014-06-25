@@ -99,7 +99,7 @@
   <object type="Fruit" gid="46" x="1280" y="1152"/>
   <object type="Fruit" gid="46" x="1088" y="1152"/>
   <object type="Fruit" gid="46" x="896" y="1152"/>
-  <object type="Clavel" x="2496" y="832" width="64" height="64"/>
+  <object type="ClavelTutorial" x="2496" y="832" width="64" height="64"/>
   <object type="Fruit" gid="46" x="3584" y="576"/>
   <object type="Fruit" gid="46" x="3776" y="576"/>
   <object type="Fruit" gid="46" x="3904" y="576"/>

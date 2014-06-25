@@ -38,7 +38,8 @@ public class DataManager : MonoBehaviour
     //public List<int> TopScore = new List<int>();
     //public Dictionary<int, string> TopScorePlayers = new Dictionary<int, string>();
 
-    public bool FirstTimePlay       = true;
+    public bool FirstTimePlay     = true;
+	public bool PlayTutorialFirst = true;
     public bool PlayerAutoRunning = true;
 
     // each World Last File Loaded

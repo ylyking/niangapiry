@@ -8,17 +8,16 @@
 	</Characters>
 	
 	<Conversation nameId = "Comienzo" >
-        <Talk speakerId = "0" time = "5.0" >Eh Ñeri, Hola ¿que tal? <br /> ¡Bienvenido al coto de Caza! ¿Tienes ganas de Charlar?</Talk>
+        <Talk speakerId = "0" time = "5.0" >Hola, Bienvenido a Niangapiry 86!<br /> ¿Quieres que te explique un poco todo esto?</Talk>
 		
         <ChooseTalk> 
 	        <Option>
-	            <Talk speakerId = "1" time = "5.0" >Hola, Buenos días!</Talk> 
-	            <Talk speakerId = "1" time = "5.0" >¿Que es esto?¿quien eres tu y que está pasando aquí? </Talk>     
+	            <Talk speakerId = "1" time = "5.0" >Hola Ñeri, esta bien, ayudame a entender que esta pasando aqui</Talk> 
 	            <Talk speakerId = "0" time = "5.0" >Soy el Señor Tillandsia, pero puedes llamarme Till</Talk>
-              <Talk speakerId = "0" time = "8.0" >si vás por allá, quería avisarte que estés preparado porque tienes un gran desafio</Talk>
+              <Talk speakerId = "0" time = "8.0" >preparate bien porque tendras un gran desafio en tu camino</Talk>
               <Talk speakerId = "1" time = "8.0" > ¿desafio? no entiendo, ¿cual es el problema?</Talk>
-	            <Talk speakerId = "0" time = "9.0" > esta zona es muy peligrosa, hay una serie de pruebas que debes superar </Talk>
-	            <Talk speakerId = "0" time = "10.0" >y tienes cinco minutos para juntar el mayor puntaje posible</Talk>
+	            <Talk speakerId = "0" time = "9.0" > en esta aventura, habran cientos de pruebas que tendras que superar </Talk>
+	            <Talk speakerId = "0" time = "10.0" >y deberas explorar muchos lugares para acumular el mayor puntaje posible</Talk>
 	            <ChooseTalk> 
 						
                     <Option>
@@ -35,7 +34,7 @@
             							
 						                    <Talk speakerId = "0" time = "9.0" >El Sombrero es como un Boomerang <br /> y la Caña es muy poderosa pero hay que usarla con cuidado</Talk>
                     				                <Talk speakerId = "1" time = "8.0" >Ok, Voy a intentarlo ¿no te falta decirme algo más? </Talk> 
-                    				                <Talk speakerId = "0" time = "10.0" >Oh, Cierto el mensaje que debes entregar es: <br />"Reunión el miercoles a la noche" </Talk> 	
+                    				                <Talk speakerId = "0" time = "10.0" >Oh, cierto, tambien tienes el silbato que al usarlo paraliza a todos tus enemigos. </Talk> 	
 					                </Option> 
 					                <Option>
 					                        <Talk speakerId = "1" time = "5.0" >¿Como voy a Cruzar esos acantilados?  </Talk>        
@@ -45,7 +44,7 @@
             							
 						                    <Talk speakerId = "0" time = "9.0" >Eso sería casi todo creo, Buena Suerte.</Talk>
                     				                <Talk speakerId = "1" time = "8.0" >Ok, Voy a intentarlo ¿no te falta decirme algo más? </Talk> 
-                    				                <Talk speakerId = "0" time = "10.0" >Oh, Cierto el mensaje que debes entregar es: <br />"Reunión el miercoles a la noche" </Talk> 						
+                    				                <Talk speakerId = "0" time = "10.0" >Oh, si, tambien puedes rebotar cayendo encima de tus enemigos. </Talk> 						
             						
 					                </Option> 
             							
@@ -55,8 +54,8 @@
 					                        <Talk speakerId = "0" time = "5.0" >y luego puedes agarrarlos (tecla control) para usarlos como proyectiles </Talk>
             							
 						                    <Talk speakerId = "0" time = "9.0" >Eso sería casi todo creo, Buena Suerte.</Talk>
-                    				                <Talk speakerId = "1" time = "8.0" >Ok, Voy a intentarlo ¿no te falta decirme algo más? </Talk> 
-                    				                <Talk speakerId = "0" time = "10.0" >Oh, Cierto el mensaje que debes entregar es: <br />"Reunión el miercoles a la noche" </Talk> 						
+                    				                <Talk speakerId = "1" time = "8.0" >Ok, Voy a intentarlo ¿hay algo más que debas decirme? </Talk> 
+                    				                <Talk speakerId = "0" time = "10.0" >Oh, cierto, en realidad puedes agarrar y lanzar otros objetos ademas de enemigos </Talk> 						
 						                </Option> 
             											
 				                </ChooseTalk>
