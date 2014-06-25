@@ -73,7 +73,7 @@ public class TileManager : MonoBehaviour {
 //        sr.Close();
 
         XmlDocument Doc = new XmlDocument();
-		Debug.Log ("Levels/" + filePath);
+		Debug.Log ( filePath);
 		TextAsset textAsset = (TextAsset) Resources.Load("Levels/" + filePath, typeof(TextAsset));  
 		Doc.LoadXml(textAsset.text);    
 
@@ -82,7 +82,8 @@ public class TileManager : MonoBehaviour {
         if (Doc.DocumentElement.Name == "map")												// Access root Map		
         {
             
-			Managers.Register.currentLevelFile = "Levels/" +filePath ;
+//			Managers.Register.currentLevelFile = "Levels/" +filePath ;						// This made my head hurt someday
+			Managers.Register.currentLevelFile = filePath ;			
 
 			GameObject map = new GameObject(filePath);										// inside the editor hierarchy.
             MapTransform = map.transform;													// take map transform cached
@@ -182,7 +183,7 @@ public class TileManager : MonoBehaviour {
             }
         ScrollLayers = null;
 
-        Managers.Register.currentLevelFile = "" ;
+		Managers.Register.currentLevelFile = string.Empty ;
   
     }
 

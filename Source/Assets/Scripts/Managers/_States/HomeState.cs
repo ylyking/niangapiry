@@ -386,7 +386,7 @@ public class HomeState : GameState
                 if (OptionsList.Count < 2)
                     GUI.Label(new Rect((Screen.width * .5f) - 150,
                                      (Screen.height * .5f) - (Background.height * .15f) - 150, 400, 200),
-                                     "Esta pocilga dá pena, está\nalgo vacía y abandonada. \nBuscá Tesoros para mejorar\ntu hogar y Date una vuelta\nde véz en cuando para\nno perderte de alguna\nque otra sorpresa, Suerte!");
+                                     "Esta pocilga da pena, esta\nalgo vacia y abandonada. \nBusca Tesoros para mejorar\ntu hogar y Date una vuelta\nde vez en cuando para\nno perderte de alguna\nque otra sorpresa, Suerte!");
 
 
                 for (int Option = 0; Option < OptionsList.Count; Option++ )

@@ -8,7 +8,6 @@ public class WorldState1 : InGameState
         Debug.Log("Enter World 1 State: Monte");
         Managers.Tiled.Load(Managers.Register.MonteFile);
         base.Init();
-
     }
 
     public override void DeInit()
@@ -34,6 +33,5 @@ public class WorldState1 : InGameState
     public override void Resume()
     {
 
-
-    }
+	}
 }
